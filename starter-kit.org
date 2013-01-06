@@ -155,7 +155,7 @@ general starter-kit updates without conflict.
      #+begin_src emacs-lisp
        (starter-kit-load "gnus" "pretty-summary")
      #+end_src
-     
+
      Finally you can load just those subsections of a file which have
      a specific tag, so to load just the two sections of
      =starter-kit-misc-recommended.org= which are tagged =visual= add
@@ -263,13 +263,15 @@ interested in the actual code implementing the starter kit.
           '(("gnu"         . "http://elpa.gnu.org/packages/")
             ("original"    . "http://tromey.com/elpa/")
             ("org"         . "http://orgmode.org/elpa/")
-            ("marmalade"   . "http://marmalade-repo.org/packages/")))
+            ("marmalade"   . "http://marmalade-repo.org/packages/")
+            ("melpa"       . "http://melpa.milkbox.net/packages/")))
     (package-initialize)
-    
+
     (defvar starter-kit-packages
-      (list 'yasnippet-bundle)
+      (list 'yasnippet-bundle
+            'magit)
       "Libraries that should be installed by default.")
-    
+
     (unless package-archive-contents
       (package-refresh-contents))
     (dolist (package starter-kit-packages)
@@ -286,10 +288,10 @@ interested in the actual code implementing the starter kit.
     configuration from within that subtree will be loaded.  If it is
     not an id then it will be interpreted as a tag, and only subtrees
     marked with the given tag will be loaded.
-    
+
     For example, to load all of starter-kit-lisp.org simply
     add (starter-kit-load \"lisp\") to your configuration.
-    
+
     To load only the 'window-system' config from
     starter-kit-misc-recommended.org add
      (starter-kit-load \"misc-recommended\" \"window-system\")
@@ -330,13 +332,6 @@ interested in the actual code implementing the starter kit.
            file))))
   #+end_src
 
-- Work around a bug on OS X where system-name is FQDN.
-  #+name: starter-kit-osX-workaround
-  #+begin_src emacs-lisp
-    (if (eq system-type 'darwin)
-        (setq system-name (car (split-string system-name "\\."))))
-  #+end_src
-
 ** Starter kit core
    :PROPERTIES:
    :CUSTOM_ID: starter-kit-core
@@ -347,58 +342,35 @@ everyone using the starter kit.
 
 - Starter kit function definitions in [[file:starter-kit-defuns.org][starter-kit-defuns]]
   #+begin_src emacs-lisp
-  (starter-kit-load "starter-kit-defuns.org")
+    ;;(starter-kit-load "starter-kit-defuns.org")
   #+end_src
 
 - Key Bindings in [[file:starter-kit-bindings.org][starter-kit-bindings]]
   #+begin_src emacs-lisp
-  (starter-kit-load "starter-kit-bindings.org")
+    (starter-kit-load "starter-kit-bindings.org")
   #+end_src
 
 - Miscellaneous settings in [[file:starter-kit-misc.org][starter-kit-misc]]
   #+begin_src emacs-lisp
-  (starter-kit-load "starter-kit-misc.org")
-  #+end_src
-
-- Registers for jumping to commonly used files in [[file:starter-kit-registers.org][starter-kit-registers]]
-  #+begin_src emacs-lisp
-  (starter-kit-load "starter-kit-registers.org")
+    ;;(starter-kit-load "starter-kit-misc.org")
   #+end_src
 
 - [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is
-  inspired by TextMate's templating syntax.
-  - watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]]
-  - see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and tutorial]]
-
-  load the yasnippet bundle
+  inspired by TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]]
+  or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and tutorial]])
   #+begin_src emacs-lisp
-    (add-to-list 'load-path
-                 (expand-file-name  "yasnippet"
-                                    (expand-file-name "src"
-                                                      starter-kit-dir)))
-    (require 'yasnippet)
-    (yas/initialize)
+    (starter-kit-load "starter-kit-yasnippet.org")
   #+end_src
 
-  load the snippets defined in the =./snippets/= directory
+- [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things
+  within buffers and files like switching between buffers
   #+begin_src emacs-lisp
-    (yas/load-directory (expand-file-name "snippets" starter-kit-dir))
+    (starter-kit-load "starter-kit-ido.org")
   #+end_src
 
-  The latest version of yasnippets doesn't play well with Org-mode, the
-  following function allows these two to play nicely together.
+- [[http://orgmode.org/][Orgmode]] settings in [[file:starter-kit-org.org][starter-kit-org]]
   #+begin_src emacs-lisp
-    (defun yas/org-very-safe-expand ()
-      (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
-    
-    (defun yas/org-setup ()
-      ;; yasnippet (using the new org-cycle hooks)
-      (make-variable-buffer-local 'yas/trigger-key)
-      (setq yas/trigger-key [tab])
-      (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-      (define-key yas/keymap [tab] 'yas/next-field))
-    
-    (add-hook 'org-mode-hook #'yas/org-setup)
+    (starter-kit-load "starter-kit-org.org")
   #+end_src
 
 ** Load User/System Specific Files

@@ -1,0 +1,127 @@
+#+TITLE: Starter Kit Ido
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter Kit Ido
+ido-mode is like magic pixie dust!
+
+** Basic configuration
+#+begin_src emacs-lisp
+  (ido-mode t)
+  (setq ido-everywhere t
+        ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point t
+        ido-max-prospects 10
+        ido-default-buffer-method 'selected-window
+        ido-default-file-method 'selected-window)
+#+end_src
+
+** Extensions ordering and ignored ones
+#+begin_src emacs-lisp
+  (setq ido-file-extensions-order     '(".cc" ".h" ".tex" ".sh"))
+  (setq completion-ignored-extensions '(".o" ".elc" "~" ".bin" ".bak"
+                                        ".obj" ".map" ".a" ".so"
+                                        ".mod" ".aux" ".out" ".pyg"))
+  (setq ido-ignore-extensions t)
+#+end_src
+
+** Keep annoying buffers out of search
+#+begin_src emacs-lisp
+  (setq ido-ignore-buffers (list (rx (or (and bos  " ")
+                                         (and bos
+                                              (or "*Completions*"
+                                                  "*Shell Command Output*"
+                                                  "*vc-diff*")
+                                              eos)))))
+#+end_src
+
+** Allow spaces when using ido-find-file
+#+begin_src emacs-lisp
+  (add-hook 'ido-make-file-list-hook
+            (lambda ()
+              (define-key ido-file-dir-completion-map (kbd "SPC") 'self-insert-command)))
+#+end_src
+
+** Show ido results vertically, rather than horizontally
+#+begin_src emacs-lisp
+  (setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" "
+    [No match]" " [Matched]" " [Not readable]" " [Too big]" "
+    [Confirm]")))
+  (defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
+  (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
+#+end_src
+
+** Using recentf within ido
+#+begin_src emacs-lisp
+  (defun recentf-ido-find-file ()
+    "Find a recent file using Ido."
+    (interactive)
+    (let* ((file-assoc-list
+            (mapcar (lambda (x)
+                      (cons (file-name-nondirectory x)
+                            x))
+                    recentf-list))
+           (filename-list
+            (remove-duplicates (mapcar #'car file-assoc-list)
+                               :test #'string=))
+           (filename (ido-completing-read "Choose recent file: "
+                                          filename-list
+                                          nil
+                                          t)))
+      (when filename
+        (find-file (cdr (assoc filename
+                               file-assoc-list))))))
+  (setq recentf-max-saved-items 100)
+  (global-set-key (kbd "C-x r") 'recentf-ido-find-file)
+#+end_src
+
+** Misc.
+#+begin_src emacs-lisp
+  (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
+#+end_src
+
+** Deprecated
+#+begin_src emacs-lisp :tangle no
+  ;; Add project file to ido search using F6 shortcut
+  (defun my-ido-project-files ()
+    "Use ido to select a file from the project."
+    (interactive)
+    (let (my-project-root project-files tbl)
+      (unless project-details (project-root-fetch))
+      (setq my-project-root (cdr project-details))
+      ;; get project files
+      (setq project-files
+            (split-string
+             (shell-command-to-string
+              (concat "find "
+                      my-project-root
+                      " \\( -name \"*.svn\" -o -name \"*.git\" \\) -prune -o -type f -print | grep -E -v \"\.(pyc)$\""
+                      )) "\n"))
+      ;; populate hash table (display repr => path)
+      (setq tbl (make-hash-table :test 'equal))
+      (let (ido-list)
+        (mapc (lambda (path)
+                ;; format path for display in ido list
+                (setq key (replace-regexp-in-string "\\(.*?\\)\\([^/]+?\\)$" "\\2|\\1" path))
+                ;; strip project root
+                (setq key (replace-regexp-in-string my-project-root "" key))
+                ;; remove trailing | or /
+                (setq key (replace-regexp-in-string "\\(|\\|/\\)$" "" key))
+                (puthash key path tbl)
+                (push key ido-list)
+                )
+              project-files
+              )
+        (find-file (gethash (ido-completing-read "project-files: " ido-list) tbl)))))
+  ;; bind to a key for quick access
+  (define-key global-map [f6] 'my-ido-project-files)
+
+  (require 'project-root)
+  (setq project-roots
+        '(("your project name"
+           :root-contains-files ("LICENSE.GPL3.txt")
+           )))
+#+end_src
