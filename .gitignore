@@ -9,6 +9,8 @@ places
 .svn
 .DS_Store
 tramp
+ac-comphist.dat
+smex-items
 
 ## directories
 backups/*
@@ -22,6 +24,7 @@ elpa/*
 src/*
 themes/*
 url/*
+session/
 
 ## exported and encrypted files
 *gpg
