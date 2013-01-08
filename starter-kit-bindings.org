@@ -42,12 +42,15 @@ Key Bindings.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-o")     'find-file)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-x r")   'recentf-ido-find-file)
+  (global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
 #+end_src
 
 ** Buffer handling
 #+begin_src emacs-lisp
-  (global-set-key (kbd "M-r") 'revert-buffer)
-  (global-set-key (kbd "C-w") 'kill-this-buffer)
+  (global-set-key (kbd "M-r")     'revert-buffer)
+  (global-set-key (kbd "C-w")     'kill-this-buffer)
+  (global-set-key (kbd "C-x C-k") 'sk-delete-current-buffer-file)
 #+end_src
 
 ** Window switching (C-x o goes to the next window)

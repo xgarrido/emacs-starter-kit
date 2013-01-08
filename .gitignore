@@ -10,7 +10,6 @@ places
 .DS_Store
 tramp
 ac-comphist.dat
-smex-items
 
 ## directories
 backups/*
@@ -24,7 +23,7 @@ elpa/*
 src/*
 themes/*
 url/*
-session/
+tmp/*
 
 ## exported and encrypted files
 *gpg

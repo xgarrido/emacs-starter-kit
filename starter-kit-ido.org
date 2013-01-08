@@ -78,8 +78,24 @@ ido-mode is like magic pixie dust!
           (find-file (cdr (assoc filename
                                  file-assoc-list))))))
   (setq recentf-max-saved-items 100)
-  (global-set-key (kbd "C-x r")   'recentf-ido-find-file)
-  (global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
+#+end_src
+
+** Setting ido-ubiquitous
+Use ido everywhere
+#+begin_src emacs-lisp
+  (require 'ido-ubiquitous)
+  (ido-ubiquitous-mode 1)
+
+  ;; Fix ido-ubiquitous for newer packages
+  (defmacro ido-ubiquitous-use-new-completing-read (cmd package)
+    `(eval-after-load ,package
+       '(defadvice ,cmd (around ido-ubiquitous-new activate)
+          (let ((ido-ubiquitous-enable-compatibility nil))
+            ad-do-it))))
+
+  (ido-ubiquitous-use-new-completing-read webjump 'webjump)
+  (ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
+  (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
 #+end_src
 
 ** Misc.

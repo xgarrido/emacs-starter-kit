@@ -27,7 +27,9 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'idle-highlight-mode
           'auto-complete
           'cmake-mode
-          'org-bullets)
+          'org-bullets
+          'ido-ubiquitous
+          'dired-details)
     "Libraries that should be installed by default.")
 #+end_src
 

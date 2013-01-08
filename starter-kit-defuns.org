@@ -52,8 +52,8 @@ automatically on save.
 #+end_src
 
 ** Handling buffers
-*** Rename/Move both current buffer and file currently visited (see [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve
-Yegge .emacs]])
+*** Rename/Move both current buffer and file currently visited
+From [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve Yegge .emacs]]
 #+begin_src emacs-lisp
   (defun sk-rename-file-and-buffer (new-name)
     "Renames both current buffer and file it's visiting to NEW-NAME."
@@ -88,6 +88,23 @@ Yegge .emacs]])
                (set-buffer-modified-p nil) t))))
 #+end_src
 
+*** Delete current buffer file
+From [[http://whattheemacsd.com/file-defuns.el-02.html][Magnars blog]]
+#+begin_src emacs-lisp
+  (defun sk-delete-current-buffer-file ()
+    "Removes file connected to current buffer and kills buffer."
+    (interactive)
+    (let ((filename (buffer-file-name))
+          (buffer (current-buffer))
+          (name (buffer-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (ido-kill-buffer)
+        (when (yes-or-no-p "Are you sure you want to remove this file? ")
+          (delete-file filename)
+          (kill-buffer buffer)
+          (message "File '%s' successfully removed" filename)))))
+#+end_src
+
 *** Stop displaying minibuffer when mouse go to another buffer
 #+begin_src emacs-lisp
   (defun sk-stop-using-minibuffer ()
@@ -103,11 +120,6 @@ Yegge .emacs]])
     (shell-command (concat "touch " (shell-quote-argument (buffer-file-name)))))
 #+end_src
 
-*** Using 'a' to open a directory in the same buffer
-#+begin_src emacs-lisp
-  (put 'dired-find-alternative-file 'disabled nil)
-#+end_src
-
 *** Splitting buffer
 When splitting is done, emacs will open the next buffer
 #+begin_src emacs-lisp
@@ -119,7 +131,9 @@ When splitting is done, emacs will open the next buffer
     (set-window-buffer (next-window) (other-buffer)))
 #+end_src
 
+
 ** Handling window
+From [[http://whattheemacsd.com//buffer-defuns.el-03.html][Magnars blog]]
 #+begin_src emacs-lisp
   (defun sk-toggle-window-split ()
     (interactive)

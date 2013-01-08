@@ -5,9 +5,10 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Window
 ** Window default settings
-Settings in relation with emacs window behavior
+Settings in relation with emacs window behavior [1].
 #+begin_src emacs-lisp
   (setq frame-title-format '(buffer-file-name "%b [%f]" "%b"))
+
   (tool-bar-mode   -1)
   (scroll-bar-mode -1)
   (menu-bar-mode   -1)
@@ -107,15 +108,18 @@ evaluated a theme is activated using the =load-theme= function.
 a given file. =backup-directory-alist= is related to the directory
 where emacs backup file will be stored.
 #+begin_src emacs-lisp
-  (setq save-place-file          (concat starter-kit-dir "places"))
-  (setq temporary-file-directory (concat starter-kit-dir "tmp"))
-  (setq smex-save-file           (concat starter-kit-dir "smex-items"))
-  (setq backup-directory-alist `(("." . ,(concat starter-kit-dir "backups"))))
+  (setq temporary-file-directory (concat starter-kit-dir "tmp/"))
+  (setq save-place-file          (concat temporary-file-directory "places"))
+  (setq recentf-save-file        (concat temporary-file-directory "recentf"))
+  (setq smex-save-file           (concat temporary-file-directory "smex-items"))
+  (setq ido-save-directory-list-file (concat temporary-file-directory "ido.last"))
+  (setq backup-directory-alist         `(("." . ,(concat temporary-file-directory "backups"))))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 #+end_src
 
 Automatically save and restore sessions
 #+begin_src emacs-lisp
-  (setq desktop-dirname             (concat starter-kit-dir "session")
+  (setq desktop-dirname             (concat temporary-file-directory "session")
         desktop-base-file-name      "emacs.desktop"
         desktop-base-lock-name      "lock"
         desktop-path                (list desktop-dirname)
@@ -136,10 +140,30 @@ Automatically save and restore sessions
 ** Magit settings
 #+begin_src emacs-lisp
   (require 'magit)
+#+end_src
+*** Do not show untracked material
+#+begin_src emacs-lisp
   (setq magit-omit-untracked-dir-contents 1)
 #+end_src
 
-** Uniquify Settings
+*** Fullscreen magit-status
+From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
+#+begin_src emacs-lisp
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+
+  (defun magit-quit-session ()
+    "Restores the previous window configuration and kills the magit buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :magit-fullscreen))
+
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+#+end_src
+
+** Uniquify settings
 Change buffer name in case of various same name buffer
 previously : Makefile and Makefile<2>
 now        : Makefile|directory1 Makefile|directory2
@@ -149,6 +173,26 @@ now        : Makefile|directory1 Makefile|directory2
   (setq uniquify-separator "|")
   (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
   (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+#+end_src
+
+** Dired customization
+*** Using 'a' to open a directory in the same buffer
+#+begin_src emacs-lisp
+  (put 'dired-find-alternative-file 'disabled nil)
+#+end_src
+
+*** Make dired less verbose
+#+begin_src emacs-lisp
+  (require 'dired-details)
+  (setq-default dired-details-hidden-string "--- ")
+  (dired-details-install)
+#+end_src
+
+*** Refresh also dired buffer
+From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
+#+begin_src emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
 #+end_src
 
 ** Misc.
@@ -169,3 +213,8 @@ now        : Makefile|directory1 Makefile|directory2
   (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll +1)))
   (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll -1)))
 #+end_src
+* Footnotes
+
+[1] [[http://whattheemacsd.com/init.el-01.html][Magnars]] suggests to place all the UI stuff deactivation
+(=tool-bar=, =scroll-bar=) at the really beginning of the =init.el=
+file. Not really conclusive especially when emacs server is used.
