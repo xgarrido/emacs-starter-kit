@@ -108,11 +108,12 @@ evaluated a theme is activated using the =load-theme= function.
 a given file. =backup-directory-alist= is related to the directory
 where emacs backup file will be stored.
 #+begin_src emacs-lisp
-  (setq temporary-file-directory (concat starter-kit-dir "tmp/"))
-  (setq save-place-file          (concat temporary-file-directory "places"))
-  (setq recentf-save-file        (concat temporary-file-directory "recentf"))
-  (setq smex-save-file           (concat temporary-file-directory "smex-items"))
+  (setq temporary-file-directory     (concat starter-kit-dir "tmp/"))
+  (setq save-place-file              (concat temporary-file-directory "places"))
+  (setq recentf-save-file            (concat temporary-file-directory "recentf"))
+  (setq smex-save-file               (concat temporary-file-directory "smex-items"))
   (setq ido-save-directory-list-file (concat temporary-file-directory "ido.last"))
+  (setq ac-comphist-file             (concat temporary-file-directory "ac-comphist.dat"))
   (setq backup-directory-alist         `(("." . ,(concat temporary-file-directory "backups"))))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 #+end_src
