@@ -7,24 +7,23 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 Key Bindings.
 
-** You know, like Readline.
+** Align your code in a pretty way
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-M-h") 'backward-kill-word)
+  (global-set-key (kbd "M-a") 'align-regexp)
 #+end_src
 
-** Align your code in a pretty way.
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-x \\") 'align-regexp)
-#+end_src
-
-** Completion that uses many different methods to find options.
+** Completion that uses many different methods to find options
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-/") 'hippie-expand)
-#+end_src
-
-** Turn on the menu bar for exploring new modes
-#+begin_src emacs-lisp
-  (global-set-key [f1] 'menu-bar-mode)
+  (defun indent-or-complete ()
+    "Complete if point is at end of a word, otherwise indent line."
+    (interactive)
+    (if (looking-at "\\>")
+        (dabbrev-expand nil)
+      (indent-for-tab-command)))
+ ;; (add-hook 'find-file-hooks
+ ;;           (function (lambda ()
+ ;;                       (local-set-key (kbd "<tab>") 'indent-or-complete))))
 #+end_src
 
 ** Font size
@@ -33,43 +32,51 @@ Key Bindings.
   (define-key global-map (kbd "C--") 'text-scale-decrease)
 #+end_src
 
-** Use regex searches by default.
+** Use regex searches by default
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-  (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
-  (global-set-key (kbd "C-M-s") 'isearch-forward)
-  (global-set-key (kbd "C-M-r") 'isearch-backward)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 #+end_src
 
 ** File finding
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x C-p") 'find-file-at-point)
-  (global-set-key (kbd "C-c y") 'bury-buffer)
-  (global-set-key (kbd "C-c r") 'revert-buffer)
-  (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+  (global-set-key (kbd "C-o")     'find-file)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+
+** Buffer handling
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-r") 'revert-buffer)
+  (global-set-key (kbd "C-w") 'kill-this-buffer)
 #+end_src
 
 ** Window switching. (C-x o goes to the next window)
 #+begin_src emacs-lisp
-(windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
+  ;;(windmove-default-keybindings) ;; Shift+direction
+  (global-set-key (kbd "<C-tab>") 'other-window)
 #+end_src
 
-** Indentation help
+** Line operations
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x ^") 'join-line)
-#+end_src
-
-** If you want to be able to M-x without meta
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-#+end_src
-
-** Help should search more than just commands
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-h a") 'apropos)
+  (global-set-key (kbd "C-l")   'goto-line)
+  (global-set-key (kbd "C-x ^") 'join-line)
+  (defun backward-kill-line (arg)
+    "Kill chars backward until encountering the end of a line."
+    (interactive "p")
+    (kill-line 0))
+  (global-set-key (kbd "C-u")   'backward-kill-line)
+  (defun move-line-up ()
+    (interactive)
+    (transpose-lines 1)
+    (forward-line -2))
+  (defun move-line-down ()
+    (interactive)
+    (forward-line 1)
+    (transpose-lines 1)
+    (forward-line -1))
+  (global-set-key (kbd "M-<up>")   'move-line-up)
+  (global-set-key (kbd "M-<down>") 'move-line-down)
+  (global-set-key (kbd "RET")      'reindent-then-newline-and-indent)
 #+end_src
 
 ** Activate occur easily inside isearch
@@ -82,26 +89,17 @@ Key Bindings.
                  (regexp-quote isearch-string))))))
 #+end_src
 
-** Org-mode
-Two global binding for Org-mode (see [[file:starter-kit-org.org][starter-kit-org]])
-
-The [[http://orgmode.org/manual/Agenda-Views.html#Agenda-Views][Org-mode agenda]] is good to have close at hand
+** Smex
 #+begin_src emacs-lisp
-  (define-key global-map "\C-ca" 'org-agenda)
+  (global-set-key (kbd "M-x") 'smex)
 #+end_src
 
-Org-mode supports [[http://orgmode.org/manual/Hyperlinks.html#Hyperlinks][links]], this command allows you to store links
-globally for later insertion into an Org-mode buffer.  See
-[[http://orgmode.org/manual/Handling-links.html#Handling-links][Handling-links]] in the Org-mode manual.
+** Buffer compilation
 #+begin_src emacs-lisp
-  (define-key global-map "\C-cl" 'org-store-link)
+  (global-set-key (kbd "C-c c") 'compile)
 #+end_src
 
-** Rgrep
-Rgrep is infinitely useful in multi-file projects.
-
-(see [[elisp:(describe-function 'rgrep)]])
-
+** Toggling fullscreen
 #+begin_src emacs-lisp
-  (define-key global-map "\C-x\C-r" 'rgrep)
+  (global-set-key [f11] 'sk-toggle-fullscreen)
 #+end_src

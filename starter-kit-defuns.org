@@ -3,7 +3,8 @@
 
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
-* The starter-kit-coding-hook:
+* Starter Kit Defuns
+** The starter-kit-coding-hook:
 A single hook holding those functions which should be run in *every*
 code buffer.
 
@@ -12,42 +13,226 @@ functions not go in hooks. Repeatedly evaling an add-to-list with a
 hook value will repeatedly add it since there's no way to ensure that
 a lambda doesn't already exist in the list.
 
-#+name: starter-kit-hook-functions
 #+begin_src emacs-lisp
-(defun starter-kit-local-column-number-mode ()
-  (make-local-variable 'column-number-mode)
-  (column-number-mode t))
+  (defun sk-local-comment-auto-fill ()
+    (set (make-local-variable 'comment-auto-fill-only-comments) t)
+    (auto-fill-mode t))
 
-(defun starter-kit-local-comment-auto-fill ()
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (auto-fill-mode t))
+  (defun sk-pretty-lambdas ()
+    (font-lock-add-keywords
+     nil `(("(?\\(lambda\\>\\)"
+            (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                      ,(make-char 'greek-iso8859-7 107))
+                      nil))))))
 
-(defun starter-kit-turn-on-save-place-mode ()
-  (setq save-place t))
-
-(defun starter-kit-turn-on-whitespace ()
-  (whitespace-mode t))
+  (defun sk-add-watchwords ()
+    (font-lock-add-keywords
+     nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\)"
+            1 font-lock-warning-face t))))
 #+end_src
 
-#+name: starter-kit-add-local-column-number-mode
+Perform a bunch of safe operations on the whitespace content of a
+buffer. Does not indent buffer, because it is used for a
+=before-save-hook=, and that might be bad.
 #+begin_src emacs-lisp
-(add-hook 'starter-kit-coding-hook 'starter-kit-local-column-number-mode)
+  (defun sk-cleanup-buffer-safe ()
+    (interactive)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace))
 #+end_src
 
-#+name: start-kit-add-local-comment-auto-fill
+Perform a bunch of operations on the whitespace content of a
+buffer. Including indent-buffer, which should not be called
+automatically on save.
 #+begin_src emacs-lisp
-(add-hook 'starter-kit-coding-hook 'starter-kit-local-comment-auto-fill)
+  (defun sk-cleanup-buffer ()
+    (interactive)
+    (starter-kit-cleanup-buffer-safe)
+    (indent-region (point-min) (point-max)))
 #+end_src
 
-#+name: starter-kit-add-pretty-lambdas
+** Handling buffers
+*** Rename/Move both current buffer and file currently visited (see [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve
+Yegge .emacs]])
 #+begin_src emacs-lisp
-  (when (window-system)
-    (add-hook 'starter-kit-coding-hook 'starter-kit-pretty-lambdas))
+  (defun sk-rename-file-and-buffer (new-name)
+    "Renames both current buffer and file it's visiting to NEW-NAME."
+    (interactive "sNew name: ")
+    (let ((name (buffer-name))
+          (filename (buffer-file-name)))
+      (if (not filename)
+          (message "Buffer '%s' is not visiting a file!" name)
+        (if (get-buffer new-name)
+            (message "A buffer named '%s' already exists!" new-name)
+          (progn
+            (rename-file name new-name 1)
+            (rename-buffer new-name)
+            (set-visited-file-name new-name)
+            (set-buffer-modified-p nil))))))
+
+  (defun sk-move-buffer-file (dir)
+    "Moves both current buffer and file it's visiting to DIR."
+    (interactive "DNew directory: ")
+    (let* ((name (buffer-name))
+           (filename (buffer-file-name))
+           (dir
+            (if (string-match dir "\\(?:/\\|\\\\)$")
+                (substring dir 0 -1) dir))
+           (newname (concat dir "/" name)))
+
+      (if (not filename)
+          (message "Buffer '%s' is not visiting a file!" name)
+        (progn (copy-file filename newname 1)
+               (delete-file filename)
+               (set-visited-file-name newname)
+               (set-buffer-modified-p nil) t))))
 #+end_src
 
-#+name: starter-kit-run-starter-kit-coding-hook
+*** Stop displaying minibuffer when mouse go to another buffer
 #+begin_src emacs-lisp
-(defun run-starter-kit-coding-hook ()
-  "Enable things that are convenient across all coding buffers."
-  (run-hooks 'starter-kit-coding-hook))
+  (defun sk-stop-using-minibuffer ()
+    "Kill the minibuffer"
+    (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
+      (abort-recursive-edit)))
+#+end_src
+
+*** Touching the current buffer
+#+begin_src emacs-lisp
+  (defun sk-touch ()
+    (interactive)
+    (shell-command (concat "touch " (shell-quote-argument (buffer-file-name)))))
+#+end_src
+
+*** Using 'a' to open a directory in the same buffer
+#+begin_src emacs-lisp
+  (put 'dired-find-alternative-file 'disabled nil)
+#+end_src
+
+*** Splitting buffer
+When splitting is done, emacs will open the next buffer
+#+begin_src emacs-lisp
+  (defadvice split-window-vertically
+    (after my-window-splitting-advice first () activate)
+    (set-window-buffer (next-window) (other-buffer)))
+  (defadvice split-window-horizontally
+    (after my-window-splitting-advice first () activate)
+    (set-window-buffer (next-window) (other-buffer)))
+#+end_src
+
+** Saving desktop status
+#+begin_src emacs-lisp
+  (defun sk-desktop ()
+    "Load the desktop and enable autosaving"
+    (interactive)
+    (let ((desktop-load-locked-desktop "ask"))
+      (desktop-read)
+      (desktop-save-mode 1)))
+
+  (defun sk-desktop-save ()
+    (interactive)
+    (desktop-save desktop-dirname))
+#+end_src
+
+** Misc.
+*** Edit current buffer with sudo rights
+#+begin_src emacs-lisp
+  (defun sk-sudo-edit-current-file (&optional arg)
+    (interactive "p")
+    (if (or arg (not buffer-file-name))
+        (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
+      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+#+end_src
+
+*** Grepping words
+For sure there might be a better way and tool to do that but I am used
+to use it
+#+begin_src emacs-lisp
+  (defun sk-grep ()
+    "grep the whole directory for something defaults to term at cursor position"
+    (interactive)
+    (setq default (thing-at-point 'symbol))
+    (setq needle (or (read-string (concat "grep for <" default "> ")) default))
+    (setq needle (if (equal needle "") default needle))
+    (grep (concat "egrep -s -i -n -r " needle " *")))
+#+end_src
+
+*** Toggling fullscreen
+#+begin_src emacs-lisp
+  (defun sk-toggle-fullscreen (&optional f)
+    (interactive)
+    (let ((current-value (frame-parameter nil 'fullscreen)))
+      (set-frame-parameter nil 'fullscreen
+                           (if (equal 'fullboth current-value)
+                               (if (boundp 'old-fullscreen) old-fullscreen nil)
+                             (progn (setq old-fullscreen current-value)
+                                    'fullboth)))))
+#+end_src
+
+*** Sending libnotify popup
+#+begin_src emacs-lisp
+  (defun sk-popup (title msg)
+    "Show a popup if we're on X, or echo it otherwise; TITLE is the
+  title of the message, MSG is the context."
+    (interactive)
+    (if (eq window-system 'x)
+        (shell-command (concat "notify-send -t 2000 -i emacs"
+                               " '" title "' '" msg "'"))
+      ;; text only version
+      (message (concat title ": " msg))))
+  (defun sk-test-popup ()
+    (interactive)
+    (sk-popup "Test Notification :" "test"))
+#+end_src
+
+** Hooks
+*** Coding
+#+begin_src emacs-lisp
+  (add-hook 'starter-kit-coding-hook 'sk-local-comment-auto-fill)
+  (add-hook 'starter-kit-coding-hook 'sk-pretty-lambdas)
+  (add-hook 'starter-kit-coding-hook 'sk-add-watchwords)
+  (add-hook 'starter-kit-coding-hook 'idle-highlight-mode)
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun run-starter-kit-coding-hook ()
+    "Enable things that are convenient across all coding buffers."
+    (run-hooks 'starter-kit-coding-hook))
+#+end_src
+
+*** Indent correctly pasted code
+#+begin_src emacs-lisp
+  (defadvice yank (after indent-region activate)
+  (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
+                                           c-mode c++-mode objc-mode
+                                           latex-mode plain-tex-mode
+                                           python-mode org-mode))
+      (indent-region (region-beginning) (region-end) nil)))
+#+end_src
+
+*** Clean up buffer before saving
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook 'sk-cleanup-buffer-safe)
+#+end_src
+
+*** Store session before saving
+#+begin_src emacs-lisp
+  (add-hook 'auto-save-hook 'sk-desktop-save)
+#+end_src
+
+*** Create a directory when there is not
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook
+            (lambda ()
+              (let ((dir (file-name-directory buffer-file-name)))
+                (when (and (not (file-exists-p dir))
+                           (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
+                  (make-directory dir t)))))
+#+end_src
+*** Misc.
+#+begin_src emacs-lisp
+  (add-hook 'mouse-leave-buffer-hook 'sk-stop-using-minibuffer)
+#+end_src
+
+#+begin_src emacs-lisp
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src

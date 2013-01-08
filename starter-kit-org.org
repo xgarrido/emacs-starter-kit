@@ -14,10 +14,12 @@ GTD system or tool for reproducible research and literate programming.
 For more information on org-mode check out [[http://orgmode.org/worg/][worg]], a large Org-mode wiki
 which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
-** Org-Mode Hook -- Keybindings
-   :PROPERTIES:
-   :CUSTOM_ID: keybindings
-   :END:
+** Org-Mode Hook
+*** Keybindings
+:PROPERTIES:
+:CUSTOM_ID: keybindings
+:END:
+
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
             (lambda ()
@@ -32,22 +34,12 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (local-set-key "\M-I" 'org-toggle-iimage-in-org)))
 #+end_src
 
-** Speed keys
-   :PROPERTIES:
-   :CUSTOM_ID: speed-keys
-   :END:
-Speed commands enable single-letter commands in Org-mode files when
-the point is at the beginning of a headline, or at the beginning of a
-code block.
-
-See the `=org-speed-commands-default=' variable for a list of the keys
-and commands enabled at the beginning of headlines.  All code blocks
-are available at the beginning of a code block, the following key
-sequence =C-c C-v h= (bound to `=org-babel-describe-bindings=') will
-display a list of the code blocks commands and their related keys.
-
+*** Minor mode
 #+begin_src emacs-lisp
-  (setq org-use-speed-commands t)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (org-indent-mode  t)
+              (org-bullets-mode t)))
 #+end_src
 
 ** Code blocks
@@ -82,7 +74,7 @@ using the major-mode of the code.  It also changes the behavior of
 that reading and editing code form inside of your Org-mode files is
 much more like reading and editing of code using its major mode.
 #+begin_src emacs-lisp
-  (setq org-src-fontify-natively t)
+  (setq org-src-fontify-natively  t)
   (setq org-src-tab-acts-natively t)
 #+end_src
 
@@ -98,3 +90,35 @@ directory) file for information on the functions, and see
 
 Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
+
+** LaTeX classes
+#+begin_src emacs-lisp tangle :tangle no
+  (unless (boundp 'org-export-latex-classes)
+    (setq org-export-latex-classes nil))
+
+  (add-to-list 'org-export-latex-classes
+               ;; beamer class, for presentations
+               '("beamer_teaching"
+                 "\\documentclass[t, compress]{beamer}\n
+                 \\input{../base/OptionsListingC++.sty}\n
+                 \\input{../base/BeamerPackage.sty}\n"
+
+                 ("\\begin{frame}[c, fragile]\\frametitle{%s}"
+                  "\\end{frame}"
+                  "\\begin{frame}[c, fragile]\\frametitle{%s}"
+                  "\\end{frame}")))
+
+  (add-to-list 'org-export-latex-classes
+               ;; letter class, for formal letters
+                 '("letter"
+                 "\\documentclass[11pt]{letter}\n
+                 \\usepackage[utf8]{inputenc}\n
+                 \\usepackage[T1]{fontenc}\n
+                 \\usepackage{color}"
+
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src

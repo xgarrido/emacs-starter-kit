@@ -1,0 +1,171 @@
+#+TITLE: Starter Kit Window
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter Kit Window
+** Window default settings
+Settings in relation with emacs window behavior
+#+begin_src emacs-lisp
+  (setq frame-title-format '(buffer-file-name "%b [%f]" "%b"))
+  (tool-bar-mode   -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode   -1)
+  (tooltip-mode    -1)
+
+  (setq inhibit-startup-screen                t
+        inhibit-startup-message               t
+        line-number-mode                      t
+        column-number-mode                    t
+        icomplete-mode                        t
+        read-buffer-completion-ignore-case    t
+        read-file-name-completion-ignore-case t
+        color-theme-is-global                 t
+        save-place                            t)
+#+end_src
+
+** Color themes
+Emacs24 has build in support for saving and loading themes.
+
+A Theme builder is available at http://elpa.gnu.org/themes/ along with
+a list of pre-built themes at http://elpa.gnu.org/themes/view.html and
+themes are available through ELPA.
+
+Downloaded themes may be saved to the =themes/= directory in the base
+of the starter kit which ignored by git.  Once downloaded and
+evaluated a theme is activated using the =load-theme= function.
+
+#+begin_src emacs-lisp
+  (add-to-list 'custom-theme-load-path (concat starter-kit-dir "themes"))
+  (setq custom-safe-themes t)
+  (load-theme 'solarized-light t)
+#+end_src
+
+** Default modes
+*** CUA
+#+begin_src emacs-lisp
+  (cua-mode t)
+#+end_src
+
+*** Recentf
+#+begin_src emacs-lisp
+  (recentf-mode t)
+#+end_src
+
+*** Transparently open compressed files
+#+begin_src emacs-lisp
+  (auto-compression-mode t)
+#+end_src
+
+*** Highlight matching parentheses when the point is on them.
+#+begin_src emacs-lisp
+  (show-paren-mode t)
+  (setq show-paren-delay 0
+        show-paren-style 'mixed)
+
+  (require 'highlight-parentheses)
+  (defun turn-on-highlight-parentheses-mode ()
+    (highlight-parentheses-mode t))
+  (define-global-minor-mode global-highlight-parentheses-mode
+    highlight-parentheses-mode
+    turn-on-highlight-parentheses-mode)
+  (setq hl-paren-colors
+        '("orange1" "yellow1" "greenyellow" "green1"
+          "springgreen1" "cyan1" "slateblue1" "magenta1" "purple"))
+  (global-highlight-parentheses-mode t)
+#+end_src
+
+*** Line number
+#+begin_src emacs-lisp
+  (setq linum-format "%d ")
+#+end_src
+
+*** Highlight everything strange
+#+begin_src emacs-lisp
+  (setq whitespace-style '(face trailing lines-tail tabs)
+        whitespace-line-column 80)
+#+end_src
+
+*** Use space for tabulation
+#+begin_src emacs-lisp
+  (set-default 'indent-tabs-mode nil)
+#+end_src
+
+*** Indicate empty lines
+#+begin_src emacs-lisp
+  (set-default 'indicate-empty-lines t)
+#+end_src
+
+*** Auto revert buffer
+#+begin_src emacs-lisp
+  (global-auto-revert-mode t)
+  ;; revert without asking
+  (setq revert-without-query '(".*"))
+#+end_src
+** Setting default directories
+[[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
+a given file. =backup-directory-alist= is related to the directory
+where emacs backup file will be stored.
+#+begin_src emacs-lisp
+  (setq save-place-file          (concat starter-kit-dir "places"))
+  (setq temporary-file-directory (concat starter-kit-dir "tmp"))
+  (setq smex-save-file           (concat starter-kit-dir "smex-items"))
+  (setq backup-directory-alist `(("." . ,(concat starter-kit-dir "backups"))))
+#+end_src
+
+Automatically save and restore sessions
+#+begin_src emacs-lisp
+  (setq desktop-dirname             (concat starter-kit-dir "session")
+        desktop-base-file-name      "emacs.desktop"
+        desktop-base-lock-name      "lock"
+        desktop-path                (list desktop-dirname)
+        desktop-save                t
+        desktop-files-not-to-save   "^$" ;reload tramp paths
+        desktop-load-locked-desktop nil)
+  (desktop-save-mode 0)
+#+end_src
+
+** UTF8 everywhere
+#+begin_src emacs-lisp
+  (set-terminal-coding-system    'utf-8)
+  (set-keyboard-coding-system    'utf-8)
+  (prefer-coding-system          'utf-8)
+  (set-buffer-file-coding-system 'utf-8)
+#+end_src
+
+** Magit settings
+#+begin_src emacs-lisp
+  (require 'magit)
+  (setq magit-omit-untracked-dir-contents 1)
+#+end_src
+
+** Uniquify Settings
+Change buffer name in case of various same name buffer
+previously : Makefile and Makefile<2>
+now        : Makefile|directory1 Makefile|directory2
+#+begin_src emacs-lisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator "|")
+  (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+#+end_src
+
+** Misc.
+#+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+** Mouse scrolling (not used)
+#+begin_src emacs-lisp :tangle no
+  (defun smooth-scroll (increment)
+    (scroll-up increment) (sit-for 0.05)
+    (scroll-up increment) (sit-for 0.02)
+    (scroll-up increment) (sit-for 0.02)
+    (scroll-up increment) (sit-for 0.05)
+    (scroll-up increment) (sit-for 0.06)
+    (scroll-up increment))
+
+  (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll +1)))
+  (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll -1)))
+#+end_src

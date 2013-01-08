@@ -9,14 +9,17 @@ ido-mode is like magic pixie dust!
 ** Basic configuration
 #+begin_src emacs-lisp
   (ido-mode t)
-  (setq ido-everywhere t
-        ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point t
-        ido-max-prospects 10
+  (setq ido-everywhere            t
+        ido-enable-prefix         nil
+        ido-enable-flex-matching  t
+        ido-auto-merge-work-directories-length nil
+        ;;ido-use-filename-at-point t
+        ido-max-prospects         10
+        ido-create-new-buffer     'always
+        ;; ido-use-virtual-buffers   t
+        ;; ido-handle-duplicate-virtual-buffers 2
         ido-default-buffer-method 'selected-window
-        ido-default-file-method 'selected-window)
+        ido-default-file-method   'selected-window)
 #+end_src
 
 ** Extensions ordering and ignored ones
@@ -57,25 +60,26 @@ ido-mode is like magic pixie dust!
 ** Using recentf within ido
 #+begin_src emacs-lisp
   (defun recentf-ido-find-file ()
-    "Find a recent file using Ido."
-    (interactive)
-    (let* ((file-assoc-list
-            (mapcar (lambda (x)
-                      (cons (file-name-nondirectory x)
-                            x))
-                    recentf-list))
-           (filename-list
-            (remove-duplicates (mapcar #'car file-assoc-list)
-                               :test #'string=))
-           (filename (ido-completing-read "Choose recent file: "
-                                          filename-list
-                                          nil
-                                          t)))
-      (when filename
-        (find-file (cdr (assoc filename
-                               file-assoc-list))))))
+      "Find a recent file using Ido."
+      (interactive)
+      (let* ((file-assoc-list
+              (mapcar (lambda (x)
+                        (cons (file-name-nondirectory x)
+                              x))
+                      recentf-list))
+             (filename-list
+              (remove-duplicates (mapcar #'car file-assoc-list)
+                                 :test #'string=))
+             (filename (ido-completing-read "Choose recent file: "
+                                            filename-list
+                                            nil
+                                            t)))
+        (when filename
+          (find-file (cdr (assoc filename
+                                 file-assoc-list))))))
   (setq recentf-max-saved-items 100)
-  (global-set-key (kbd "C-x r") 'recentf-ido-find-file)
+  (global-set-key (kbd "C-x r")   'recentf-ido-find-file)
+  (global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
 #+end_src
 
 ** Misc.
