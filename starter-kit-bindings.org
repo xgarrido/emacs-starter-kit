@@ -50,10 +50,14 @@ Key Bindings.
   (global-set-key (kbd "C-w") 'kill-this-buffer)
 #+end_src
 
-** Window switching. (C-x o goes to the next window)
+** Window switching (C-x o goes to the next window)
 #+begin_src emacs-lisp
   ;;(windmove-default-keybindings) ;; Shift+direction
   (global-set-key (kbd "<C-tab>") 'other-window)
+#+end_src
+** Window rotation
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<s-tab>") 'sk-toggle-window-split)
 #+end_src
 
 ** Line operations
