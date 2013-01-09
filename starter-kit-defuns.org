@@ -48,7 +48,7 @@ buffer. Does not indent buffer, because it is used for a
 #+begin_src emacs-lisp
   (defun sk-cleanup-buffer-safe ()
     (interactive)
-    (untabify (point-min) (point-max))
+    ;;(untabify (point-min) (point-max))
     (delete-trailing-whitespace))
 #+end_src
 
@@ -210,14 +210,11 @@ to use it
 
 *** Toggling fullscreen
 #+begin_src emacs-lisp
-  (defun sk-toggle-fullscreen (&optional f)
+  (defun sk-toggle-fullscreen ()
     (interactive)
-    (let ((current-value (frame-parameter nil 'fullscreen)))
-      (set-frame-parameter nil 'fullscreen
-                           (if (equal 'fullboth current-value)
-                               (if (boundp 'old-fullscreen) old-fullscreen nil)
-                             (progn (setq old-fullscreen current-value)
-                                    'fullboth)))))
+    (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                             nil
+                                             'fullboth)))
 #+end_src
 
 *** Sending libnotify popup

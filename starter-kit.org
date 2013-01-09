@@ -323,7 +323,7 @@ everyone using the starter kit.
     (starter-kit-load "starter-kit-elpa.org")
   #+end_src
 
-- Window settings (color theme...) in [[file:starter-kit-window][starter-kit-window]]
+- Window settings (color theme...) in [[file:starter-kit-window.org][starter-kit-window]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-window.org")
   #+end_src
@@ -336,11 +336,6 @@ everyone using the starter kit.
 - Key Bindings in [[file:starter-kit-bindings.org][starter-kit-bindings]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-bindings.org")
-  #+end_src
-
-- Miscellaneous settings in [[file:starter-kit-misc.org][starter-kit-misc]]
-  #+begin_src emacs-lisp
-    ;;(starter-kit-load "starter-kit-misc.org")
   #+end_src
 
 ** Load module files
