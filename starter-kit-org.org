@@ -43,6 +43,11 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (auto-complete-mode t)))
 #+end_src
 
+** Using ido completing
+#+begin_src emacs-lisp
+  (setq org-completion-use-ido t)
+#+end_src
+
 ** Code blocks
    :PROPERTIES:
    :CUSTOM_ID: babel
@@ -61,7 +66,7 @@ contains an up to date list of the currently supported languages.
 
 You are encouraged to add the following to your personal configuration
 although it is not added by default as a security precaution.
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (setq org-confirm-babel-evaluate nil)
 #+end_src
 
@@ -122,4 +127,77 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
+** Prevent editing invisible text
+The following setting prevents accidentally editing hidden text when
+the point is inside a folded region. This can happen if you are in the
+body of a heading and globally fold the org-file with =S-TAB=
+
+I find invisible edits (and undo's) hard to deal with so now I can't
+edit invisible text. =C-c C-r= (org-reveal) will display where the point
+is if it is buried in invisible text to allow editing again.
+#+begin_src emacs-lisp
+  (setq org-catch-invisible-edits 'error)
+#+end_src
+
+** Automatically renumber footnotes
+#+begin_src emacs-lisp
+  (setq org-footnote-auto-adjust t)
+#+end_src
+** Org fold to store folding state
+Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
+the =.fold= file is saved.
+#+begin_src emacs-lisp
+    (require 'cl)
+    (require 'org)
+
+    (defun org-fold-get-fold-info-file-name ()
+      (concat temporary-file-directory "org-fold/" (buffer-name) ".fold"))
+
+    (defun org-fold-save ()
+      (save-excursion
+        (goto-char (point-min))
+        (let (foldstates)
+          (unless (looking-at outline-regexp)
+            (outline-next-visible-heading 1))
+          (while (not (eobp))
+            (push (if (some (lambda (o) (overlay-get o 'invisible))
+                            (overlays-at (line-end-position)))
+                      t)
+                  foldstates)
+            (outline-next-visible-heading 1))
+          (with-temp-file (org-fold-get-fold-info-file-name)
+            (prin1 (nreverse foldstates) (current-buffer))))))
+
+    (defun org-fold-restore ()
+      (save-excursion
+        (goto-char (point-min))
+        (let* ((foldfile (org-fold-get-fold-info-file-name))
+               (foldstates
+                (if (file-readable-p foldfile)
+                    (with-temp-buffer
+                      (insert-file-contents foldfile)
+                      (read (current-buffer))))))
+          (when foldstates
+            (show-all)
+            (goto-char (point-min))
+            (unless (looking-at outline-regexp)
+              (outline-next-visible-heading 1))
+            (while (and foldstates (not (eobp)))
+              (if (pop foldstates)
+                  (hide-subtree))
+              (outline-next-visible-heading 1))
+            (message "Restored saved folding state")))))
+
+    (add-hook 'org-mode-hook 'org-fold-activate)
+
+    (defun org-fold-activate ()
+      (org-fold-restore)
+      (add-hook 'kill-buffer-hook 'org-fold-kill-buffer nil t)
+      (add-hook 'kill-emacs-hook  'org-fold-kill-buffer nil t))
+
+    (defun org-fold-kill-buffer ()
+      ;; don't save folding info for unsaved buffers
+      (unless (buffer-modified-p)
+        (org-fold-save)))
 #+end_src

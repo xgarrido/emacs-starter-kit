@@ -10,7 +10,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (setq auto-mode-alist (cons '("\\.ipp$" . c++-mode) auto-mode-alist))
 #+end_src
 
-** Running starter-kit-coding-hook and
+** Running starter-kit-coding-hook
 #+begin_src emacs-lisp
   (add-hook 'c-mode-common-hook 'run-starter-kit-coding-hook)
 #+end_src
@@ -44,5 +44,5 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 ** New electric-pair-mode
 #+begin_src emacs-lisp
- (electric-pair-mode 1)
+  (electric-pair-mode 1)
 #+end_src
