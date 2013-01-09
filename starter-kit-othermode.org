@@ -1,0 +1,56 @@
+#+TITLE: Starter Kit Other Mode
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter Kit Other Mode
+** cmake-mode
+#+begin_src emacs-lisp
+  (require 'cmake-mode)
+   (setq auto-mode-alist
+         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                   ("\\.cmake\\'" . cmake-mode))
+                 auto-mode-alist))
+#+end_src
+
+** multi-web-mode
+#+begin_src emacs-lisp
+  (require 'multi-web-mode)
+  (setq mweb-default-major-mode 'html-mode)
+  (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                    (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                    (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+  (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+  (multi-web-global-mode 1)
+#+end_src
+
+** css-mode
+#+begin_src emacs-lisp
+  (defvar hexcolour-keywords
+    '(("#[abcdef[:digit:]]\\{6\\}"
+       (0 (put-text-property
+           (match-beginning 0)
+           (match-end 0)
+           'face (list :background
+                       (match-string-no-properties 0)))))))
+  (defun hexcolour-add-to-font-lock ()
+    (font-lock-add-keywords nil hexcolour-keywords))
+
+  (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
+#+end_src
+
+** trac-wiki-mode
+The =src= directory is added to the =load-path= but later.
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (expand-file-name "src" starter-kit-dir))
+
+  (require 'trac-wiki)
+  (trac-wiki-define-project "trac-LAL"
+                            "https://trac.lal.in2p3.fr/NEMO2/" t)
+
+  (trac-wiki-define-project "trac-LPC"
+                            "https://nemo.lpc-caen.in2p3.fr/" t)
+
+  (autoload 'trac-wiki "trac-wiki"
+    "Trac wiki editing entry-point." t)
+#+end_src

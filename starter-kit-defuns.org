@@ -29,6 +29,17 @@ a lambda doesn't already exist in the list.
     (font-lock-add-keywords
      nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\)"
             1 font-lock-warning-face t))))
+
+  (defun sk-indent-or-complete ()
+    "Complete if point is at end of a word, otherwise indent line."
+    (interactive)
+    (if (looking-at "\\>")
+        (hippie-expand nil)
+      (indent-for-tab-command)))
+ ;; (add-hook 'find-file-hooks
+ ;;           (function (lambda ()
+ ;;                       (local-set-key (kbd "<tab>") 'indent-or-complete))))
+
 #+end_src
 
 Perform a bunch of safe operations on the whitespace content of a

@@ -29,7 +29,16 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'cmake-mode
           'org-bullets
           'ido-ubiquitous
-          'dired-details)
+          'dired-details
+          'powerline
+          'rainbow-mode
+          'diminish
+          'wrap-region
+          'multi-term
+          'multi-web-mode
+          'go-mode
+          'gnuplot
+          'undo-tree)
     "Libraries that should be installed by default.")
 #+end_src
 

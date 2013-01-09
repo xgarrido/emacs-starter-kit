@@ -15,15 +15,6 @@ Key Bindings.
 ** Completion that uses many different methods to find options
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-/") 'hippie-expand)
-  (defun indent-or-complete ()
-    "Complete if point is at end of a word, otherwise indent line."
-    (interactive)
-    (if (looking-at "\\>")
-        (dabbrev-expand nil)
-      (indent-for-tab-command)))
- ;; (add-hook 'find-file-hooks
- ;;           (function (lambda ()
- ;;                       (local-set-key (kbd "<tab>") 'indent-or-complete))))
 #+end_src
 
 ** Font size
@@ -96,6 +87,13 @@ Key Bindings.
                  (regexp-quote isearch-string))))))
 #+end_src
 
+** Undo/redo
+#+begin_src emacs-lisp
+  (defalias 'redo 'undo-tree-redo)
+  (global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-&") 'redo)
+#+end_src
+
 ** Smex
 #+begin_src emacs-lisp
   (global-set-key (kbd "M-x") 'smex)
@@ -109,4 +107,8 @@ Key Bindings.
 ** Toggling fullscreen
 #+begin_src emacs-lisp
   (global-set-key [f11] 'sk-toggle-fullscreen)
+#+end_src
+** Multi-term
+#+begin_src emacs-lisp
+  (global-set-key "\M-m" 'multi-term)
 #+end_src

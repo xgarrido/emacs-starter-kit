@@ -24,7 +24,8 @@ ido-mode is like magic pixie dust!
 
 ** Extensions ordering and ignored ones
 #+begin_src emacs-lisp
-  (setq ido-file-extensions-order     '(".cc" ".h" ".tex" ".sh"))
+  (setq ido-file-extensions-order     '(".cc" ".h" ".tex" ".sh" ".org"
+                                        ".el"))
   (setq completion-ignored-extensions '(".o" ".elc" "~" ".bin" ".bak"
                                         ".obj" ".map" ".a" ".so"
                                         ".mod" ".aux" ".out" ".pyg"))

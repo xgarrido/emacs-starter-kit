@@ -48,6 +48,12 @@ evaluated a theme is activated using the =load-theme= function.
   (cua-mode t)
 #+end_src
 
+*** Undo tree
+#+begin_src emacs-lisp
+  (require 'undo-tree)
+  (global-undo-tree-mode 1)
+#+end_src
+
 *** Recentf
 #+begin_src emacs-lisp
   (recentf-mode t)
@@ -114,9 +120,11 @@ where emacs backup file will be stored.
   (setq smex-save-file               (concat temporary-file-directory "smex-items"))
   (setq ido-save-directory-list-file (concat temporary-file-directory "ido.last"))
   (setq ac-comphist-file             (concat temporary-file-directory "ac-comphist.dat"))
-  (setq backup-directory-alist         `(("." . ,(concat temporary-file-directory "backups"))))
+  (setq auto-save-list-file-prefix   (concat temporary-file-directory "auto-save-list/" ".auto-saves-"))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (setq backup-directory-alist         `(("." . ,(concat temporary-file-directory "backups"))))
 #+end_src
+
 
 Automatically save and restore sessions
 #+begin_src emacs-lisp
@@ -196,6 +204,26 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (setq auto-revert-verbose nil)
 #+end_src
 
+** Powerline
+#+begin_src emacs-lisp
+  (require 'powerline)
+  (custom-set-faces
+   '(mode-line ((t (:foreground "white" :background "#938A8A" :box nil))))
+   '(mode-line-inactive  ((t (:foreground "white" :background "#938A8A" :box nil))))
+   '(powerline-active1   ((t (:background "#3A3A3A"))))
+   '(powerline-inactive1 ((t (:background "#3A3A3A"))))
+   '(powerline-active2   ((t (:background "#666666"))))
+   '(powerline-inactive2 ((t (:background "#666666"))))
+   )
+  (powerline-default)
+#+end_src
+
+** Diminish modeline clutter
+#+begin_src emacs-lisp
+  (require 'diminish)
+  ;;(diminish 'wrap-region-mode)
+  (diminish 'yas/minor-mode)
+#+end_src
 ** Misc.
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
