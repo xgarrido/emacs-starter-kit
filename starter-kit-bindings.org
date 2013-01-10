@@ -114,5 +114,5 @@ Key Bindings.
 #+end_src
 ** Magit
 #+begin_src emacs-lisp
-  (global-set-key (kbd "M-s M-s") 'magit-status)
+  (global-set-key (kbd "M-s") 'magit-status)
 #+end_src
