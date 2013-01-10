@@ -26,6 +26,7 @@ Settings in relation with emacs window behavior [1].
 #+end_src
 
 ** Color themes
+*** Emacs24 =deftheme=
 Emacs24 has build in support for saving and loading themes.
 
 A Theme builder is available at http://elpa.gnu.org/themes/ along with
@@ -39,7 +40,36 @@ evaluated a theme is activated using the =load-theme= function.
 #+begin_src emacs-lisp
   (add-to-list 'custom-theme-load-path (concat starter-kit-dir "themes"))
   (setq custom-safe-themes t)
-  (load-theme 'solarized-light t)
+  ;;(load-theme 'solarized-light t)
+#+end_src
+
+*** Custom solarized theme
+A light variant of the [[https://github.com/bbatsov/solarized-emacs][Solarized]] color theme. there is also some
+=face= changes for [[https://github.com/milkypostman/powerline][powerline]] (see [[#powerline][below]])
+#+begin_src emacs-lisp
+  (require 'solarized)
+  (defun sk-solarized-childtheme ()
+    (custom-theme-set-faces
+     theme-name
+     ;; Modeline and powerline
+     `(mode-line           ((,class (:foreground ,solarized-bg
+                                                 :background "gray50" :box nil))))
+     `(mode-line-inactive  ((,class (:foreground ,solarized-bg
+                                                 :background "gray50" :box nil))))
+     `(powerline-active1   ((,class (:background "gray20"))))
+     `(powerline-inactive1 ((,class (:background "gray20"))))
+     `(powerline-active2   ((,class (:background "gray40"))))
+     `(powerline-inactive2 ((,class (:background "gray40"))))
+     ;; Change some org faces
+     `(org-document-title ((,class (:foreground ,solarized-emph
+                                                :weight bold :height 1.0))))
+     ))
+#+end_src
+
+Define new theme (since definition occurs here it is loaded by default)
+#+begin_src emacs-lisp
+  (deftheme sk-solarized-light)
+  (create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
 #+end_src
 
 ** Default modes
@@ -102,7 +132,10 @@ evaluated a theme is activated using the =load-theme= function.
 #+begin_src emacs-lisp
   (set-default 'indicate-empty-lines t)
 #+end_src
-
+*** Highlight current Line
+#+begin_src emacs-lisp
+  (global-hl-line-mode t)
+#+end_src
 *** Auto revert buffer
 #+begin_src emacs-lisp
   (global-auto-revert-mode t)
@@ -171,7 +204,6 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 #+end_src
-
 ** Uniquify settings
 Change buffer name in case of various same name buffer
 previously : Makefile and Makefile<2>
@@ -203,21 +235,14 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil)
 #+end_src
-
 ** Powerline
+:PROPERTIES:
+:CUSTOM_ID: powerline
+:END:
 #+begin_src emacs-lisp
   (require 'powerline)
-  (custom-set-faces
-   '(mode-line ((t (:foreground "white" :background "#938A8A" :box nil))))
-   '(mode-line-inactive  ((t (:foreground "white" :background "#938A8A" :box nil))))
-   '(powerline-active1   ((t (:background "#3A3A3A"))))
-   '(powerline-inactive1 ((t (:background "#3A3A3A"))))
-   '(powerline-active2   ((t (:background "#666666"))))
-   '(powerline-inactive2 ((t (:background "#666666"))))
-   )
   (powerline-default)
 #+end_src
-
 ** Diminish modeline clutter
 #+begin_src emacs-lisp
   (require 'diminish)
@@ -242,6 +267,7 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll +1)))
   (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll -1)))
 #+end_src
+
 * Footnotes
 
 [1] [[http://whattheemacsd.com/init.el-01.html][Magnars]] suggests to place all the UI stuff deactivation
