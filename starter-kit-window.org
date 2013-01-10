@@ -68,8 +68,8 @@ A light variant of the [[https://github.com/bbatsov/solarized-emacs][Solarized]]
 
 Define new theme (since definition occurs here it is loaded by default)
 #+begin_src emacs-lisp
-  (deftheme sk-solarized-light)
-  (create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
+;;  (deftheme sk-solarized-light)
+;;  (create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
 #+end_src
 
 ** Default modes
