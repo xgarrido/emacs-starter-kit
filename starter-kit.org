@@ -354,7 +354,7 @@ The following files contain specific settings for several modules.
     (starter-kit-load "starter-kit-ido.org")
   #+end_src
 
-- C++ specific tweaks
+- [[file:starter-c++.org][C++ specific tweaks]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-c++.org")
   #+end_src

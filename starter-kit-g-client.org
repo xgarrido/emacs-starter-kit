@@ -44,12 +44,12 @@ from within Emacs.
    code is required.  In the definition `[[file:src/g-client/gdocs.el::(defun%20gdocs-publish-from-org%20()][gdocs-publish-from-org]]' the
    call to the `org-export-region-as-html' function should be changed
    from
-   #+begin_src emacs-lisp
+   #+begin_src emacs-lisp :tangle no
      (org-export-region-as-html (point-min) (point-max)
                                 nil g-scratch-buffer)
    #+end_src
    to
-   #+begin_src emacs-lisp
+   #+begin_src emacs-lisp :tangle no
      (org-export-region-as-html (point-min) (point-max)
                                 'body-only g-scratch-buffer)
    #+end_src
