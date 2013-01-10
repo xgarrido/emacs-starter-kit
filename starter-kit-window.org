@@ -58,8 +58,8 @@ some small part of it here. There is also some =face= changes for
                                                  :background "gray50" :box nil))))
      `(mode-line-inactive  ((,class (:foreground ,solarized-bg
                                                  :background "gray50" :box nil))))
-     `(powerline-active1   ((,class (:background "gray20"))))
-     `(powerline-inactive1 ((,class (:background "gray20"))))
+     `(powerline-active1   ((,class (:background "gray25"))))
+     `(powerline-inactive1 ((,class (:background "gray25"))))
      `(powerline-active2   ((,class (:background "gray40"))))
      `(powerline-inactive2 ((,class (:background "gray40"))))
      ;; Change some org faces
