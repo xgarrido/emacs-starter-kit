@@ -193,7 +193,8 @@ the =.fold= file is saved.
 
   (defun org-fold-activate ()
     (org-fold-restore)
-    (add-hook auto-save-hook 'org-fold-kill-buffer nil t))
+    (add-hook 'before-save-hook 'org-fold-kill-buffer nil t)
+    (add-hook 'auto-save-hook   'org-fold-kill-buffer nil t))
 
   (defun org-fold-kill-buffer ()
     ;; don't save folding info for unsaved buffers

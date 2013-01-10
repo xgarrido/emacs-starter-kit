@@ -214,6 +214,7 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
     (jump-to-register :magit-fullscreen))
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+  (define-key magit-status-mode-map (kbd "p") 'magit-push)
 #+end_src
 ** Uniquify settings
 Change buffer name in case of various same name buffer
