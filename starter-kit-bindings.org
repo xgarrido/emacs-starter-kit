@@ -110,5 +110,10 @@ Key Bindings.
 #+end_src
 ** Multi-term
 #+begin_src emacs-lisp
-  (global-set-key "\M-m" 'multi-term)
+  (global-set-key (kbd "M-m") 'multi-term)
+#+end_src
+** Magit
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-s s") 'magit-status)
+  (global-set-key (kbd "M-s p") 'magit-push)
 #+end_src

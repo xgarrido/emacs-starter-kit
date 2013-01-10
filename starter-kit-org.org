@@ -148,55 +148,55 @@ is if it is buried in invisible text to allow editing again.
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
 the =.fold= file is saved.
 #+begin_src emacs-lisp
-      (require 'cl)
-      (require 'org)
+  (require 'cl)
+  (require 'org)
 
-      (defun org-fold-get-fold-info-file-name ()
-        (concat temporary-file-directory "org-fold/" (buffer-name) ".fold"))
+  (defun org-fold-get-fold-info-file-name ()
+    (concat temporary-file-directory "org-fold/" (buffer-name) ".fold"))
 
-      (defun org-fold-save ()
-        (save-excursion
+  (defun org-fold-save ()
+    (save-excursion
+      (goto-char (point-min))
+      (let (foldstates)
+        (unless (looking-at outline-regexp)
+          (outline-next-visible-heading 1))
+        (while (not (eobp))
+          (push (if (some (lambda (o) (overlay-get o 'invisible))
+                          (overlays-at (line-end-position)))
+                    t)
+                foldstates)
+          (outline-next-visible-heading 1))
+        (with-temp-file (org-fold-get-fold-info-file-name)
+          (prin1 (nreverse foldstates) (current-buffer))))))
+
+  (defun org-fold-restore ()
+    (save-excursion
+      (goto-char (point-min))
+      (let* ((foldfile (org-fold-get-fold-info-file-name))
+             (foldstates
+              (if (file-readable-p foldfile)
+                  (with-temp-buffer
+                    (insert-file-contents foldfile)
+                    (read (current-buffer))))))
+        (when foldstates
+          (show-all)
           (goto-char (point-min))
-          (let (foldstates)
-            (unless (looking-at outline-regexp)
-              (outline-next-visible-heading 1))
-            (while (not (eobp))
-              (push (if (some (lambda (o) (overlay-get o 'invisible))
-                              (overlays-at (line-end-position)))
-                        t)
-                    foldstates)
-              (outline-next-visible-heading 1))
-            (with-temp-file (org-fold-get-fold-info-file-name)
-              (prin1 (nreverse foldstates) (current-buffer))))))
+          (unless (looking-at outline-regexp)
+            (outline-next-visible-heading 1))
+          (while (and foldstates (not (eobp)))
+            (if (pop foldstates)
+                (hide-subtree))
+            (outline-next-visible-heading 1))
+          (message "Restored saved folding state")))))
 
-      (defun org-fold-restore ()
-        (save-excursion
-          (goto-char (point-min))
-          (let* ((foldfile (org-fold-get-fold-info-file-name))
-                 (foldstates
-                  (if (file-readable-p foldfile)
-                      (with-temp-buffer
-                        (insert-file-contents foldfile)
-                        (read (current-buffer))))))
-            (when foldstates
-              (show-all)
-              (goto-char (point-min))
-              (unless (looking-at outline-regexp)
-                (outline-next-visible-heading 1))
-              (while (and foldstates (not (eobp)))
-                (if (pop foldstates)
-                    (hide-subtree))
-                (outline-next-visible-heading 1))
-              (message "Restored saved folding state")))))
+  (add-hook 'org-mode-hook 'org-fold-activate)
 
-      (add-hook 'org-mode-hook 'org-fold-activate)
+  (defun org-fold-activate ()
+    (org-fold-restore)
+    (add-hook auto-save-hook 'org-fold-kill-buffer nil t))
 
-      (defun org-fold-activate ()
-        (org-fold-restore)
-        (add-hook 'before-save-hook 'org-fold-kill-buffer nil t))
-
-      (defun org-fold-kill-buffer ()
-        ;; don't save folding info for unsaved buffers
-        (unless (buffer-modified-p)
-          (org-fold-save)))
+  (defun org-fold-kill-buffer ()
+    ;; don't save folding info for unsaved buffers
+    (unless (buffer-modified-p)
+      (org-fold-save)))
 #+end_src
