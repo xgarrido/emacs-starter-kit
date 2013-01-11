@@ -4,6 +4,14 @@
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Other Mode
+** Coding Hook
+#+begin_src emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'run-starter-kit-coding-hook)
+  (add-hook 'sh-mode-hook         'run-starter-kit-coding-hook)
+  (add-hook 'latex-mode-hook      'run-starter-kit-coding-hook)
+  (add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
+#+end_src
+
 ** cmake-mode
 #+begin_src emacs-lisp
   (require 'cmake-mode)

@@ -23,9 +23,9 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
             (lambda ()
-              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
-              (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
-              (local-set-key "\M-\C-u" 'outline-up-heading)
+              (local-set-key "\C-n" 'outline-next-visible-heading)
+              (local-set-key "\C-p" 'outline-previous-visible-heading)
+              (local-set-key "\C-u" 'outline-up-heading)
               ;; table
               (local-set-key "\M-\C-w" 'org-table-copy-region)
               (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
@@ -36,11 +36,12 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 *** Minor mode
 #+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-indent-mode  t)
-              (org-bullets-mode t)
-              (auto-complete-mode t)))
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (org-indent-mode  t)
+                (org-bullets-mode t)
+                (auto-complete-mode t)
+                (linum-mode -1)))
 #+end_src
 
 ** Using ido completing

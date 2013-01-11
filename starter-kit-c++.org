@@ -25,7 +25,6 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
               ;; hungry delete
               ;;(c-toggle-hungry-state t)
               (hs-minor-mode   t)
-              (linum-mode      t)
               (whitespace-mode t)))
 #+end_src
 
@@ -40,9 +39,4 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (defun compile-notify (buffer message)
     (sk-popup "Emacs compilation" message))
   (setq compilation-finish-function 'compile-notify)
-#+end_src
-
-** New electric-pair-mode
-#+begin_src emacs-lisp
-  (electric-pair-mode 1)
 #+end_src

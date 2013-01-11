@@ -74,6 +74,10 @@ some small part of it here. There is also some =face= changes for
      `(ac-gtags-selection-face ((,class (:background ,blue-lc :foreground ,blue-hc))))
      `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
      `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
+     ;; Linum & fringe
+     `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+     `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+
      ))
 #+end_src
 
@@ -121,11 +125,6 @@ Define new theme (since definition occurs here it is loaded by default)
         '("orange1" "yellow1" "greenyellow" "green1"
           "springgreen1" "cyan1" "slateblue1" "magenta1" "purple"))
   (global-highlight-parentheses-mode t)
-#+end_src
-
-*** Line number
-#+begin_src emacs-lisp
-  (setq linum-format "%d ")
 #+end_src
 
 *** Highlight everything strange
