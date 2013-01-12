@@ -246,6 +246,7 @@ to use it
   (add-hook 'starter-kit-coding-hook 'idle-highlight-mode)
   (add-hook 'starter-kit-coding-hook 'wrap-region-mode)
   (add-hook 'starter-kit-coding-hook 'linum-mode)
+  (add-hook 'starter-kit-coding-hook 'turn-on-fci-mode)
 #+end_src
 
 #+begin_src emacs-lisp

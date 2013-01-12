@@ -38,7 +38,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'multi-web-mode
           'go-mode
           'gnuplot
-          'undo-tree)
+          'undo-tree
+          'fill-column-indicator)
     "Libraries that should be installed by default.")
 #+end_src
 

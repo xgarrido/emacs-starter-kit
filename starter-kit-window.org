@@ -133,6 +133,13 @@ Define new theme (since definition occurs here it is loaded by default)
         whitespace-line-column 80)
 #+end_src
 
+*** Show a column wise indicator
+#+begin_src emacs-lisp
+  (require 'fill-column-indicator)
+  (setq fci-rule-width 3)
+  (setq-default fill-column 80)
+#+end_src
+
 *** Use space for tabulation
 #+begin_src emacs-lisp
   (set-default 'indent-tabs-mode nil)
