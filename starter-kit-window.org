@@ -253,6 +253,76 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil)
 #+end_src
+** Ibuffer customization
+Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMode#toc12][coldnew]])
+#+begin_src emacs-lisp
+  (define-ibuffer-column size-h
+    (:name "Size")
+    (cond
+     ((> (buffer-size) 1000)    (format "%7.1fk" (/ (buffer-size) 1000.0)))
+     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+     (t  (format "%8d" (buffer-size)))))
+
+  (setq
+   ibuffer-default-sorting-mode 'filename/process
+   ibuffer-eliding-string "…"
+   ibuffer-compile-formats t
+   ibuffer-formats '((mark modified read-only
+                           " " (name 25 25 :left :elide)
+                           " " (size-h 9 -1 :right)
+                           " " (mode 7 7 :left :elide)
+                           ;;" " (git-status 8 8 :left)
+                           " " filename-and-process)
+                     (mark " " (name 16 -1) " " filename))
+   ibuffer-show-empty-filter-groups nil
+   ibuffer-saved-filter-groups
+   (quote (("default"
+            ("c++" (mode . c++-mode))
+            ("shell script" (mode . sh-mode))
+            ("emacs lisp" (mode . emacs-lisp-mode))
+            ("python" (mode . python-mode))
+            ("ruby" (mode . ruby-mode))
+            ("coffee-script" (mode . coffee-mode))
+            ("java-script" (or
+                            (mode . js-mode)
+                            (mode . js2-mode)))
+            ("action-script" (mode . actionscript-mode))
+            ("java" (mode . java-mode))
+            ("html" (or
+                     (mode . html-mode)
+                     (mode . web-mode)
+                     (mode . haml-mode)))
+            ("xml" (mode . nxml-mode))
+            ("css preprocessor" (or
+                                 (mode . scss-mode)
+                                 (mode . sass-mode)
+                                 (mode . stylus-mode)))
+            ("css" (mode . css-mode))
+            ("org agenda"  (mode . org-agenda-mode))
+            ("org" (or
+                    (mode . org-mode)
+                    (name . "^\\*Calendar\\*$")
+                    (name . "^diary$")))
+            ("text misc" (or
+                          (mode . text-mode)
+                          (mode . rst-mode)
+                          (mode . markdown-mode)))
+            ("w3m" (mode . w3m-mode))
+            ("git" (or
+                    (mode . magit-log-edit-mode)
+                    (mode . magit-log)))
+            ("dired" (mode . dired-mode))
+            ("help" (or
+                     (mode . Info-mode)
+                     (mode . help-mode)
+                     (mode . Man-mode)))
+            ("*kite*" (name . "^\\*kite.*\\*"))
+            ("*helm*" (name . "^\\*helm.*\\*"))
+            ("*buffer*" (name . "\\*.*\\*"))))))
+  (add-hook 'ibuffer-mode-hook
+            #'(lambda ()
+                (ibuffer-switch-to-saved-filter-groups "default")))
+#+end_src
 ** Powerline
 :PROPERTIES:
 :CUSTOM_ID: powerline
