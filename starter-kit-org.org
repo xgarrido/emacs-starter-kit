@@ -48,11 +48,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+begin_src emacs-lisp
   (setq org-completion-use-ido t)
 #+end_src
-** Disable shift keys
-See [[http://orgmode.org/manual/Conflicts.html]] for new bindings
-#+begin_src emacs-lisp
-  (setq org-replace-disputed-keys t)
-#+end_src
+
 ** Code blocks
      :PROPERTIES:
      :CUSTOM_ID: babel
