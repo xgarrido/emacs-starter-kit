@@ -54,8 +54,7 @@ Setting =src= directory and add it the =load-path= right now.
   (add-to-list 'load-path starter-kit-src-directory)
 #+end_src
 
-First we ensure that =trac-wiki.el= file is present in =src= directory. This can
-be better done in pure lisp but I have no idea how to do it.
+First we ensure that =trac-wiki.el= file is present in =src= directory.
 #+begin_src emacs-lisp
   (defconst trac-wiki-file (expand-file-name "trac-wiki.el"
                                              starter-kit-src-directory))
@@ -65,6 +64,7 @@ be better done in pure lisp but I have no idea how to do it.
        trac-wiki-file t))
 #+end_src
 
+Define some usual =trac-wiki= projects.
 #+begin_src emacs-lisp
   (require 'trac-wiki)
   (trac-wiki-define-project "trac-LAL"
