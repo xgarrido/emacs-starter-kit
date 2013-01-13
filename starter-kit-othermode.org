@@ -48,19 +48,24 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+end_src
 
 ** trac-wiki-mode
+Setting =src= directory and add it the =load-path= right now.
+#+begin_src emacs-lisp
+  (setq starter-kit-src-directory (concat starter-kit-dir "src/"))
+  (add-to-list 'load-path starter-kit-src-directory)
+#+end_src
+
 First we ensure that =trac-wiki.el= file is present in =src= directory. This can
 be better done in pure lisp but I have no idea how to do it.
 #+begin_src emacs-lisp
-  (setq starter-kit-src-directory (concat starter-kit-dir "src/"))
-  (if (eq window-system 'x)
-      (shell-command (concat "test ! -f " starter-kit-src-directory
-                             "trac-wiki.el && "
-                             "wget --quiet https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el --directory-prefix=" starter-kit-src-directory)))
+  (defconst trac-wiki-file (expand-file-name "trac-wiki.el"
+                                             starter-kit-src-directory))
+  (when (not (file-exists-p trac-wiki-file))
+      (url-copy-file
+       "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"
+       trac-wiki-file t))
 #+end_src
 
-The =src= directory is added to the =load-path= but later.
 #+begin_src emacs-lisp
-  (add-to-list 'load-path starter-kit-src-directory)
   (require 'trac-wiki)
   (trac-wiki-define-project "trac-LAL"
                             "https://trac.lal.in2p3.fr/NEMO2/" t)
