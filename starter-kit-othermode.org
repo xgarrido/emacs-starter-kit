@@ -12,6 +12,12 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
 #+end_src
 
+** latex-mode
+#+begin_src emacs-lisp
+  (add-hook 'latex-mode-hook 'turn-on-orgtbl)
+  ;;(add-hook 'latex-mode-hook 'turn-on-auto-fill)
+#+end_src
+
 ** cmake-mode
 #+begin_src emacs-lisp
   (require 'cmake-mode)
@@ -48,13 +54,13 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+end_src
 
 ** trac-wiki-mode
-Setting =src= directory and add it the =load-path= right now.
+Setting =lisp= directory and add it the =load-path=.
 #+begin_src emacs-lisp
-  (setq starter-kit-src-directory (concat starter-kit-dir "src/"))
+  (setq starter-kit-src-directory (concat starter-kit-dir "lisp/"))
   (add-to-list 'load-path starter-kit-src-directory)
 #+end_src
 
-First we ensure that =trac-wiki.el= file is present in =src= directory.
+First we ensure that =trac-wiki.el= file is present in =lisp= directory.
 #+begin_src emacs-lisp
   (defconst trac-wiki-file (expand-file-name "trac-wiki.el"
                                              starter-kit-src-directory))

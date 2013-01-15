@@ -21,8 +21,9 @@ doc/*
 elpa/*
 src/*
 themes/*
-url/*
-tmp/*
+url/
+tmp/
+lisp/
 
 ## exported and encrypted files
 *gpg

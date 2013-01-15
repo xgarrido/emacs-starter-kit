@@ -202,3 +202,12 @@ the =.fold= file is saved.
     (unless (buffer-modified-p)
       (org-fold-save)))
 #+end_src
+
+** Function to generate all org table
+From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
+#+begin_src emacs-lisp
+  (defun sk-org-send-all-tables ()
+     (interactive)
+     (org-table-map-tables
+        (lambda () (orgtbl-send-table 'maybe))))
+#+end_src
