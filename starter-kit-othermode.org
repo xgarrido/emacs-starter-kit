@@ -54,12 +54,6 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+end_src
 
 ** trac-wiki-mode
-Setting =lisp= directory and add it the =load-path=.
-#+begin_src emacs-lisp
-  (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
-  (add-to-list 'load-path starter-kit-lisp-directory)
-#+end_src
-
 First we ensure that =trac-wiki.el= file is present in =lisp= directory.
 #+begin_src emacs-lisp
   (defconst trac-wiki-file (expand-file-name "trac-wiki.el"

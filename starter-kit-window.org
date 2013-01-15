@@ -160,6 +160,12 @@ Define new theme (since definition occurs here it is loaded by default)
   (setq revert-without-query '(".*"))
 #+end_src
 ** Setting default directories
+Setting =lisp= directory and add it the =load-path=.
+#+begin_src emacs-lisp
+  (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
+  (add-to-list 'load-path starter-kit-lisp-directory)
+#+end_src
+
 [[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
 a given file. =backup-directory-alist= is related to the directory
 where emacs backup file will be stored.

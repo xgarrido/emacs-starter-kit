@@ -359,14 +359,14 @@ The following files contain specific settings for several modules.
     (starter-kit-load "starter-kit-c++.org")
   #+end_src
 
-- [[http://orgmode.org/][Orgmode]] settings in [[file:starter-kit-org.org][starter-kit-org]]
-  #+begin_src emacs-lisp
-    (starter-kit-load "starter-kit-org.org")
-  #+end_src
-
 - other mode in [[file:starter-kit-othermode.org][starter-kit-othermode]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-othermode.org")
+  #+end_src
+
+- [[http://orgmode.org/][Orgmode]] settings in [[file:starter-kit-org.org][starter-kit-org]]
+  #+begin_src emacs-lisp
+    (starter-kit-load "starter-kit-org.org")
   #+end_src
 
 ** Load User/System Specific Files
