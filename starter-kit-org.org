@@ -130,18 +130,21 @@ file using the `org-babel-lob-ingest' function.
 #+end_src
 
 *** KOMA/LaTeX script
-The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html][thread]] on org-mode mailing list.
-#+begin_src emacs-lisp
+The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html][thread]] on org-mode mailing list. For some
+reasons, =downcase= the heading string induces the remove of =\label{}= (which
+is actually fine).
+#+begin_src emacs-lisp :results silent
   (add-to-list 'org-export-latex-classes
                '("koma-letter"
-                 "\\documentclass{scrlttr2}
+                 "%% koma-letter
+                  \\documentclass{scrlttr2}
                   \\usepackage{hyperref}
                   [NO-DEFAULT-PACKAGES]"
                  org-scrlttr2-sectioning))
   (defun org-scrlttr2-sectioning (level heading)
     (let ((open "\n\\%s {")
           (close "}"))
-      (setq heading (replace-regexp-in-string "\\s-+" "" heading))
+      (setq heading (downcase (replace-regexp-in-string "\\s-+" "" heading)))
       (cond
        ((string-equal heading "subject")
         (setq open "\n\\setkomavar{%s} {")
@@ -160,19 +163,20 @@ The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs
 
 The previous code works almost perfectly except that an additional blank line is
 added to the =\closing= sentence and the =\end{letter}= is missing. The
-following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][EricSchulte]]). There
-can be some problems if another org->latex file has a =\closing= word since
-this fix is added to all org-to-latex export (through the final hook).
+following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][EricSchulte]]).
 #+begin_src emacs-lisp
   (defun fix-koma-letter ()
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward "^\\\\closing {" nil t)
-        (forward-line 2)
+      (search-forward "koma-letter")
+      (delete-matching-lines "\maketitle")
+      (while (re-search-forward "^\\\\closing" nil t)
+        (forward-line 1)
         (move-beginning-of-line nil)
-        (delete-region (point) (save-excursion (forward-line 1) (point)))
-        (forward-line 2)
-        (insert "\\end{letter}"))))
+        (delete-region (point) (save-excursion (forward-line 1) (point))))
+      (re-search-forward "^\\\\end{document}")
+      (forward-line -1)
+      (insert "\\end{letter}")))
   (add-hook 'org-export-latex-final-hook 'fix-koma-letter)
 #+end_src
 
