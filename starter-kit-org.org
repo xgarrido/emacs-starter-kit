@@ -44,9 +44,15 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
                 (linum-mode -1)))
 #+end_src
 
-** Using ido completing
+** Org-Mode Keybindings
 #+begin_src emacs-lisp
-  (setq org-completion-use-ido t)
+  (define-key org-mode-map (kbd "s-p") 'org-export-as-pdf)
+  (define-key org-mode-map (kbd "s-l") 'org-export-as-latex)
+#+end_src
+
+** Using ido completing
+  #+begin_src emacs-lisp
+    (setq org-completion-use-ido t)
 #+end_src
 
 ** Code blocks
@@ -284,9 +290,8 @@ From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
         (lambda () (orgtbl-send-table 'maybe))))
 #+end_src
 
-** Org calendar synchornization with Google Agenda (not used)
+** Org calendar synchronization with Google Agenda (not used)
 #+begin_src emacs-lisp :tangle no
-  ;; (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
   ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
 
   (setq org-caldav-calendar-id "dmpa69a5ajdi54dtl8jsdqcivs@group.calendar.google.com"
