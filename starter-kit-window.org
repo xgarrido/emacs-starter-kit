@@ -150,7 +150,7 @@ Define new theme (since definition occurs here it is loaded by default)
   (set-default 'indicate-empty-lines t)
 #+end_src
 *** Highlight current Line
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (global-hl-line-mode t)
 #+end_src
 *** Auto revert buffer

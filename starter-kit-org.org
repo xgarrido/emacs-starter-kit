@@ -50,7 +50,14 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
   (define-key org-mode-map (kbd "s-l") 'org-export-as-latex)
 #+end_src
 
-** Using ido completing
+** Org-Mode settings
+*** Ellipsis
+#+begin_src emacs-lisp
+  (setq org-ellipsis "…"
+        org-columns-ellipses "…")
+#+end_src
+
+*** Using ido completing
   #+begin_src emacs-lisp
     (setq org-completion-use-ido t)
 #+end_src
@@ -105,6 +112,7 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
+*** Org
 *** Defining org-latex classes
 #+begin_src emacs-lisp tangle
   (unless (boundp 'org-export-latex-classes)
