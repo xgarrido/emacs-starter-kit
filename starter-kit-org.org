@@ -1,3 +1,4 @@
+
 #+TITLE: Starter Kit Org
 #+OPTIONS: toc:nil num:nil ^:nil
 
@@ -112,9 +113,12 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
-*** Org
+#+begin_src emacs-lisp
+  (require 'org-latex)
+#+end_src
+
 *** Defining org-latex classes
-#+begin_src emacs-lisp tangle
+#+begin_src emacs-lisp :tangle no
   (unless (boundp 'org-export-latex-classes)
     (setq org-export-latex-classes nil))
 
@@ -147,7 +151,7 @@ file using the `org-babel-lob-ingest' function.
 The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html][thread]] on org-mode mailing list. For some
 reasons, =downcase= the heading string induces the remove of =\label{}= (which
 is actually fine).
-#+begin_src emacs-lisp :results silent
+#+begin_src emacs-lisp
   (add-to-list 'org-export-latex-classes
                '("koma-letter"
                  "%% koma-letter
@@ -182,15 +186,16 @@ following piece of code try to solve this (orginal idea from [[http://lists.gnu.
   (defun fix-koma-letter ()
     (save-excursion
       (goto-char (point-min))
-      (search-forward "koma-letter")
-      (delete-matching-lines "\maketitle")
-      (while (re-search-forward "^\\\\closing" nil t)
-        (forward-line 1)
-        (move-beginning-of-line nil)
-        (delete-region (point) (save-excursion (forward-line 1) (point))))
-      (re-search-forward "^\\\\end{document}")
-      (forward-line -1)
-      (insert "\\end{letter}")))
+      (if (search-forward "koma-letter" nil t 1)
+          (progn
+            (delete-matching-lines "\maketitle")
+            (while (re-search-forward "^\\\\closing" nil t)
+              (forward-line 1)
+              (move-beginning-of-line nil)
+              (delete-region (point) (save-excursion (forward-line 1) (point))))
+            (re-search-forward "^\\\\end{document}")
+            (forward-line -1)
+            (insert "\\end{letter}")))))
   (add-hook 'org-export-latex-final-hook 'fix-koma-letter)
 #+end_src
 
@@ -201,8 +206,8 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
     "When exporting from .org with latex, automatically run latex,
        pdflatex, or xelatex as appropriate, using latexmk."
     (let ((texcmd)))
-    ;; default command: oldstyle latex via dvi
-    (setq texcmd "latexmk -dvi -pdfps -quiet %f")
+    ;; default command: pdflatex
+    (setq texcmd "latexmk -pdf -quiet %f")
     ;; pdflatex -> .pdf
     (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
         (setq texcmd "latexmk -pdf -quiet %f"))
