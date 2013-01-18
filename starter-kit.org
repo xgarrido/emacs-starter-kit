@@ -242,6 +242,7 @@ interested in the actual code implementing the starter kit.
     (setq autoload-file (concat starter-kit-dir "loaddefs.el"))
     (setq package-user-dir (concat starter-kit-dir "elpa"))
     (setq custom-file (concat starter-kit-dir "custom.el"))
+    (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
   #+end_src
 
 - Ubiquitous Packages which should be loaded on startup rather than
@@ -321,6 +322,11 @@ everyone using the starter kit.
 - ELPA archive repositories and packages to install by default.
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-elpa.org")
+  #+end_src
+
+- External lisp files
+  #+begin_src emacs-lisp
+    (starter-kit-load "starter-kit-site-lisp.org")
   #+end_src
 
 - Window settings (color theme...) in [[file:starter-kit-window.org][starter-kit-window]]

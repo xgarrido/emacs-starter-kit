@@ -339,18 +339,30 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
-** Mouse scrolling (not used)
-#+begin_src emacs-lisp :tangle no
-  (defun smooth-scroll (increment)
-    (scroll-up increment) (sit-for 0.05)
-    (scroll-up increment) (sit-for 0.02)
-    (scroll-up increment) (sit-for 0.02)
-    (scroll-up increment) (sit-for 0.05)
-    (scroll-up increment) (sit-for 0.06)
-    (scroll-up increment))
+** Buffer scrolling
+Smooth keyboard scrolling
+#+begin_src emacs-lisp
+  (setq
+   redisplay-dont-pause t                 ;; scrolling
+   scroll-step 1                          ;; scroll line per line (1 line instead of 3)
+   scroll-margin 0                        ;; do smooth scrolling, ...
+   scroll-conservatively 100000           ;; ... the defaults ...
+   scroll-up-aggressively 0               ;; ... are very ...
+   scroll-down-aggressively 0             ;; ... annoying
+   )
+#+end_src
 
-  (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll +1)))
-  (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll -1)))
+Use [[https://github.com/kiwanami/emacs-inertial-scroll][inertial-scroll]] for a really smooth scrolling when using mouse wheel and
+next/prior keys.
+#+begin_src emacs-lisp
+  (require 'inertial-scroll)
+  (inertias-global-minor-mode 1)
+  (setq inertias-rebound-flash nil
+        inertias-initial-velocity-wheel 20)
+  (global-set-key [(mouse-5)] 'inertias-up-wheel)
+  (global-set-key [(mouse-4)] 'inertias-down-wheel)
+  (global-set-key (kbd "<next>")  'inertias-up)
+  (global-set-key (kbd "<prior>") 'inertias-down)
 #+end_src
 
 * Footnotes

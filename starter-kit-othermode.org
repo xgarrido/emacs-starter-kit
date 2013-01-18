@@ -54,16 +54,6 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+end_src
 
 ** trac-wiki-mode
-First we ensure that =trac-wiki.el= file is present in =lisp= directory.
-#+begin_src emacs-lisp
-  (defconst trac-wiki-file (expand-file-name "trac-wiki.el"
-                                             starter-kit-lisp-directory))
-  (when (not (file-exists-p trac-wiki-file))
-      (url-copy-file
-       "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"
-       trac-wiki-file t))
-#+end_src
-
 Define some usual =trac-wiki= projects.
 #+begin_src emacs-lisp
   (require 'trac-wiki)

@@ -40,7 +40,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'gnuplot
           'undo-tree
           'fill-column-indicator
-          'xml-rpc)
+          'xml-rpc
+          'ack-and-a-half)
     "Libraries that should be installed by default.")
 #+end_src
 
