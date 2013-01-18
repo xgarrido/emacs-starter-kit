@@ -319,12 +319,12 @@ The following files contain the remainder of the core of the Emacs
 Starter Kit.  All of the code in this section should be loaded by
 everyone using the starter kit.
 
-- ELPA archive repositories and packages to install by default.
+- ELPA archive repositories and packages to install by default in [[file:starter-kit-elpa.org][starter-kit-elpa]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-elpa.org")
   #+end_src
 
-- External lisp files
+- External lisp files in [[file:starter-kit-site-lisp.org][starter-kit-site-lisp]]
   #+begin_src emacs-lisp
     (starter-kit-load "starter-kit-site-lisp.org")
   #+end_src
