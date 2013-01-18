@@ -160,11 +160,6 @@ Define new theme (since definition occurs here it is loaded by default)
   (setq revert-without-query '(".*"))
 #+end_src
 ** Setting default directories
-Setting =lisp= directory and add it the =load-path=.
-#+begin_src emacs-lisp
-  (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
-  (add-to-list 'load-path starter-kit-lisp-directory)
-#+end_src
 
 [[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
 a given file. =backup-directory-alist= is related to the directory
@@ -287,22 +282,20 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
             ("shell script" (mode . sh-mode))
             ("emacs lisp" (mode . emacs-lisp-mode))
             ("python" (mode . python-mode))
+            ("LaTeX" (or
+                      (mode . latex-mode)
+                      (mode . LaTeX-mode)
+                      (mode . tex-mode)))
             ("ruby" (mode . ruby-mode))
-            ("coffee-script" (mode . coffee-mode))
             ("java-script" (or
                             (mode . js-mode)
                             (mode . js2-mode)))
-            ("action-script" (mode . actionscript-mode))
             ("java" (mode . java-mode))
             ("html" (or
                      (mode . html-mode)
                      (mode . web-mode)
                      (mode . haml-mode)))
             ("xml" (mode . nxml-mode))
-            ("css preprocessor" (or
-                                 (mode . scss-mode)
-                                 (mode . sass-mode)
-                                 (mode . stylus-mode)))
             ("css" (mode . css-mode))
             ("org agenda"  (mode . org-agenda-mode))
             ("org" (or
@@ -322,8 +315,6 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                      (mode . Info-mode)
                      (mode . help-mode)
                      (mode . Man-mode)))
-            ("*kite*" (name . "^\\*kite.*\\*"))
-            ("*helm*" (name . "^\\*helm.*\\*"))
             ("*buffer*" (name . "\\*.*\\*"))))))
   (add-hook 'ibuffer-mode-hook
             #'(lambda ()
