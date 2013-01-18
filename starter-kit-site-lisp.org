@@ -1,0 +1,48 @@
+#+TITLE: Starter Kit Site Lisp
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter Kit Site Lisp
+The purpose of this code is to download, if necessary, missing lisp code that
+can not be retrieved through ELPA package. Maybe this can be better done using
+[[https://github.com/dimitri/el-get][el-get]] package. No update mechanism is implemented but in the same time, the
+packages retrieved this way are not fashion enough (otherwise there have been
+added to melpa).
+
+** Download code
+#+begin_src emacs-lisp
+  (defun install-site-lisp-file (package urls)
+    "Function to get a remote lisp file."
+    (let (dir file)
+      (setq dir (concat starter-kit-lisp-directory package "/"))
+      ;; Make sure the directory exists and add it to the load path
+      (make-directory dir t)
+      (add-to-list 'load-path dir)
+      ;; Loop over urls
+      (while urls
+        (let (url file)
+          (setq url (pop urls))
+          (setq file (concat dir (file-name-nondirectory url)))
+          (message "URL %s" file)
+          (when (not (file-exists-p file))
+            (url-copy-file url file t))))))
+#+end_src
+
+** External Lisp files
+*** trac-wiki
+#+begin_src emacs-lisp
+  (install-site-lisp-file
+   "trac-wiki"
+   (list "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"))
+#+end_src
+
+*** inertial-scroll
+#+begin_src emacs-lisp
+  (install-site-lisp-file
+   "inertial-scroll"
+   (list
+   "https://raw.github.com/kiwanami/emacs-inertial-scroll/master/inertial-scroll.el"
+   "https://raw.github.com/kiwanami/emacs-deferred/master/concurrent.el"
+   "https://raw.github.com/kiwanami/emacs-deferred/master/deferred.el"))
+#+end_src
