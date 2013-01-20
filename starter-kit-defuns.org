@@ -211,6 +211,14 @@ to use it
     (grep (concat "egrep -s -i -n -r " needle " *")))
 #+end_src
 
+Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] and create shorter aliases
+#+begin_src emacs-lisp
+  (defalias 'ack 'ack-and-a-half)
+  (defalias 'ack-same 'ack-and-a-half-same)
+  (defalias 'ack-find-file 'ack-and-a-half-find-file)
+  (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
+#+end_src
+
 *** Toggling fullscreen
 #+begin_src emacs-lisp
   (defun sk-toggle-fullscreen ()
