@@ -52,63 +52,63 @@ to use this file:
 
 *** saving mail locally
 Where your mail will be saved locally default value will be =~/gmail=.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'gnus)
   (setq nnml-directory "~/gmail")
   (setq message-directory "~/gmail")
-#+end_src
+#+END_SRC
 
 All Gmail groups will be ignored by the default value of
 =gnus-ignored-newsgroups=, so let's change that default value.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\”]\”[#’()]")
-#+end_src
+#+END_SRC
 
 *** getting mail
 Set Gmail as the primary source for incoming mail (Gnus can aggregate
 many email and/or newsgroup sources).
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq gnus-select-method
         '(nnimap "gmail"
                  (nnimap-address "imap.gmail.com")
                  (nnimap-server-port 993)
                  (nnimap-stream ssl)))
-#+end_src
+#+END_SRC
 
 Place a line like the following in =~/.authinfo=
-#+begin_src fundamental :tangle ~/.authinfo
+#+BEGIN_SRC fundamental :tangle ~/.authinfo
   machine imap.gmail.com login your-name@gmail.com password your-password port 993
-#+end_src
+#+END_SRC
 
 and make sure that no-one else can read it with
-#+begin_src sh
+#+BEGIN_SRC sh
   chmod 600 ~/.authinfo
-#+end_src
+#+END_SRC
 
 *** sending mail
 /Requirement/: gnus uses the [[http://en.wikipedia.org/wiki/STARTTLS][starttls]] tool for encrypted sending of
 email to the Gmail SMTP server.  This is easily installed on modern
 Debian (including Ubuntu) systems with
-#+begin_src sh
+#+BEGIN_SRC sh
   apt-get install starttls
-#+end_src
+#+END_SRC
 
 The following configures gnus to use the Gmail SMTP server for sending
 email.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
         smtpmail-auth-credentials '(("smtp.gmail.com" 587 "your-name@gmail.com" nil))
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587)
-#+end_src
+#+END_SRC
 
 If you don't want to be prompted for a password on every mail sent,
 you can add the following line to your =~/.authinfo=.
-#+begin_src fundamental :tangle ~/.authinfo
+#+BEGIN_SRC fundamental :tangle ~/.authinfo
   machine smtp.gmail.com login your-name@gmail.com your-password secret port 587
-#+end_src
+#+END_SRC
 
 ** Pop
   :PROPERTIES:
@@ -126,15 +126,15 @@ instillation.
 
 *** Basic configuration
 First off, load up =gnus=
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'gnus)
-#+end_src
+#+END_SRC
 
 Tell gnus that your mainly going to be using it for email not as a
 news reader -- after all it's not longer the late 80s.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq gnus-select-method '(nnml ""))
-#+end_src
+#+END_SRC
 
 *** Required packages
    :PROPERTIES:
@@ -165,7 +165,7 @@ following tables.
 | email    | your-gmail-email-address |
 | password | your-gmail-password      |
 
-#+begin_src emacs-lisp :var config=gmail-configuration
+#+BEGIN_SRC emacs-lisp :var config=gmail-configuration
   (let ((email (second (first config)))
         (passwd (second (second config))))
     ;; The following adds Gmail as a source of mail for Gnus
@@ -187,7 +187,7 @@ following tables.
           smtpmail-default-smtp-server "smtp.gmail.com"
           smtpmail-smtp-server "smtp.gmail.com"
           smtpmail-smtp-service 587))
-#+end_src
+#+END_SRC
 
 ** Customizations
   :PROPERTIES:
@@ -204,7 +204,7 @@ customizations.
 which is very useful for keeping all of your contacts organized for
 use with gnus.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;;; bbdb
   (require 'bbdb)
   (require 'bbdb-autoloads)
@@ -217,7 +217,7 @@ use with gnus.
    bbdb-always-add-addresses t
    bbdb-complete-name-allow-cycling t
    )
-#+end_src
+#+END_SRC
 
 *** More attractive Summary View
     :PROPERTIES:
@@ -225,7 +225,7 @@ use with gnus.
     :END:
 Thanks to Dan Davison.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   ;; http://groups.google.com/group/gnu.emacs.gnus/browse_thread/thread/a673a74356e7141f
   (when window-system
     (setq gnus-sum-thread-tree-indent "  ")
@@ -247,4 +247,4 @@ Thanks to Dan Davison.
          "%1{%B%}"
          "%s\n"))
   (setq gnus-summary-display-arrow t)
-#+end_src
+#+END_SRC

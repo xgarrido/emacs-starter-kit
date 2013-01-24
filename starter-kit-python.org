@@ -11,11 +11,11 @@ Support for the Python programming language.
 
 Determine whether required packages are installed. If not, use ELPA to
 install them.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (dolist (package '(python-mode ipython))
     (unless (package-installed-p package)
       (package-install package)))
-#+end_src
+#+END_SRC
 
 ** Use Python's python-mode.el instead of Emacs' python.el
    :PROPERTIES:
@@ -23,11 +23,11 @@ install them.
    :END:
 Replace the Python mode that comes with Emacs by the Python mode
 supplied by the Python distribution itself.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (require 'python-mode)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
-#+end_src
+#+END_SRC
 
 ** Use IPython if =ipython= command is present
    :PROPERTIES:
@@ -35,19 +35,19 @@ supplied by the Python distribution itself.
    :END:
 If an =ipython= executable is on the path, then assume that IPython is
 the preferred method python evaluation.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when (executable-find "ipython")
     (require 'ipython)
     (setq org-babel-python-mode 'python-mode))
-#+end_src
+#+END_SRC
 
 ** Use Cython mode
    :PROPERTIES:
    :CUSTOM_ID: cython
    :END:
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (require 'cython-mode)
 (add-to-list 'auto-mode-alist '("\\.pyx\\'" . cython-mode))
 (add-to-list 'auto-mode-alist '("\\.pxd\\'" . cython-mode))
 (add-to-list 'auto-mode-alist '("\\.pxi\\'" . cython-mode))
-#+end_src
+#+END_SRC

@@ -49,9 +49,9 @@ The [[http://emacswiki.org][Emacs Wiki]] is also very handy.
 2. Checkout a version of the starter kit using git -- if you're new to
    git checkout this [[http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html][git-tutorial]], also we'd highly recommend that you
    try out [[http://zagadka.vm.bytemark.co.uk/magit/magit.html][magit]] the Emacs mode for git interaction.
-   #+begin_src sh
+   #+BEGIN_SRC sh
      git clone http://github.com/eschulte/emacs24-starter-kit.git
-   #+end_src
+   #+END_SRC
 3. Move the resulting directory to =~/.emacs.d= [1]
 7. Launch Emacs!
 
@@ -65,9 +65,9 @@ itself as =void function: foobar= errors) try M-x regen-autoloads.
 If you want to keep your regular =~/.emacs.d= in place and just launch
 a single instance using the starter kit, try the following invocation:
 
-#+begin_src sh
+#+BEGIN_SRC sh
   emacs -q -l ~/path/to/emacs24-starter-kit/init.el
-#+end_src
+#+END_SRC
 
 Note that having a =~/.emacs= file might override the starter kit
 loading, so if you've having trouble loading it, make sure that file
@@ -111,9 +111,9 @@ general starter-kit updates without conflict.
      after your user with the extensions =.el= or =.org= [2].  If
      you're unsure of your user name evaluate the following code block
      to find out.
-     #+begin_src sh
+     #+BEGIN_SRC sh
        echo $USER # note: on windows this is the USERNAME variable
-     #+end_src
+     #+END_SRC
 
      If your configuration starts to feel cramped in a single file
      (although with the nested headlines of an Org-mode file, that
@@ -129,9 +129,9 @@ general starter-kit updates without conflict.
      or =.org= which will allow host-specific configuration.  If
      you're unsure of your hostname the following can be executed to
      find out.
-     #+begin_src sh
+     #+BEGIN_SRC sh
        hostname
-     #+end_src
+     #+END_SRC
 
 - Activating more of the starter kit :: By default, the starter kit
      only includes customizations which are likely to be useful across
@@ -145,25 +145,25 @@ general starter-kit updates without conflict.
      =starter-kit-python.org= either by directly copying the sections
      that look useful into your personal config, or simply by loading
      the entire file directly with the following.
-     #+begin_src emacs-lisp
+     #+BEGIN_SRC emacs-lisp
        (starter-kit-load "python")
-     #+end_src
+     #+END_SRC
 
      Alternately you can load only one particular subsection of an
      included file, for example to load just the "pretty-summary"
      section of =starter-kit-gnus.org= run the following.
-     #+begin_src emacs-lisp
+     #+BEGIN_SRC emacs-lisp
        (starter-kit-load "gnus" "pretty-summary")
-     #+end_src
+     #+END_SRC
 
      Finally you can load just those subsections of a file which have
      a specific tag, so to load just the two sections of
      =starter-kit-misc-recommended.org= which are tagged =visual= add
      the following to your personal initialization.  Note: header id's
      take priority over tags.
-     #+begin_src emacs-lisp
+     #+BEGIN_SRC emacs-lisp
        (starter-kit-load "gnus" "visual")
-     #+end_src
+     #+END_SRC
 
 - Installing more elisp libraries :: The easiest way to install new
      libraries is through the Emacs Lisp Package Archive (see [[#emacs-lisp-package-archive][Emacs
@@ -237,30 +237,30 @@ interested in the actual code implementing the starter kit.
 ** Starter kit basics
 - Load path etc.
   #+name: starter-kit-load-paths
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path starter-kit-dir)
     (setq autoload-file (concat starter-kit-dir "loaddefs.el"))
     (setq package-user-dir (concat starter-kit-dir "elpa"))
     (setq custom-file (concat starter-kit-dir "custom.el"))
     (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
-  #+end_src
+  #+END_SRC
 
 - Ubiquitous Packages which should be loaded on startup rather than
   autoloaded on demand since they are likely to be used in every
   session.
   #+name: starter-kit-load-on-startup
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (require 'cl)
     (require 'saveplace)
     (require 'uniquify)
     (require 'ansi-color)
     (require 'recentf)
     (require 'linum)
-  #+end_src
+  #+END_SRC
 
 - Functions for loading other parts of the starter kit
   #+name: starter-kit-load
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (defun starter-kit-load (file &optional header-or-tag)
       "Load configuration from other starter-kit-*.org files.
     If the optional argument is the id of a subtree then only
@@ -309,7 +309,7 @@ interested in the actual code implementing the starter kit.
                              body))))))))
                partial-file)
            file))))
-  #+end_src
+  #+END_SRC
 
 ** Starter kit core
    :PROPERTIES:
@@ -320,29 +320,29 @@ Starter Kit.  All of the code in this section should be loaded by
 everyone using the starter kit.
 
 - ELPA archive repositories and packages to install by default in [[file:starter-kit-elpa.org][starter-kit-elpa]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-elpa.org")
-  #+end_src
+  #+END_SRC
 
 - External lisp files in [[file:starter-kit-site-lisp.org][starter-kit-site-lisp]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-site-lisp.org")
-  #+end_src
+  #+END_SRC
 
 - Window settings (color theme...) in [[file:starter-kit-window.org][starter-kit-window]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-window.org")
-  #+end_src
+  #+END_SRC
 
 - Starter kit function definitions in [[file:starter-kit-defuns.org][starter-kit-defuns]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-defuns.org")
-  #+end_src
+  #+END_SRC
 
 - Key Bindings in [[file:starter-kit-bindings.org][starter-kit-bindings]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-bindings.org")
-  #+end_src
+  #+END_SRC
 
 ** Load module files
 The following files contain specific settings for several modules.
@@ -350,30 +350,30 @@ The following files contain specific settings for several modules.
 - [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is
   inspired by TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]]
   or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and tutorial]])
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-yasnippet.org")
-  #+end_src
+  #+END_SRC
 
 - [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things
   within buffers and files like switching between buffers
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-ido.org")
-  #+end_src
+  #+END_SRC
 
 - [[file:starter-c++.org][C++ specific tweaks]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-c++.org")
-  #+end_src
+  #+END_SRC
 
 - other mode in [[file:starter-kit-othermode.org][starter-kit-othermode]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-othermode.org")
-  #+end_src
+  #+END_SRC
 
 - [[http://orgmode.org/][Orgmode]] settings in [[file:starter-kit-org.org][starter-kit-org]]
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-org.org")
-  #+end_src
+  #+END_SRC
 
 ** Load User/System Specific Files
 *** System/User specific customizations
@@ -388,7 +388,7 @@ project is not in elpa.
 
 After we've loaded all the Starter Kit defaults, lets load the User's stuff.
 #+name: starter-kit-load-files
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (flet ((sk-load (base)
            (let* ((path          (expand-file-name base starter-kit-dir))
                   (literate      (concat path ".org"))
@@ -423,13 +423,13 @@ After we've loaded all the Starter Kit defaults, lets load the User's stuff.
                (mapcar #'remove-extension
                        (directory-files user-dir t ".*\.\\(org\\|el\\)\\(\\.gpg\\)?$"))
                :test #'string=)))))
-#+end_src
+#+END_SRC
 
 *** Settings from M-x customize
 #+name: m-x-customize-customizations
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (load custom-file 'noerror)
-#+end_src
+#+END_SRC
 
 * Footnotes
 

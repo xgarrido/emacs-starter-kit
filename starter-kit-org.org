@@ -21,7 +21,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 :CUSTOM_ID: keybindings
 :END:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook
             (lambda ()
               (local-set-key "\C-n" 'outline-next-visible-heading)
@@ -33,35 +33,35 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (local-set-key "\M-\C-l" 'org-table-sort-lines)
               ;; display images
               (local-set-key "\M-I" 'org-toggle-iimage-in-org)))
-#+end_src
+#+END_SRC
 
 *** Minor mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook
               (lambda ()
                 (org-indent-mode  t)
                 (org-bullets-mode t)
                 (auto-complete-mode t)
                 (linum-mode -1)))
-#+end_src
+#+END_SRC
 
 ** Org-Mode Keybindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "s-p") 'org-export-as-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-export-as-latex)
-#+end_src
+#+END_SRC
 
 ** Org-Mode settings
 *** Ellipsis
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-ellipsis "…"
         org-columns-ellipses "…")
-#+end_src
+#+END_SRC
 
 *** Using ido completing
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (setq org-completion-use-ido t)
-#+end_src
+#+END_SRC
 
 ** Code blocks
      :PROPERTIES:
@@ -72,18 +72,18 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
   `=org-babel-load-languages=' variable, or with an elisp form like the
   one below.  The customize interface of `=org-babel-load-languages='
   contains an up to date list of the currently supported languages.
-  #+begin_src emacs-lisp
+  #+BEGIN_SRC emacs-lisp
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((emacs-lisp . t)
        (sh . t)))
-#+end_src
+#+END_SRC
 
 You are encouraged to add the following to your personal configuration
 although it is not added by default as a security precaution.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-confirm-babel-evaluate nil)
-#+end_src
+#+END_SRC
 
 ** Code block fontification
    :PROPERTIES:
@@ -94,10 +94,10 @@ using the major-mode of the code.  It also changes the behavior of
 =TAB= to as if it were used in the appropriate major mode.  This means
 that reading and editing code form inside of your Org-mode files is
 much more like reading and editing of code using its major mode.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively  t)
   (setq org-src-tab-acts-natively t)
-#+end_src
+#+END_SRC
 
 ** The Library of Babel
    :PROPERTIES:
@@ -113,12 +113,12 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'org-latex)
-#+end_src
+#+END_SRC
 
 *** Defining org-latex classes
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
   (unless (boundp 'org-export-latex-classes)
     (setq org-export-latex-classes nil))
 
@@ -145,13 +145,13 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-#+end_src
+#+END_SRC
 
 *** KOMA/LaTeX script
 The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html][thread]] on org-mode mailing list. For some
 reasons, =downcase= the heading string induces the remove of =\label{}= (which
 is actually fine).
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'org-export-latex-classes
                '("koma-letter"
                  "%% koma-letter
@@ -177,12 +177,12 @@ is actually fine).
        (t 'ignore))
       (list heading open close open close))
     )
-#+end_src
+#+END_SRC
 
 The previous code works almost perfectly except that an additional blank line is
 added to the =\closing= sentence and the =\end{letter}= is missing. The
 following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][EricSchulte]]).
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun fix-koma-letter ()
     (save-excursion
       (goto-char (point-min))
@@ -197,11 +197,11 @@ following piece of code try to solve this (orginal idea from [[http://lists.gnu.
             (forward-line -1)
             (insert "\\end{letter}")))))
   (add-hook 'org-export-latex-final-hook 'fix-koma-letter)
-#+end_src
+#+END_SRC
 
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun latexmk-cmd ()
     "When exporting from .org with latex, automatically run latex,
        pdflatex, or xelatex as appropriate, using latexmk."
@@ -218,7 +218,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
     (setq org-latex-to-pdf-process (list texcmd)))
 
   (add-hook 'org-export-latex-after-initial-vars-hook 'latexmk-cmd)
-#+end_src
+#+END_SRC
 
 ** Prevent editing invisible text
 The following setting prevents accidentally editing hidden text when
@@ -228,18 +228,18 @@ body of a heading and globally fold the org-file with =S-TAB=
 I find invisible edits (and undo's) hard to deal with so now I can't
 edit invisible text. =C-c C-r= (org-reveal) will display where the point
 is if it is buried in invisible text to allow editing again.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-catch-invisible-edits 'error)
-#+end_src
+#+END_SRC
 
 ** Automatically renumber footnotes
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq org-footnote-auto-adjust t)
-#+end_src
+#+END_SRC
 ** Org fold to store folding state
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
 the =.fold= file is saved.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'cl)
   (require 'org)
 
@@ -292,23 +292,23 @@ the =.fold= file is saved.
     ;; don't save folding info for unsaved buffers
     (unless (buffer-modified-p)
       (org-fold-save)))
-#+end_src
+#+END_SRC
 
 ** Function to generate all org table
 From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-org-send-all-tables ()
      (interactive)
      (org-table-map-tables
         (lambda () (orgtbl-send-table 'maybe))))
-#+end_src
+#+END_SRC
 
 ** Org calendar synchronization with Google Agenda (not used)
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
 
   (setq org-caldav-calendar-id "dmpa69a5ajdi54dtl8jsdqcivs@group.calendar.google.com"
         org-caldav-url "https://www.google.com/calendar/dav";
         org-caldav-files '("~/Documents/Org/rdv.org")
         org-caldav-inbox "~/Documents/Org/inbox.org")
-#+end_src
+#+END_SRC

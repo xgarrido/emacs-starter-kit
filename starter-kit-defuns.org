@@ -13,7 +13,7 @@ functions not go in hooks. Repeatedly evaling an add-to-list with a
 hook value will repeatedly add it since there's no way to ensure that
 a lambda doesn't already exist in the list.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-electric-pair ()
     (electric-pair-mode t))
 
@@ -43,32 +43,32 @@ a lambda doesn't already exist in the list.
    ;;           (function (lambda ()
    ;;                       (local-set-key (kbd "<tab>") 'indent-or-complete))))
 
-#+end_src
+#+END_SRC
 
 Perform a bunch of safe operations on the whitespace content of a
 buffer. Does not indent buffer, because it is used for a
 =before-save-hook=, and that might be bad.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-cleanup-buffer-safe ()
     (interactive)
     ;;(untabify (point-min) (point-max))
     (delete-trailing-whitespace))
-#+end_src
+#+END_SRC
 
 Perform a bunch of operations on the whitespace content of a
 buffer. Including indent-buffer, which should not be called
 automatically on save.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-cleanup-buffer ()
     (interactive)
     (starter-kit-cleanup-buffer-safe)
     (indent-region (point-min) (point-max)))
-#+end_src
+#+END_SRC
 
 ** Handling buffers
 *** Rename/Move both current buffer and file currently visited
 From [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve Yegge .emacs]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-rename-file-and-buffer (new-name)
     "Renames both current buffer and file it's visiting to NEW-NAME."
     (interactive "sNew name: ")
@@ -100,11 +100,11 @@ From [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve Yegge .emacs]
                (delete-file filename)
                (set-visited-file-name newname)
                (set-buffer-modified-p nil) t))))
-#+end_src
+#+END_SRC
 
 *** Delete current buffer file
 From [[http://whattheemacsd.com/file-defuns.el-02.html][Magnars blog]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-delete-current-buffer-file ()
     "Removes file connected to current buffer and kills buffer."
     (interactive)
@@ -117,37 +117,37 @@ From [[http://whattheemacsd.com/file-defuns.el-02.html][Magnars blog]]
           (delete-file filename)
           (kill-buffer buffer)
           (message "File '%s' successfully removed" filename)))))
-#+end_src
+#+END_SRC
 
 *** Stop displaying minibuffer when mouse go to another buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-stop-using-minibuffer ()
     "Kill the minibuffer"
     (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
       (abort-recursive-edit)))
-#+end_src
+#+END_SRC
 
 *** Touching the current buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-touch ()
     (interactive)
     (shell-command (concat "touch " (shell-quote-argument (buffer-file-name)))))
-#+end_src
+#+END_SRC
 
 *** Splitting buffer
 When splitting is done, emacs will open the next buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice split-window-vertically
     (after my-window-splitting-advice first () activate)
     (set-window-buffer (next-window) (other-buffer)))
   (defadvice split-window-horizontally
     (after my-window-splitting-advice first () activate)
     (set-window-buffer (next-window) (other-buffer)))
-#+end_src
+#+END_SRC
 
 ** Handling window
 From [[http://whattheemacsd.com//buffer-defuns.el-03.html][Magnars blog]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-toggle-window-split ()
     (interactive)
     (if (= (count-windows) 2)
@@ -172,10 +172,10 @@ From [[http://whattheemacsd.com//buffer-defuns.el-03.html][Magnars blog]]
             (set-window-buffer (next-window) next-win-buffer)
             (select-window first-win)
             (if this-win-2nd (other-window 1))))))
-#+end_src
+#+END_SRC
 
 ** Saving desktop status
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-desktop ()
     "Load the desktop and enable autosaving"
     (interactive)
@@ -186,22 +186,22 @@ From [[http://whattheemacsd.com//buffer-defuns.el-03.html][Magnars blog]]
   (defun sk-desktop-save ()
     (interactive)
     (desktop-save desktop-dirname))
-#+end_src
+#+END_SRC
 
 ** Misc.
 *** Edit current buffer with sudo rights
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-sudo-edit-current-file (&optional arg)
     (interactive "p")
     (if (or arg (not buffer-file-name))
         (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
       (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-#+end_src
+#+END_SRC
 
 *** Grepping words
 For sure there might be a better way and tool to do that but I am used
 to use it
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-grep ()
     "grep the whole directory for something defaults to term at cursor position"
     (interactive)
@@ -209,27 +209,27 @@ to use it
     (setq needle (or (read-string (concat "grep for <" default "> ")) default))
     (setq needle (if (equal needle "") default needle))
     (grep (concat "egrep -s -i -n -r " needle " *")))
-#+end_src
+#+END_SRC
 
 Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] and create shorter aliases
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defalias 'ack 'ack-and-a-half)
   (defalias 'ack-same 'ack-and-a-half-same)
   (defalias 'ack-find-file 'ack-and-a-half-find-file)
   (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
-#+end_src
+#+END_SRC
 
 *** Toggling fullscreen
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-toggle-fullscreen ()
     (interactive)
     (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                              nil
                                              'fullboth)))
-#+end_src
+#+END_SRC
 
 *** Sending libnotify popup
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sk-popup (title msg)
     "Show a popup if we're on X, or echo it otherwise; TITLE is the
   title of the message, MSG is the context."
@@ -242,11 +242,11 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
   (defun sk-test-popup ()
     (interactive)
     (sk-popup "Test Notification :" "test"))
-#+end_src
+#+END_SRC
 
 ** Hooks
 *** Coding
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'starter-kit-coding-hook 'sk-local-comment-auto-fill)
   (add-hook 'starter-kit-coding-hook 'sk-pretty-lambdas)
   (add-hook 'starter-kit-coding-hook 'sk-electric-pair)
@@ -255,48 +255,48 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
   (add-hook 'starter-kit-coding-hook 'wrap-region-mode)
   (add-hook 'starter-kit-coding-hook 'linum-mode)
   (add-hook 'starter-kit-coding-hook 'turn-on-fci-mode)
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun run-starter-kit-coding-hook ()
     "Enable things that are convenient across all coding buffers."
     (run-hooks 'starter-kit-coding-hook))
-#+end_src
+#+END_SRC
 
 *** Indent correctly pasted code
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice yank (after indent-region activate)
   (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
                                            c-mode c++-mode objc-mode
                                            latex-mode plain-tex-mode
                                            python-mode org-mode))
       (indent-region (region-beginning) (region-end) nil)))
-#+end_src
+#+END_SRC
 
 *** Clean up buffer before saving
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'sk-cleanup-buffer-safe)
-#+end_src
+#+END_SRC
 
 *** Store session before saving
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'auto-save-hook 'sk-desktop-save)
-#+end_src
+#+END_SRC
 
 *** Create a directory when there is not
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook
             (lambda ()
               (let ((dir (file-name-directory buffer-file-name)))
                 (when (and (not (file-exists-p dir))
                            (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
                   (make-directory dir t)))))
-#+end_src
+#+END_SRC
 *** Misc.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'mouse-leave-buffer-hook 'sk-stop-using-minibuffer)
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
-#+end_src
+#+END_SRC

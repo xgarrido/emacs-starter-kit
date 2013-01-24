@@ -5,30 +5,30 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Other Mode
 ** Coding Hook
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'run-starter-kit-coding-hook)
   (add-hook 'sh-mode-hook         'run-starter-kit-coding-hook)
   (add-hook 'latex-mode-hook      'run-starter-kit-coding-hook)
   (add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
-#+end_src
+#+END_SRC
 
 ** latex-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'latex-mode-hook 'turn-on-orgtbl)
   ;;(add-hook 'latex-mode-hook 'turn-on-auto-fill)
-#+end_src
+#+END_SRC
 
 ** cmake-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'cmake-mode)
    (setq auto-mode-alist
          (append '(("CMakeLists\\.txt\\'" . cmake-mode)
                    ("\\.cmake\\'" . cmake-mode))
                  auto-mode-alist))
-#+end_src
+#+END_SRC
 
 ** multi-web-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'multi-web-mode)
   (setq mweb-default-major-mode 'html-mode)
   (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
@@ -36,10 +36,10 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
                     (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
   (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
   (multi-web-global-mode 1)
-#+end_src
+#+END_SRC
 
 ** css-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defvar hexcolour-keywords
     '(("#[abcdef[:digit:]]\\{6\\}"
        (0 (put-text-property
@@ -51,11 +51,11 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
     (font-lock-add-keywords nil hexcolour-keywords))
 
   (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
-#+end_src
+#+END_SRC
 
 ** trac-wiki-mode
 Define some usual =trac-wiki= projects.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'trac-wiki)
   (trac-wiki-define-project "trac-LAL"
                             "https://trac.lal.in2p3.fr/NEMO2/" t)
@@ -65,4 +65,4 @@ Define some usual =trac-wiki= projects.
 
   (autoload 'trac-wiki "trac-wiki"
     "Trac wiki editing entry-point." t)
-#+end_src
+#+END_SRC

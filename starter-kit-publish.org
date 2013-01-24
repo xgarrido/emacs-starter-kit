@@ -9,7 +9,7 @@ in the =doc/= directory.
 This code defines the =starter-kit-project= which is used to publish
 the documentation for the Starter Kit to html.
 
-#+begin_src emacs-lisp :results silent
+#+BEGIN_SRC emacs-lisp :results silent
   (unless (boundp 'org-publish-project-alist)
     (setq org-publish-project-alist nil))
   
@@ -47,4 +47,4 @@ the documentation for the Starter Kit to html.
     ;; copy starter-kit.html to index.html
     (copy-file (expand-file-name "starter-kit.html" (expand-file-name "doc" this-dir))
                (expand-file-name "index.html" (expand-file-name "doc" this-dir)) t))
-#+end_src
+#+END_SRC

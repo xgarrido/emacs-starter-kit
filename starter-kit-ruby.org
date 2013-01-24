@@ -7,7 +7,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 Support for the [[http://www.ruby-lang.org/en/][Ruby]] dynamic, open-source programming language.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (eval-after-load 'ruby-mode
   '(progn
      ;; work around possible elpa bug
@@ -17,36 +17,36 @@ Support for the [[http://www.ruby-lang.org/en/][Ruby]] dynamic, open-source prog
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
      (define-key ruby-mode-map (kbd "C-c l") "lambda")))
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-h r") 'ri)
-#+end_src
+#+END_SRC
 
 ** Rake files are ruby, too, as are gemspecs.
    :PROPERTIES:
    :CUSTOM_ID: additional-file-extensions
    :END:
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-#+end_src
+#+END_SRC
 
 ** We never want to edit Rubinius bytecode
    :PROPERTIES:
    :CUSTOM_ID: ignore-rubinius
    :END:
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'completion-ignored-extensions ".rbc")
-#+end_src
+#+END_SRC
 
 ** Rake
    :PROPERTIES:
    :CUSTOM_ID: rake
    :END:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (defun pcomplete/rake ()
   "Completion rules for the `ssh' command."
   (pcomplete-here (pcmpl-rake-tasks)))
@@ -63,7 +63,7 @@ exec-to-string command, but it works and seems fast"
   (interactive (list (completing-read "Rake (default: default): "
                                       (pcmpl-rake-tasks))))
   (shell-command-to-string (concat "rake " (if (= 0 (length task)) "default" task))))
-#+end_src
+#+END_SRC
 
 ** Compilation
    :PROPERTIES:
@@ -71,7 +71,7 @@ exec-to-string command, but it works and seems fast"
    :END:
 Clear the compilation buffer between test runs.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (eval-after-load 'ruby-compilation
   '(progn
      (defadvice ruby-do-run-w/compilation (before kill-buffer (name cmdlist))
@@ -80,26 +80,26 @@ Clear the compilation buffer between test runs.
            (with-current-buffer comp-buffer-name
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
-#+end_src
+#+END_SRC
 
 ** Hooks
    :PROPERTIES:
    :CUSTOM_ID: hooks
    :END:
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (add-hook 'ruby-mode-hook 'run-starter-kit-coding-hook)
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 ;; (add-hook 'ruby-mode-hook 'idle-highlight)
-#+end_src emacs-lisp
+#+END_SRC emacs-lisp
 
 ** Flymake
    :PROPERTIES:
    :CUSTOM_ID: flymake
    :END:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (eval-after-load 'ruby-mode
   '(progn
      (require 'flymake)
@@ -128,7 +128,7 @@ Clear the compilation buffer between test runs.
                    (local-set-key (kbd "C-c d")
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
-#+end_src
+#+END_SRC
 
 ** Rinari (Minor Mode for Ruby On Rails)
    :PROPERTIES:
@@ -136,8 +136,8 @@ Clear the compilation buffer between test runs.
    :END:
 See [[http://rinari.rubyforge.org/][rinari.rubyforge]] for more information on rinari.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
 	    'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
-#+end_src
+#+END_SRC

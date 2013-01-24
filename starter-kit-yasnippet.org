@@ -6,7 +6,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 * Starter Kit Yasnippet
 ** Templates
 Configuration of [[http://code.google.com/p/yasnippet/][yasnippet]] templates
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path
                (expand-file-name  "yasnippet"
                                   (expand-file-name "src"
@@ -27,12 +27,12 @@ Configuration of [[http://code.google.com/p/yasnippet/][yasnippet]] templates
     (define-key yas/keymap [tab] 'yas/next-field))
 
   (add-hook 'org-mode-hook #'yas/org-setup)
-#+end_src
+#+END_SRC
 
 ** Combining with autocomplete
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
   ;;(add-to-list 'ac-dictionary-directories (concat starter-kit-dir "snippets/auto-complete-dict"))
   (ac-config-default)
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
-#+end_src
+#+END_SRC

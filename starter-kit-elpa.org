@@ -5,7 +5,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit ELPA
 ** Defining ELPA sources
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq package-archives
         '(("gnu"         . "http://elpa.gnu.org/packages/")
           ("original"    . "http://tromey.com/elpa/")
@@ -13,10 +13,10 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           ("marmalade"   . "http://marmalade-repo.org/packages/")
           ("melpa"       . "http://melpa.milkbox.net/packages/")))
   (package-initialize)
-#+end_src
+#+END_SRC
 
 ** Default packages
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defvar starter-kit-packages
     (list 'yasnippet-bundle
           'magit
@@ -43,10 +43,10 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'xml-rpc
           'ack-and-a-half)
     "Libraries that should be installed by default.")
-#+end_src
+#+END_SRC
 
 ** Install defun
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun starter-kit-elpa-install ()
     "Install all starter-kit packages that aren't installed."
     (interactive)
@@ -54,12 +54,12 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
       (unless (package-installed-p package)
         (message "Installing %s" (symbol-name package))
         (package-install package))))
-#+end_src
+#+END_SRC
 
 ** Checking internet connection
 This should not work under Windows system since it does not have the
 =network-interface-list= function
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun starter-kit-elpa-online ()
     "Check internet connectivity."
     (if (and (functionp 'network-interface-list)
@@ -69,11 +69,11 @@ This should not work under Windows system since it does not have the
                                                      (car iface)))))))
               (network-interface-list))
       t))
-#+end_src
+#+END_SRC
 
 ** Installing ELPA package
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (when (starter-kit-elpa-online)
   (unless package-archive-contents (package-refresh-contents))
   (starter-kit-elpa-install))
-#+end_src
+#+END_SRC

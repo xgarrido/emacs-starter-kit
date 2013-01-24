@@ -5,17 +5,17 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit C++
 ** Set C++ mode for *.h and *.ipp files (instead of plain-old C mode)
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq auto-mode-alist (cons '("\\.h$"   . c++-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '("\\.ipp$" . c++-mode) auto-mode-alist))
-#+end_src
+#+END_SRC
 
 ** Running starter-kit-coding-hook
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook 'run-starter-kit-coding-hook)
-#+end_src
+#+END_SRC
 ** Un/fold function/namespace definitions
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook
             (lambda ()
               (local-set-key (kbd "<s-right>") 'hs-show-block)
@@ -26,17 +26,17 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
               ;;(c-toggle-hungry-state t)
               (hs-minor-mode   t)
               (whitespace-mode t)))
-#+end_src
+#+END_SRC
 
 ** Compilation
 *** Scroll down compilation messages
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq compilation-scroll-output t)
-#+end_src
+#+END_SRC
 
 *** Send notification when compilation is done
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun compile-notify (buffer message)
     (sk-popup "Emacs compilation" message))
   (setq compilation-finish-function 'compile-notify)
-#+end_src
+#+END_SRC

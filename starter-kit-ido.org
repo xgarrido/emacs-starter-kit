@@ -7,7 +7,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 ido-mode is like magic pixie dust!
 
 ** Basic configuration
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (ido-mode t)
   (setq ido-everywhere            t
         ido-enable-prefix         nil
@@ -20,57 +20,57 @@ ido-mode is like magic pixie dust!
         ;; ido-handle-duplicate-virtual-buffers 2
         ido-default-buffer-method 'selected-window
         ido-default-file-method   'selected-window)
-#+end_src
+#+END_SRC
 
 ** Keybindings
 Since =ido= buffer/file list is shown vertically, use <up/down> keys for
 navigating through ido item
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun ido-my-keys ()
     (define-key ido-completion-map (kbd "<up>")   'ido-prev-match)
     (define-key ido-completion-map (kbd "<down>") 'ido-next-match))
 
   (add-hook 'ido-setup-hook 'ido-my-keys)
-#+end_src
+#+END_SRC
 
 ** Extensions ordering and ignored ones
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-file-extensions-order     '(".cc" ".h" ".tex" ".sh" ".org"
                                         ".el"))
   (setq completion-ignored-extensions '(".o" ".elc" "~" ".bin" ".bak"
                                         ".obj" ".map" ".a" ".so"
                                         ".mod" ".aux" ".out" ".pyg"))
   (setq ido-ignore-extensions t)
-#+end_src
+#+END_SRC
 
 ** Keep annoying buffers out of search
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-ignore-buffers (list (rx (or (and bos  " ")
                                          (and bos
                                               (or "*Completions*"
                                                   "*Shell Command Output*"
                                                   "*vc-diff*")
                                               eos)))))
-#+end_src
+#+END_SRC
 
 ** Allow spaces when using ido-find-file
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'ido-make-file-list-hook
             (lambda ()
               (define-key ido-file-dir-completion-map (kbd "SPC") 'self-insert-command)))
-#+end_src
+#+END_SRC
 
 ** Show ido results vertically, rather than horizontally
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" "
     [No match]" " [Matched]" " [Not readable]" " [Too big]" "
     [Confirm]")))
   (defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
   (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
-#+end_src
+#+END_SRC
 
 ** Using recentf within ido
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun recentf-ido-find-file ()
       "Find a recent file using Ido."
       (interactive)
@@ -90,11 +90,11 @@ navigating through ido item
           (find-file (cdr (assoc filename
                                  file-assoc-list))))))
   (setq recentf-max-saved-items 100)
-#+end_src
+#+END_SRC
 
 ** Setting ido-ubiquitous
 Use ido everywhere
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'ido-ubiquitous)
   (ido-ubiquitous-mode 1)
 
@@ -108,15 +108,15 @@ Use ido everywhere
   (ido-ubiquitous-use-new-completing-read webjump 'webjump)
   (ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
   (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
-#+end_src
+#+END_SRC
 
 ** Misc.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
-#+end_src
+#+END_SRC
 
 ** Deprecated
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; Add project file to ido search using F6 shortcut
   (defun my-ido-project-files ()
     "Use ido to select a file from the project."
@@ -156,4 +156,4 @@ Use ido everywhere
         '(("your project name"
            :root-contains-files ("LICENSE.GPL3.txt")
            )))
-#+end_src
+#+END_SRC

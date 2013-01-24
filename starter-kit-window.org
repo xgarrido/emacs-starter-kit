@@ -6,7 +6,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 * Starter Kit Window
 ** Window default settings
 Settings in relation with emacs window behavior [1].
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq frame-title-format '(buffer-file-name "%b [%f]" "%b"))
 
   (tool-bar-mode   -1)
@@ -23,7 +23,7 @@ Settings in relation with emacs window behavior [1].
         read-file-name-completion-ignore-case t
         color-theme-is-global                 t
         save-place                            t)
-#+end_src
+#+END_SRC
 
 ** Color themes
 *** Emacs24 =deftheme=
@@ -37,18 +37,18 @@ Downloaded themes may be saved to the =themes/= directory in the base
 of the starter kit which ignored by git.  Once downloaded and
 evaluated a theme is activated using the =load-theme= function.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'custom-theme-load-path (concat starter-kit-dir "themes"))
   (setq custom-safe-themes t)
   ;;(load-theme 'solarized-light t)
-#+end_src
+#+END_SRC
 
 *** Custom solarized theme
 A light variant of the [[https://github.com/bbatsov/solarized-emacs][Solarized]] color theme. The basic idea is to
 keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some =face= changes for
 [[https://github.com/milkypostman/powerline][powerline]] (see [[#powerline][below]]).
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'solarized)
   (defun sk-solarized-childtheme ()
     (custom-theme-set-faces
@@ -80,38 +80,38 @@ some small part of it here. There is also some =face= changes for
      `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
 
      ))
-#+end_src
+#+END_SRC
 
 Define new theme (since definition occurs here it is loaded by default)
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (deftheme sk-solarized-light)
   (create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
-#+end_src
+#+END_SRC
 
 ** Default modes
 *** CUA
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (cua-mode t)
-#+end_src
+#+END_SRC
 
 *** Undo tree
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'undo-tree)
   (global-undo-tree-mode 1)
-#+end_src
+#+END_SRC
 
 *** Recentf
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (recentf-mode t)
-#+end_src
+#+END_SRC
 
 *** Transparently open compressed files
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (auto-compression-mode t)
-#+end_src
+#+END_SRC
 
 *** Highlight matching parentheses when the point is on them.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (show-paren-mode t)
   (setq show-paren-delay 0
         show-paren-style 'mixed)
@@ -126,46 +126,46 @@ Define new theme (since definition occurs here it is loaded by default)
         '("orange1" "yellow1" "greenyellow" "green1"
           "springgreen1" "cyan1" "slateblue1" "magenta1" "purple"))
   (global-highlight-parentheses-mode t)
-#+end_src
+#+END_SRC
 
 *** Highlight everything strange
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq whitespace-style '(face trailing lines-tail tabs)
         whitespace-line-column 80)
-#+end_src
+#+END_SRC
 
 *** Show a column wise indicator
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'fill-column-indicator)
   (setq fci-rule-width 3)
   (setq-default fill-column 80)
-#+end_src
+#+END_SRC
 
 *** Use space for tabulation
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (set-default 'indent-tabs-mode nil)
-#+end_src
+#+END_SRC
 
 *** Indicate empty lines
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (set-default 'indicate-empty-lines t)
-#+end_src
+#+END_SRC
 *** Highlight current line
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
   (global-hl-line-mode t)
-#+end_src
+#+END_SRC
 *** Auto revert buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
   ;; revert without asking
   (setq revert-without-query '(".*"))
-#+end_src
+#+END_SRC
 ** Setting default directories
 
 [[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
 a given file. =backup-directory-alist= is related to the directory
 where emacs backup file will be stored.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq temporary-file-directory     (concat starter-kit-dir "tmp/"))
   (setq save-place-file              (concat temporary-file-directory "places"))
   (setq recentf-save-file            (concat temporary-file-directory "recentf"))
@@ -175,11 +175,11 @@ where emacs backup file will be stored.
   (setq auto-save-list-file-prefix   (concat temporary-file-directory "auto-save-list/" ".auto-saves-"))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (setq backup-directory-alist         `(("." . ,(concat temporary-file-directory "backups"))))
-#+end_src
+#+END_SRC
 
 
 Automatically save and restore sessions
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq desktop-dirname             (concat temporary-file-directory "session")
         desktop-base-file-name      "emacs.desktop"
         desktop-base-lock-name      "lock"
@@ -188,28 +188,28 @@ Automatically save and restore sessions
         desktop-files-not-to-save   "^$" ;reload tramp paths
         desktop-load-locked-desktop nil)
   (desktop-save-mode 0)
-#+end_src
+#+END_SRC
 
 ** UTF8 everywhere
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (set-terminal-coding-system    'utf-8)
   (set-keyboard-coding-system    'utf-8)
   (prefer-coding-system          'utf-8)
   (set-buffer-file-coding-system 'utf-8)
-#+end_src
+#+END_SRC
 
 ** Magit settings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'magit)
-#+end_src
+#+END_SRC
 *** Do not show untracked material
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq magit-omit-untracked-dir-contents 1)
-#+end_src
+#+END_SRC
 
 *** Fullscreen magit-status
 From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
@@ -223,41 +223,41 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
   (define-key magit-status-mode-map (kbd "p") 'magit-push)
-#+end_src
+#+END_SRC
 ** Uniquify settings
 Change buffer name in case of various same name buffer
 previously : Makefile and Makefile<2>
 now        : Makefile|directory1 Makefile|directory2
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'reverse)
   (setq uniquify-separator "|")
   (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
   (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
-#+end_src
+#+END_SRC
 
 ** Dired customization
 *** Using 'a' to open a directory in the same buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (put 'dired-find-alternative-file 'disabled nil)
-#+end_src
+#+END_SRC
 
 *** Make dired less verbose
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'dired-details)
   (setq-default dired-details-hidden-string "--- ")
   (dired-details-install)
-#+end_src
+#+END_SRC
 
 *** Refresh also dired buffer
 From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil)
-#+end_src
+#+END_SRC
 ** Ibuffer customization
 Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMode#toc12][coldnew]])
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (define-ibuffer-column size-h
     (:name "Size")
     (cond
@@ -320,25 +320,25 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
   (add-hook 'ibuffer-mode-hook
             #'(lambda ()
                 (ibuffer-switch-to-saved-filter-groups "default")))
-#+end_src
+#+END_SRC
 ** Powerline
 :PROPERTIES:
 :CUSTOM_ID: powerline
 :END:
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'powerline)
   (powerline-default)
-#+end_src
+#+END_SRC
 ** Diminish modeline clutter
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'diminish)
   ;;(diminish 'wrap-region-mode)
   (diminish 'yas/minor-mode)
-#+end_src
+#+END_SRC
 
 ** Buffer scrolling
 Smooth keyboard scrolling
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq
    redisplay-dont-pause t                 ;; scrolling
    scroll-step 1                          ;; scroll line per line (1 line instead of 3)
@@ -347,11 +347,11 @@ Smooth keyboard scrolling
    scroll-up-aggressively 0               ;; ... are very ...
    scroll-down-aggressively 0             ;; ... annoying
    )
-#+end_src
+#+END_SRC
 
 Use [[https://github.com/kiwanami/emacs-inertial-scroll][inertial-scroll]] for a really smooth scrolling when using mouse wheel and
 next/prior keys.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'inertial-scroll)
   (inertias-global-minor-mode 1)
   (setq inertias-rebound-flash nil
@@ -360,12 +360,12 @@ next/prior keys.
   (global-set-key [(mouse-4)] 'inertias-down-wheel)
   (global-set-key (kbd "<next>")  'inertias-up)
   (global-set-key (kbd "<prior>") 'inertias-down)
-#+end_src
+#+END_SRC
 
 ** Misc.
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
+#+END_SRC
 
 * Footnotes
 

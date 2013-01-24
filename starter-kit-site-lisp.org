@@ -11,7 +11,7 @@ packages retrieved this way are not fashion enough (otherwise there have been
 added to melpa).
 
 ** Download code
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun install-site-lisp-file (package urls)
     "Function to get a remote lisp file."
     (let (dir file)
@@ -27,22 +27,22 @@ added to melpa).
           (message "URL %s" file)
           (when (not (file-exists-p file))
             (url-copy-file url file t))))))
-#+end_src
+#+END_SRC
 
 ** External Lisp files
 *** trac-wiki
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (install-site-lisp-file
    "trac-wiki"
    (list "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"))
-#+end_src
+#+END_SRC
 
 *** inertial-scroll
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (install-site-lisp-file
    "inertial-scroll"
    (list
    "https://raw.github.com/kiwanami/emacs-inertial-scroll/master/inertial-scroll.el"
    "https://raw.github.com/kiwanami/emacs-deferred/master/concurrent.el"
    "https://raw.github.com/kiwanami/emacs-deferred/master/deferred.el"))
-#+end_src
+#+END_SRC
