@@ -41,7 +41,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
           'undo-tree
           'fill-column-indicator
           'xml-rpc
-          'ack-and-a-half)
+          'ack-and-a-half
+          'smartparens)
     "Libraries that should be installed by default.")
 #+END_SRC
 

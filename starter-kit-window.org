@@ -160,6 +160,11 @@ Define new theme (since definition occurs here it is loaded by default)
   ;; revert without asking
   (setq revert-without-query '(".*"))
 #+END_SRC
+*** Smartparens settings
+#+BEGIN_SRC emacs-lisp
+  (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
+                                         minibuffer-incative-mode sr-mode))
+#+END_SRC
 ** Setting default directories
 
 [[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
