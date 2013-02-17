@@ -1,4 +1,3 @@
-
 #+TITLE: Starter Kit Org
 #+OPTIONS: toc:nil num:nil ^:nil
 
@@ -76,7 +75,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((emacs-lisp . t)
-       (sh . t)))
+       (sh . t)
+       (python . t)))
 #+END_SRC
 
 You are encouraged to add the following to your personal configuration
