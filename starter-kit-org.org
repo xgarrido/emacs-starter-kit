@@ -44,7 +44,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
                 (linum-mode -1)))
 #+END_SRC
 
-** Org-Mode Keybindings
+** Org-Mode keybindings
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "s-p") 'org-export-as-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-export-as-latex)
@@ -62,21 +62,35 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
     (setq org-completion-use-ido t)
 #+END_SRC
 
+*** Use speed keys
+Speed commands enable single-letter commands in Org-mode files when
+the point is at the beginning of a headline, or at the beginning of a
+code block.
+
+See the =org-speed-commands-default= variable for a list of the keys
+and commands enabled at the beginning of headlines.  All code blocks
+are available at the beginning of a code block, the following key
+sequence =C-c C-v h= (bound to =org-babel-describe-bindings=) will
+display a list of the code blocks commands and their related keys.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (setq org-use-speed-commands t)
+#+END_SRC
 ** Code blocks
-     :PROPERTIES:
-     :CUSTOM_ID: babel
-     :END:
-  This activates a number of widely used languages, you are encouraged
-  to activate more languages using the customize interface for the
-  `=org-babel-load-languages=' variable, or with an elisp form like the
-  one below.  The customize interface of `=org-babel-load-languages='
-  contains an up to date list of the currently supported languages.
-  #+BEGIN_SRC emacs-lisp
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((emacs-lisp . t)
-       (sh . t)
-       (python . t)))
+:PROPERTIES:
+:CUSTOM_ID: babel
+:END:
+This activates a number of widely used languages, you are encouraged to activate
+more languages using the customize interface for the =org-babel-load-languages=
+variable, or with an elisp form like the one below.  The customize interface of
+=org-babel-load-languages= contains an up to date list of the currently
+supported languages.
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (sh . t)
+     (python . t)))
 #+END_SRC
 
 You are encouraged to add the following to your personal configuration
@@ -117,8 +131,76 @@ file using the `org-babel-lob-ingest' function.
   (require 'org-latex)
 #+END_SRC
 
+*** Org special blocks hacks
+This is a copy/paste of [[http://orgmode.org/worg/org-contrib/org-special-blocks.html][org-special-blocks.el]] file. The unique change is the use
+of lowercase cookies.
+#+BEGIN_SRC emacs-lisp
+  (require 'org-html)
+  (require 'org-compat)
+
+  (declare-function org-open-par "org-html" ())
+  (declare-function org-close-par-maybe "org-html" ())
+
+  (defvar org-special-blocks-ignore-regexp "^\\(LaTeX\\|HTML\\)$"
+    "A regexp indicating the names of blocks that should be ignored
+  by org-special-blocks.  These blocks will presumably be
+  interpreted by other mechanisms.")
+
+  (defvar org-export-current-backend) ; dynamically bound in org-exp.el
+  (defun org-special-blocks-make-special-cookies ()
+    "Adds special cookies when #+begin_foo and #+end_foo tokens are
+  seen. This is run after a few special cases are taken care of."
+    (when (or (eq org-export-current-backend 'html)
+              (eq org-export-current-backend 'latex))
+      (goto-char (point-min))
+      (while (re-search-forward "^[ \t]*#\\+\\(begin\\|end\\)_\\(.*\\)$" nil t)
+        (unless (org-string-match-p org-special-blocks-ignore-regexp (match-string 2))
+          (replace-match
+           (if (equal (downcase (match-string 1)) "begin")
+               (concat "ORG-" (match-string 2) "-START")
+             (concat "ORG-" (match-string 2) "-END"))
+           t t)))))
+
+  (add-hook 'org-export-preprocess-after-blockquote-hook
+            'org-special-blocks-make-special-cookies)
+
+  (defun org-special-blocks-convert-latex-special-cookies ()
+    "Converts the special cookies into LaTeX blocks."
+    (goto-char (point-min))
+    (while (re-search-forward "^ORG-\\([^ \t\n]*\\)[ \t]*\\(.*\\)-\\(START\\|END\\)$" nil t)
+      (replace-match
+       (if (equal (match-string 3) "START")
+           (concat "\\begin{" (downcase (match-string 1)) "}" (match-string 2))
+         (concat "\\end{" (downcase (match-string 1)) "}"))
+       t t)))
+
+
+  (add-hook 'org-export-latex-after-blockquotes-hook
+            'org-special-blocks-convert-latex-special-cookies)
+
+  (defvar line)
+  (defun org-special-blocks-convert-html-special-cookies ()
+    "Converts the special cookies into div blocks."
+    ;; Uses the dynamically-bound variable `line'.
+    (when (string-match "^ORG-\\(.*\\)-\\(START\\|END\\)$" line)
+      (message "%s" (match-string 1))
+      (when (equal (match-string 2 line) "START")
+        (org-close-par-maybe)
+        (insert "\n<div class=\"" (match-string 1 line) "\">")
+        (org-open-par))
+      (when (equal (match-string 2 line) "END")
+        (org-close-par-maybe)
+        (insert "\n</div>")
+        (org-open-par))
+      (throw 'nextline nil)))
+
+  (add-hook 'org-export-html-after-blockquotes-hook
+            'org-special-blocks-convert-html-special-cookies)
+
+#+END_SRC
+
 *** Defining org-latex classes
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (unless (boundp 'org-export-latex-classes)
     (setq org-export-latex-classes nil))
 
@@ -126,8 +208,8 @@ file using the `org-babel-lob-ingest' function.
                ;; beamer class, for presentations
                '("beamer_teaching"
                  "\\documentclass[t, compress]{beamer}\n
-                   \\input{../base/OptionsListingC++.sty}\n
-                   \\input{../base/BeamerPackage.sty}\n"
+                  \\input{../base/OptionsListingC++.sty}\n
+                  \\input{../base/BeamerPackage.sty}\n"
                  ("\\begin{frame}[c, fragile]\\frametitle{%s}"
                   "\\end{frame}"
                   "\\begin{frame}[c, fragile]\\frametitle{%s}"
@@ -137,14 +219,43 @@ file using the `org-babel-lob-ingest' function.
                ;; letter class, for formal letters
                '("letter"
                  "\\documentclass[11pt]{letter}\n
-                   \\usepackage[utf8]{inputenc}\n
-                   \\usepackage[T1]{fontenc}\n
-                   \\usepackage{color}"
+                  \\usepackage[utf8]{inputenc}\n
+                  \\usepackage[T1]{fontenc}\n
+                  \\usepackage{color}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  (add-to-list 'org-export-latex-classes
+               '("memarticle"
+                 "\\documentclass[11pt,oneside,article]{memoir}
+                  \\usepackage{memoir-article-styles}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
+  ;;(setq org-export-latex-packages-alist
+  ;;      '(("" "graphicx" t)
+  ;;        ("" "longtable" nil)
+  ;;        ("" "float" )))
+
+  ;; Custom packages
+  (defun sk-auto-tex-parameters ()
+    "Automatically select the tex packages to include. See https://github.com/kjhealy/latex-custom-kjh for the support files included here."
+    ;; default packages for ordinary latex
+    ;;(setq org-export-latex-default-packages-alist
+    ;;      '(("AUTO" "inputenc" t)))
+    ;; Packages to include when xelatex is used
+    (setq org-export-latex-default-packages-alist
+          '(("" "org-preamble" t) )))
+
+  (add-hook 'org-export-latex-after-initial-vars-hook 'sk-auto-tex-parameters)
+
 #+END_SRC
 
 *** KOMA/LaTeX script
@@ -181,7 +292,7 @@ is actually fine).
 
 The previous code works almost perfectly except that an additional blank line is
 added to the =\closing= sentence and the =\end{letter}= is missing. The
-following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][EricSchulte]]).
+following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][Eric Schulte]]).
 #+BEGIN_SRC emacs-lisp
   (defun fix-koma-letter ()
     (save-excursion
@@ -202,22 +313,34 @@ following piece of code try to solve this (orginal idea from [[http://lists.gnu.
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
 #+BEGIN_SRC emacs-lisp
-  (defun latexmk-cmd ()
+  (defun sk-latexmk-cmd ()
     "When exporting from .org with latex, automatically run latex,
        pdflatex, or xelatex as appropriate, using latexmk."
     (let ((texcmd)))
-    ;; default command: pdflatex
-    (setq texcmd "latexmk -pdf -quiet %f")
+    ;; default command: xelatex
+    (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f")
     ;; pdflatex -> .pdf
     (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-        (setq texcmd "latexmk -pdf -quiet %f"))
+        (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
     ;; xelatex -> .pdf
     (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-        (setq texcmd "latexmk -xelatex -pdf -quiet %f"))
+        (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f"))
     ;; LaTeX compilation command
     (setq org-latex-to-pdf-process (list texcmd)))
 
-  (add-hook 'org-export-latex-after-initial-vars-hook 'latexmk-cmd)
+  (add-hook 'org-export-latex-after-initial-vars-hook 'sk-latexmk-cmd)
+#+END_SRC
+
+*** Minted setup
+#+BEGIN_SRC emacs-lisp :results silent
+  (setq org-export-latex-listings 'minted)
+  (setq org-export-latex-minted-options
+        '(;;("frame" "lines")
+          ("fontsize" "\\scriptsize")
+          ("samepage" "")
+          ("xrightmargin" "0.5cm")
+          ("xleftmargin" "0.5cm")
+          ))
 #+END_SRC
 
 ** Prevent editing invisible text
@@ -240,9 +363,6 @@ is if it is buried in invisible text to allow editing again.
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
 the =.fold= file is saved.
 #+BEGIN_SRC emacs-lisp
-  (require 'cl)
-  (require 'org)
-
   (defun org-fold-get-fold-info-file-name ()
     (concat temporary-file-directory "org-fold/" (buffer-name) ".fold"))
 

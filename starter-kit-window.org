@@ -5,7 +5,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Window
 ** Window default settings
-Settings in relation with emacs window behavior [1].
+Settings in relation with emacs window behavior[1].
 #+BEGIN_SRC emacs-lisp
   (setq frame-title-format '(buffer-file-name "%b [%f]" "%b"))
 
@@ -351,6 +351,7 @@ Smooth keyboard scrolling
    scroll-conservatively 100000           ;; ... the defaults ...
    scroll-up-aggressively 0               ;; ... are very ...
    scroll-down-aggressively 0             ;; ... annoying
+   auto-window-vscroll nil
    )
 #+END_SRC
 

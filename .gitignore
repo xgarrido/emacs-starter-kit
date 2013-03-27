@@ -53,3 +53,6 @@ secret.org
 .emacs.desktop*
 .*~
 agent/*
+/%backup%~
+/doc/
+/el-get/
