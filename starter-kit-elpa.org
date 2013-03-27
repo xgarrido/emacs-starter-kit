@@ -1,10 +1,34 @@
-#+TITLE: Starter Kit ELPA
+#+TITLE: Starter Kit Package Manager
 #+OPTIONS: toc:nil num:nil ^:nil
 
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
-* Starter Kit ELPA
-** Defining ELPA sources
+* Starter Kit Package Manager
+Since emacs version 24, elisp code can be downloaded, installed and loaded
+almost automatically with =package.el=. There are still some discussions on how
+to use it properly (see [[http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/][B. Batsov article]] for example). In this file, we use
+the "usual" way through ELPA for most of the packages to be
+installed. Nevertheless, we also define some =el-get= command to install some
+packages a bit oldy and not supported by any ELPA repository.
+
+** Checking internet connection
+If there is no internet connection then no way to use any of the package
+managers.  This should not work under Windows system since it does not have the
+=network-interface-list= function
+#+BEGIN_SRC emacs-lisp
+  (defun starter-kit-elpa-online ()
+    "Check internet connectivity."
+    (if (and (functionp 'network-interface-list)
+             (network-interface-list))
+        (some (lambda (iface) (unless (equal "lo" (car iface))
+                           (member 'up (first (last (network-interface-info
+                                                     (car iface)))))))
+              (network-interface-list))
+      t))
+#+END_SRC
+
+** ELPA
+*** Defining ELPA sources
 #+BEGIN_SRC emacs-lisp
   (setq package-archives
         '(("gnu"         . "http://elpa.gnu.org/packages/")
@@ -15,7 +39,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (package-initialize)
 #+END_SRC
 
-** Default packages
+*** Default packages
 #+BEGIN_SRC emacs-lisp
   (defvar starter-kit-packages
     (list 'yasnippet-bundle
@@ -46,7 +70,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
     "Libraries that should be installed by default.")
 #+END_SRC
 
-** Install defun
+*** Install defun
 #+BEGIN_SRC emacs-lisp
   (defun starter-kit-elpa-install ()
     "Install all starter-kit packages that aren't installed."
@@ -57,24 +81,51 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
         (package-install package))))
 #+END_SRC
 
-** Checking internet connection
-This should not work under Windows system since it does not have the
-=network-interface-list= function
+*** Installing ELPA package
 #+BEGIN_SRC emacs-lisp
-  (defun starter-kit-elpa-online ()
-    "Check internet connectivity."
-    (if (and (functionp 'network-interface-list)
-             (network-interface-list))
-        (some (lambda (iface) (unless (equal "lo" (car iface))
-                           (member 'up (first (last (network-interface-info
-                                                     (car iface)))))))
-              (network-interface-list))
-      t))
+  (when (starter-kit-elpa-online)
+    (unless package-archive-contents (package-refresh-contents))
+    (starter-kit-elpa-install))
+#+END_SRC
+** el-get
+[[https://github.com/dimitri/el-get][=el-get=]] allows you to install and manage elisp code for Emacs. It supports lots
+of differents types of sources and is able to install them, update them and
+remove them, but more importantly it will init them for you. The next pieces of
+code are largely inspired by [[http://toumorokoshi.github.com/automatic-package-installation-for-emacs-24-part-2.html][this article]].
+
+*** Checking =el-get=
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+  (unless (require 'el-get nil t)
+    (url-retrieve
+     "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+     (lambda (s)
+       (goto-char (point-max))
+       (eval-print-last-sexp))))
 #+END_SRC
 
-** Installing ELPA package
+*** Setup packages
 #+BEGIN_SRC emacs-lisp
-(when (starter-kit-elpa-online)
-  (unless package-archive-contents (package-refresh-contents))
-  (starter-kit-elpa-install))
+  (setq el-get-sources
+       '((:name trac-wiki
+          :description "Simple but efficient interface to Trac."
+          :type github
+          :pkgname "tiborsimko/trac-wiki-el")
+         (:name emacs-deferred
+          :description "Facilities to manage asynchronous tasks."
+          :type github
+          :pkgname "kiwanami/emacs-deferred")
+         (:name inertial-scroll
+          :description "Soft mouse scrolling."
+          :type github
+          :pkgname "kiwanami/emacs-inertial-scroll")
+         )
+       )
+#+END_SRC
+
+*** Install packages
+#+BEGIN_SRC emacs-lisp
+  (mapc (lambda (f)
+          (let ((name (plist-get f :name)))
+            (when (not (require name nil t)) (el-get-install name)))) el-get-sources)
 #+END_SRC
