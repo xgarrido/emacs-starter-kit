@@ -240,6 +240,20 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
     (sk-popup "Test Notification :" "test"))
 #+END_SRC
 
+*** Googling active region
+#+BEGIN_SRC emacs-lisp
+  (defun sk-google ()
+    "Google the selected region if any, display a query prompt otherwise."
+    (interactive)
+    (browse-url
+     (concat
+      "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+      (url-hexify-string (if mark-active
+                             (buffer-substring (region-beginning) (region-end))
+                           (read-string "Google: "))))))
+  (global-set-key (kbd "s-g") 'sk-google)
+#+END_SRC
+
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
