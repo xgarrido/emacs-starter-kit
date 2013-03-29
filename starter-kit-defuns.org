@@ -241,6 +241,7 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
 #+END_SRC
 
 *** Googling active region
+From [[http://emacsredux.com/blog/2013/03/28/google/][Emacs redux]].
 #+BEGIN_SRC emacs-lisp
   (defun sk-google ()
     "Google the selected region if any, display a query prompt otherwise."
