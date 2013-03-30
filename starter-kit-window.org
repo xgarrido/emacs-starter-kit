@@ -58,6 +58,8 @@ some small part of it here. There is also some =face= changes for
                                                  :background "gray50" :box nil))))
      `(mode-line-inactive  ((,class (:foreground ,solarized-bg
                                                  :background "gray50" :box nil))))
+     `(mode-line-buffer-id ((,class (:foreground ,solarized-bg
+                                                 :background "gray50" :box nil))))
      `(powerline-active1   ((,class (:background "gray25"))))
      `(powerline-inactive1 ((,class (:background "gray25"))))
      `(powerline-active2   ((,class (:background "gray40"))))
@@ -164,6 +166,10 @@ Define new theme (since definition occurs here it is loaded by default)
 #+BEGIN_SRC emacs-lisp
   (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
                                          minibuffer-incative-mode sr-mode))
+#+END_SRC
+*** Which func-mode
+#+BEGIN_SRC emacs-lisp :tangle no
+  (which-func-mode t)
 #+END_SRC
 ** Setting default directories
 
@@ -332,13 +338,64 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
 :END:
 #+BEGIN_SRC emacs-lisp
   (require 'powerline)
-  (powerline-default)
+  (defun sk-powerline-default-theme ()
+    "Starter-kit default mode-line."
+    (interactive)
+    (setq-default mode-line-format
+                  '("%e"
+                    (:eval
+                     (let* ((active (powerline-selected-window-active))
+                            (mode-line (if active 'mode-line 'mode-line-inactive))
+                            (face1 (if active 'powerline-active1
+                                     'powerline-inactive1))
+                            (face2 (if active 'powerline-active2
+                                     'powerline-inactive2))
+                            (lhs (list
+                                  (powerline-raw "%*" nil 'l)
+                                  (powerline-buffer-size nil 'l)
+
+                                  ;;(powerline-raw mode-line-mule-info nil 'l)
+                                  (powerline-buffer-id nil 'l)
+
+                                  (powerline-raw " ")
+                                  (powerline-arrow-right mode-line face1)
+
+                                  (powerline-major-mode face1 'l)
+                                  (powerline-process face1)
+                                  (powerline-minor-modes face1 'l)
+                                  (powerline-narrow face1 'l)
+
+                                  (powerline-raw " " face1)
+                                  (powerline-arrow-right face1 face2)
+
+                                  (powerline-vc face2)))
+                            (rhs (list
+                                  (powerline-raw global-mode-string face2 'r)
+
+                                  (powerline-arrow-left face2 face1)
+
+                                  (powerline-raw "%4l" face1 'l)
+                                  (powerline-raw ":" face1 'l)
+                                  (powerline-raw "%3c" face1 'r)
+
+                                  (powerline-arrow-left face1 mode-line)
+                                  (powerline-raw " ")
+
+                                  (powerline-raw "%6p" nil 'r)
+
+                                  (powerline-hud face2 face1))))
+                       (concat
+                        (powerline-render lhs)
+                        (powerline-fill face2 (powerline-width rhs))
+                        (powerline-render rhs)))))))
+  (sk-powerline-default-theme)
 #+END_SRC
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp
   (require 'diminish)
   ;;(diminish 'wrap-region-mode)
   (diminish 'yas/minor-mode)
+  (diminish 'undo-tree-mode)
 #+END_SRC
 
 ** Buffer scrolling
