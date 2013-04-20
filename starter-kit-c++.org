@@ -40,3 +40,28 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
     (sk-popup "Emacs compilation" message))
   (setq compilation-finish-function 'compile-notify)
 #+END_SRC
+** Tags
+The following code makes use to =etags= program to generate a list of tags and
+to ease the code navigation.
+
+*** Create TAGS table
+#+BEGIN_SRC emacs-lisp
+  (defun sk-create-tags (dirname)
+    "Create tags file."
+    (interactive "DDirectory: ")
+    (shell-command
+     (format "find %s -type f \\( -name '*.cc' -o -name '*.h' \\) | grep -v '__' | grep -v '/devel/' | etags - && mv %s/TAGS %s/." dirname default-directory temporary-file-directory)))
+#+END_SRC
+
+Use this function to create TAGS related to SN@ailWare software.
+#+BEGIN_SRC emacs-lisp
+  (defun sk-create-snailware-tags ()
+    "Create SN@ilWare tags file."
+    (interactive)
+    (sk-create-tags "$SNAILWARE_DEV_DIR"))
+#+END_SRC
+
+*** Set TAGS filename
+#+BEGIN_SRC emacs-lisp
+  (setq tags-file-name (concat temporary-file-directory "TAGS"))
+#+END_SRC
