@@ -358,7 +358,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                                   (powerline-buffer-id nil 'l)
 
                                   (powerline-raw " ")
-                                  (powerline-arrow-right mode-line face1)
+                                  (powerline-arrow-left mode-line face1)
 
                                   (powerline-major-mode face1 'l)
                                   (powerline-process face1)
@@ -366,7 +366,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                                   (powerline-narrow face1 'l)
 
                                   (powerline-raw " " face1)
-                                  (powerline-arrow-right face1 face2)
+                                  (powerline-arrow-left face1 face2)
 
                                   (powerline-vc face2)))
                             (rhs (list
