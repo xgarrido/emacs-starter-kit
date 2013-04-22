@@ -25,7 +25,7 @@ doc: doc/index.html
 
 doc/index.html:
 	mkdir -p doc
-	$(EMACS) --batch -Q --eval '(org-babel-load-file "starter-kit-publish.org")'
+	$(BATCH) --eval '(org-babel-load-file "starter-kit-publish.org")'
 	rm starter-kit-publish.el
 	cp doc/starter-kit.html doc/index.html
 	echo "Documentation published to doc/"
