@@ -185,7 +185,7 @@ From [[http://whattheemacsd.com//buffer-defuns.el-03.html][Magnars blog]]
 #+END_SRC
 
 ** Misc.
-*** Edit current buffer with sudo rights
+*** Edit current buffer with sudo rights (obsolete)
 #+BEGIN_SRC emacs-lisp
   (defun sk-sudo-edit-current-file (&optional arg)
     (interactive "p")

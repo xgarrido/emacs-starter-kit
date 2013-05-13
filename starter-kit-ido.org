@@ -110,6 +110,16 @@ Use ido everywhere
   (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
 #+END_SRC
 
+** Advice ido to open file as root
+From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][Emacs Redux]].
+#+BEGIN_SRC emacs-lisp
+  (defadvice ido-find-file (after find-file-sudo activate)
+    "Find file as root if necessary."
+    (unless (and buffer-file-name
+                 (file-writable-p buffer-file-name))
+      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+#+END_SRC
+
 ** Misc.
 #+BEGIN_SRC emacs-lisp
   (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
