@@ -24,7 +24,10 @@ The main advantage of this Emacs Starter Kit are
 - an organizational directory structure
 - git provides for version control, backup, and sharing
 
-The latest version is at http://github.com/eschulte/emacs24-starter-kit/
+This version is a fork from the original work of Eric Schulte (see original
+project following the link http://github.com/eschulte/emacs24-starter-kit/).
+
+The latest version is at http://github.com/xgarrido/emacs-starter-kit/
 
 ** Learning
    :PROPERTIES:
