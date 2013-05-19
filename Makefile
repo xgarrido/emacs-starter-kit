@@ -28,7 +28,6 @@ doc/index.html: $(FILES)
 	$(BATCH) --eval '(org-babel-tangle-file "starter-kit-publish.org")'
 	$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
 	rm starter-kit-publish.el
-	cp doc/starter-kit.html doc/index.html
 	echo "Documentation published to doc/"
 
 clean:
