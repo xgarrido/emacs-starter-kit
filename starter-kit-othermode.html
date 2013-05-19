@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Other Mode</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Starter Kit Other Mode"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-05-19T14:27+0200"/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<link rel="stylesheet" href="stylesheets/styles.css">
+             <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+<span><a title="home page" class="" href="http://xgarrido.dyndns.org/">home</a></span>
+                     <span><a title="about" class="" href="http://xgarrido.dyndns.org/">about</a></span>
+                     <span><a title="publication" class="" href="http://xgarrido.dyndns.org/">publication</a></span>
+                     <span><a title="vitae" class="" href="http://xgarrido.dyndns.org/">vitae</a></span>
+                     <span><a title="categories" class="" href="http://xgarrido.dyndns.org/">categories</a></span>
+                     <span><a title="links" class="" href="http://xgarrido.dyndns.org/">links</a></span>
+                     <span><a title="subscribe by RSS" class="" href="http://xgarrido.dyndns.org/">subscribe</a></span>
+                     
+</div>
+
+<div id="content">
+<h1 class="title">Starter Kit Other Mode</h1>
+
+<p>This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Other Mode</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Coding Hook</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-hook 'emacs-lisp-mode-hook 'run-starter-kit-coding-hook)
+(add-hook 'sh-mode-hook         'run-starter-kit-coding-hook)
+(add-hook 'latex-mode-hook      'run-starter-kit-coding-hook)
+(add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">latex-mode</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-hook 'latex-mode-hook 'turn-on-orgtbl)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">(add-hook 'latex-mode-hook 'turn-on-auto-fill)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">markdown-mode</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span class="org-string">"\\.md\\'"</span> . markdown-mode))
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">cmake-mode</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">cmake-mode</span>)
+ (setq auto-mode-alist
+       (append '((<span class="org-string">"CMakeLists\\.txt\\'"</span> . cmake-mode)
+                 (<span class="org-string">"\\.cmake\\'"</span> . cmake-mode))
+               auto-mode-alist))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">multi-web-mode</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">multi-web-mode</span>)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode <span class="org-string">"&lt;\\?php</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">&lt;\\? </span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">&lt;\\?="</span> <span class="org-string">"\\?&gt;"</span>)
+                  (js-mode <span class="org-string">"&lt;script +</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">type=\"text/javascript\"</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">language=\"javascript\"</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">[</span><span class="org-string"><span class="org-negation-char">^</span></span><span class="org-string">&gt;]*&gt;"</span> <span class="org-string">"&lt;/script&gt;"</span>)
+                  (css-mode <span class="org-string">"&lt;style +type=\"text/css\"[</span><span class="org-string"><span class="org-negation-char">^</span></span><span class="org-string">&gt;]*&gt;"</span> <span class="org-string">"&lt;/style&gt;"</span>)))
+(setq mweb-filename-extensions '(<span class="org-string">"php"</span> <span class="org-string">"htm"</span> <span class="org-string">"html"</span> <span class="org-string">"ctp"</span> <span class="org-string">"phtml"</span> <span class="org-string">"php4"</span> <span class="org-string">"php5"</span>))
+(multi-web-global-mode 1)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">css-mode</h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">hexcolour-keywords</span>
+  '((<span class="org-string">"#[abcdef[:digit:]]\\{6\\}"</span>
+     (0 (put-text-property
+         (match-beginning 0)
+         (match-end 0)
+         'face (list <span class="org-builtin">:background</span>
+                     (match-string-no-properties 0)))))))
+(<span class="org-keyword">defun</span> <span class="org-function-name">hexcolour-add-to-font-lock</span> ()
+  (font-lock-add-keywords nil hexcolour-keywords))
+
+(add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">trac-wiki-mode</h3>
+<div class="outline-text-3" id="text-1-7">
+
+<p>Define some usual <code>trac-wiki</code> projects.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">trac-wiki</span>)
+(trac-wiki-define-project <span class="org-string">"trac-LAL"</span>
+                          <span class="org-string">"https://trac.lal.in2p3.fr/NEMO2/"</span> t)
+
+(trac-wiki-define-project <span class="org-string">"trac-LPC"</span>
+                          <span class="org-string">"https://nemo.lpc-caen.in2p3.fr/"</span> t)
+
+(autoload 'trac-wiki <span class="org-string">"trac-wiki"</span>
+  <span class="org-doc">"Trac wiki editing entry-point."</span> t)
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

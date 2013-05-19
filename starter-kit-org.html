@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Org</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Starter Kit Org"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-05-19T14:27+0200"/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<link rel="stylesheet" href="stylesheets/styles.css">
+             <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+<span><a title="home page" class="" href="http://xgarrido.dyndns.org/">home</a></span>
+                     <span><a title="about" class="" href="http://xgarrido.dyndns.org/">about</a></span>
+                     <span><a title="publication" class="" href="http://xgarrido.dyndns.org/">publication</a></span>
+                     <span><a title="vitae" class="" href="http://xgarrido.dyndns.org/">vitae</a></span>
+                     <span><a title="categories" class="" href="http://xgarrido.dyndns.org/">categories</a></span>
+                     <span><a title="links" class="" href="http://xgarrido.dyndns.org/">links</a></span>
+                     <span><a title="subscribe by RSS" class="" href="http://xgarrido.dyndns.org/">subscribe</a></span>
+                     
+</div>
+
+<div id="content">
+<h1 class="title">Starter Kit Org</h1>
+
+<p>This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Org</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>Configuration for the eminently useful <a href="http://orgmode.org/">Org Mode</a>.
+</p>
+<p>
+Org-mode is for keeping notes, maintaining ToDo lists, doing project
+planning, and authoring with a fast and effective plain-text system.
+Org Mode can be used as a very simple folding outliner or as a complex
+GTD system or tool for reproducible research and literate programming.
+</p>
+<p>
+For more information on org-mode check out <a href="http://orgmode.org/worg/">worg</a>, a large Org-mode wiki
+which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/">git</a>.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Org-Mode Hook</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+</div>
+
+<div id="outline-container-keybindings" class="outline-4">
+<h4 id="keybindings"><a name="sec-1-1-1" id="sec-1-1-1"></a>Keybindings</h4>
+<div class="outline-text-4" id="text-keybindings">
+
+
+
+
+
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook
+          (<span class="org-keyword">lambda</span> ()
+            (local-set-key <span class="org-string">"\C-n"</span> 'outline-next-visible-heading)
+            (local-set-key <span class="org-string">"\C-p"</span> 'outline-previous-visible-heading)
+            (local-set-key <span class="org-string">"\C-u"</span> 'outline-up-heading)
+            <span class="org-comment-delimiter">;; </span><span class="org-comment">table</span>
+            (local-set-key <span class="org-string">"\M-\C-w"</span> 'org-table-copy-region)
+            (local-set-key <span class="org-string">"\M-\C-y"</span> 'org-table-paste-rectangle)
+            (local-set-key <span class="org-string">"\M-\C-l"</span> 'org-table-sort-lines)
+            <span class="org-comment-delimiter">;; </span><span class="org-comment">display images</span>
+            (local-set-key <span class="org-string">"\M-I"</span> 'org-toggle-iimage-in-org)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">Minor mode</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+
+
+
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook
+          (<span class="org-keyword">lambda</span> ()
+            (org-indent-mode  t)
+            (org-bullets-mode t)
+            (auto-complete-mode t)
+            (linum-mode -1)))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Org-Mode keybindings</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+
+<pre class="src src-emacs-lisp">(define-key org-mode-map (kbd <span class="org-string">"s-p"</span>) 'org-export-as-pdf)
+(define-key org-mode-map (kbd <span class="org-string">"s-l"</span>) 'org-export-as-latex)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Org-Mode settings</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Ellipsis</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq org-ellipsis <span class="org-string">"&#8230;"</span>
+      org-columns-ellipses <span class="org-string">"&#8230;"</span>)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Using ido completing</h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq org-completion-use-ido t)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">Use speed keys</h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+<p>Speed commands enable single-letter commands in Org-mode files when
+the point is at the beginning of a headline, or at the beginning of a
+code block.
+</p>
+<p>
+See the <code>org-speed-commands-default</code> variable for a list of the keys
+and commands enabled at the beginning of headlines.  All code blocks
+are available at the beginning of a code block, the following key
+sequence <code>C-c C-v h</code> (bound to <code>org-babel-describe-bindings</code>) will
+display a list of the code blocks commands and their related keys.
+</p>
+
+
+
+<pre class="src src-emacs-lisp">(setq org-use-speed-commands t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4">Special word faces</h4>
+<div class="outline-text-4" id="text-1-3-4">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defface</span> <span class="org-variable-name">my/highlight-face</span>
+  '((t (<span class="org-builtin">:weight</span> normal <span class="org-builtin">:slant</span> normal <span class="org-builtin">:box</span> '(<span class="org-builtin">:line-width</span> 1 <span class="org-builtin">:color</span> <span class="org-string">"#CC0000"</span>)
+                <span class="org-builtin">:foreground</span> <span class="org-string">"#CC0000"</span> <span class="org-builtin">:background</span> <span class="org-string">"#FFFF88"</span>)))
+  <span class="org-doc">"Face for making FIXME and other warnings stand out."</span>)
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">my/highlight-org-regexps</span>
+  <span class="org-string">"</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">FIXME</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">BUG</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">XXX</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">[Ee]rror</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">[Ww]arning</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">WARNING</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">"</span>
+  <span class="org-doc">"Patterns to highlight (for Org mode only, to ensure no conflict with the</span>
+<span class="org-doc">  Org mode TODO keyword)."</span>)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">set up highlighting of special patterns for Org mode only</span>
+(<span class="org-keyword">dolist</span> (mode '(org-mode
+                orgtbl-mode))
+  (font-lock-add-keywords mode
+                          `((,my/highlight-org-regexps 1 'my/highlight-face
+                                                       prepend))))
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-babel" class="outline-3">
+<h3 id="babel"><a name="sec-1-4" id="sec-1-4"></a>Code blocks</h3>
+<div class="outline-text-3" id="text-babel">
+
+<p>This activates a number of widely used languages, you are encouraged to activate
+more languages using the customize interface for the <code>org-babel-load-languages</code>
+variable, or with an elisp form like the one below.  The customize interface of
+<code>org-babel-load-languages</code> contains an up to date list of the currently
+supported languages.
+</p>
+
+
+<pre class="src src-emacs-lisp">(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (sh . t)
+   (python . t)))
+</pre>
+
+
+<p>
+You are encouraged to add the following to your personal configuration
+although it is not added by default as a security precaution.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq org-confirm-babel-evaluate nil)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-code-block-fontification" class="outline-3">
+<h3 id="code-block-fontification"><a name="sec-1-5" id="sec-1-5"></a>Code block fontification</h3>
+<div class="outline-text-3" id="text-code-block-fontification">
+
+<p>The following displays the contents of code blocks in Org-mode files
+using the major-mode of the code.  It also changes the behavior of
+<code>TAB</code> to as if it were used in the appropriate major mode.  This means
+that reading and editing code form inside of your Org-mode files is
+much more like reading and editing of code using its major mode.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq org-src-fontify-natively  t)
+(setq org-src-tab-acts-natively t)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-library-of-babel" class="outline-3">
+<h3 id="library-of-babel"><a name="sec-1-6" id="sec-1-6"></a>The Library of Babel</h3>
+<div class="outline-text-3" id="text-library-of-babel">
+
+<p>The library of babel contains makes many useful functions available
+for use by code blocks in <b>any</b> emacs file.  See the actual
+<code>library-of-babel.org</code> (located in the Org-mode <code>contrib/babel</code>
+directory) file for information on the functions, and see
+<a href="http://orgmode.org/worg/org-contrib/babel/intro.php#library-of-babel">worg:library-of-babel</a> for more usage information.
+</p>
+<p>
+Code blocks can be loaded into the library of babel from any Org-mode
+file using the `org-babel-lob-ingest' function.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">LaTeX hacks</h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">org-latex</span>)
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1">Org special blocks hacks</h4>
+<div class="outline-text-4" id="text-1-7-1">
+
+<p>This is a copy/paste of <a href="http://orgmode.org/worg/org-contrib/org-special-blocks.html">org-special-blocks.el</a> file. The unique change is the use
+of lowercase cookies.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">org-html</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">org-compat</span>)
+
+(declare-function org-open-par <span class="org-string">"org-html"</span> ())
+(declare-function org-close-par-maybe <span class="org-string">"org-html"</span> ())
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">org-special-blocks-ignore-regexp</span> <span class="org-string">"^</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">LaTeX</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">HTML</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">$"</span>
+  <span class="org-doc">"A regexp indicating the names of blocks that should be ignored</span>
+<span class="org-doc">by org-special-blocks.  These blocks will presumably be</span>
+<span class="org-doc">interpreted by other mechanisms."</span>)
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">org-export-current-backend</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">dynamically bound in org-exp.el</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-special-blocks-make-special-cookies</span> ()
+  <span class="org-doc">"Adds special cookies when #+begin_foo and #+end_foo tokens are</span>
+<span class="org-doc">seen. This is run after a few special cases are taken care of."</span>
+  (<span class="org-keyword">when</span> (or (eq org-export-current-backend 'html)
+            (eq org-export-current-backend 'latex))
+    (goto-char (point-min))
+    (<span class="org-keyword">while</span> (re-search-forward <span class="org-string">"^[ \t]*#\\+</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">begin</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">end</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">_</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">.*</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">$"</span> nil t)
+      (<span class="org-keyword">unless</span> (org-string-match-p org-special-blocks-ignore-regexp (match-string 2))
+        (replace-match
+         (<span class="org-keyword">if</span> (equal (downcase (match-string 1)) <span class="org-string">"begin"</span>)
+             (concat <span class="org-string">"ORG-"</span> (match-string 2) <span class="org-string">"-START"</span>)
+           (concat <span class="org-string">"ORG-"</span> (match-string 2) <span class="org-string">"-END"</span>))
+         t t)))))
+
+(add-hook 'org-export-preprocess-after-blockquote-hook
+          'org-special-blocks-make-special-cookies)
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-special-blocks-convert-latex-special-cookies</span> ()
+  <span class="org-doc">"Converts the special cookies into LaTeX blocks."</span>
+  (goto-char (point-min))
+  (<span class="org-keyword">while</span> (re-search-forward <span class="org-string">"^ORG-</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">[</span><span class="org-string"><span class="org-negation-char">^</span></span><span class="org-string"> \t\n]*</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">[ \t]*</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">.*</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">-</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">START</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">END</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">$"</span> nil t)
+    (replace-match
+     (<span class="org-keyword">if</span> (equal (match-string 3) <span class="org-string">"START"</span>)
+         (concat <span class="org-string">"\\begin{"</span> (downcase (match-string 1)) <span class="org-string">"}"</span> (match-string 2))
+       (concat <span class="org-string">"\\end{"</span> (downcase (match-string 1)) <span class="org-string">"}"</span>))
+     t t)))
+
+
+(add-hook 'org-export-latex-after-blockquotes-hook
+          'org-special-blocks-convert-latex-special-cookies)
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">line</span>)
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-special-blocks-convert-html-special-cookies</span> ()
+  <span class="org-doc">"Converts the special cookies into div blocks."</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Uses the dynamically-bound variable `</span><span class="org-comment"><span class="org-constant">line</span></span><span class="org-comment">'.</span>
+  (<span class="org-keyword">when</span> (string-match <span class="org-string">"^ORG-</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">.*</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">-</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">START</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">END</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">$"</span> line)
+    (message <span class="org-string">"%s"</span> (match-string 1))
+    (<span class="org-keyword">when</span> (equal (match-string 2 line) <span class="org-string">"START"</span>)
+      (org-close-par-maybe)
+      (insert <span class="org-string">"\n&lt;div class=\""</span> (match-string 1 line) <span class="org-string">"\"&gt;"</span>)
+      (org-open-par))
+    (<span class="org-keyword">when</span> (equal (match-string 2 line) <span class="org-string">"END"</span>)
+      (org-close-par-maybe)
+      (insert <span class="org-string">"\n&lt;/div&gt;"</span>)
+      (org-open-par))
+    (<span class="org-keyword">throw</span> '<span class="org-constant">nextline</span> nil)))
+
+(add-hook 'org-export-html-after-blockquotes-hook
+          'org-special-blocks-convert-html-special-cookies)
+
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-2" class="outline-4">
+<h4 id="sec-1-7-2">Defining org-latex classes</h4>
+<div class="outline-text-4" id="text-1-7-2">
+
+
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">unless</span> (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+
+(add-to-list 'org-export-latex-classes
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">beamer class, for presentations</span>
+             '(<span class="org-string">"beamer_teaching"</span>
+               <span class="org-string">"\\documentclass[t, compress]{beamer}\n</span>
+<span class="org-string">                \\input{../base/OptionsListingC++.sty}\n</span>
+<span class="org-string">                \\input{../base/BeamerPackage.sty}\n"</span>
+               (<span class="org-string">"\\begin{frame}[c, fragile]\\frametitle{%s}"</span>
+                <span class="org-string">"\\end{frame}"</span>
+                <span class="org-string">"\\begin{frame}[c, fragile]\\frametitle{%s}"</span>
+                <span class="org-string">"\\end{frame}"</span>)))
+
+(add-to-list 'org-export-latex-classes
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">letter class, for formal letters</span>
+             '(<span class="org-string">"letter"</span>
+               <span class="org-string">"\\documentclass[11pt]{letter}\n</span>
+<span class="org-string">                \\usepackage[utf8]{inputenc}\n</span>
+<span class="org-string">                \\usepackage[T1]{fontenc}\n</span>
+<span class="org-string">                \\usepackage{color}"</span>
+               (<span class="org-string">"\\section{%s}"</span> . <span class="org-string">"\\section*{%s}"</span>)
+               (<span class="org-string">"\\subsection{%s}"</span> . <span class="org-string">"\\subsection*{%s}"</span>)
+               (<span class="org-string">"\\subsubsection{%s}"</span> . <span class="org-string">"\\subsubsection*{%s}"</span>)
+               (<span class="org-string">"\\paragraph{%s}"</span> . <span class="org-string">"\\paragraph*{%s}"</span>)
+               (<span class="org-string">"\\subparagraph{%s}"</span> . <span class="org-string">"\\subparagraph*{%s}"</span>)))
+
+(add-to-list 'org-export-latex-classes
+             '(<span class="org-string">"memarticle"</span>
+               <span class="org-string">"\\documentclass[11pt,oneside,article]{memoir}</span>
+<span class="org-string">                \\usepackage{memoir-article-styles}"</span>
+               (<span class="org-string">"\\section{%s}"</span> . <span class="org-string">"\\section*{%s}"</span>)
+               (<span class="org-string">"\\subsection{%s}"</span> . <span class="org-string">"\\subsection*{%s}"</span>)
+               (<span class="org-string">"\\subsubsection{%s}"</span> . <span class="org-string">"\\subsubsection*{%s}"</span>)
+               (<span class="org-string">"\\paragraph{%s}"</span> . <span class="org-string">"\\paragraph*{%s}"</span>)
+               (<span class="org-string">"\\subparagraph{%s}"</span> . <span class="org-string">"\\subparagraph*{%s}"</span>)))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Default packages included in /every/ tex file, latex, pdflatex or xelatex</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">(setq org-export-latex-packages-alist</span>
+<span class="org-comment-delimiter">;;      </span><span class="org-comment">'(("" "graphicx" t)</span>
+<span class="org-comment-delimiter">;;        </span><span class="org-comment">("" "longtable" nil)</span>
+<span class="org-comment-delimiter">;;        </span><span class="org-comment">("" "float" )))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Custom packages</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-auto-tex-parameters</span> ()
+  <span class="org-doc">"Automatically select the tex packages to include. See https://github.com/kjhealy/latex-custom-kjh for the support files included here."</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">default packages for ordinary latex</span>
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">(setq org-export-latex-default-packages-alist</span>
+  <span class="org-comment-delimiter">;;      </span><span class="org-comment">'(("AUTO" "inputenc" t)))</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Packages to include when xelatex is used</span>
+  (setq org-export-latex-default-packages-alist
+        '((<span class="org-string">""</span> <span class="org-string">"org-preamble"</span> t) )))
+
+(add-hook 'org-export-latex-after-initial-vars-hook 'sk-auto-tex-parameters)
+
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-3" class="outline-4">
+<h4 id="sec-1-7-3">KOMA/LaTeX script</h4>
+<div class="outline-text-4" id="text-1-7-3">
+
+<p>The following code mainly comes from a <a href="http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html">thread</a> on org-mode mailing list. For some
+reasons, <code>downcase</code> the heading string induces the remove of <code>\label{}</code> (which
+is actually fine).
+</p>
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'org-export-latex-classes
+             '(<span class="org-string">"koma-letter"</span>
+               <span class="org-string">"%% koma-letter</span>
+<span class="org-string">                \\documentclass{scrlttr2}</span>
+<span class="org-string">                \\usepackage{hyperref}</span>
+<span class="org-string">                [NO-DEFAULT-PACKAGES]"</span>
+               org-scrlttr2-sectioning))
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-scrlttr2-sectioning</span> (level heading)
+  (<span class="org-keyword">let</span> ((open <span class="org-string">"\n\\%s {"</span>)
+        (close <span class="org-string">"}"</span>))
+    (setq heading (downcase (replace-regexp-in-string <span class="org-string">"\\s-+"</span> <span class="org-string">""</span> heading)))
+    (<span class="org-keyword">cond</span>
+     ((string-equal heading <span class="org-string">"subject"</span>)
+      (setq open <span class="org-string">"\n\\setkomavar{%s} {"</span>)
+      )
+     ((string-equal heading <span class="org-string">"letter"</span>)
+      (setq open <span class="org-string">"\n\\begin{%s} {"</span>)
+      )
+     ((string-equal heading <span class="org-string">"body"</span>)
+      (setq open <span class="org-string">"\n"</span>)
+      (setq close <span class="org-string">"\n"</span>)
+      )
+     (t 'ignore))
+    (list heading open close open close))
+  )
+</pre>
+
+
+<p>
+The previous code works almost perfectly except that an additional blank line is
+added to the <code>\closing</code> sentence and the <code>\end{letter}</code> is missing. The
+following piece of code try to solve this (orginal idea from <a href="http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html">Eric Schulte</a>).
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">fix-koma-letter</span> ()
+  (<span class="org-keyword">save-excursion</span>
+    (goto-char (point-min))
+    (<span class="org-keyword">if</span> (search-forward <span class="org-string">"koma-letter"</span> nil t 1)
+        (<span class="org-keyword">progn</span>
+          (delete-matching-lines <span class="org-string">"\maketitle"</span>)
+          (<span class="org-keyword">while</span> (re-search-forward <span class="org-string">"^\\\\closing"</span> nil t)
+            (forward-line 1)
+            (move-beginning-of-line nil)
+            (delete-region (point) (<span class="org-keyword">save-excursion</span> (forward-line 1) (point))))
+          (re-search-forward <span class="org-string">"^\\\\end{document}"</span>)
+          (forward-line -1)
+          (insert <span class="org-string">"\\end{letter}"</span>)))))
+(add-hook 'org-export-latex-final-hook 'fix-koma-letter)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-4" class="outline-4">
+<h4 id="sec-1-7-4">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
+<div class="outline-text-4" id="text-1-7-4">
+
+<p>From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export">org-faq</a>
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-latexmk-cmd</span> ()
+  <span class="org-doc">"When exporting from .org with latex, automatically run latex,</span>
+<span class="org-doc">     pdflatex, or xelatex as appropriate, using latexmk."</span>
+  (<span class="org-keyword">let</span> ((texcmd)))
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">default command: xelatex</span>
+  (setq texcmd <span class="org-string">"latexmk -xelatex -shell-escape -pdf -quiet %f"</span>)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">pdflatex -&gt; .pdf</span>
+  (<span class="org-keyword">if</span> (string-match <span class="org-string">"LATEX_CMD: pdflatex"</span> (buffer-string))
+      (setq texcmd <span class="org-string">"latexmk -pdf -shell-escape -quiet %f"</span>))
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">xelatex -&gt; .pdf</span>
+  (<span class="org-keyword">if</span> (string-match <span class="org-string">"LATEX_CMD: xelatex"</span> (buffer-string))
+      (setq texcmd <span class="org-string">"latexmk -xelatex -shell-escape -pdf -quiet %f"</span>))
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">LaTeX compilation command</span>
+  (setq org-latex-to-pdf-process (list texcmd)))
+
+(add-hook 'org-export-latex-after-initial-vars-hook 'sk-latexmk-cmd)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7-5" class="outline-4">
+<h4 id="sec-1-7-5">Minted setup</h4>
+<div class="outline-text-4" id="text-1-7-5">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq org-export-latex-listings 'minted)
+(setq org-export-latex-minted-options
+      '(<span class="org-comment-delimiter">;;</span><span class="org-comment">("frame" "lines")</span>
+        (<span class="org-string">"fontsize"</span> <span class="org-string">"\\scriptsize"</span>)
+        (<span class="org-string">"samepage"</span> <span class="org-string">""</span>)
+        (<span class="org-string">"xrightmargin"</span> <span class="org-string">"0.5cm"</span>)
+        (<span class="org-string">"xleftmargin"</span> <span class="org-string">"0.5cm"</span>)
+        ))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8">Prevent editing invisible text</h3>
+<div class="outline-text-3" id="text-1-8">
+
+<p>The following setting prevents accidentally editing hidden text when
+the point is inside a folded region. This can happen if you are in the
+body of a heading and globally fold the org-file with <code>S-TAB</code>
+</p>
+<p>
+I find invisible edits (and undo's) hard to deal with so now I can't
+edit invisible text. <code>C-c C-r</code> (org-reveal) will display where the point
+is if it is buried in invisible text to allow editing again.
+</p>
+
+
+<pre class="src src-emacs-lisp">(setq org-catch-invisible-edits 'error)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-9" class="outline-3">
+<h3 id="sec-1-9">Automatically renumber footnotes</h3>
+<div class="outline-text-3" id="text-1-9">
+
+
+
+
+<pre class="src src-emacs-lisp">(setq org-footnote-auto-adjust t)
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-10" class="outline-3">
+<h3 id="sec-1-10">Org fold to store folding state</h3>
+<div class="outline-text-3" id="text-1-10">
+
+<p>Stolen from <a href="https://github.com/dandavison/org-fold">Dan Davison</a> git account. Just changing the directory where
+the <code>.fold</code> file is saved.
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-get-fold-info-file-name</span> ()
+  (concat temporary-file-directory <span class="org-string">"org-fold/"</span> (buffer-name) <span class="org-string">".fold"</span>))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-save</span> ()
+  (<span class="org-keyword">save-excursion</span>
+    (goto-char (point-min))
+    (<span class="org-keyword">let</span> (foldstates)
+      (<span class="org-keyword">unless</span> (looking-at outline-regexp)
+        (outline-next-visible-heading 1))
+      (<span class="org-keyword">while</span> (not (eobp))
+        (push (<span class="org-keyword">if</span> (some (<span class="org-keyword">lambda</span> (o) (overlay-get o 'invisible))
+                        (overlays-at (line-end-position)))
+                  t)
+              foldstates)
+        (outline-next-visible-heading 1))
+      (<span class="org-keyword">with-temp-file</span> (org-fold-get-fold-info-file-name)
+        (prin1 (nreverse foldstates) (current-buffer))))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-restore</span> ()
+  (<span class="org-keyword">save-excursion</span>
+    (goto-char (point-min))
+    (<span class="org-keyword">let*</span> ((foldfile (org-fold-get-fold-info-file-name))
+           (foldstates
+            (<span class="org-keyword">if</span> (file-readable-p foldfile)
+                (<span class="org-keyword">with-temp-buffer</span>
+                  (insert-file-contents foldfile)
+                  (read (current-buffer))))))
+      (<span class="org-keyword">when</span> foldstates
+        (show-all)
+        (goto-char (point-min))
+        (<span class="org-keyword">unless</span> (looking-at outline-regexp)
+          (outline-next-visible-heading 1))
+        (<span class="org-keyword">while</span> (and foldstates (not (eobp)))
+          (<span class="org-keyword">if</span> (pop foldstates)
+              (hide-subtree))
+          (outline-next-visible-heading 1))
+        (message <span class="org-string">"Restored saved folding state"</span>)))))
+
+(add-hook 'org-mode-hook 'org-fold-activate)
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-activate</span> ()
+  (org-fold-restore)
+  (add-hook 'before-save-hook 'org-fold-save        nil t)
+  (add-hook 'auto-save-hook   'org-fold-kill-buffer nil t))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-kill-buffer</span> ()
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">don't save folding info for unsaved buffers</span>
+  (<span class="org-keyword">unless</span> (buffer-modified-p)
+    (org-fold-save)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-11" class="outline-3">
+<h3 id="sec-1-11">Function to generate all org table</h3>
+<div class="outline-text-3" id="text-1-11">
+
+<p>From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Dominik</a>
+</p>
+
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-org-send-all-tables</span> ()
+   (interactive)
+   (org-table-map-tables
+      (<span class="org-keyword">lambda</span> () (orgtbl-send-table 'maybe))))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-12" class="outline-3">
+<h3 id="sec-1-12">Org calendar synchronization with Google Agenda (not used)</h3>
+<div class="outline-text-3" id="text-1-12">
+
+
+
+
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">(add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))</span>
+
+(setq org-caldav-calendar-id <span class="org-string">"dmpa69a5ajdi54dtl8jsdqcivs@group.calendar.google.com"</span>
+      org-caldav-url <span class="org-string">"https://www.google.com/calendar/dav"</span><span class="org-comment-delimiter">;</span>
+      org-caldav-files '(<span class="org-string">"~/Documents/Org/rdv.org"</span>)
+      org-caldav-inbox <span class="org-string">"~/Documents/Org/inbox.org"</span>)
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

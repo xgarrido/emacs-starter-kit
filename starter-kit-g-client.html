@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit G-Client</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Starter Kit G-Client"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-05-19T14:27+0200"/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<link rel="stylesheet" href="stylesheets/styles.css">
+             <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+<span><a title="home page" class="" href="http://xgarrido.dyndns.org/">home</a></span>
+                     <span><a title="about" class="" href="http://xgarrido.dyndns.org/">about</a></span>
+                     <span><a title="publication" class="" href="http://xgarrido.dyndns.org/">publication</a></span>
+                     <span><a title="vitae" class="" href="http://xgarrido.dyndns.org/">vitae</a></span>
+                     <span><a title="categories" class="" href="http://xgarrido.dyndns.org/">categories</a></span>
+                     <span><a title="links" class="" href="http://xgarrido.dyndns.org/">links</a></span>
+                     <span><a title="subscribe by RSS" class="" href="http://xgarrido.dyndns.org/">subscribe</a></span>
+                     
+</div>
+
+<div id="content">
+<h1 class="title">Starter Kit G-Client</h1>
+
+<p>This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+<p>
+G-Client is part of T.V. Raman's <a href="http://code.google.com/p/emacspeak/">emacspeak</a> package which provides for
+interaction with Google services (e.g., google-docs, google-calendar)
+from within Emacs.
+</p>
+
+<div id="outline-container-instillation" class="outline-2">
+<h2 id="instillation"><a name="sec-1" id="sec-1"></a>Installation</h2>
+<div class="outline-text-2" id="text-instillation">
+
+
+<ol>
+<li>Grab the latest version of G-Client by running the following in
+   this directory.
+
+
+
+<pre class="src src-sh"><span class="org-builtin">cd</span> src/
+svn co http://emacspeak.googlecode.com/svn/trunk/lisp/g-client/
+</pre>
+
+
+</li>
+<li>The in the <code>g-client</code> directory run the following commands to build
+   the package.
+
+
+
+<pre class="src src-sh"><span class="org-builtin">cd</span> src/g-client
+make
+</pre>
+
+
+</li>
+<li>Add the <code>g-client</code> directory to the load path, and load the package
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path
+             (expand-file-name
+              <span class="org-string">"g-client"</span>
+              (expand-file-name
+               <span class="org-string">"src"</span>
+               (file-name-directory
+                (or load-file-name (buffer-file-name))))))
+(load-library <span class="org-string">"g"</span>)
+</pre>
+
+
+</li>
+<li>Finally, in the current version of g-client one small change to the
+   code is required.  In the definition `<a href="src/g-client/gdocs.el#defun-gdocs-publish-from-org">gdocs-publish-from-org</a>' the
+   call to the `org-export-region-as-html' function should be changed
+   from
+
+
+
+<pre class="src src-emacs-lisp">(org-export-region-as-html (point-min) (point-max)
+                           nil g-scratch-buffer)
+</pre>
+
+<p>
+   to
+</p>
+
+
+<pre class="src src-emacs-lisp">(org-export-region-as-html (point-min) (point-max)
+                           'body-only g-scratch-buffer)
+</pre>
+
+<p>
+   so that the exported html only includes the body of the html
+   document.  The header information generated by Org-mode seems to
+   confuse google documents.
+</p></li>
+</ol>
+
+
+<p>
+For more information see
+</p><ul>
+<li>the <a href="#sec-2">usage</a> section immediately below
+</li>
+<li>the <a href="src/g-client/g-client.html">src/g-client/g-client</a> file included with <code>g-client</code>
+</li>
+<li>and this blog post <a href="http://blog.vivekhaldar.com/post/1649745633/editing-google-docs-in-emacs">blog.vivekhaldar.com/editing-google-docs-in-emacs</a>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-usage" class="outline-2">
+<h2 id="usage"><a name="sec-2" id="sec-2"></a>Usage</h2>
+<div class="outline-text-2" id="text-usage">
+
+<p>Usage is as simple as
+</p>
+<ol>
+<li>add g-client to your load path
+
+
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path (expand-file-name
+                         <span class="org-string">"g-client"</span> (expand-file-name <span class="org-string">"src"</span> starter-kit-dir)))
+</pre>
+
+
+</li>
+<li>load g-client
+
+
+
+<pre class="src src-emacs-lisp">(load-library <span class="org-string">"g"</span>)
+</pre>
+
+
+</li>
+<li>sign into google documents with <code>M-x gdocs-sign-in</code>
+
+</li>
+<li>open an Emacs buffer which you would like to post to google docs
+
+</li>
+<li>publish the buffer with `gdocs-publish-from-text'
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>
