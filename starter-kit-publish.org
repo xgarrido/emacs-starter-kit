@@ -34,7 +34,7 @@ the documentation for the Starter Kit to html.
        :base-directory ,this-dir
        :base-extension "org"
        :style "<link rel=\"stylesheet\" href=\"stylesheets/styles.css\">
-               <link rel=\"stylesheet\" href=\"stylesheets/org-pygment.css\">"
+               <link rel=\"stylesheet\" href=\"stylesheets/org-pygments.css\">"
        :publishing-directory ,(expand-file-name "doc" this-dir)
        :index-filename "starter-kit.org"
        :html-preamble "<span><a title=\"home page\" class=\"\" href=\"http://xgarrido.dyndns.org/\">home</a></span>
