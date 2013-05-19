@@ -68,6 +68,7 @@ some small part of it here. There is also some =face= changes for
      `(org-document-title        ((,class (:foreground ,blue-hc :weight bold))))
      `(org-document-info         ((,class (:foreground ,blue-hc))))
      `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
+     `(org-table ((,class (:foreground ,blue-d))))`
      ;; Autocomplete faces
      `(ac-candidate-face ((,class (:background ,solarized-hl :foreground ,yellow))))
      `(ac-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))

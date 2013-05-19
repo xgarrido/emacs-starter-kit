@@ -56,3 +56,4 @@ agent/*
 /%backup%~
 /doc/
 /el-get/
+/eshell/

@@ -76,6 +76,25 @@ display a list of the code blocks commands and their related keys.
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq org-use-speed-commands t)
 #+END_SRC
+*** Special word faces
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defface my/highlight-face
+    '((t (:weight normal :slant normal :box '(:line-width 1 :color "#CC0000")
+                  :foreground "#CC0000" :background "#FFFF88")))
+    "Face for making FIXME and other warnings stand out.")
+
+  (defvar my/highlight-org-regexps
+    "\\(FIXME\\|BUG\\|XXX\\|[Ee]rror\\|[Ww]arning\\|WARNING\\)"
+    "Patterns to highlight (for Org mode only, to ensure no conflict with the
+    Org mode TODO keyword).")
+
+  ;; set up highlighting of special patterns for Org mode only
+  (dolist (mode '(org-mode
+                  orgtbl-mode))
+    (font-lock-add-keywords mode
+                            `((,my/highlight-org-regexps 1 'my/highlight-face
+                                                         prepend))))
+#+END_SRC
 ** Code blocks
 :PROPERTIES:
 :CUSTOM_ID: babel
