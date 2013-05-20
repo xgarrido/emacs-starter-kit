@@ -224,30 +224,6 @@ of lowercase cookies.
     (setq org-export-latex-classes nil))
 
   (add-to-list 'org-export-latex-classes
-               ;; beamer class, for presentations
-               '("beamer_teaching"
-                 "\\documentclass[t, compress]{beamer}\n
-                  \\input{../base/OptionsListingC++.sty}\n
-                  \\input{../base/BeamerPackage.sty}\n"
-                 ("\\begin{frame}[c, fragile]\\frametitle{%s}"
-                  "\\end{frame}"
-                  "\\begin{frame}[c, fragile]\\frametitle{%s}"
-                  "\\end{frame}")))
-
-  (add-to-list 'org-export-latex-classes
-               ;; letter class, for formal letters
-               '("letter"
-                 "\\documentclass[11pt]{letter}\n
-                  \\usepackage[utf8]{inputenc}\n
-                  \\usepackage[T1]{fontenc}\n
-                  \\usepackage{color}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-  (add-to-list 'org-export-latex-classes
                '("memarticle"
                  "\\documentclass[11pt,oneside,article]{memoir}
                   \\usepackage{memoir-article-styles}"
@@ -265,13 +241,15 @@ of lowercase cookies.
 
   ;; Custom packages
   (defun sk-auto-tex-parameters ()
-    "Automatically select the tex packages to include. See https://github.com/kjhealy/latex-custom-kjh for the support files included here."
+    "Automatically select the tex packages to include. See
+     https://github.com/kjhealy/latex-custom-kjh for the support
+     files included here."
     ;; default packages for ordinary latex
     ;;(setq org-export-latex-default-packages-alist
     ;;      '(("AUTO" "inputenc" t)))
     ;; Packages to include when xelatex is used
     (setq org-export-latex-default-packages-alist
-          '(("" "org-preamble" t) )))
+          '(("" "org-preamble" t))))
 
   (add-hook 'org-export-latex-after-initial-vars-hook 'sk-auto-tex-parameters)
 
