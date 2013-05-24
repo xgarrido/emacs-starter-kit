@@ -40,6 +40,25 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
     (sk-popup "Emacs compilation" message))
   (setq compilation-finish-function 'compile-notify)
 #+END_SRC
+*** Bury compilation buffer
+If compilation is successful namely neither errors nor warnings, the compilation
+buffer will disappear after 1 second. Stolen from [[http://stackoverflow.com/questions/11043004/emacs-compile-buffer-auto-close/11059012#11059012][stackoverflow]].
+#+BEGIN_SRC emacs-lisp
+  (defun sk-bury-compile-buffer-if-successful (buffer string)
+    "Bury a compilation buffer if succeeded without warnings "
+    (if (and
+         (string-match "compilation" (buffer-name buffer))
+         (string-match "finished" string)
+         (not
+          (with-current-buffer buffer
+            (search-forward "warning" nil t))))
+        (run-with-timer 1 nil
+                        (lambda (buf)
+                          (bury-buffer buf)
+                          (switch-to-prev-buffer (get-buffer-window buf) 'kill))
+                        buffer)))
+  (add-hook 'compilation-finish-functions 'sk-bury-compile-buffer-if-successful)
+#+END_SRC
 ** Tags
 The following code makes use to =etags= program to generate a list of tags and
 to ease the code navigation.
