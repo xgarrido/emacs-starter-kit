@@ -224,6 +224,16 @@ of lowercase cookies.
     (setq org-export-latex-classes nil))
 
   (add-to-list 'org-export-latex-classes
+               '("article"
+                 "\\documentclass[11pt]{article}
+                  \\usepackage{hyperref}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  (add-to-list 'org-export-latex-classes
                '("memarticle"
                  "\\documentclass[11pt,oneside,article]{memoir}
                   \\usepackage{memoir-article-styles}"
