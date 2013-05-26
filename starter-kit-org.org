@@ -46,8 +46,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 ** Org-Mode keybindings
 #+BEGIN_SRC emacs-lisp
-  (define-key org-mode-map (kbd "s-p") 'org-export-as-pdf)
-  (define-key org-mode-map (kbd "s-l") 'org-export-as-latex)
+  (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
+  (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
 #+END_SRC
 
 ** Org-Mode settings
@@ -146,15 +146,10 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
-#+BEGIN_SRC emacs-lisp
-  (require 'org-latex)
-#+END_SRC
-
 *** Org special blocks hacks
 This is a copy/paste of [[http://orgmode.org/worg/org-contrib/org-special-blocks.html][org-special-blocks.el]] file. The unique change is the use
 of lowercase cookies.
 #+BEGIN_SRC emacs-lisp
-  (require 'org-html)
   (require 'org-compat)
 
   (declare-function org-open-par "org-html" ())
@@ -220,20 +215,20 @@ of lowercase cookies.
 
 *** Defining org-latex classes
 #+BEGIN_SRC emacs-lisp
-  (unless (boundp 'org-export-latex-classes)
-    (setq org-export-latex-classes nil))
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
 
-  (add-to-list 'org-export-latex-classes
+  (add-to-list 'org-latex-classes
                '("article"
                  "\\documentclass[11pt]{article}
-                  \\usepackage{hyperref}"
+                  [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-  (add-to-list 'org-export-latex-classes
+  (add-to-list 'org-latex-classes
                '("memarticle"
                  "\\documentclass[11pt,oneside,article]{memoir}
                   \\usepackage{memoir-article-styles}"
@@ -242,27 +237,11 @@ of lowercase cookies.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
 
-  ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
-  ;;(setq org-export-latex-packages-alist
-  ;;      '(("" "graphicx" t)
-  ;;        ("" "longtable" nil)
-  ;;        ("" "float" )))
-
-  ;; Custom packages
-  (defun sk-auto-tex-parameters ()
-    "Automatically select the tex packages to include. See
-     https://github.com/kjhealy/latex-custom-kjh for the support
-     files included here."
-    ;; default packages for ordinary latex
-    ;;(setq org-export-latex-default-packages-alist
-    ;;      '(("AUTO" "inputenc" t)))
-    ;; Packages to include when xelatex is used
-    (setq org-export-latex-default-packages-alist
-          '(("" "org-preamble" t))))
-
-  (add-hook 'org-export-latex-after-initial-vars-hook 'sk-auto-tex-parameters)
-
+*** Default list of LaTeX packages
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "org-preamble"))
 #+END_SRC
 
 *** KOMA/LaTeX script
@@ -270,11 +249,10 @@ The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs
 reasons, =downcase= the heading string induces the remove of =\label{}= (which
 is actually fine).
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-export-latex-classes
+  (add-to-list 'org-latex-classes
                '("koma-letter"
                  "%% koma-letter
                   \\documentclass{scrlttr2}
-                  \\usepackage{hyperref}
                   [NO-DEFAULT-PACKAGES]"
                  org-scrlttr2-sectioning))
   (defun org-scrlttr2-sectioning (level heading)
@@ -320,33 +298,34 @@ following piece of code try to solve this (orginal idea from [[http://lists.gnu.
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
 #+BEGIN_SRC emacs-lisp
-  (defun sk-latexmk-cmd ()
+  (defun sk-latexmk-cmd (backend)
     "When exporting from .org with latex, automatically run latex,
        pdflatex, or xelatex as appropriate, using latexmk."
-    (let ((texcmd)))
-    ;; default command: xelatex
-    (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f")
-    ;; pdflatex -> .pdf
-    (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-        (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
-    ;; xelatex -> .pdf
-    (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-        (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f"))
-    ;; LaTeX compilation command
-    (setq org-latex-to-pdf-process (list texcmd)))
+    (when (org-export-derived-backend-p backend 'latex)
+      (let ((texcmd)))
+      ;; default command: xelatex
+      (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f")
+      ;; pdflatex -> .pdf
+      (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+          (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
+      ;; xelatex -> .pdf
+      (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f"))
+      ;; LaTeX compilation command
+      (setq org-latex-pdf-process (list texcmd))))
 
-  (add-hook 'org-export-latex-after-initial-vars-hook 'sk-latexmk-cmd)
+  (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
 
 *** Minted setup
 #+BEGIN_SRC emacs-lisp :results silent
-  (setq org-export-latex-listings 'minted)
-  (setq org-export-latex-minted-options
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options
         '(;;("frame" "lines")
           ("fontsize" "\\scriptsize")
           ("samepage" "")
           ("xrightmargin" "0.5cm")
-          ("xleftmargin" "0.5cm")
+          ("xleftmargin"  "0.5cm")
           ))
 #+END_SRC
 
