@@ -146,10 +146,15 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
+*** Requirements
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-latex)
+#+END_SRC
+
 *** Org special blocks hacks
 This is a copy/paste of [[http://orgmode.org/worg/org-contrib/org-special-blocks.html][org-special-blocks.el]] file. The unique change is the use
 of lowercase cookies.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'org-compat)
 
   (declare-function org-open-par "org-html" ())
@@ -213,6 +218,11 @@ of lowercase cookies.
 
 #+END_SRC
 
+*** Default list of LaTeX packages
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "org-preamble"))
+#+END_SRC
+
 *** Defining org-latex classes
 #+BEGIN_SRC emacs-lisp
   (unless (boundp 'org-latex-classes)
@@ -239,60 +249,17 @@ of lowercase cookies.
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 
-*** Default list of LaTeX packages
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-latex-packages-alist '("" "org-preamble"))
-#+END_SRC
-
 *** KOMA/LaTeX script
-The following code mainly comes from a [[http://lists.gnu.org/archive/html/emacs-orgmode/2010-07/msg01060.html][thread]] on org-mode mailing list. For some
-reasons, =downcase= the heading string induces the remove of =\label{}= (which
-is actually fine).
+Define a special =org-latex-classes= to make use of KOMA/LaTeX letter
+style. The =ox-koma-letter= backend from org-mode contribution directory must
+be properly installed or loaded. To produce org-mode to LaTeX to PDF export,
+you should use the =org-koma-letter-export-to-pdf= command.
+
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
                '("koma-letter"
-                 "%% koma-letter
-                  \\documentclass{scrlttr2}
-                  [NO-DEFAULT-PACKAGES]"
-                 org-scrlttr2-sectioning))
-  (defun org-scrlttr2-sectioning (level heading)
-    (let ((open "\n\\%s {")
-          (close "}"))
-      (setq heading (downcase (replace-regexp-in-string "\\s-+" "" heading)))
-      (cond
-       ((string-equal heading "subject")
-        (setq open "\n\\setkomavar{%s} {")
-        )
-       ((string-equal heading "letter")
-        (setq open "\n\\begin{%s} {")
-        )
-       ((string-equal heading "body")
-        (setq open "\n")
-        (setq close "\n")
-        )
-       (t 'ignore))
-      (list heading open close open close))
-    )
-#+END_SRC
-
-The previous code works almost perfectly except that an additional blank line is
-added to the =\closing= sentence and the =\end{letter}= is missing. The
-following piece of code try to solve this (orginal idea from [[http://lists.gnu.org/archive/html/emacs-orgmode/2009-10/msg00044.html][Eric Schulte]]).
-#+BEGIN_SRC emacs-lisp
-  (defun fix-koma-letter ()
-    (save-excursion
-      (goto-char (point-min))
-      (if (search-forward "koma-letter" nil t 1)
-          (progn
-            (delete-matching-lines "\maketitle")
-            (while (re-search-forward "^\\\\closing" nil t)
-              (forward-line 1)
-              (move-beginning-of-line nil)
-              (delete-region (point) (save-excursion (forward-line 1) (point))))
-            (re-search-forward "^\\\\end{document}")
-            (forward-line -1)
-            (insert "\\end{letter}")))))
-  (add-hook 'org-export-latex-final-hook 'fix-koma-letter)
+                 "\\documentclass{scrlttr2}
+                  [NO-DEFAULT-PACKAGES]"))
 #+END_SRC
 
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
@@ -409,7 +376,7 @@ From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
         (lambda () (orgtbl-send-table 'maybe))))
 #+END_SRC
 
-** Org calendar synchronization with Google Agenda (not used)
+** Org calendar synchronization with Google Agenda :DEPRECATED:
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
 
