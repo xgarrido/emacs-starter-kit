@@ -134,7 +134,7 @@ Define new theme (since definition occurs here it is loaded by default)
 *** Highlight everything strange
 #+BEGIN_SRC emacs-lisp
   (setq whitespace-style '(face trailing lines-tail tabs)
-        whitespace-line-column 80)
+        whitespace-line-column 100)
 #+END_SRC
 
 *** Show a column wise indicator
