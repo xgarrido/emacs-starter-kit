@@ -43,7 +43,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 *** Bury compilation buffer
 If compilation is successful namely neither errors nor warnings, the compilation
 buffer will disappear after 1 second. Stolen from [[http://stackoverflow.com/questions/11043004/emacs-compile-buffer-auto-close/11059012#11059012][stackoverflow]].
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun sk-bury-compile-buffer-if-successful (buffer string)
     "Bury a compilation buffer if succeeded without warnings "
     (if (and
