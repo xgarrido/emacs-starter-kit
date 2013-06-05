@@ -110,6 +110,20 @@ Use ido everywhere
   (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
 #+END_SRC
 
+** Setting =flx-ido-mode=
+Fuzzy matching for Emacs ... a la Sublime Text. See
+https://github.com/lewang/flx
+
+#+BEGIN_SRC emacs-lisp
+  (require 'flx-ido)
+  (flx-ido-mode 1)
+#+END_SRC
+
+Increase emacs garbage collection size
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-threshold 20000000)
+#+END_SRC
+
 ** Advice ido to open file as root
 From [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][Emacs Redux]].
 #+BEGIN_SRC emacs-lisp

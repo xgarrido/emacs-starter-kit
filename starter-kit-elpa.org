@@ -67,7 +67,8 @@ managers.  This should not work under Windows system since it does not have the
           'xml-rpc
           'ack-and-a-half
           'smartparens
-          'htmlize)
+          'htmlize
+          'flx)
     "Libraries that should be installed by default.")
 #+END_SRC
 
