@@ -134,14 +134,14 @@ Define new theme (since definition occurs here it is loaded by default)
 *** Highlight everything strange
 #+BEGIN_SRC emacs-lisp
   (setq whitespace-style '(face trailing lines-tail tabs)
-        whitespace-line-column 100)
+        whitespace-line-column 80)
 #+END_SRC
 
 *** Show a column wise indicator
 #+BEGIN_SRC emacs-lisp
   (require 'fill-column-indicator)
   (setq fci-rule-width 3)
-  (setq-default fill-column 100)
+  (setq-default fill-column 80)
 #+END_SRC
 
 *** Use space for tabulation
@@ -171,6 +171,10 @@ Define new theme (since definition occurs here it is loaded by default)
 *** Which func-mode
 #+BEGIN_SRC emacs-lisp :tangle no
   (which-func-mode t)
+#+END_SRC
+*** Winner mode
+#+BEGIN_SRC emacs-lisp
+  (winner-mode 1)
 #+END_SRC
 ** Setting default directories
 
