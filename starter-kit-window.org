@@ -81,7 +81,6 @@ some small part of it here. There is also some =face= changes for
      ;; Linum & fringe
      `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
      `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-
      ))
 #+END_SRC
 
@@ -176,6 +175,15 @@ Define new theme (since definition occurs here it is loaded by default)
 #+BEGIN_SRC emacs-lisp
   (winner-mode 1)
 #+END_SRC
+*** idle hightlight face
+Use a less intrusive color for =idle-hightlight-mode=
+#+BEGIN_SRC emacs-lisp
+  (defface idle-highlight
+    '((t (:inherit match)))
+    "Face used to highlight other occurrences of the word at point."
+    :group 'idle-highlight)
+#+END_SRC
+
 ** Setting default directories
 
 [[http://www.emacswiki.org/emacs/SavePlace][SavePlace]] stores the position where the point was at the last visit of
