@@ -48,6 +48,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
+  (define-key org-mode-map (kbd "s-h") 'org-latex-export-as-html)
 #+END_SRC
 
 ** Org-Mode settings
@@ -109,6 +110,7 @@ supported languages.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (sh . t)
+     (C . t)
      (python . t)))
 #+END_SRC
 
@@ -151,7 +153,7 @@ file using the `org-babel-lob-ingest' function.
   (require 'ox-latex)
 #+END_SRC
 
-*** Org special blocks hacks
+*** Org special blocks hacks :DEPRECATED:
 This is a copy/paste of [[http://orgmode.org/worg/org-contrib/org-special-blocks.html][org-special-blocks.el]] file. The unique change is the use
 of lowercase cookies.
 #+BEGIN_SRC emacs-lisp :tangle no
