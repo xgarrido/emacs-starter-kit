@@ -48,7 +48,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+BEGIN_SRC emacs-lisp
   (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
-  (define-key org-mode-map (kbd "s-h") 'org-latex-export-as-html)
+  (define-key org-mode-map (kbd "s-h") 'org-html-export-to-html)
 #+END_SRC
 
 ** Org-Mode settings
@@ -59,8 +59,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+END_SRC
 
 *** Using ido completing
-  #+BEGIN_SRC emacs-lisp
-    (setq org-completion-use-ido t)
+#+BEGIN_SRC emacs-lisp
+  (setq org-completion-use-ido t)
 #+END_SRC
 
 *** Use speed keys
@@ -111,7 +111,8 @@ supported languages.
    '((emacs-lisp . t)
      (sh . t)
      (C . t)
-     (python . t)))
+     (python . t)
+     (latex . t)))
 #+END_SRC
 
 You are encouraged to add the following to your personal configuration
@@ -151,73 +152,6 @@ file using the `org-babel-lob-ingest' function.
 *** Requirements
 #+BEGIN_SRC emacs-lisp
   (require 'ox-latex)
-#+END_SRC
-
-*** Org special blocks hacks :DEPRECATED:
-This is a copy/paste of [[http://orgmode.org/worg/org-contrib/org-special-blocks.html][org-special-blocks.el]] file. The unique change is the use
-of lowercase cookies.
-#+BEGIN_SRC emacs-lisp :tangle no
-  (require 'org-compat)
-
-  (declare-function org-open-par "org-html" ())
-  (declare-function org-close-par-maybe "org-html" ())
-
-  (defvar org-special-blocks-ignore-regexp "^\\(LaTeX\\|HTML\\)$"
-    "A regexp indicating the names of blocks that should be ignored
-  by org-special-blocks.  These blocks will presumably be
-  interpreted by other mechanisms.")
-
-  (defvar org-export-current-backend) ; dynamically bound in org-exp.el
-  (defun org-special-blocks-make-special-cookies ()
-    "Adds special cookies when #+begin_foo and #+end_foo tokens are
-  seen. This is run after a few special cases are taken care of."
-    (when (or (eq org-export-current-backend 'html)
-              (eq org-export-current-backend 'latex))
-      (goto-char (point-min))
-      (while (re-search-forward "^[ \t]*#\\+\\(begin\\|end\\)_\\(.*\\)$" nil t)
-        (unless (org-string-match-p org-special-blocks-ignore-regexp (match-string 2))
-          (replace-match
-           (if (equal (downcase (match-string 1)) "begin")
-               (concat "ORG-" (match-string 2) "-START")
-             (concat "ORG-" (match-string 2) "-END"))
-           t t)))))
-
-  (add-hook 'org-export-preprocess-after-blockquote-hook
-            'org-special-blocks-make-special-cookies)
-
-  (defun org-special-blocks-convert-latex-special-cookies ()
-    "Converts the special cookies into LaTeX blocks."
-    (goto-char (point-min))
-    (while (re-search-forward "^ORG-\\([^ \t\n]*\\)[ \t]*\\(.*\\)-\\(START\\|END\\)$" nil t)
-      (replace-match
-       (if (equal (match-string 3) "START")
-           (concat "\\begin{" (downcase (match-string 1)) "}" (match-string 2))
-         (concat "\\end{" (downcase (match-string 1)) "}"))
-       t t)))
-
-
-  (add-hook 'org-export-latex-after-blockquotes-hook
-            'org-special-blocks-convert-latex-special-cookies)
-
-  (defvar line)
-  (defun org-special-blocks-convert-html-special-cookies ()
-    "Converts the special cookies into div blocks."
-    ;; Uses the dynamically-bound variable `line'.
-    (when (string-match "^ORG-\\(.*\\)-\\(START\\|END\\)$" line)
-      (message "%s" (match-string 1))
-      (when (equal (match-string 2 line) "START")
-        (org-close-par-maybe)
-        (insert "\n<div class=\"" (match-string 1 line) "\">")
-        (org-open-par))
-      (when (equal (match-string 2 line) "END")
-        (org-close-par-maybe)
-        (insert "\n</div>")
-        (org-open-par))
-      (throw 'nextline nil)))
-
-  (add-hook 'org-export-html-after-blockquotes-hook
-            'org-special-blocks-convert-html-special-cookies)
-
 #+END_SRC
 
 *** Default list of LaTeX packages
@@ -298,6 +232,11 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
           ("xrightmargin" "0.5cm")
           ("xleftmargin"  "0.5cm")
           ))
+#+END_SRC
+
+*** Place table caption below table
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-table-caption-above nil)
 #+END_SRC
 
 ** Prevent editing invisible text
