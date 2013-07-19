@@ -255,8 +255,9 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (git-gutter-fr+-minimal)
   (set-face-foreground 'git-gutter-fr+-modified "#DEB542")
   (set-face-foreground 'git-gutter-fr+-added    "#DC322F")
-  (set-face-foreground 'git-gutter-fr+-deleted  "#546E00")
+  (set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
 #+END_SRC
+
 ** Uniquify settings
 Change buffer name in case of various same name buffer
 previously : Makefile and Makefile<2>
