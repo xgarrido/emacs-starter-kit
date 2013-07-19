@@ -248,6 +248,15 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
   (define-key magit-status-mode-map (kbd "p") 'magit-push)
 #+END_SRC
+
+** Git gutter settings
+#+BEGIN_SRC emacs-lisp
+  (require 'git-gutter-fringe+)
+  (git-gutter-fr+-minimal)
+  (set-face-foreground 'git-gutter-fr+-modified "#DEB542")
+  (set-face-foreground 'git-gutter-fr+-added    "#DC322F")
+  (set-face-foreground 'git-gutter-fr+-deleted  "#546E00")
+#+END_SRC
 ** Uniquify settings
 Change buffer name in case of various same name buffer
 previously : Makefile and Makefile<2>
@@ -409,6 +418,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
   ;;(diminish 'wrap-region-mode)
   (diminish 'yas/minor-mode)
   (diminish 'undo-tree-mode)
+  (diminish 'git-gutter+-mode)
 #+END_SRC
 
 ** Buffer scrolling
