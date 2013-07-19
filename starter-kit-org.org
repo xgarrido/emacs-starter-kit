@@ -96,6 +96,11 @@ display a list of the code blocks commands and their related keys.
                             `((,my/highlight-org-regexps 1 'my/highlight-face
                                                          prepend))))
 #+END_SRC
+*** Turn on automatic renumbering of footnotes
+#+BEGIN_SRC emacs-lisp
+  (setq org-footnote-auto-adjust t)
+#+END_SRC
+
 ** Code blocks
 :PROPERTIES:
 :CUSTOM_ID: babel
@@ -163,7 +168,10 @@ file using the `org-babel-lob-ingest' function.
 #+BEGIN_SRC emacs-lisp
   (unless (boundp 'org-latex-classes)
     (setq org-latex-classes nil))
+#+END_SRC
 
+**** General article class
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
                '("article"
                  "\\documentclass[11pt]{article}
@@ -173,7 +181,24 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
 
+**** SuperNEMO DocDB template
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-classes
+               '("snemo-note"
+                 "\\documentclass[11pt,a4paper]{article}
+                  \\usepackage{supernemo-article-style}
+                  [NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+
+**** Memoir article (in development)
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
                '("memarticle"
                  "\\documentclass[11pt,oneside,article]{memoir}
@@ -182,7 +207,9 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 #+END_SRC
 
 *** KOMA/LaTeX script
@@ -215,7 +242,8 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
           (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
       ;; xelatex -> .pdf
       (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f"))
+          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet
+%f"))
       ;; LaTeX compilation command
       (setq org-latex-pdf-process (list texcmd))))
 
@@ -236,7 +264,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 
 *** Place table caption below table
 #+BEGIN_SRC emacs-lisp
-(setq org-latex-table-caption-above nil)
+  (setq org-latex-table-caption-above nil)
 #+END_SRC
 
 ** Prevent editing invisible text
