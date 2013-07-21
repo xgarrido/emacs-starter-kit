@@ -169,7 +169,6 @@ file using the `org-babel-lob-ingest' function.
   (unless (boundp 'org-latex-classes)
     (setq org-latex-classes nil))
 #+END_SRC
-
 **** General article class
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
@@ -188,6 +187,7 @@ file using the `org-babel-lob-ingest' function.
   (add-to-list 'org-latex-classes
                '("snemo-note"
                  "\\documentclass[11pt,a4paper]{article}
+                  [PACKAGES]
                   \\usepackage{supernemo-article-style}
                   [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
@@ -197,17 +197,18 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 
-**** Memoir article (in development)
+**** Memoir article
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
-               '("memarticle"
+               '("memoir-article"
                  "\\documentclass[11pt,oneside,article]{memoir}
-                  \\usepackage{memoir-article-styles}"
+                  [PACKAGES]
+                  \\usepackage{memoir-article-style}
+                  [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 #+END_SRC
@@ -236,14 +237,13 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
     (when (org-export-derived-backend-p backend 'latex)
       (let ((texcmd)))
       ;; default command: xelatex
-      (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f")
+      (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f && latexmk -c")
       ;; pdflatex -> .pdf
       (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-          (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
+          (setq texcmd "latexmk -pdf -shell-escape -quiet %f && latexmk -c"))
       ;; xelatex -> .pdf
       (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet
-%f"))
+          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f && latexmk -c"))
       ;; LaTeX compilation command
       (setq org-latex-pdf-process (list texcmd))))
 
