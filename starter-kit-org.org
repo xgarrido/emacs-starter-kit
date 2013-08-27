@@ -347,6 +347,16 @@ From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
         (lambda () (orgtbl-send-table 'maybe))))
 #+END_SRC
 
+** Org capture
+Emacs Org-mode has a feature called Org-capture that makes it easy to keep track
+of all the to-do's that crop up as we work on projects.  With Org-capture you
+can make comments across all your files and projects and link to them all from
+one place.
+*** Setting the TODO file location
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file (concat starter-kit-dir "starter-kit-todo-list.org"))
+#+END_SRC
+
 ** Org calendar synchronization with Google Agenda :DEPRECATED:
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
