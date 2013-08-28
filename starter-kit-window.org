@@ -68,7 +68,15 @@ some small part of it here. There is also some =face= changes for
      `(org-document-title        ((,class (:foreground ,blue-hc :weight bold))))
      `(org-document-info         ((,class (:foreground ,blue-hc))))
      `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
-     `(org-table ((,class (:foreground ,blue-d))))`
+     `(org-table ((,class (:foreground ,blue-d))))
+     `(org-level-1 ((,class (:foreground ,orange))))
+     `(org-level-2 ((,class (:foreground ,green))))
+     `(org-level-3 ((,class (:foreground ,blue))))
+     `(org-level-4 ((,class (:foreground ,yellow))))
+     `(org-level-5 ((,class (:foreground ,cyan))))
+     `(org-level-6 ((,class (:foreground ,green))))
+     `(org-level-7 ((,class (:foreground ,red))))
+     `(org-level-8 ((,class (:foreground ,blue))))
      ;; Autocomplete faces
      `(ac-candidate-face ((,class (:background ,solarized-hl :foreground ,yellow))))
      `(ac-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
@@ -267,6 +275,8 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
   (defadvice git-commit-commit (after delete-window activate)
     (delete-window))
+
+  (add-hook 'git-commit-mode-hook (lambda () (auto-complete-mode t)))
 #+END_SRC
 
 ** Git gutter settings

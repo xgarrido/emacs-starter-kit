@@ -36,12 +36,12 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 *** Minor mode
 #+BEGIN_SRC emacs-lisp
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (org-indent-mode  t)
-                (org-bullets-mode t)
-                (auto-complete-mode t)
-                (linum-mode -1)))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (org-indent-mode  t)
+              (org-bullets-mode t)
+              (auto-complete-mode t)
+              (linum-mode -1)))
 #+END_SRC
 
 ** Org-Mode keybindings
