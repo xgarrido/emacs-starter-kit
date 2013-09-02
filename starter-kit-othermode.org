@@ -4,12 +4,201 @@
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Other Mode
+** Eval after load
+This macro stolen from lunaryorn setup (see [[https://github.com/lunaryorn/stante-pede/blob/master/init.el][.emacs]] config) eval parameter after
+package or component has been loaded.
+#+BEGIN_SRC emacs-lisp
+  (unless (fboundp 'with-eval-after-load)
+    (defmacro with-eval-after-load (file &rest body)
+      "Execute BODY after FILE is loaded. Forward compatibility wrapper."
+      `(eval-after-load ,file
+         `(funcall (function ,(lambda () ,@body))))))
+
+  (defmacro starter-kit-after (feature &rest forms)
+      "After FEATURE is loaded, evaluate FORMS. FORMS is byte compiled.
+       FEATURE may be a named feature or a file name, see `eval-after-load' for details."
+      (declare (indent 1) (debug t))
+      ;; Byte compile the body.  If the feature is not available, ignore warnings.
+      ;; Taken from
+      ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2012-11/msg01262.html
+      `(,(if (or (not (boundp 'byte-compile-current-file))
+                 (not byte-compile-current-file)
+                 (if (symbolp feature)
+                     (require feature nil :no-error)
+                   (load feature :no-message :no-error)))
+             'progn
+           (message "starter-kit-after: cannot find %s" feature)
+           'with-no-warnings)
+        (with-eval-after-load ',feature ,@forms)))
+#+END_SRC
+
 ** Coding Hook
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'run-starter-kit-coding-hook)
   (add-hook 'sh-mode-hook         'run-starter-kit-coding-hook)
   (add-hook 'latex-mode-hook      'run-starter-kit-coding-hook)
   (add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
+#+END_SRC
+* Emacs modes
+** CUA mode
+#+BEGIN_SRC emacs-lisp
+  (cua-mode t)
+#+END_SRC
+
+** Undo tree
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after undo-tree (diminish 'undo-tree-mode));; "⤺"))
+  (global-undo-tree-mode)
+#+END_SRC
+
+** Recentf
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after recentf
+                     (setq recentf-max-saved-items 100))
+  (recentf-mode t)
+#+END_SRC
+
+** Transparently open compressed files
+#+BEGIN_SRC emacs-lisp
+  (auto-compression-mode t)
+#+END_SRC
+
+** Highlight matching parentheses when the point is on them.
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+  (setq show-paren-delay 0
+        show-paren-style 'mixed)
+
+  (require 'highlight-parentheses)
+  (defun turn-on-highlight-parentheses-mode ()
+    (highlight-parentheses-mode t))
+  (define-global-minor-mode global-highlight-parentheses-mode
+    highlight-parentheses-mode
+    turn-on-highlight-parentheses-mode)
+  (setq hl-paren-colors
+        '("orange1" "yellow1" "greenyellow" "green1"
+          "springgreen1" "cyan1" "slateblue1" "magenta1" "purple"))
+  (diminish 'highlight-parentheses-mode);; "♓")
+  (global-highlight-parentheses-mode)
+#+END_SRC
+
+** Highlight everything strange
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after whitespace
+                     (diminish 'whitespace-mode);; "␣")
+                     (setq whitespace-style '(face trailing lines-tail tabs)
+                           whitespace-line-column 80))
+#+END_SRC
+
+** Show a column wise indicator
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after fill-column-indicator
+                     (setq fci-rule-width 3))
+  (setq-default fill-column 80)
+#+END_SRC
+
+** Highlight current line
+#+BEGIN_SRC emacs-lisp :tangle no
+  (global-hl-line-mode t)
+#+END_SRC
+** Auto revert buffer
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode t)
+  ;; revert without asking
+  (setq revert-without-query '(".*"))
+#+END_SRC
+** Smartparens settings
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after smartparens
+                     (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
+                                                            minibuffer-incative-mode sr-mode))
+                     (diminish 'smartparens-mode))
+#+END_SRC
+** Which func-mode
+#+BEGIN_SRC emacs-lisp :tangle no
+  (which-func-mode t)
+#+END_SRC
+** Winner mode
+#+BEGIN_SRC emacs-lisp
+  (winner-mode 1)
+#+END_SRC
+** idle hightlight face
+Use a less intrusive color for =idle-hightlight-mode=
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after idle-highlight
+                     (defface idle-highlight
+                       '((t (:inherit match)))
+                       "Face used to highlight other occurrences of the word at point."
+                       :group 'idle-highlight)
+                     (diminish 'idle-highlight-mode))
+#+END_SRC
+** Drag stuff mode
+See [[https://github.com/rejeep/drag-stuff]]
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after drag-stuff
+                     (add-to-list 'drag-stuff-except-modes 'org-mode)
+                     (diminish 'drag-stuff-mode));; "⇅"))
+  (drag-stuff-global-mode)
+#+END_SRC
+** Magit settings
+#+BEGIN_SRC emacs-lisp
+  (require 'magit)
+#+END_SRC
+*** Do not show untracked material
+#+BEGIN_SRC emacs-lisp
+  (setq magit-omit-untracked-dir-contents t)
+#+END_SRC
+
+*** Fullscreen magit-status
+From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
+#+BEGIN_SRC emacs-lisp
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+
+  (defun magit-quit-session ()
+    "Restores the previous window configuration and kills the magit buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :magit-fullscreen))
+
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+  (define-key magit-status-mode-map (kbd "p") 'magit-push)
+#+END_SRC
+
+*** Magit commit mode
+#+BEGIN_SRC emacs-lisp
+  (defun magit-exit-commit-mode ()
+    (interactive)
+    (kill-buffer)
+    (delete-window))
+
+  (eval-after-load "git-commit-mode"
+    '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
+
+  (defun magit-commit-mode-init ()
+    (when (looking-at "\n")
+      (open-line 1)))
+
+  (add-hook 'git-commit-mode-hook 'magit-commit-mode-init)
+
+  (defadvice git-commit-commit (after delete-window activate)
+    (delete-window))
+
+  (add-hook 'git-commit-mode-hook (lambda () (auto-complete-mode t)))
+#+END_SRC
+** Git gutter settings
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after git-gutter+
+                     (setq git-gutter+-disabled-modes '(asm-mode image-mode org-mode))
+                     (require 'git-gutter-fringe+)
+                     (git-gutter-fr+-minimal)
+                     (set-face-foreground 'git-gutter-fr+-modified "#DEB542")
+                     (set-face-foreground 'git-gutter-fr+-added    "#DC322F")
+                     (set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
+                     (diminish 'git-gutter+-mode))
+  (global-git-gutter+-mode t)
 #+END_SRC
 
 ** latex-mode
@@ -22,6 +211,16 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 #+END_SRC
+
+** multi-web-mode
+#+BEGIN_SRC emacs-lisp
+  (setq mweb-default-major-mode 'html-mode)
+  (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                    (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                    (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+  (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+  (multi-web-global-mode 1)
+#+END_SRC
 ** cmake-mode
 #+BEGIN_SRC emacs-lisp
   (require 'cmake-mode)
@@ -29,17 +228,6 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
          (append '(("CMakeLists\\.txt\\'" . cmake-mode)
                    ("\\.cmake\\'" . cmake-mode))
                  auto-mode-alist))
-#+END_SRC
-
-** multi-web-mode
-#+BEGIN_SRC emacs-lisp
-  (require 'multi-web-mode)
-  (setq mweb-default-major-mode 'html-mode)
-  (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-                    (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                    (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-  (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-  (multi-web-global-mode 1)
 #+END_SRC
 
 ** css-mode
@@ -69,4 +257,15 @@ Define some usual =trac-wiki= projects.
 
   (autoload 'trac-wiki "trac-wiki"
     "Trac wiki editing entry-point." t)
+#+END_SRC
+** Wrap region mode
+#+BEGIN_SRC emacs-lisp
+  (starter-kit-after wrap-region (diminish 'wrap-region-mode))
+#+END_SRC
+** Diminish modeline clutter
+#+BEGIN_SRC emacs-lisp
+  (diminish 'auto-fill-function)
+  (diminish 'abbrev-mode)
+  (diminish 'auto-complete-mode)
+  (diminish 'inertias-global-minor-mode)
 #+END_SRC

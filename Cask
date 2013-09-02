@@ -1,51 +1,50 @@
-(source "melpa" "http://melpa.milkbox.net/packages/")
-(source "gnu" "http://elpa.gnu.org/packages/")
-(source "marmalade" "http://marmalade-repo.org/packages/")
 
-(depends-on "ace-jump-mode")
-(depends-on "ack-and-a-half")
-(depends-on "auto-complete")
-(depends-on "browse-kill-ring")
-(depends-on "cask")
-(depends-on "cmake-mode")
-(depends-on "dash")
-(depends-on "diminish")
-(depends-on "dired-details")
-(depends-on "drag-stuff")
-(depends-on "f")
-(depends-on "fill-column-indicator")
-(depends-on "flx")
-(depends-on "flx-ido")
-(depends-on "flycheck")
-(depends-on "fringe-helper")
-(depends-on "git-commit-mode")
-(depends-on "git-gutter+")
-(depends-on "git-gutter-fringe+")
-(depends-on "git-rebase-mode")
-(depends-on "gnuplot")
-(depends-on "go-mode")
-(depends-on "highlight-parentheses")
-(depends-on "htmlize")
-(depends-on "idle-highlight-mode")
-(depends-on "ido-at-point")
-(depends-on "ido-ubiquitous")
-(depends-on "magit")
-(depends-on "markdown-mode")
-(depends-on "multi-term")
-(depends-on "multi-web-mode")
-(depends-on "multiple-cursors")
-(depends-on "org-bullets")
+(source melpa)
+(source gnu)
+(source marmalade)
+
 (depends-on "pallet")
-(depends-on "pkg-info")
-(depends-on "popup")
-(depends-on "powerline")
-(depends-on "rainbow-mode")
-(depends-on "s")
-(depends-on "smartparens")
-(depends-on "smex")
+
 (depends-on "solarized-theme")
-(depends-on "undo-tree")
-(depends-on "wrap-region")
+(depends-on "powerline")
+
+(depends-on "diminish")                 ; De-clutter mode line
+(depends-on "smex")                     ; Improved M-x
+(depends-on "flx-ido")                  ; Powerful flex matching for IDO
+(depends-on "ido-ubiquitous")           ; Use IDO for all `completing-read's…
+(depends-on "ido-at-point")             ; …and even for completion-at-point
+(depends-on "idle-highlight-mode")      ; Highlights all occurences
+(depends-on "highlight-parentheses")    ; Highlight parentheses
+(depends-on "rainbow-mode")             ; Interpret HTML color code
+
+(depends-on "drag-stuff")               ; Drag stuff around
+(depends-on "fill-column-indicator")    ; Indicate fill column
+(depends-on "smartparens")              ; Parenthesis reloaded
+(depends-on "ace-jump-mode")            ; Jump through the buffer
+(depends-on "flycheck")                 ; On the fly syntax checkingx
+(depends-on "multiple-cursors")         ; Multiple cursors
+(depends-on "undo-tree")                ; Undo reloaded
+(depends-on "browse-kill-ring")         ; Kill ring browser
+(depends-on "wrap-region")              ; Wrap region
+
+(depends-on "auto-complete")
+
+(depends-on "markdown-mode")            ; Markdown major mode
+(depends-on "multi-web-mode")           ; Multi-web major mode
+
+(depends-on "yasnippet")                ; Yasnippet tool
+(depends-on "cmake-mode")               ; Cmake major mode
+(depends-on "go-mode")                  ; Go major mode
+(depends-on "gnuplot")                  ; Gnuplot mode
+
+(depends-on "magit")                    ; Git frontend
+(depends-on "git-gutter+")              ; Show Diff state in buffer…
+(depends-on "git-gutter-fringe+")       ; …and do so in the fringe
+
+(depends-on "org-bullets")              ; Changing bullets to ASCII char
+(depends-on "htmlize")                  ; HTMLize org code
+
+(depends-on "dired-details")
+(depends-on "ack-and-a-half")           ; Ack frontend
+(depends-on "multi-term")
 (depends-on "xml-rpc")
-(depends-on "yasnippet")
-(depends-on "zenburn-theme")

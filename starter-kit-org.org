@@ -41,7 +41,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (org-indent-mode  t)
               (org-bullets-mode t)
               (auto-complete-mode t)
-              (linum-mode -1)))
+              (linum-mode -1)
+              (diminish 'org-indent-mode)))
 #+END_SRC
 
 ** Org-Mode keybindings

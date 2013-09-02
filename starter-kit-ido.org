@@ -89,25 +89,12 @@ navigating through ido item
         (when filename
           (find-file (cdr (assoc filename
                                  file-assoc-list))))))
-  (setq recentf-max-saved-items 100)
 #+END_SRC
 
-** Setting ido-ubiquitous
-Use ido everywhere
+** Setting ido everywhere
 #+BEGIN_SRC emacs-lisp
-  (require 'ido-ubiquitous)
-  (ido-ubiquitous-mode 1)
-
-  ;; Fix ido-ubiquitous for newer packages
-  (defmacro ido-ubiquitous-use-new-completing-read (cmd package)
-    `(eval-after-load ,package
-       '(defadvice ,cmd (around ido-ubiquitous-new activate)
-          (let ((ido-ubiquitous-enable-compatibility nil))
-            ad-do-it))))
-
-  (ido-ubiquitous-use-new-completing-read webjump 'webjump)
-  (ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
-  (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
+  (ido-ubiquitous-mode)
+  (ido-at-point-mode)
 #+END_SRC
 
 ** Setting =flx-ido-mode=
@@ -115,8 +102,7 @@ Fuzzy matching for Emacs ... a la Sublime Text. See
 https://github.com/lewang/flx
 
 #+BEGIN_SRC emacs-lisp
-  (require 'flx-ido)
-  (flx-ido-mode 1)
+  (flx-ido-mode)
 #+END_SRC
 
 Increase emacs garbage collection size

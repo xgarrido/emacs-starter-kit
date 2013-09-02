@@ -12,6 +12,9 @@ local Emacs installation and Emacs package development.
 :PROPERTIES:
 :TANGLE: Cask
 :END:
+[[https://github.com/rdallasgray/pallet][pallet]] will manage latter the Cask file if you do =pallet-init=. I strongly
+recommend not to do that and only use =pallet-update= command to update
+installed packages.
 ** Defining sources
 #+BEGIN_SRC emacs-lisp
   (source melpa)
@@ -75,9 +78,9 @@ local Emacs installation and Emacs package development.
 
 ** Git integration
 #+BEGIN_SRC emacs-lisp
-(depends-on "magit")                      ; Git frontend
-(depends-on "git-gutter+")                ; Show Diff state in buffer…
-(depends-on "git-gutter-fringe+")         ; …and do so in the fringe
+  (depends-on "magit")                    ; Git frontend
+  (depends-on "git-gutter+")              ; Show Diff state in buffer…
+  (depends-on "git-gutter-fringe+")       ; …and do so in the fringe
 #+END_SRC
 
 ** Org additions
