@@ -94,7 +94,8 @@ the documentation for the Starter Kit to html.
   }
 
   h1 {
-      font-family:Lobster;
+      text-shadow: 0 0 1px #fff;
+      /*font-family:Lobster;*/
       font-size:48px;
   }
 

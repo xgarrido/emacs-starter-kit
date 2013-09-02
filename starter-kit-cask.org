@@ -1,0 +1,102 @@
+#+TITLE: Starter Kit Cask
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter Kit Cask
+[[https://github.com/cask/cask][Cask]] for Emacs is what Bundler is to Ruby. It aims to make ELPA dependency
+management in Emacs painless (as painless as it can be). This includes both your
+local Emacs installation and Emacs package development.
+
+* Cask file
+:PROPERTIES:
+:TANGLE: Cask
+:END:
+** Defining sources
+#+BEGIN_SRC emacs-lisp
+  (source melpa)
+  (source gnu)
+  (source marmalade)
+#+END_SRC
+** Package management
+#+BEGIN_SRC emacs-lisp
+  (depends-on "pallet")
+#+END_SRC
+
+** Color themes & customization
+#+BEGIN_SRC emacs-lisp
+  (depends-on "solarized-theme")
+  (depends-on "powerline")
+#+END_SRC
+
+** UI improvements
+#+BEGIN_SRC emacs-lisp
+  (depends-on "diminish")                 ; De-clutter mode line
+  (depends-on "smex")                     ; Improved M-x
+  (depends-on "flx-ido")                  ; Powerful flex matching for IDO
+  (depends-on "ido-ubiquitous")           ; Use IDO for all `completing-read's…
+  (depends-on "ido-at-point")             ; …and even for completion-at-point
+  (depends-on "idle-highlight-mode")      ; Highlights all occurences
+  (depends-on "highlight-parentheses")    ; Highlight parentheses
+  (depends-on "rainbow-mode")             ; Interpret HTML color code
+#+END_SRC
+
+** Editing utilities
+#+BEGIN_SRC emacs-lisp
+  (depends-on "drag-stuff")               ; Drag stuff around
+  (depends-on "fill-column-indicator")    ; Indicate fill column
+  (depends-on "smartparens")              ; Parenthesis reloaded
+  (depends-on "ace-jump-mode")            ; Jump through the buffer
+  (depends-on "flycheck")                 ; On the fly syntax checkingx
+  (depends-on "multiple-cursors")         ; Multiple cursors
+  (depends-on "undo-tree")                ; Undo reloaded
+  (depends-on "browse-kill-ring")         ; Kill ring browser
+  (depends-on "wrap-region")              ; Wrap region
+#+END_SRC
+
+** Completion & expansion
+#+BEGIN_SRC emacs-lisp
+  (depends-on "auto-complete")
+#+END_SRC
+
+** Markup languages
+#+BEGIN_SRC emacs-lisp
+  (depends-on "markdown-mode")            ; Markdown major mode
+  (depends-on "multi-web-mode")           ; Multi-web major mode
+#+END_SRC
+
+** Programming languages
+#+BEGIN_SRC emacs-lisp
+  (depends-on "yasnippet")                ; Yasnippet tool
+  (depends-on "cmake-mode")               ; Cmake major mode
+  (depends-on "go-mode")                  ; Go major mode
+  (depends-on "gnuplot")                  ; Gnuplot mode
+#+END_SRC
+
+** Git integration
+#+BEGIN_SRC emacs-lisp
+(depends-on "magit")                      ; Git frontend
+(depends-on "git-gutter+")                ; Show Diff state in buffer…
+(depends-on "git-gutter-fringe+")         ; …and do so in the fringe
+#+END_SRC
+
+** Org additions
+#+BEGIN_SRC emacs-lisp
+  (depends-on "org-bullets")              ; Changing bullets to ASCII char
+  (depends-on "htmlize")                  ; HTMLize org code
+#+END_SRC
+
+** Utilities
+#+BEGIN_SRC emacs-lisp
+  (depends-on "dired-details")
+  (depends-on "ack-and-a-half")           ; Ack frontend
+  (depends-on "multi-term")
+  (depends-on "xml-rpc")
+#+END_SRC
+
+* Cask configuration
+#+BEGIN_SRC emacs-lisp
+  (require 'cask "~/Development/github/cask/cask.el")
+  (cask-initialize)
+  (require 'pallet)
+#+END_SRC

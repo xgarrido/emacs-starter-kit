@@ -28,6 +28,9 @@ managers.  This should not work under Windows system since it does not have the
 #+END_SRC
 
 ** ELPA
+:PROPERTIES:
+:TANGLE: no
+:END:
 *** Defining ELPA sources
 #+BEGIN_SRC emacs-lisp
   (setq package-archives

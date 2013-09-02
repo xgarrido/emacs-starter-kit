@@ -243,7 +243,7 @@ interested in the actual code implementing the starter kit.
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path starter-kit-dir)
     (setq autoload-file (concat starter-kit-dir "loaddefs.el"))
-    (setq package-user-dir (concat starter-kit-dir "elpa"))
+    ;;(setq package-user-dir (concat starter-kit-dir "elpa"))
     (setq custom-file (concat starter-kit-dir "custom.el"))
     (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
   #+END_SRC
@@ -325,6 +325,11 @@ everyone using the starter kit.
 - ELPA archive repositories and packages to install by default in [[file:starter-kit-elpa.org][starter-kit-elpa]]
   #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-elpa.org")
+  #+END_SRC
+
+- Cask initialization in [[file:starter-kit-cask.org][starter-kit-cask]]
+  #+BEGIN_SRC emacs-lisp
+    (starter-kit-load "starter-kit-cask.org")
   #+END_SRC
 
 - External lisp files in [[file:starter-kit-site-lisp.org][starter-kit-site-lisp]]

@@ -24,6 +24,7 @@ themes/*
 url/
 tmp/
 lisp/
+.cask/*
 
 ## exported and encrypted files
 *gpg

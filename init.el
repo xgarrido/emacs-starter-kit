@@ -5,6 +5,12 @@
 ;; This is the first thing to get loaded.
 ;;
 
+;; Guard against Emacs 24
+(when (< emacs-major-version 24)
+  (error "Starter Kit needs at least GNU Emacs 24.X, but this is Emacs %s.
+          Please install GNU Emacs 24.X to use Starter Kit"
+         emacs-version))
+
 ;; load the starter kit from the `after-init-hook' so all packages are loaded
 (add-hook 'after-init-hook
           `(lambda ()

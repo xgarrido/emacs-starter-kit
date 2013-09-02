@@ -4,14 +4,17 @@
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Yasnippet
+** Minimal requirement
+#+BEGIN_SRC emacs-lisp
+  (require 'yasnippet)
+#+END_SRC
 ** Templates
 Configuration of [[http://code.google.com/p/yasnippet/][yasnippet]] templates
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path
                (expand-file-name  "yasnippet"
                                   (expand-file-name "src"
                                                     starter-kit-dir)))
-  (require 'yasnippet)
   (yas/initialize)
 
   (yas/load-directory (expand-file-name "snippets" starter-kit-dir))
