@@ -39,7 +39,7 @@ package or component has been loaded.
   (add-hook 'latex-mode-hook      'run-starter-kit-coding-hook)
   (add-hook 'python-mode-hook     'run-starter-kit-coding-hook)
 #+END_SRC
-* Emacs modes
+* Modes setting
 ** CUA mode
 #+BEGIN_SRC emacs-lisp
   (cua-mode t)
@@ -125,16 +125,17 @@ package or component has been loaded.
 ** idle hightlight face
 Use a less intrusive color for =idle-hightlight-mode=
 #+BEGIN_SRC emacs-lisp
+  (defface idle-highlight
+    '((t (:inherit match)))
+    "Face used to highlight other occurrences of the word at point."
+    :group 'idle-highlight)
   (starter-kit-after idle-highlight
-                     (defface idle-highlight
-                       '((t (:inherit match)))
-                       "Face used to highlight other occurrences of the word at point."
-                       :group 'idle-highlight)
-                     (diminish 'idle-highlight-mode))
+    (diminish 'idle-highlight-mode))
 #+END_SRC
+
 ** Drag stuff mode
 See [[https://github.com/rejeep/drag-stuff]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (starter-kit-after drag-stuff
                      (add-to-list 'drag-stuff-except-modes 'org-mode)
                      (diminish 'drag-stuff-mode));; "⇅"))
@@ -194,9 +195,12 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
                      (setq git-gutter+-disabled-modes '(asm-mode image-mode org-mode))
                      (require 'git-gutter-fringe+)
                      (git-gutter-fr+-minimal)
+                     ;;(set-face-foreground 'git-gutter-fr+-modified "#DEB542")
+                     ;;(set-face-foreground 'git-gutter-fr+-added    "#DC322F")
+                     ;;(set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
                      (set-face-foreground 'git-gutter-fr+-modified "#DEB542")
-                     (set-face-foreground 'git-gutter-fr+-added    "#DC322F")
-                     (set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
+                     (set-face-foreground 'git-gutter-fr+-added    "#69B7F0")
+                     (set-face-foreground 'git-gutter-fr+-deleted  "#FF6E64")
                      (diminish 'git-gutter+-mode))
   (global-git-gutter+-mode t)
 #+END_SRC

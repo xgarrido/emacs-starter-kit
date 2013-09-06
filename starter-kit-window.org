@@ -55,11 +55,10 @@ some small part of it here. There is also some =face= changes for
      theme-name
      ;; Modeline and powerline
      `(mode-line           ((,class (:foreground ,solarized-bg
-                                                 :background "gray50" :box nil))))
+                                                 :background ,blue :box nil))))
      `(mode-line-inactive  ((,class (:foreground ,solarized-bg
-                                                 :background "gray50" :box nil))))
-     `(mode-line-buffer-id ((,class (:foreground ,solarized-bg
-                                                 :background "gray50" :box nil))))
+                                                 :background ,blue-d :box nil))))
+     `(mode-line-buffer-id ((,class (:foreground ,solarized-bg :box nil))))
      `(powerline-active1   ((,class (:background "gray25"))))
      `(powerline-inactive1 ((,class (:background "gray25"))))
      `(powerline-active2   ((,class (:background "gray40"))))

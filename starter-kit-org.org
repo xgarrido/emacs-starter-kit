@@ -22,16 +22,16 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook
-            (lambda ()
-              (local-set-key "\C-n" 'outline-next-visible-heading)
-              (local-set-key "\C-p" 'outline-previous-visible-heading)
-              (local-set-key "\C-u" 'outline-up-heading)
-              ;; table
-              (local-set-key "\M-\C-w" 'org-table-copy-region)
-              (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
-              (local-set-key "\M-\C-l" 'org-table-sort-lines)
-              ;; display images
-              (local-set-key "\M-I" 'org-toggle-iimage-in-org)))
+              (lambda ()
+                (local-set-key "\C-n" 'outline-next-visible-heading)
+                (local-set-key "\C-p" 'outline-previous-visible-heading)
+                (local-set-key "\C-u" 'outline-up-heading)
+                ;; table
+                (local-set-key "\M-\C-w" 'org-table-copy-region)
+                (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
+                (local-set-key "\M-\C-l" 'org-table-sort-lines)
+                ;; display images
+                (local-set-key "\M-I" 'org-toggle-inline-image)))
 #+END_SRC
 
 *** Minor mode
@@ -50,6 +50,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
   (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
   (define-key org-mode-map (kbd "s-h") 'org-html-export-to-html)
+  (require 'ox-beamer)
+  (define-key org-beamer-mode-map (kbd "s-p") 'org-beamer-export-to-pdf)
 #+END_SRC
 
 ** Org-Mode settings
@@ -212,6 +214,32 @@ file using the `org-babel-lob-ingest' function.
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+#+END_SRC
+
+**** Beamer template
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-classes
+               '("beamer"
+                 "\\documentclass[c]{beamer}
+                  [NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+
+We also translate *bold* into beamer =structure=.
+#+BEGIN_SRC emacs-lisp
+  (defun sk-beamer-bold (contents backend info)
+    (when (eq backend 'beamer)
+      (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\structure" contents)))
+  (defun sk-beamer-underline (contents backend info)
+    (when (eq backend 'beamer)
+      (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+
+  (add-to-list 'org-export-filter-bold-functions 'sk-beamer-bold)
+  (add-to-list 'org-export-filter-underline-functions 'sk-beamer-underline)
 #+END_SRC
 
 *** KOMA/LaTeX script

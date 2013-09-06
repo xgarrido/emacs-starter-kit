@@ -17,14 +17,9 @@
 (depends-on "highlight-parentheses")    ; Highlight parentheses
 (depends-on "rainbow-mode")             ; Interpret HTML color code
 
-(depends-on "drag-stuff")               ; Drag stuff around
 (depends-on "fill-column-indicator")    ; Indicate fill column
 (depends-on "smartparens")              ; Parenthesis reloaded
-(depends-on "ace-jump-mode")            ; Jump through the buffer
-(depends-on "flycheck")                 ; On the fly syntax checkingx
-(depends-on "multiple-cursors")         ; Multiple cursors
 (depends-on "undo-tree")                ; Undo reloaded
-(depends-on "browse-kill-ring")         ; Kill ring browser
 (depends-on "wrap-region")              ; Wrap region
 
 (depends-on "auto-complete")
