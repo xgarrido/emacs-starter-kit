@@ -94,7 +94,7 @@ navigating through ido item
 ** Setting ido everywhere
 #+BEGIN_SRC emacs-lisp
   (ido-ubiquitous-mode)
-  (ido-at-point-mode)
+  ;;(ido-at-point-mode)
 #+END_SRC
 
 ** Setting =flx-ido-mode=
