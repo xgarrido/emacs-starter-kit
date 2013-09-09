@@ -293,8 +293,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                                   (powerline-raw " ")
 
                                   (powerline-raw "%6p" nil 'r)
-
-                                  (powerline-hud face2 face1))))
+                                  )))
                        (concat
                         (powerline-render lhs)
                         (powerline-fill face2 (powerline-width rhs))
