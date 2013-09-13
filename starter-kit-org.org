@@ -47,11 +47,13 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 ** Org-Mode keybindings
 #+BEGIN_SRC emacs-lisp
+  (require 'ox-latex)
   (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
   (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
   (define-key org-mode-map (kbd "s-h") 'org-html-export-to-html)
   (require 'ox-beamer)
   (define-key org-beamer-mode-map (kbd "s-p") 'org-beamer-export-to-pdf)
+  (define-key org-beamer-mode-map (kbd "s-l") 'org-beamer-export-to-latex)
 #+END_SRC
 
 ** Org-Mode settings
@@ -157,11 +159,6 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
-*** Requirements
-#+BEGIN_SRC emacs-lisp
-  (require 'ox-latex)
-#+END_SRC
-
 *** Default list of LaTeX packages
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-packages-alist '("" "org-preamble"))
@@ -221,6 +218,8 @@ file using the `org-babel-lob-ingest' function.
   (add-to-list 'org-latex-classes
                '("beamer"
                  "\\documentclass[c]{beamer}
+                  [PACKAGES]
+                  \\usepackage{custom-beamer}
                   [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -260,23 +259,23 @@ you should use the =org-koma-letter-export-to-pdf= command.
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
 #+BEGIN_SRC emacs-lisp
-  (defun sk-latexmk-cmd (backend)
-    "When exporting from .org with latex, automatically run latex,
-       pdflatex, or xelatex as appropriate, using latexmk."
-    (when (org-export-derived-backend-p backend 'latex)
-      (let ((texcmd)))
-      ;; default command: xelatex
-      (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f && latexmk -c")
-      ;; pdflatex -> .pdf
-      (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-          (setq texcmd "latexmk -pdf -shell-escape -quiet %f && latexmk -c"))
-      ;; xelatex -> .pdf
-      (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-          (setq texcmd "latexmk -xelatex -shell-escape -pdf -quiet %f && latexmk -c"))
-      ;; LaTeX compilation command
-      (setq org-latex-pdf-process (list texcmd))))
+   (defun sk-latexmk-cmd (backend)
+     "When exporting from .org with latex, automatically run latex,
+        pdflatex, or xelatex as appropriate, using latexmk."
+     (when (org-export-derived-backend-p backend 'latex)
+       (let ((texcmd)))
+       ;; default command: xelatex
+       (setq texcmd "mkdir -p latex.d && jobname=$(basename %f | sed 's/\.tex//') && ln -sf $PWD/${jobname}.pyg ./latex.d && latexmk -xelatex -output-directory=./latex.d -shell-escape -quiet %f && cp ./latex.d/${jobname}.pdf $PWD")
+       ;; pdflatex -> .pdf
+       (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+           (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
+       ;; xelatex -> .pdf
+       (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+           (setq texcmd "latexmk -xelatex -shell-escape -quiet %f"))
+       ;; LaTeX compilation command
+       (setq org-latex-pdf-process (list texcmd))))
 
-  (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
+   (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
 
 *** Minted setup
@@ -284,7 +283,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (setq org-latex-listings 'minted)
   (setq org-latex-minted-options
         '(;;("frame" "lines")
-          ("fontsize" "\\scriptsize")
+          ("fontsize" "\\footnotesize")
           ("samepage" "")
           ("xrightmargin" "0.5cm")
           ("xleftmargin"  "0.5cm")
