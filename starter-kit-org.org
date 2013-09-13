@@ -259,24 +259,29 @@ you should use the =org-koma-letter-export-to-pdf= command.
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
 #+BEGIN_SRC emacs-lisp
-   (defun sk-latexmk-cmd (backend)
-     "When exporting from .org with latex, automatically run latex,
-        pdflatex, or xelatex as appropriate, using latexmk."
-     (when (org-export-derived-backend-p backend 'latex)
-       (let ((texcmd)))
-       ;; default command: xelatex
-       (setq texcmd "mkdir -p latex.d && jobname=$(basename %f | sed 's/\.tex//') && ln -sf $PWD/${jobname}.pyg ./latex.d && latexmk -xelatex -output-directory=./latex.d -shell-escape -quiet %f && cp ./latex.d/${jobname}.pdf $PWD")
-       ;; pdflatex -> .pdf
-       (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-           (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
-       ;; xelatex -> .pdf
-       (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-           (setq texcmd "latexmk -xelatex -shell-escape -quiet %f"))
-       ;; LaTeX compilation command
-       (setq org-latex-pdf-process (list texcmd))))
+  (defun sk-latexmk-cmd (backend)
+    "When exporting from .org with latex, automatically run latex,
+       pdflatex, or xelatex as appropriate, using latexmk."
+    (when (org-export-derived-backend-p backend 'latex)
+      (let ((texcmd)))
+      ;; default command: xelatex
+      (setq texcmd "mkdir -p latex.d && jobname=$(basename %f | sed 's/\.tex//') && ln -sf $PWD/${jobname}.pyg ./latex.d && latexmk -xelatex -output-directory=./latex.d -shell-escape -quiet %f && cp ./latex.d/${jobname}.pdf $PWD")
+      ;; pdflatex -> .pdf
+      (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+          (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
+      ;; xelatex -> .pdf
+      (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+          (setq texcmd "latexmk -xelatex -shell-escape -quiet %f"))
+      ;; LaTeX compilation command
+      (setq org-latex-pdf-process (list texcmd))))
 
-   (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
+  (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
+
+The pretty long command with symbolic link is because =minted= package does not
+play well with =-output-directoy= option. Even if a homemade version of [[https://github.com/xgarrido/minted][=minted=]]
+try to deal with that problem, there is still one remaining issue (see [[http://tex.stackexchange.com/questions/112953/error-when-using-minted-package-and-output-directory-option][this post
+forum]]). That is the reason for the symbolic link in the =.latex.d= directory.
 
 *** Minted setup
 #+BEGIN_SRC emacs-lisp :results silent
