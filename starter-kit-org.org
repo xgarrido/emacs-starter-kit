@@ -241,6 +241,12 @@ We also translate *bold* into beamer =structure=.
   (add-to-list 'org-export-filter-underline-functions 'sk-beamer-underline)
 #+END_SRC
 
+We define a new environment for "colored" box
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-beamer-environments-extra
+               '("cbox" "c" "\\begin{cbox}%o(%h)" "\\end{cbox}"))
+#+END_SRC
+
 *** KOMA/LaTeX script
 Define a special =org-latex-classes= to make use of KOMA/LaTeX letter
 style. The =ox-koma-letter= backend from org-mode contribution directory must
