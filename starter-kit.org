@@ -14,8 +14,8 @@
   :CUSTOM_ID: introduction
   :END:
 This should provide a saner set of defaults than you get normally with
-Emacs. It's intended for beginners, but provides a good elisp
-initialization structure for all levels of users.
+Emacs. It's intended for beginners, but provides a good elisp initialization
+structure for all levels of users.
 
 The main advantage of this Emacs Starter Kit are
 - better default settings
@@ -44,23 +44,22 @@ The [[http://emacswiki.org][Emacs Wiki]] is also very handy.
    :CUSTOM_ID: installation
    :END:
 
-1. Install Emacs version 24 or greater.  Use your package manager if
-   you have one and it has an install candidate for Emacs 24,
-   otherwise install it directly [[http://savannah.gnu.org/projects/emacs/][from source]], or Mac binaries may be
-   downloaded from the /nightlies/ section of
-   http://emacsformacosx.com/builds
-2. Checkout a version of the starter kit using git -- if you're new to
-   git checkout this [[http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html][git-tutorial]], also we'd highly recommend that you
-   try out [[http://zagadka.vm.bytemark.co.uk/magit/magit.html][magit]] the Emacs mode for git interaction.
+1. Install Emacs version 24 or greater. Use your package manager if you have one
+   and it has an install candidate for Emacs 24, otherwise install it directly
+   [[http://savannah.gnu.org/projects/emacs/][from source]], or Mac binaries may be downloaded from the /nightlies/ section
+   of http://emacsformacosx.com/builds
+2. Checkout a version of the starter kit using git -- if you're new to git
+   checkout this [[http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html][git-tutorial]], also we'd highly recommend that you try out [[http://zagadka.vm.bytemark.co.uk/magit/magit.html][magit]]
+   the Emacs mode for git interaction.
    #+BEGIN_SRC sh
      git clone http://github.com/eschulte/emacs24-starter-kit.git
    #+END_SRC
 3. Move the resulting directory to =~/.emacs.d= [1]
 7. Launch Emacs!
 
-After setup you may need to restart Emacs one or twice while it
-downloads packages from [[* Emacs Lisp Package Archive][ELPA]] -- errors parsing html from
-=*tromey.com:80*= can generally be safely ignored.
+After setup you may need to restart Emacs one or twice while it downloads
+packages from [[* Emacs Lisp Package Archive][ELPA]] -- errors parsing html from =*tromey.com:80*= can generally
+be safely ignored.
 
 If you are missing some autoloads after an update (should manifest
 itself as =void function: foobar= errors) try M-x regen-autoloads.

@@ -14,7 +14,7 @@ GTD system or tool for reproducible research and literate programming.
 For more information on org-mode check out [[http://orgmode.org/worg/][worg]], a large Org-mode wiki
 which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
-** Org-Mode Hook
+** Org-Mode hooks
 *** Keybindings
 :PROPERTIES:
 :CUSTOM_ID: keybindings
@@ -49,7 +49,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+BEGIN_SRC emacs-lisp
   (require 'ox-latex)
   (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
-  (define-key org-mode-map (kbd "s-l") 'org-latex-export-as-latex)
+  (define-key org-mode-map (kbd "s-l") 'org-latex-export-to-latex)
   (define-key org-mode-map (kbd "s-h") 'org-html-export-to-html)
   (require 'ox-beamer)
   (define-key org-beamer-mode-map (kbd "s-p") 'org-beamer-export-to-pdf)
@@ -132,9 +132,9 @@ although it is not added by default as a security precaution.
 #+END_SRC
 
 ** Code block fontification
-   :PROPERTIES:
-   :CUSTOM_ID: code-block-fontification
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: code-block-fontification
+:END:
 The following displays the contents of code blocks in Org-mode files
 using the major-mode of the code.  It also changes the behavior of
 =TAB= to as if it were used in the appropriate major mode.  This means
@@ -254,6 +254,21 @@ We define a new environment for "colored" box
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-beamer-environments-extra
                '("cbox" "c" "\\begin{cbox}%o(%h)" "\\end{cbox}"))
+#+END_SRC
+
+**** C++ lecture template
+#+BEGIN_SRC emacs-lisp :results none
+  (add-to-list 'org-latex-classes
+               '("lecture"
+                 "\\documentclass{report}
+                  [PACKAGES]
+                  \\usepackage{lecture-style}
+                  [NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 
 *** KOMA/LaTeX script
