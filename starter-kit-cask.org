@@ -74,6 +74,7 @@ installed packages.
 ** Git integration
 #+BEGIN_SRC emacs-lisp
   (depends-on "magit")                    ; Git frontend
+  (depends-on "magit-svn")                ; Git-svn frontend
   (depends-on "git-gutter+")              ; Show Diff state in buffer…
   (depends-on "git-gutter-fringe+")       ; …and do so in the fringe
 #+END_SRC
