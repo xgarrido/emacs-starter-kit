@@ -207,9 +207,7 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
 ** latex-mode
 #+BEGIN_SRC emacs-lisp
-  (setq auto-mode-alist
-        (append '(("\\.tikz\\'" . latex-mode)
-                  auto-mode-alist)))
+  (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
   (add-hook 'latex-mode-hook 'turn-on-orgtbl)
   ;;(add-hook 'latex-mode-hook 'turn-on-auto-fill)
 #+END_SRC
