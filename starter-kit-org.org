@@ -308,10 +308,10 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
     (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
 
-The pretty long command with symbolic link is because =minted= package does not
-play well with =-output-directoy= option. Even if a homemade version of [[https://github.com/xgarrido/minted][=minted=]]
-try to deal with that problem, there is still one remaining issue (see [[http://tex.stackexchange.com/questions/112953/error-when-using-minted-package-and-output-directory-option][this post
-forum]]). That is the reason for the symbolic link in the =.latex.d= directory.
+# The pretty long command with symbolic link is because =minted= package does not
+# play well with =-output-directoy= option. Even if a homemade version of [[https://github.com/xgarrido/minted][=minted=]]
+# try to deal with that problem, there is still one remaining issue (see [[http://tex.stackexchange.com/questions/112953/error-when-using-minted-package-and-output-directory-option][this post
+# forum]]). That is the reason for the symbolic link in the =.latex.d= directory.
 
 *** Minted setup
 #+BEGIN_SRC emacs-lisp :results silent
@@ -319,6 +319,7 @@ forum]]). That is the reason for the symbolic link in the =.latex.d= directory.
   (setq org-latex-minted-options
         '(;;("frame" "lines")
           ("fontsize" "\\footnotesize")
+          ("mathescape" "")
           ("samepage" "")
           ("xrightmargin" "0.5cm")
           ("xleftmargin"  "0.5cm")
