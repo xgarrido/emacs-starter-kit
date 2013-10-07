@@ -5,8 +5,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Other Mode
 ** Eval after load
-This macro stolen from lunaryorn setup (see [[https://github.com/lunaryorn/stante-pede/blob/master/init.el][.emacs]] config) eval parameter after
-package or component has been loaded.
+This macro is stolen from lunaryorn setup (see [[https://github.com/lunaryorn/stante-pede/blob/master/init.el][.emacs]] config) eval parameter
+after package or component has been loaded.
 #+BEGIN_SRC emacs-lisp
   (unless (fboundp 'with-eval-after-load)
     (defmacro with-eval-after-load (file &rest body)
