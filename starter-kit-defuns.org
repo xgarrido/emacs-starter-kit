@@ -230,7 +230,6 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
   (defun sk-popup (title msg)
     "Show a popup if we're on X, or echo it otherwise; TITLE is the
   title of the message, MSG is the context."
-    (interactive)
     (if (eq window-system 'x)
         (shell-command (concat "notify-send -t 2000 -i emacs"
                                " '" title "' '" msg "'"))
