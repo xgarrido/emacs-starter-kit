@@ -265,6 +265,10 @@ We define a new environment for "colored" box
                '("cbox" "c" "\\begin{cbox}%o(%h)" "\\end{cbox}"))
 #+END_SRC
 
+***** Empty =outline= title
+#+BEGIN_SRC emacs-lisp
+  (setq org-beamer-outline-frame-title "")
+#+END_SRC
 **** C++ lecture template
 #+BEGIN_SRC emacs-lisp :results none
   (add-to-list 'org-latex-classes
