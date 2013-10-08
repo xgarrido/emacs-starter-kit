@@ -308,7 +308,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
       (when (org-export-derived-backend-p backend 'latex)
         (let ((texcmd)))
         ;; default command: xelatex
-        (setq texcmd "jobname=$(basename %f | sed 's/\.tex//');latexmk -xelatex -shell-escape -quiet %f && mkdir -p latex.d && mv ${jobname}.* latex.d/. && mv latex.d/${jobname}.{org,tex,pdf,fdb_latexmk} .")
+        (setq texcmd "jobname=$(basename %f | sed 's/\.tex//');latexmk -xelatex -shell-escape -quiet %f && mkdir -p latex.d && mv ${jobname}.* latex.d/. && mv latex.d/${jobname}.{org,pdf,fdb_latexmk,aux} .")
         ;; pdflatex -> .pdf
         (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
             (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
