@@ -159,6 +159,14 @@ Code blocks can be loaded into the library of babel from any Org-mode
 file using the `org-babel-lob-ingest' function.
 
 ** LaTeX hacks
+*** Use smart quote when exporting
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-smart-quotes t)
+#+END_SRC
+*** Keep LaTeX logfiles
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-remove-logfiles nil)
+#+END_SRC
 *** Default list of LaTeX packages
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-packages-alist '("" "org-preamble"))
