@@ -246,9 +246,21 @@ We also translate *bold* into beamer =structure=.
   (defun sk-beamer-underline (contents backend info)
     (when (eq backend 'beamer)
       (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+  (defun sk-beamer-strike (contents backend info)
+    (when (eq backend 'beamer)
+      (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\alert" contents)))
 
   (add-to-list 'org-export-filter-bold-functions 'sk-beamer-bold)
   (add-to-list 'org-export-filter-underline-functions 'sk-beamer-underline)
+  (add-to-list 'org-export-filter-strike-through-functions 'sk-beamer-strike)
+#+END_SRC
+***** Use =strike= as alert
+Change the face of =strike-through=
+#+BEGIN_SRC emacs-lisp
+  (require 'cl)
+  (setq org-emphasis-alist
+        (cons '("+" '(:inherit org-warning :inherit bold))
+              (delete* "+" org-emphasis-alist :key 'car :test 'equal)))
 #+END_SRC
 ***** Add =frame= option to footnote
 #+BEGIN_SRC emacs-lisp
