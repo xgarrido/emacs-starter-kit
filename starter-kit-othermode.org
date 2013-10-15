@@ -145,6 +145,10 @@ See [[https://github.com/rejeep/drag-stuff]]
 #+BEGIN_SRC emacs-lisp
   (require 'magit)
 #+END_SRC
+*** Do not ask for confirmation
+#+BEGIN_SRC emacs-lisp
+  (setq magit-stage-all-confirm nil)
+#+END_SRC
 *** Do not show untracked material
 #+BEGIN_SRC emacs-lisp
   (setq magit-omit-untracked-dir-contents t)
