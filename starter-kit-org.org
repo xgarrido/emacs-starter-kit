@@ -270,6 +270,27 @@ Change the face of =strike-through=
   (add-to-list 'org-export-filter-footnote-reference-functions 'sk-beamer-footnote)
 #+END_SRC
 
+***** Add email
+#+BEGIN_SRC emacs-lisp
+  (defun sk-beamer-email (options backend)
+    "Insert EMAIL as \email{EMAIL} in the latex backend when EMAIL is present."
+    (when (and (eq backend 'beamer)
+               (plist-get options :email))
+      (plist-put options :latex-header
+                 (mapconcat 'identity
+                            (remove nil
+                                    (list
+                                     (plist-get options :latex-header)
+                                     (format "\\email{%s}"
+                                             (plist-get options :email))))
+                            "\n"))
+      ;; don't insert email in \thanks{.}
+      (plist-put options :with-email nil))
+    options)
+
+   (add-to-list 'org-export-filter-options-functions 'sk-beamer-email)
+#+END_SRC
+
 ***** Colored box environment
 We define a new environment for "colored" box
 #+BEGIN_SRC emacs-lisp
