@@ -7,8 +7,9 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 ** Minimal requirement
 #+BEGIN_SRC emacs-lisp
   (require 'yasnippet)
+  (yas-global-mode 1)
 #+END_SRC
-** Templates
+** Templates :DEPRECATED:
 Configuration of [[http://code.google.com/p/yasnippet/][yasnippet]] templates
 #+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path
