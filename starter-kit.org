@@ -354,13 +354,6 @@ everyone using the starter kit.
 ** Load module files
 The following files contain specific settings for several modules.
 
-- [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is
-  inspired by TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]]
-  or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and tutorial]])
-  #+BEGIN_SRC emacs-lisp
-    (starter-kit-load "starter-kit-yasnippet.org")
-  #+END_SRC
-
 - [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things
   within buffers and files like switching between buffers
   #+BEGIN_SRC emacs-lisp

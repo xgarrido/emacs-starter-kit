@@ -271,10 +271,26 @@ Define some usual =trac-wiki= projects.
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after wrap-region (diminish 'wrap-region-mode))
 #+END_SRC
+** yasnippet mode
+[[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is inspired by
+TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]] or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and
+tutorial]])
+#+BEGIN_SRC emacs-lisp
+  (require 'yasnippet)
+  (yas-global-mode 1)
+  (starter-kit-after yasnippet (diminish 'yas-minor-mode))
+#+END_SRC
+** autocomplete mode
+#+BEGIN_SRC emacs-lisp
+  (require 'auto-complete-config)
+  ;;(ac-config-default)
+  (define-key ac-completing-map (kbd "ESC") 'ac-stop)
+  (starter-kit-after auto-complete (diminish 'auto-complete-mode))
+#+END_SRC
+
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp
   (diminish 'auto-fill-function)
   (diminish 'abbrev-mode)
-  (diminish 'auto-complete-mode)
   (diminish 'inertias-global-minor-mode)
 #+END_SRC
