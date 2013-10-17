@@ -190,10 +190,11 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 
-**** SuperNEMO DocDB template
+**** SuperNEMO articles
+***** DocDB article
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
-               '("snemo-note"
+               '("snemo-article"
                  "\\documentclass{scrartcl}
                   \\setkomafont{disposition}{\\normalfont\\bfseries}
                   [PACKAGES]
@@ -204,6 +205,27 @@ file using the `org-babel-lob-ingest' function.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+***** Note taking
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-classes
+               '("snemo-note"
+                 "\\documentclass{scrartcl}
+                  [PACKAGES]
+                  \\usepackage{supernemo-note-style}
+                  [NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+***** SN@ailWare markup filter
+#+BEGIN_SRC emacs-lisp
+  (defun snailware-markup-filter (contents backend info)
+     (when (eq backend 'latex)
+       (replace-regexp-in-string "SN@ilware" "\\\\Snailware" contents)))
+   (add-to-list 'org-export-filter-final-output-functions 'snailware-markup-filter)
 #+END_SRC
 
 **** Memoir article
