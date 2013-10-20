@@ -287,6 +287,11 @@ tutorial]])
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
   (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC
+** expand-region mode
+#+BEGIN_SRC emacs-lisp
+  (require 'expand-region)
+  (global-set-key (kbd "C-w") 'er/expand-region)
+#+END_SRC
 
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp

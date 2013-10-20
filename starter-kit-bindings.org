@@ -40,8 +40,7 @@ Key Bindings.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "M-r")     'revert-buffer)
-  (global-set-key (kbd "C-w")     'kill-this-buffer)
-  (global-set-key (kbd "C-x C-k") 'sk-delete-current-buffer-file)
+  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 #+END_SRC
 
 ** Window switching (C-x o goes to the next window)
@@ -62,7 +61,7 @@ Key Bindings.
     "Kill chars backward until encountering the end of a line."
     (interactive "p")
     (kill-line 0))
-  (global-set-key (kbd "C-u")   'backward-kill-line)
+  (global-set-key (kbd "C-u") 'backward-kill-line)
   (defun move-line-up ()
     (interactive)
     (transpose-lines 1)

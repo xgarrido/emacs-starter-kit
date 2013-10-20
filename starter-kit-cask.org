@@ -39,9 +39,11 @@ installed packages.
   (depends-on "flx-ido")                  ; Powerful flex matching for IDO
   (depends-on "ido-ubiquitous")           ; Use IDO for all `completing-read's…
   (depends-on "ido-at-point")             ; …and even for completion-at-point
+  ;;(depends-on "fiplr")                    ; Find in project
   (depends-on "idle-highlight-mode")      ; Highlights all occurences
   (depends-on "highlight-parentheses")    ; Highlight parentheses
   (depends-on "rainbow-mode")             ; Interpret HTML color code
+  (depends-on "expand-region")            ; Expand selection with semantic unit
 #+END_SRC
 
 ** Editing utilities
