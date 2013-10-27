@@ -63,7 +63,9 @@ fortran to C++.
   [[file:~/Workdir/NEMO/supernemo/development/falaise/sngeometry/__install-Linux-x86_64/share/sngeometry/resources/setups/bipo3/config_2.0/optical_module.geom::#material.ref%20:%20string%20%3D%20"snemo::aluminium"][file:~/Workdir/NEMO/supernemo/development/falaise/sngeometry/__install-Linux-x86_64/share/sngeometry/resources/setups/bipo3/config_2.0/optical_module.geom::#material.ref : string = "snemo::aluminium"]]
 ** TODO Look into [[http://www.howardism.org/Technical/LP/dot-emacs.html]] and catch template example to generate org file
   [2013-09-27 ven.]
-
+** TODO Check why data generated with Bayeux on nemo3 generates archive exception through =snemo_event_brower=
+  [2013-10-22 mar.]
+  [[file:~/Workdir/NEMO/supernemo/snware/cadfael/build/master/Source/boost-1.51.0/libs/serialization/src/archive_exception.cpp::m_msg%20%3D%20"unsupported%20version"%3B][file:~/Workdir/NEMO/supernemo/snware/cadfael/build/master/Source/boost-1.51.0/libs/serialization/src/archive_exception.cpp::m_msg = "unsupported version";]]
 * Teaching
 ** DONE Faire une affiche pour ECP
 CLOSED: [2013-09-08 dim. 14:16]

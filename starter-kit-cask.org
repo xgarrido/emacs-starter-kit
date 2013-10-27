@@ -44,6 +44,8 @@ installed packages.
   (depends-on "highlight-parentheses")    ; Highlight parentheses
   (depends-on "rainbow-mode")             ; Interpret HTML color code
   (depends-on "expand-region")            ; Expand selection with semantic unit
+  (depends-on "multiple-cursors")         ; Multiple cursors selection
+  (depends-on "browse-kill-ring")         ; Interactive selection of kill-ring
 #+END_SRC
 
 ** Editing utilities
