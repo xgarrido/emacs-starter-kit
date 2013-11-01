@@ -487,8 +487,9 @@ can make comments across all your files and projects and link to them all from
 one place.
 *** Setting the TODO file location
 #+BEGIN_SRC emacs-lisp
-  (setq org-default-notes-file (concat starter-kit-dir "starter-kit-todo-list.org"))
+  (setq org-default-notes-file "~/Documents/org-notes/misc/todo-list.org"))
 #+END_SRC
+
 *** Closing items
 The most basic logging is to keep track of when a certain TODO item was
 finished. This is achieved with
