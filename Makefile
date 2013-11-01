@@ -26,12 +26,12 @@ el: $(FILES)
 	$(BATCH) --eval '(org-babel-load-file "$<")'
 
 doc:
-	mkdir -p doc/stylesheets
-	$(BATCH) --eval '(org-babel-tangle-file "starter-kit-publish.org")'
-	$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
-	rm starter-kit-publish.el
-	find doc -name *.*~ | xargs rm -f
-	tar czvf /tmp/org-starter-kit-publish.tar.gz doc/*
+	@mkdir -p doc/stylesheets
+	@$(BATCH) --eval '(org-babel-tangle-file "starter-kit-publish.org")'
+	@$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
+	@rm starter-kit-publish.el
+	@find doc -name *.*~ | xargs rm -f
+	@(cd doc && tar czvf /tmp/org-starter-kit-publish.tar.gz .)
 	# git checkout gh-pages
 	# tar xzvf /tmp/org-starter-kit-publish.tar.gz
 	# if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
