@@ -32,10 +32,10 @@ doc:
 	@rm starter-kit-publish.el
 	@find doc -name *.*~ | xargs rm -f
 	@(cd doc && tar czvf /tmp/org-starter-kit-publish.tar.gz .)
-	# git checkout gh-pages
-	# tar xzvf /tmp/org-starter-kit-publish.tar.gz
-	# if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
-	# git checkout master
+	@git checkout gh-pages
+	@tar xzvf /tmp/org-starter-kit-publish.tar.gz
+	@if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
+	@git checkout master
 	echo "Documentation published to doc/"
 
 clean:
