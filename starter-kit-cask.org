@@ -43,9 +43,6 @@ installed packages.
   (depends-on "idle-highlight-mode")      ; Highlights all occurences
   (depends-on "highlight-parentheses")    ; Highlight parentheses
   (depends-on "rainbow-mode")             ; Interpret HTML color code
-  (depends-on "expand-region")            ; Expand selection with semantic unit
-  (depends-on "multiple-cursors")         ; Multiple cursors selection
-  (depends-on "browse-kill-ring")         ; Interactive selection of kill-ring
 #+END_SRC
 
 ** Editing utilities
@@ -54,6 +51,9 @@ installed packages.
   (depends-on "smartparens")              ; Parenthesis reloaded
   (depends-on "undo-tree")                ; Undo reloaded
   (depends-on "wrap-region")              ; Wrap region
+  (depends-on "browse-kill-ring")         ; Interactive selection of kill-ring
+  (depends-on "expand-region")            ; Expand selection with semantic unit
+  (depends-on "multiple-cursors")         ; Multiple cursors selection
 #+END_SRC
 
 ** Completion & expansion

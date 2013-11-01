@@ -301,7 +301,8 @@ tutorial]])
 
 ** Browse kill-ring
 #+BEGIN_SRC emacs-lisp
-  (starter-kit-after browse-kill-ring (global-set-key "\M-y" 'browse-kill-ring))
+  (require 'browse-kill-ring)
+  (global-set-key "\M-y" 'browse-kill-ring)
 #+END_SRC
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp

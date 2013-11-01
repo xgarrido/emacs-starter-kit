@@ -66,6 +66,8 @@ fortran to C++.
 ** TODO Check why data generated with Bayeux on nemo3 generates archive exception through =snemo_event_brower=
   [2013-10-22 mar.]
   [[file:~/Workdir/NEMO/supernemo/snware/cadfael/build/master/Source/boost-1.51.0/libs/serialization/src/archive_exception.cpp::m_msg%20%3D%20"unsupported%20version"%3B][file:~/Workdir/NEMO/supernemo/snware/cadfael/build/master/Source/boost-1.51.0/libs/serialization/src/archive_exception.cpp::m_msg = "unsupported version";]]
+
+
 * Teaching
 ** DONE Faire une affiche pour ECP
 CLOSED: [2013-09-08 dim. 14:16]
