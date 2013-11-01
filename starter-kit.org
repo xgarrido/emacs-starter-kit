@@ -10,9 +10,6 @@
 #+END_QUOTE
 
 * Introduction
-  :PROPERTIES:
-  :CUSTOM_ID: introduction
-  :END:
 This should provide a saner set of defaults than you get normally with
 Emacs. It's intended for beginners, but provides a good elisp initialization
 structure for all levels of users.
@@ -30,9 +27,6 @@ project following the link http://github.com/eschulte/emacs24-starter-kit/).
 The latest version is at http://github.com/xgarrido/emacs-starter-kit/
 
 ** Learning
-   :PROPERTIES:
-   :CUSTOM_ID: learning
-   :END:
 This won't teach you Emacs, but it'll make it easier to get
 comfortable. To access the tutorial, press control-h followed by t
 from within Emacs.
@@ -354,13 +348,13 @@ everyone using the starter kit.
 ** Load module files
 The following files contain specific settings for several modules.
 
-- [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things
-  within buffers and files like switching between buffers
+- [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things within
+  buffers and files like switching between buffers (see [[file:./starter-kit-ido.org][starter-kit-ido]] file)
   #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-ido.org")
   #+END_SRC
 
-- [[file:starter-c++.org][C++ specific tweaks]]
+- [[file:starter-kit-c++.org][C++ specific tweaks]]
   #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-c++.org")
   #+END_SRC
