@@ -31,7 +31,7 @@ doc:
 	$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
 	rm starter-kit-publish.el
 	find doc -name *.*~ | xargs rm -f
-	tar czvf /tmp/org-starter-kit-publish.tar.gz doc
+	tar czvf /tmp/org-starter-kit-publish.tar.gz doc/*
 	# git checkout gh-pages
 	# tar xzvf /tmp/org-starter-kit-publish.tar.gz
 	# if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
