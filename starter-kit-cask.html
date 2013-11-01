@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Cask</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<link rel="stylesheet" href="stylesheets/styles.css">
+                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Starter Kit Cask</h1>
+<p>
+This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Cask</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="https://github.com/cask/cask">Cask</a> for Emacs is what Bundler is to Ruby. It aims to make ELPA dependency
+management in Emacs painless (as painless as it can be). This includes both your
+local Emacs installation and Emacs package development.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Cask file</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<a href="https://github.com/rdallasgray/pallet">pallet</a> will manage latter the Cask file if you do <code>pallet-init</code>. I strongly
+recommend not to do that and only use <code>pallet-update</code> command to update
+installed packages.
+</p>
+</div>
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Defining sources</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(source melpa)
+(source gnu)
+(source marmalade)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Package management</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"pallet"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Color themes &amp; customization</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"solarized-theme"</span>)
+(depends-on <span class="org-string">"powerline"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">UI improvements</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"diminish"</span>)                 <span class="org-comment-delimiter">; </span><span class="org-comment">De-clutter mode line</span>
+(depends-on <span class="org-string">"smex"</span>)                     <span class="org-comment-delimiter">; </span><span class="org-comment">Improved M-x</span>
+(depends-on <span class="org-string">"flx-ido"</span>)                  <span class="org-comment-delimiter">; </span><span class="org-comment">Powerful flex matching for IDO</span>
+(depends-on <span class="org-string">"ido-ubiquitous"</span>)           <span class="org-comment-delimiter">; </span><span class="org-comment">Use IDO for all `</span><span class="org-constant"><span class="org-comment">completing-read</span></span><span class="org-comment">'s&#8230;</span>
+(depends-on <span class="org-string">"ido-at-point"</span>)             <span class="org-comment-delimiter">; </span><span class="org-comment">&#8230;and even for completion-at-point</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">(depends-on "fiplr")                    ; Find in project</span>
+(depends-on <span class="org-string">"idle-highlight-mode"</span>)      <span class="org-comment-delimiter">; </span><span class="org-comment">Highlights all occurences</span>
+(depends-on <span class="org-string">"highlight-parentheses"</span>)    <span class="org-comment-delimiter">; </span><span class="org-comment">Highlight parentheses</span>
+(depends-on <span class="org-string">"rainbow-mode"</span>)             <span class="org-comment-delimiter">; </span><span class="org-comment">Interpret HTML color code</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5">Editing utilities</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"fill-column-indicator"</span>)    <span class="org-comment-delimiter">; </span><span class="org-comment">Indicate fill column</span>
+(depends-on <span class="org-string">"smartparens"</span>)              <span class="org-comment-delimiter">; </span><span class="org-comment">Parenthesis reloaded</span>
+(depends-on <span class="org-string">"undo-tree"</span>)                <span class="org-comment-delimiter">; </span><span class="org-comment">Undo reloaded</span>
+(depends-on <span class="org-string">"wrap-region"</span>)              <span class="org-comment-delimiter">; </span><span class="org-comment">Wrap region</span>
+(depends-on <span class="org-string">"browse-kill-ring"</span>)         <span class="org-comment-delimiter">; </span><span class="org-comment">Interactive selection of kill-ring</span>
+(depends-on <span class="org-string">"expand-region"</span>)            <span class="org-comment-delimiter">; </span><span class="org-comment">Expand selection with semantic unit</span>
+(depends-on <span class="org-string">"multiple-cursors"</span>)         <span class="org-comment-delimiter">; </span><span class="org-comment">Multiple cursors selection</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6">Completion &amp; expansion</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"auto-complete"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7">Markup languages</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"markdown-mode"</span>)            <span class="org-comment-delimiter">; </span><span class="org-comment">Markdown major mode</span>
+(depends-on <span class="org-string">"multi-web-mode"</span>)           <span class="org-comment-delimiter">; </span><span class="org-comment">Multi-web major mode</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8">Programming languages</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"yasnippet"</span>)                <span class="org-comment-delimiter">; </span><span class="org-comment">Yasnippet tool</span>
+(depends-on <span class="org-string">"cmake-mode"</span>)               <span class="org-comment-delimiter">; </span><span class="org-comment">Cmake major mode</span>
+(depends-on <span class="org-string">"go-mode"</span>)                  <span class="org-comment-delimiter">; </span><span class="org-comment">Go major mode</span>
+(depends-on <span class="org-string">"gnuplot"</span>)                  <span class="org-comment-delimiter">; </span><span class="org-comment">Gnuplot mode</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9">Git integration</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"magit"</span>)                    <span class="org-comment-delimiter">; </span><span class="org-comment">Git frontend</span>
+(depends-on <span class="org-string">"magit-svn"</span>)                <span class="org-comment-delimiter">; </span><span class="org-comment">Git-svn frontend</span>
+(depends-on <span class="org-string">"git-gutter+"</span>)              <span class="org-comment-delimiter">; </span><span class="org-comment">Show Diff state in buffer&#8230;</span>
+(depends-on <span class="org-string">"git-gutter-fringe+"</span>)       <span class="org-comment-delimiter">; </span><span class="org-comment">&#8230;and do so in the fringe</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10">Org additions</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"org-bullets"</span>)              <span class="org-comment-delimiter">; </span><span class="org-comment">Changing bullets to ASCII char</span>
+(depends-on <span class="org-string">"htmlize"</span>)                  <span class="org-comment-delimiter">; </span><span class="org-comment">HTMLize org code</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11">Utilities</h3>
+<div class="outline-text-3" id="text-2-11">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(depends-on <span class="org-string">"dired-details"</span>)
+(depends-on <span class="org-string">"ack-and-a-half"</span>)           <span class="org-comment-delimiter">; </span><span class="org-comment">Ack frontend</span>
+(depends-on <span class="org-string">"multi-term"</span>)
+(depends-on <span class="org-string">"xml-rpc"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Cask configuration</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">cask</span> <span class="org-string">"~/Development/github/cask/cask.el"</span>)
+(cask-initialize)
+(<span class="org-keyword">require</span> '<span class="org-constant">pallet</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+File under git version control - commit 6cd0ccf - 2013-11-01
+</div>
+</body>
+</html>

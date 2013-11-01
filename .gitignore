@@ -1,0 +1,8 @@
+/.cask/
+/doc/
+/el-get/
+/tmp/
+/.mc-lists.el
+/.org-id-locations
+/Cask
+/tramp

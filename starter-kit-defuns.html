@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Defuns</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<link rel="stylesheet" href="stylesheets/styles.css">
+                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Starter Kit Defuns</h1>
+<p>
+This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Defuns</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">The starter-kit-coding-hook</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+A single hook holding those functions which should be run in <b>every</b>
+code buffer.
+</p>
+
+<p>
+We have a number of turn-on-* functions since it's advised that lambda
+functions not go in hooks. Repeatedly evaling an add-to-list with a
+hook value will repeatedly add it since there's no way to ensure that
+a lambda doesn't already exist in the list.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-smartparens</span> ()
+  (turn-on-smartparens-mode))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-local-comment-auto-fill</span> ()
+  (set (make-local-variable 'comment-auto-fill-only-comments) t)
+  (auto-fill-mode t))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-pretty-lambdas</span> ()
+  (font-lock-add-keywords
+   nil `((<span class="org-string">"(?</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">lambda\\&gt;</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string">"</span>
+          (0 (<span class="org-keyword">progn</span> (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-add-watchwords</span> ()
+  (font-lock-add-keywords
+   nil '((<span class="org-string">"\\&lt;</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">FIX</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">ME</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string">?</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">TODO</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">HACK</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">REFACTOR</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">NOCOMMIT</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string">"</span>
+          1 font-lock-warning-face t))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-indent-or-complete</span> ()
+  <span class="org-doc">"Complete if point is at end of a word, otherwise indent line."</span>
+  (interactive)
+  (<span class="org-keyword">if</span> (looking-at <span class="org-string">"\\&gt;"</span>)
+      (hippie-expand nil)
+    (indent-for-tab-command)))
+</pre>
+</div>
+
+<p>
+Perform a bunch of safe operations on the whitespace content of a
+buffer. Does not indent buffer, because it is used for a
+<code>before-save-hook</code>, and that might be bad.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-cleanup-buffer-safe</span> ()
+  (interactive)
+  <span class="org-comment-delimiter">;;</span><span class="org-comment">(untabify (point-min) (point-max))</span>
+  (delete-trailing-whitespace))
+</pre>
+</div>
+
+<p>
+Perform a bunch of operations on the whitespace content of a
+buffer. Including indent-buffer, which should not be called
+automatically on save.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-cleanup-buffer</span> ()
+  (interactive)
+  (starter-kit-cleanup-buffer-safe)
+  (indent-region (point-min) (point-max)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Handling buffers</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Rename/Move both current buffer and file currently visited</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+From <a href="http://steve.yegge.googlepages.com/my-dot-emacs-file">Steve Yegge .emacs</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-rename-file-and-buffer</span> (new-name)
+  <span class="org-doc">"Renames both current buffer and file it's visiting to NEW-NAME."</span>
+  (interactive <span class="org-string">"sNew name: "</span>)
+  (<span class="org-keyword">let</span> ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (<span class="org-keyword">if</span> (not filename)
+        (message <span class="org-string">"Buffer '%s' is not visiting a file!"</span> name)
+      (<span class="org-keyword">if</span> (get-buffer new-name)
+          (message <span class="org-string">"A buffer named '%s' already exists!"</span> new-name)
+        (<span class="org-keyword">progn</span>
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-move-buffer-file</span> (dir)
+  <span class="org-doc">"Moves both current buffer and file it's visiting to DIR."</span>
+  (interactive <span class="org-string">"DNew directory: "</span>)
+  (<span class="org-keyword">let*</span> ((name (buffer-name))
+         (filename (buffer-file-name))
+         (dir
+          (<span class="org-keyword">if</span> (string-match dir <span class="org-string">"</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(?:</span></span><span class="org-string">/</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">\\\\)$"</span>)
+              (substring dir 0 -1) dir))
+         (newname (concat dir <span class="org-string">"/"</span> name)))
+
+    (<span class="org-keyword">if</span> (not filename)
+        (message <span class="org-string">"Buffer '%s' is not visiting a file!"</span> name)
+      (<span class="org-keyword">progn</span> (copy-file filename newname 1)
+             (delete-file filename)
+             (set-visited-file-name newname)
+             (set-buffer-modified-p nil) t))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Delete current buffer file</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+From <a href="http://whattheemacsd.com/file-defuns.el-02.html">Magnars blog</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-delete-current-buffer-file</span> ()
+  <span class="org-doc">"Removes file connected to current buffer and kills buffer."</span>
+  (interactive)
+  (<span class="org-keyword">let</span> ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (<span class="org-keyword">if</span> (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (<span class="org-keyword">when</span> (yes-or-no-p <span class="org-string">"Are you sure you want to remove this file? "</span>)
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message <span class="org-string">"File '%s' successfully removed"</span> filename)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3">Stop displaying minibuffer when mouse go to another buffer</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-stop-using-minibuffer</span> ()
+  <span class="org-doc">"Kill the minibuffer"</span>
+  (<span class="org-keyword">when</span> (and (&gt;= (recursion-depth) 1) (active-minibuffer-window))
+    (abort-recursive-edit)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4">Touching the current buffer</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-touch</span> ()
+  (interactive)
+  (shell-command (concat <span class="org-string">"touch "</span> (shell-quote-argument (buffer-file-name)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-5" class="outline-4">
+<h4 id="sec-1-2-5">Splitting buffer</h4>
+<div class="outline-text-4" id="text-1-2-5">
+<p>
+When splitting is done, emacs will open the next buffer
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defadvice</span> <span class="org-function-name">split-window-vertically</span>
+  (after my-window-splitting-advice first () activate)
+  (set-window-buffer (next-window) (other-buffer)))
+(<span class="org-keyword">defadvice</span> <span class="org-function-name">split-window-horizontally</span>
+  (after my-window-splitting-advice first () activate)
+  (set-window-buffer (next-window) (other-buffer)))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Handling window</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+From <a href="http://whattheemacsd.com//buffer-defuns.el-03.html">Magnars blog</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-toggle-window-split</span> ()
+  (interactive)
+  (<span class="org-keyword">if</span> (= (count-windows) 2)
+      (<span class="org-keyword">let*</span> ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (&lt;= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (&lt;= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (<span class="org-keyword">if</span> (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (<span class="org-keyword">let</span> ((first-win (selected-window)))
+          (funcall splitter)
+          (<span class="org-keyword">if</span> this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (<span class="org-keyword">if</span> this-win-2nd (other-window 1))))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Saving desktop status</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-desktop</span> ()
+  <span class="org-doc">"Load the desktop and enable autosaving"</span>
+  (interactive)
+  (<span class="org-keyword">let</span> ((desktop-load-locked-desktop <span class="org-string">"ask"</span>))
+    (desktop-read)
+    (desktop-save-mode 1)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-desktop-save</span> ()
+  (interactive)
+  (desktop-save desktop-dirname))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">Misc.</h3>
+<div class="outline-text-3" id="text-1-5">
+</div><div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">Edit current buffer with sudo rights</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-sudo-edit-current-file</span> (<span class="org-type">&amp;optional</span> arg)
+  (interactive <span class="org-string">"p"</span>)
+  (<span class="org-keyword">if</span> (or arg (not buffer-file-name))
+      (find-file (concat <span class="org-string">"/sudo:root@localhost:"</span> (ido-read-file-name <span class="org-string">"File: "</span>)))
+    (find-alternate-file (concat <span class="org-string">"/sudo:root@localhost:"</span> buffer-file-name))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2">Grepping words</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+For sure there might be a better way and tool to do that but I am used
+to use it
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-grep</span> ()
+  <span class="org-doc">"grep the whole directory for something defaults to term at cursor position"</span>
+  (interactive)
+  (setq default (thing-at-point 'symbol))
+  (setq needle (or (read-string (concat <span class="org-string">"grep for &lt;"</span> default <span class="org-string">"&gt; "</span>)) default))
+  (setq needle (<span class="org-keyword">if</span> (equal needle <span class="org-string">""</span>) default needle))
+  (grep (concat <span class="org-string">"egrep -s -i -n -r "</span> needle <span class="org-string">" *"</span>)))
+</pre>
+</div>
+
+<p>
+Try to use also <a href="https://github.com/jhelwig/ack-and-a-half">ack-and-a-half</a> and create shorter aliases
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defalias</span> '<span class="org-function-name">ack</span> 'ack-and-a-half)
+(<span class="org-keyword">defalias</span> '<span class="org-function-name">ack-same</span> 'ack-and-a-half-same)
+(<span class="org-keyword">defalias</span> '<span class="org-function-name">ack-find-file</span> 'ack-and-a-half-find-file)
+(<span class="org-keyword">defalias</span> '<span class="org-function-name">ack-find-file-same</span> 'ack-and-a-half-find-file-same)
+(setq ack-and-a-half-use-ido t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3">Toggling fullscreen</h4>
+<div class="outline-text-4" id="text-1-5-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-toggle-fullscreen</span> ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (<span class="org-keyword">if</span> (frame-parameter nil 'fullscreen)
+                                           nil
+                                           'fullboth)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5-4" class="outline-4">
+<h4 id="sec-1-5-4">Sending libnotify popup</h4>
+<div class="outline-text-4" id="text-1-5-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-popup</span> (title msg)
+  <span class="org-doc">"Show a popup if we're on X, or echo it otherwise; TITLE is the</span>
+<span class="org-doc">title of the message, MSG is the context."</span>
+  (<span class="org-keyword">if</span> (eq window-system 'x)
+      (shell-command (concat <span class="org-string">"notify-send -t 2000 -i emacs"</span>
+                             <span class="org-string">" '"</span> title <span class="org-string">"' '"</span> msg <span class="org-string">"'"</span>))
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">text only version</span>
+    (message (concat title <span class="org-string">": "</span> msg))))
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-test-popup</span> ()
+  (interactive)
+  (sk-popup <span class="org-string">"Test Notification :"</span> <span class="org-string">"test"</span>))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5-5" class="outline-4">
+<h4 id="sec-1-5-5">Googling active region</h4>
+<div class="outline-text-4" id="text-1-5-5">
+<p>
+From <a href="http://emacsredux.com/blog/2013/03/28/google/">Emacs redux</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-google</span> ()
+  <span class="org-doc">"Google the selected region if any, display a query prompt otherwise."</span>
+  (interactive)
+  (browse-url
+   (concat
+    <span class="org-string">"http://www.google.com/search?ie=utf-8&amp;oe=utf-8&amp;q="</span>
+    (url-hexify-string (<span class="org-keyword">if</span> mark-active
+                           (buffer-substring (region-beginning) (region-end))
+                         (read-string <span class="org-string">"Google: "</span>))))))
+(global-set-key (kbd <span class="org-string">"s-g"</span>) 'sk-google)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">Hooks</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">Coding</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'starter-kit-coding-hook 'sk-local-comment-auto-fill)
+(add-hook 'starter-kit-coding-hook 'sk-pretty-lambdas)
+(add-hook 'starter-kit-coding-hook 'sk-smartparens)
+(add-hook 'starter-kit-coding-hook 'sk-add-watchwords)
+(add-hook 'starter-kit-coding-hook 'idle-highlight-mode)
+(add-hook 'starter-kit-coding-hook 'wrap-region-mode)
+(add-hook 'starter-kit-coding-hook 'linum-mode)
+(add-hook 'starter-kit-coding-hook 'turn-on-fci-mode)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">run-starter-kit-coding-hook</span> ()
+  <span class="org-doc">"Enable things that are convenient across all coding buffers."</span>
+  (run-hooks 'starter-kit-coding-hook))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">Indent correctly pasted code</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defadvice</span> <span class="org-function-name">yank</span> (after indent-region activate)
+(<span class="org-keyword">if</span> (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
+                                         c-mode c++-mode objc-mode
+                                         latex-mode plain-tex-mode
+                                         python-mode org-mode))
+    (indent-region (region-beginning) (region-end) nil)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">Clean up buffer before saving</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'before-save-hook 'sk-cleanup-buffer-safe)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4">Store session before saving</h4>
+<div class="outline-text-4" id="text-1-6-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'auto-save-hook 'sk-desktop-save)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-5" class="outline-4">
+<h4 id="sec-1-6-5">Create a directory when there is not</h4>
+<div class="outline-text-4" id="text-1-6-5">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'before-save-hook
+          (<span class="org-keyword">lambda</span> ()
+            (<span class="org-keyword">let</span> ((dir (file-name-directory buffer-file-name)))
+              (<span class="org-keyword">when</span> (and (not (file-exists-p dir))
+                         (y-or-n-p (format <span class="org-string">"Directory %s does not exist. Create it?"</span> dir)))
+                (make-directory dir t)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-6" class="outline-4">
+<h4 id="sec-1-6-6">Misc.</h4>
+<div class="outline-text-4" id="text-1-6-6">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'mouse-leave-buffer-hook 'sk-stop-using-minibuffer)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'text-mode-hook 'turn-on-auto-fill)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+File under git version control - commit 6cd0ccf - 2013-11-01
+</div>
+</body>
+</html>

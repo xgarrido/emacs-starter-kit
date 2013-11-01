@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Ido</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<link rel="stylesheet" href="stylesheets/styles.css">
+                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Starter Kit Ido</h1>
+<p>
+This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Ido</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+ido-mode is like magic pixie dust!
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Basic configuration</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(ido-mode t)
+(setq ido-everywhere            t
+      ido-enable-prefix         nil
+      ido-enable-flex-matching  t
+      ido-auto-merge-work-directories-length nil
+      <span class="org-comment-delimiter">;;</span><span class="org-comment">ido-use-filename-at-point t</span>
+      ido-max-prospects         10
+      ido-create-new-buffer     'always
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">ido-use-virtual-buffers   t</span>
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">ido-handle-duplicate-virtual-buffers 2</span>
+      ido-default-buffer-method 'selected-window
+      ido-default-file-method   'selected-window)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Keybindings</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Since <code>ido</code> buffer/file list is shown vertically, use &lt;up/down&gt; keys for
+navigating through ido item
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">ido-my-keys</span> ()
+  (define-key ido-completion-map (kbd <span class="org-string">"&lt;up&gt;"</span>)   'ido-prev-match)
+  (define-key ido-completion-map (kbd <span class="org-string">"&lt;down&gt;"</span>) 'ido-next-match))
+
+(add-hook 'ido-setup-hook 'ido-my-keys)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Extensions ordering and ignored ones</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ido-file-extensions-order     '(<span class="org-string">".cc"</span> <span class="org-string">".h"</span> <span class="org-string">".tex"</span> <span class="org-string">".sh"</span> <span class="org-string">".org"</span>
+                                      <span class="org-string">".el"</span>))
+(setq completion-ignored-extensions '(<span class="org-string">".o"</span> <span class="org-string">".elc"</span> <span class="org-string">"~"</span> <span class="org-string">".bin"</span> <span class="org-string">".bak"</span>
+                                      <span class="org-string">".obj"</span> <span class="org-string">".map"</span> <span class="org-string">".a"</span> <span class="org-string">".so"</span>
+                                      <span class="org-string">".mod"</span> <span class="org-string">".aux"</span> <span class="org-string">".out"</span> <span class="org-string">".pyg"</span>))
+(setq ido-ignore-extensions t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Keep annoying buffers out of search</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ido-ignore-buffers (list (rx (or (and bos  <span class="org-string">" "</span>)
+                                       (and bos
+                                            (or <span class="org-string">"*Completions*"</span>
+                                                <span class="org-string">"*Shell Command Output*"</span>
+                                                <span class="org-string">"*vc-diff*"</span>)
+                                            eos)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">Allow spaces when using ido-find-file</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'ido-make-file-list-hook
+          (<span class="org-keyword">lambda</span> ()
+            (define-key ido-file-dir-completion-map (kbd <span class="org-string">"SPC"</span>) 'self-insert-command)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">Show ido results vertically, rather than horizontally</h3>
+<div class="outline-text-3" id="text-1-6">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ido-decorations (quote (<span class="org-string">"\n-&gt; "</span> <span class="org-string">""</span> <span class="org-string">"\n "</span> <span class="org-string">"\n ..."</span> <span class="org-string">"["</span> <span class="org-string">"]"</span> <span class="org-string">"</span>
+<span class="org-string">  [No match]"</span> <span class="org-string">" [Matched]"</span> <span class="org-string">" [Not readable]"</span> <span class="org-string">" [Too big]"</span> <span class="org-string">"</span>
+<span class="org-string">  [Confirm]"</span>)))
+(<span class="org-keyword">defun</span> <span class="org-function-name">ido-disable-line-truncation</span> () (set (make-local-variable 'truncate-lines) nil))
+(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">Using recentf within ido</h3>
+<div class="outline-text-3" id="text-1-7">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">recentf-ido-find-file</span> ()
+    <span class="org-doc">"Find a recent file using Ido."</span>
+    (interactive)
+    (<span class="org-keyword">let*</span> ((file-assoc-list
+            (mapcar (<span class="org-keyword">lambda</span> (x)
+                      (cons (file-name-nondirectory x)
+                            x))
+                    recentf-list))
+           (filename-list
+            (remove-duplicates (mapcar #'car file-assoc-list)
+                               <span class="org-builtin">:test</span> #'string=))
+           (filename (ido-completing-read <span class="org-string">"Choose recent file: "</span>
+                                          filename-list
+                                          nil
+                                          t)))
+      (<span class="org-keyword">when</span> filename
+        (find-file (cdr (assoc filename
+                               file-assoc-list))))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8">Setting ido everywhere</h3>
+<div class="outline-text-3" id="text-1-8">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(ido-ubiquitous-mode)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">(ido-at-point-mode)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9">Setting <code>flx-ido-mode</code></h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+Fuzzy matching for Emacs &#x2026; a la Sublime Text. See
+<a href="https://github.com/lewang/flx">https://github.com/lewang/flx</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(flx-ido-mode)
+</pre>
+</div>
+
+<p>
+Increase emacs garbage collection size
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq gc-cons-threshold 20000000)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10">Advice ido to open file as root</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+From <a href="http://emacsredux.com/blog/2013/04/21/edit-files-as-root/">Emacs Redux</a>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defadvice</span> <span class="org-function-name">ido-find-file</span> (after find-file-sudo activate)
+  <span class="org-doc">"Find file as root if necessary."</span>
+  (<span class="org-keyword">unless</span> (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat <span class="org-string">"/sudo:root@localhost:"</span> buffer-file-name))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11">Misc.</h3>
+<div class="outline-text-3" id="text-1-11">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(define-key ido-file-completion-map (kbd <span class="org-string">"C-w"</span>) 'ido-delete-backward-updir)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12">Deprecated</h3>
+<div class="outline-text-3" id="text-1-12">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Add project file to ido search using F6 shortcut</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">my-ido-project-files</span> ()
+  <span class="org-doc">"Use ido to select a file from the project."</span>
+  (interactive)
+  (<span class="org-keyword">let</span> (my-project-root project-files tbl)
+    (<span class="org-keyword">unless</span> project-details (project-root-fetch))
+    (setq my-project-root (cdr project-details))
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">get project files</span>
+    (setq project-files
+          (split-string
+           (shell-command-to-string
+            (concat <span class="org-string">"find "</span>
+                    my-project-root
+                    <span class="org-string">" </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string"> -name \"*.svn\" -o -name \"*.git\" </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string"> -prune -o -type f -print | grep -E -v \"\.(pyc)$\""</span>
+                    )) <span class="org-string">"\n"</span>))
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">populate hash table (display repr =&gt; path)</span>
+    (setq tbl (make-hash-table <span class="org-builtin">:test</span> 'equal))
+    (<span class="org-keyword">let</span> (ido-list)
+      (mapc (<span class="org-keyword">lambda</span> (path)
+              <span class="org-comment-delimiter">;; </span><span class="org-comment">format path for display in ido list</span>
+              (setq key (replace-regexp-in-string <span class="org-string">"</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">.*?</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">[</span><span class="org-negation-char"><span class="org-string">^</span></span><span class="org-string">/]+?</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string">$"</span> <span class="org-string">"\\2|\\1"</span> path))
+              <span class="org-comment-delimiter">;; </span><span class="org-comment">strip project root</span>
+              (setq key (replace-regexp-in-string my-project-root <span class="org-string">""</span> key))
+              <span class="org-comment-delimiter">;; </span><span class="org-comment">remove trailing | or /</span>
+              (setq key (replace-regexp-in-string <span class="org-string">"</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string">|</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">|</span></span><span class="org-string">/</span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string">$"</span> <span class="org-string">""</span> key))
+              (puthash key path tbl)
+              (push key ido-list)
+              )
+            project-files
+            )
+      (find-file (gethash (ido-completing-read <span class="org-string">"project-files: "</span> ido-list) tbl)))))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">bind to a key for quick access</span>
+(define-key global-map [f6] 'my-ido-project-files)
+
+(<span class="org-keyword">require</span> '<span class="org-constant">project-root</span>)
+(setq project-roots
+      '((<span class="org-string">"your project name"</span>
+         <span class="org-builtin">:root-contains-files</span> (<span class="org-string">"LICENSE.GPL3.txt"</span>)
+         )))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+File under git version control - commit 6cd0ccf - 2013-11-01
+</div>
+</body>
+</html>

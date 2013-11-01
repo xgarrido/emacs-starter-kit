@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit Window</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<link rel="stylesheet" href="stylesheets/styles.css">
+                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Starter Kit Window</h1>
+<p>
+This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Starter Kit Window</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Window default settings</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Settings in relation with emacs window behavior<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq frame-title-format '(buffer-file-name <span class="org-string">"%b [%f]"</span> <span class="org-string">"%b"</span>))
+
+(tool-bar-mode   -1)
+(scroll-bar-mode -1)
+(menu-bar-mode   -1)
+(tooltip-mode    -1)
+
+(setq inhibit-startup-screen                t
+      inhibit-startup-message               t
+      line-number-mode                      t
+      column-number-mode                    t
+      icomplete-mode                        t
+      read-buffer-completion-ignore-case    t
+      read-file-name-completion-ignore-case t
+      color-theme-is-global                 t
+      save-place                            t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Color themes</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Emacs24 <code>deftheme</code></h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Emacs24 has build in support for saving and loading themes.
+</p>
+
+<p>
+A Theme builder is available at <a href="http://elpa.gnu.org/themes/">http://elpa.gnu.org/themes/</a> along with
+a list of pre-built themes at <a href="http://elpa.gnu.org/themes/view.html">http://elpa.gnu.org/themes/view.html</a> and
+themes are available through ELPA.
+</p>
+
+<p>
+Downloaded themes may be saved to the <code>themes/</code> directory in the base
+of the starter kit which ignored by git.  Once downloaded and
+evaluated a theme is activated using the <code>load-theme</code> function.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'custom-theme-load-path (concat starter-kit-dir <span class="org-string">"themes"</span>))
+(setq custom-safe-themes t)
+<span class="org-comment-delimiter">;;</span><span class="org-comment">(load-theme 'solarized-light t)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Custom solarized theme</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+A light variant of the <a href="https://github.com/bbatsov/solarized-emacs">Solarized</a> color theme. The basic idea is to
+keep the default solarized theme clean and up-to-date and just change
+some small part of it here. There is also some <code>face</code> changes for
+<a href="https://github.com/milkypostman/powerline">powerline</a> (see <a href="#powerline">below</a>).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">solarized</span>)
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-solarized-childtheme</span> ()
+  (custom-theme-set-faces
+   theme-name
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Modeline and powerline</span>
+   `(mode-line           ((,class (<span class="org-builtin">:foreground</span> ,solarized-bg
+                                               <span class="org-builtin">:background</span> ,blue <span class="org-builtin">:box</span> nil))))
+   `(mode-line-inactive  ((,class (<span class="org-builtin">:foreground</span> ,solarized-bg
+                                               <span class="org-builtin">:background</span> ,blue-d <span class="org-builtin">:box</span> nil))))
+   `(mode-line-buffer-id ((,class (<span class="org-builtin">:foreground</span> ,solarized-bg <span class="org-builtin">:box</span> nil))))
+   `(powerline-active1   ((,class (<span class="org-builtin">:background</span> <span class="org-string">"gray25"</span>))))
+   `(powerline-inactive1 ((,class (<span class="org-builtin">:background</span> <span class="org-string">"gray25"</span>))))
+   `(powerline-active2   ((,class (<span class="org-builtin">:background</span> <span class="org-string">"gray40"</span>))))
+   `(powerline-inactive2 ((,class (<span class="org-builtin">:background</span> <span class="org-string">"gray40"</span>))))
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Change some org faces</span>
+   `(org-document-title        ((,class (<span class="org-builtin">:foreground</span> ,blue-hc <span class="org-builtin">:weight</span> bold))))
+   `(org-document-info         ((,class (<span class="org-builtin">:foreground</span> ,blue-hc))))
+   `(org-document-info-keyword ((,class (<span class="org-builtin">:foreground</span> ,blue-lc))))
+   `(org-table ((,class (<span class="org-builtin">:foreground</span> ,blue-d))))
+   `(org-level-1 ((,class (<span class="org-builtin">:foreground</span> ,orange))))
+   `(org-level-2 ((,class (<span class="org-builtin">:foreground</span> ,green))))
+   `(org-level-3 ((,class (<span class="org-builtin">:foreground</span> ,blue))))
+   `(org-level-4 ((,class (<span class="org-builtin">:foreground</span> ,yellow))))
+   `(org-level-5 ((,class (<span class="org-builtin">:foreground</span> ,cyan))))
+   `(org-level-6 ((,class (<span class="org-builtin">:foreground</span> ,green))))
+   `(org-level-7 ((,class (<span class="org-builtin">:foreground</span> ,red))))
+   `(org-level-8 ((,class (<span class="org-builtin">:foreground</span> ,blue))))
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Autocomplete faces</span>
+   `(ac-candidate-face ((,class (<span class="org-builtin">:background</span> ,solarized-hl <span class="org-builtin">:foreground</span> ,yellow))))
+   `(ac-selection-face ((,class (<span class="org-builtin">:background</span> ,yellow-lc <span class="org-builtin">:foreground</span> ,yellow-hc))))
+   `(ac-candidate-mouse-face ((,class (<span class="org-builtin">:background</span> ,yellow-hc <span class="org-builtin">:foreground</span> ,yellow-lc))))
+   `(ac-completion-face ((,class (<span class="org-builtin">:foreground</span> ,solarized-emph <span class="org-builtin">:underline</span> t))))
+   `(ac-gtags-candidate-face ((,class (<span class="org-builtin">:background</span> ,solarized-hl <span class="org-builtin">:foreground</span> ,blue))))
+   `(ac-gtags-selection-face ((,class (<span class="org-builtin">:background</span> ,blue-lc <span class="org-builtin">:foreground</span> ,blue-hc))))
+   `(ac-yasnippet-candidate-face ((,class (<span class="org-builtin">:background</span> ,solarized-hl <span class="org-builtin">:foreground</span> ,orange))))
+   `(ac-yasnippet-selection-face ((,class (<span class="org-builtin">:background</span> ,orange-lc <span class="org-builtin">:foreground</span> ,orange-hc))))
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Linum &amp; fringe</span>
+   `(linum  ((,class (<span class="org-builtin">:foreground</span> ,solarized-comments <span class="org-builtin">:background</span> ,solarized-bg))))
+   `(fringe ((,class (<span class="org-builtin">:foreground</span> ,solarized-comments <span class="org-builtin">:background</span> ,solarized-bg))))
+   ))
+</pre>
+</div>
+
+<p>
+Define new theme (since definition occurs here it is loaded by default)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">deftheme</span> <span class="org-type">sk-solarized-light</span>)
+(create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">UI settings</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Use space for tabulation</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(set-default 'indent-tabs-mode nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Indicate empty lines</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(set-default 'indicate-empty-lines t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Setting default directories</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<a href="http://www.emacswiki.org/emacs/SavePlace">SavePlace</a> stores the position where the point was at the last visit of
+a given file. <code>backup-directory-alist</code> is related to the directory
+where emacs backup file will be stored.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq temporary-file-directory     (concat starter-kit-dir <span class="org-string">"tmp/"</span>))
+(setq save-place-file              (concat temporary-file-directory <span class="org-string">"places"</span>))
+(setq recentf-save-file            (concat temporary-file-directory <span class="org-string">"recentf"</span>))
+(setq smex-save-file               (concat temporary-file-directory <span class="org-string">"smex-items"</span>))
+(setq ido-save-directory-list-file (concat temporary-file-directory <span class="org-string">"ido.last"</span>))
+(setq ac-comphist-file             (concat temporary-file-directory <span class="org-string">"ac-comphist.dat"</span>))
+(setq auto-save-list-file-prefix   (concat temporary-file-directory <span class="org-string">"auto-save-list/"</span> <span class="org-string">".auto-saves-"</span>))
+(setq auto-save-file-name-transforms `((<span class="org-string">".*"</span> ,temporary-file-directory t)))
+(setq backup-directory-alist         `((<span class="org-string">"."</span> . ,(concat temporary-file-directory <span class="org-string">"backups"</span>))))
+</pre>
+</div>
+
+
+<p>
+Automatically save and restore sessions
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq desktop-dirname             (concat temporary-file-directory <span class="org-string">"session"</span>)
+      desktop-base-file-name      <span class="org-string">"emacs.desktop"</span>
+      desktop-base-lock-name      <span class="org-string">"lock"</span>
+      desktop-path                (list desktop-dirname)
+      desktop-save                t
+      desktop-files-not-to-save   <span class="org-string">"^$"</span> <span class="org-comment-delimiter">;</span><span class="org-comment">reload tramp paths</span>
+      desktop-load-locked-desktop nil)
+(desktop-save-mode 0)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">UTF8 everywhere</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(set-terminal-coding-system    'utf-8)
+(set-keyboard-coding-system    'utf-8)
+(prefer-coding-system          'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">Uniquify settings</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Change buffer name in case of various same name buffer
+previously : Makefile and Makefile&lt;2&gt;
+now        : Makefile|directory1 Makefile|directory2
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">uniquify</span>)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator <span class="org-string">"|"</span>)
+(setq uniquify-after-kill-buffer-p t) <span class="org-comment-delimiter">; </span><span class="org-comment">rename after killing uniquified</span>
+(setq uniquify-ignore-buffers-re <span class="org-string">"^\\*"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">don't muck with special buffers</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">Dired customization</h3>
+<div class="outline-text-3" id="text-1-7">
+</div><div id="outline-container-sec-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1">Using 'a' to open a directory in the same buffer</h4>
+<div class="outline-text-4" id="text-1-7-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(put 'dired-find-alternative-file 'disabled nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7-2" class="outline-4">
+<h4 id="sec-1-7-2">Make dired less verbose</h4>
+<div class="outline-text-4" id="text-1-7-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">dired-details</span>)
+(setq-default dired-details-hidden-string <span class="org-string">"--- "</span>)
+(dired-details-install)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7-3" class="outline-4">
+<h4 id="sec-1-7-3">Refresh also dired buffer</h4>
+<div class="outline-text-4" id="text-1-7-3">
+<p>
+From <a href="http://whattheemacsd.com/sane-defaults.el-01.html">Magnars blog</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8">Ibuffer customization</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+Use human readable size column (from <a href="http://www.emacswiki.org/emacs/IbufferMode#toc12">coldnew</a>)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(define-ibuffer-column size-h
+  (<span class="org-builtin">:name</span> <span class="org-string">"Size"</span>)
+  (<span class="org-keyword">cond</span>
+   ((&gt; (buffer-size) 1000)    (format <span class="org-string">"%7.1fk"</span> (/ (buffer-size) 1000.0)))
+   ((&gt; (buffer-size) 1000000) (format <span class="org-string">"%7.1fM"</span> (/ (buffer-size) 1000000.0)))
+   (t  (format <span class="org-string">"%8d"</span> (buffer-size)))))
+
+(setq
+ ibuffer-default-sorting-mode 'filename/process
+ ibuffer-eliding-string <span class="org-string">"&#8230;"</span>
+ ibuffer-compile-formats t
+ ibuffer-formats '((mark modified read-only
+                         <span class="org-string">" "</span> (name 25 25 <span class="org-builtin">:left</span> <span class="org-builtin">:elide</span>)
+                         <span class="org-string">" "</span> (size-h 9 -1 <span class="org-builtin">:right</span>)
+                         <span class="org-string">" "</span> (mode 7 7 <span class="org-builtin">:left</span> <span class="org-builtin">:elide</span>)
+                         <span class="org-comment-delimiter">;;</span><span class="org-comment">" " (git-status 8 8 :left)</span>
+                         <span class="org-string">" "</span> filename-and-process)
+                   (mark <span class="org-string">" "</span> (name 16 -1) <span class="org-string">" "</span> filename))
+ ibuffer-show-empty-filter-groups nil
+ ibuffer-saved-filter-groups
+ (quote ((<span class="org-string">"default"</span>
+          (<span class="org-string">"c++"</span> (mode . c++-mode))
+          (<span class="org-string">"shell script"</span> (mode . sh-mode))
+          (<span class="org-string">"emacs lisp"</span> (mode . emacs-lisp-mode))
+          (<span class="org-string">"python"</span> (mode . python-mode))
+          (<span class="org-string">"LaTeX"</span> (or
+                    (mode . latex-mode)
+                    (mode . LaTeX-mode)
+                    (mode . tex-mode)))
+          (<span class="org-string">"ruby"</span> (mode . ruby-mode))
+          (<span class="org-string">"java-script"</span> (or
+                          (mode . js-mode)
+                          (mode . js2-mode)))
+          (<span class="org-string">"java"</span> (mode . java-mode))
+          (<span class="org-string">"html"</span> (or
+                   (mode . html-mode)
+                   (mode . web-mode)
+                   (mode . haml-mode)))
+          (<span class="org-string">"xml"</span> (mode . nxml-mode))
+          (<span class="org-string">"css"</span> (mode . css-mode))
+          (<span class="org-string">"org agenda"</span>  (mode . org-agenda-mode))
+          (<span class="org-string">"org"</span> (or
+                  (mode . org-mode)
+                  (name . <span class="org-string">"^\\*Calendar\\*$"</span>)
+                  (name . <span class="org-string">"^diary$"</span>)))
+          (<span class="org-string">"text misc"</span> (or
+                        (mode . text-mode)
+                        (mode . rst-mode)
+                        (mode . markdown-mode)))
+          (<span class="org-string">"w3m"</span> (mode . w3m-mode))
+          (<span class="org-string">"git"</span> (or
+                  (mode . magit-log-edit-mode)
+                  (mode . magit-log)))
+          (<span class="org-string">"dired"</span> (mode . dired-mode))
+          (<span class="org-string">"help"</span> (or
+                   (mode . Info-mode)
+                   (mode . help-mode)
+                   (mode . Man-mode)))
+          (<span class="org-string">"*buffer*"</span> (name . <span class="org-string">"\\*.*\\*"</span>))))))
+(add-hook 'ibuffer-mode-hook
+          #'(<span class="org-keyword">lambda</span> ()
+              (ibuffer-switch-to-saved-filter-groups <span class="org-string">"default"</span>)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-powerline" class="outline-3">
+<h3 id="powerline"><a id="sec-1-9" name="sec-1-9"></a>Powerline</h3>
+<div class="outline-text-3" id="text-powerline">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">powerline</span>)
+(<span class="org-keyword">defun</span> <span class="org-function-name">sk-powerline-default-theme</span> ()
+  <span class="org-doc">"Starter-kit default mode-line."</span>
+  (interactive)
+  (setq-default mode-line-format
+                '(<span class="org-string">"%e"</span>
+                  (<span class="org-builtin">:eval</span>
+                   (<span class="org-keyword">let*</span> ((active (powerline-selected-window-active))
+                          (mode-line (<span class="org-keyword">if</span> active 'mode-line 'mode-line-inactive))
+                          (face1 (<span class="org-keyword">if</span> active 'powerline-active1
+                                   'powerline-inactive1))
+                          (face2 (<span class="org-keyword">if</span> active 'powerline-active2
+                                   'powerline-inactive2))
+                          (lhs (list
+                                (powerline-raw <span class="org-string">"%*"</span> nil 'l)
+                                (powerline-buffer-size nil 'l)
+
+                                <span class="org-comment-delimiter">;;</span><span class="org-comment">(powerline-raw mode-line-mule-info nil 'l)</span>
+                                (powerline-buffer-id nil 'l)
+
+                                (powerline-raw <span class="org-string">" "</span>)
+                                (powerline-arrow-left mode-line face1)
+
+                                (powerline-major-mode face1 'l)
+                                (powerline-process face1)
+                                (powerline-minor-modes face1 'l)
+                                (powerline-narrow face1 'l)
+
+                                (powerline-raw <span class="org-string">" "</span> face1)
+                                (powerline-arrow-left face1 face2)
+
+                                (powerline-vc face2)))
+                          (rhs (list
+                                (powerline-raw global-mode-string face2 'r)
+
+                                (powerline-arrow-left face2 face1)
+
+                                (powerline-raw <span class="org-string">"%4l"</span> face1 'l)
+                                (powerline-raw <span class="org-string">":"</span> face1 'l)
+                                (powerline-raw <span class="org-string">"%3c"</span> face1 'r)
+
+                                (powerline-arrow-left face1 mode-line)
+                                (powerline-raw <span class="org-string">" "</span>)
+
+                                (powerline-raw <span class="org-string">"%6p"</span> nil 'r)
+                                )))
+                     (concat
+                      (powerline-render lhs)
+                      (powerline-fill face2 (powerline-width rhs))
+                      (powerline-render rhs)))))))
+(sk-powerline-default-theme)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10">Diminish modeline clutter</h3>
+<div class="outline-text-3" id="text-1-10">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;</span><span class="org-comment">(require 'diminish)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11">Buffer scrolling</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+Smooth keyboard scrolling
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq
+ redisplay-dont-pause t                 <span class="org-comment-delimiter">;; </span><span class="org-comment">scrolling</span>
+ scroll-step 1                          <span class="org-comment-delimiter">;; </span><span class="org-comment">scroll line per line (1 line instead of 3)</span>
+ scroll-margin 0                        <span class="org-comment-delimiter">;; </span><span class="org-comment">do smooth scrolling, ...</span>
+ scroll-conservatively 100000           <span class="org-comment-delimiter">;; </span><span class="org-comment">... the defaults ...</span>
+ scroll-up-aggressively 0               <span class="org-comment-delimiter">;; </span><span class="org-comment">... are very ...</span>
+ scroll-down-aggressively 0             <span class="org-comment-delimiter">;; </span><span class="org-comment">... annoying</span>
+ auto-window-vscroll nil
+ )
+</pre>
+</div>
+
+<p>
+Use <a href="https://github.com/kiwanami/emacs-inertial-scroll">inertial-scroll</a> for a really smooth scrolling when using mouse wheel and
+next/prior keys.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">inertial-scroll</span>)
+(inertias-global-minor-mode 1)
+(setq inertias-rebound-flash nil
+      inertias-initial-velocity-wheel 20)
+(global-set-key [(mouse-5)] 'inertias-up-wheel)
+(global-set-key [(mouse-4)] 'inertias-down-wheel)
+(global-set-key (kbd <span class="org-string">"&lt;next&gt;"</span>)  'inertias-up)
+(global-set-key (kbd <span class="org-string">"&lt;prior&gt;"</span>) 'inertias-down)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12">Misc.</h3>
+<div class="outline-text-3" id="text-1-12">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defalias</span> '<span class="org-function-name">yes-or-no-p</span> 'y-or-n-p)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<a href="http://whattheemacsd.com/init.el-01.html">Magnars</a> suggests to place all the UI stuff deactivation
+(<code>tool-bar</code>, <code>scroll-bar</code>) at the really beginning of the <code>init.el</code>
+file. Not really conclusive especially when emacs server is used.
+</p></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+File under git version control - commit 6cd0ccf - 2013-11-01
+</div>
+</body>
+</html>
