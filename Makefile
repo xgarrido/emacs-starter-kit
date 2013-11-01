@@ -25,7 +25,9 @@ el: $(FILES)
 %.el: %.org
 	$(BATCH) --eval '(org-babel-load-file "$<")'
 
-doc:
+doc: html
+
+html:
 	@mkdir -p doc/stylesheets
 	@$(BATCH) --eval '(org-babel-tangle-file "starter-kit-publish.org")'
 	@$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
