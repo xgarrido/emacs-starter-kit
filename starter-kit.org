@@ -179,22 +179,6 @@ general starter-kit updates without conflict.
    - read the following [[http://www.gnu.org/software/emacs/elisp/html_node/Key-Binding-Conventions.html][Key-Binding-Conventions]] before defining too
      many personal key bindings
 
-*** Optional starter kit packages
-The following customization packages are shipped with the starter kit
-but are not loaded by default.  If you have code which you find
-generally useful please submit it to the starter kit core!
-- [[file:starter-kit-eshell.org][eshell]]
-- [[file:starter-kit-g-client.org][g-client]]
-- [[file:starter-kit-gnus.org][gnus]]
-- [[file:starter-kit-haskell.org][haskell]]
-- [[file:starter-kit-js.org][js]]
-- [[file:starter-kit-lisp.org][lisp]]
-- [[file:starter-kit-misc-recommended.org][misc-recommended]]
-- [[file:starter-kit-org.org][org]]
-- [[file:starter-kit-perl.org][perl]]
-- [[file:starter-kit-python.org][python]]
-- [[file:starter-kit-ruby.org][ruby]]
-
 ** Emacs Lisp Package Archive
    :PROPERTIES:
    :CUSTOM_ID: emacs-lisp-package-archive
