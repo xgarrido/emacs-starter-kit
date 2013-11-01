@@ -1,14 +1,18 @@
 # Name of your emacs binary
 EMACS=emacs
 
-BATCH=$(EMACS) --batch --no-init-file --eval '(require (quote org))' --eval '(setq starter-kit-dir default-directory)'
+BATCH=$(EMACS) --batch --no-init-file					\
+  --eval '(require (quote org))'					\
+  --eval "(org-babel-do-load-languages 'org-babel-load-languages	\
+        '((sh . t)))"							\
+  --eval "(setq org-confirm-babel-evaluate nil)"			\
+  --eval '(setq starter-kit-dir default-directory)'
 
 FILES = starter-kit.org			\
 	starter-kit-elpa.org		\
 	starter-kit-window.org		\
 	starter-kit-defuns.org		\
 	starter-kit-bindings.org
-
 
 FILESO = $(FILES:.org=.el)
 
@@ -21,13 +25,17 @@ el: $(FILES)
 %.el: %.org
 	$(BATCH) --eval '(org-babel-load-file "$<")'
 
-doc: doc/index.html
-
-doc/index.html: $(FILES)
+doc:
 	mkdir -p doc/stylesheets
 	$(BATCH) --eval '(org-babel-tangle-file "starter-kit-publish.org")'
 	$(BATCH) --eval '(org-babel-load-file   "starter-kit-publish.org")'
 	rm starter-kit-publish.el
+	find doc -name *.*~ | xargs rm -f
+	tar czvf /tmp/org-starter-kit-publish.tar.gz doc
+	# git checkout gh-pages
+	# tar xzvf /tmp/org-starter-kit-publish.tar.gz
+	# if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
+	# git checkout master
 	echo "Documentation published to doc/"
 
 clean:
