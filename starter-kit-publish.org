@@ -6,9 +6,6 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 This file is used to publish the starter kit documentation to =.html=
 in the =doc/= directory.
 
-This code defines the =starter-kit-project= which is used to publish
-the documentation for the Starter Kit to html.
-
 * Project publish function
 ** Requirements
 #+BEGIN_SRC emacs-lisp
@@ -38,7 +35,7 @@ the documentation for the Starter Kit to html.
       :base-extension "org"
       :publishing-directory ,doc-directory
       :publishing-function org-html-publish-to-html
-      :exclude "starter-kit-publish.org\\|starter-kit-todo-list.org"
+      :exclude "starter-kit-publish.org"
       :time-stamp-file nil
       :section-numbers nil
       :with-toc nil
