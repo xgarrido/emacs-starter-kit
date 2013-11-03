@@ -81,10 +81,10 @@ user-specific configuration files from the following locations
 mentioned in [[customizations]] immediately below.
 
 ** Customization
-   :PROPERTIES:
-   :CUSTOM_ID: customization
-   :tangle:   no
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: customization
+:TANGLE:   no
+:END:
 
 The defaults built into the starter kit are only the beginning of
 most users customization of Emacs to suit their needs.  The starter
