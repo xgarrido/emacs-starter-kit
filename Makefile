@@ -38,7 +38,7 @@ html:
 	@tar xzvf /tmp/org-starter-kit-publish.tar.gz
 	@if [ -n "`git status --porcelain`" ]; then git commit -am "update doc" && git push; fi
 	@git checkout master
-	echo "Documentation published to doc/"
+	@echo "NOTICE: Documentation published to doc/"
 
 clean:
 	rm -f *.elc *.aux *.tex *.pdf starter-kit*.el starter-kit*.html doc/*html *~ .starter-kit*.part.org
