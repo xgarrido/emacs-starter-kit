@@ -54,6 +54,11 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 #+END_SRC
 
 ** Org-Mode settings
+*** Setting org timestamp directory
+#+BEGIN_SRC emacs-lisp
+  (setq org-publish-timestamp-directory (concat temporary-file-directory "org-timestamps"))
+#+END_SRC
+
 *** Ellipsis
 #+BEGIN_SRC emacs-lisp
   (setq org-ellipsis "…"
