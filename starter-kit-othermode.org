@@ -195,18 +195,18 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 #+END_SRC
 ** Git gutter settings
 #+BEGIN_SRC emacs-lisp
-  (starter-kit-after git-gutter+
-                     (setq git-gutter+-disabled-modes '(asm-mode image-mode org-mode))
-                     (require 'git-gutter-fringe+)
-                     (git-gutter-fr+-minimal)
+  (starter-kit-after git-gutter
+                     (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
+                     (require 'git-gutter-fringe)
+                     ;;(git-gutter-fr-minimal)
                      ;;(set-face-foreground 'git-gutter-fr+-modified "#DEB542")
                      ;;(set-face-foreground 'git-gutter-fr+-added    "#DC322F")
                      ;;(set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
-                     (set-face-foreground 'git-gutter-fr+-modified "#DEB542")
-                     (set-face-foreground 'git-gutter-fr+-added    "#69B7F0")
-                     (set-face-foreground 'git-gutter-fr+-deleted  "#FF6E64")
-                     (diminish 'git-gutter+-mode))
-  (global-git-gutter+-mode t)
+                     (set-face-foreground 'git-gutter-fr:modified "#DEB542")
+                     (set-face-foreground 'git-gutter-fr:added    "#69B7F0")
+                     (set-face-foreground 'git-gutter-fr:deleted  "#FF6E64")
+                     (diminish 'git-gutter-mode))
+  (global-git-gutter-mode t)
 #+END_SRC
 
 ** latex-mode
