@@ -217,7 +217,7 @@ Tweak face by removing the foreground colors
     (set-face-foreground 'diff-hl-change nil)
     (set-face-foreground 'diff-hl-delete nil)
     )
-  (global-diff-hl-mode)
+  ;;(global-diff-hl-mode)
 #+END_SRC
 ** latex-mode
 #+BEGIN_SRC emacs-lisp

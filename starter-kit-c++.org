@@ -4,7 +4,7 @@
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit C++
-** Set C++ mode for *.h and *.ipp files (instead of plain-old C mode)
+** Set C++ mode for =*.h= and =*.ipp= files (instead of plain-old C mode)
 #+BEGIN_SRC emacs-lisp
   (setq auto-mode-alist (cons '("\\.h$"   . c++-mode) auto-mode-alist))
   (setq auto-mode-alist (cons '("\\.ipp$" . c++-mode) auto-mode-alist))

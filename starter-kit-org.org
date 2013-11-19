@@ -4,6 +4,7 @@
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 * Starter Kit Org
+
 Configuration for the eminently useful [[http://orgmode.org/][Org Mode]].
 
 Org-mode is for keeping notes, maintaining ToDo lists, doing project
@@ -480,7 +481,7 @@ can make comments across all your files and projects and link to them all from
 one place.
 *** Setting the TODO file location
 #+BEGIN_SRC emacs-lisp
-  (setq org-default-notes-file "~/Documents/org-notes/misc/todo-list.org")
+  (setq org-default-notes-file "~/Development/org-notes/misc/todo-list.org")
 #+END_SRC
 
 *** Closing items
