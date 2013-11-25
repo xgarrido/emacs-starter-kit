@@ -214,7 +214,7 @@ file using the `org-babel-lob-ingest' function.
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-***** SN@ailWare markup filter
+***** SN@ilWare markup filter
 #+BEGIN_SRC emacs-lisp
   (defun snailware-markup-filter (contents backend info)
      (when (eq backend 'latex)

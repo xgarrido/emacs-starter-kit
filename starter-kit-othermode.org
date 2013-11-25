@@ -194,8 +194,8 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (add-hook 'git-commit-mode-hook (lambda () (auto-complete-mode t)))
 #+END_SRC
 *** Colored diff
-#+BEGIN_SRC emacs-lisp
-(setq magit-diff-refine-hunk 'all)
+#+BEGIN_SRC emacs-lisp :tangle no
+  (setq magit-diff-refine-hunk 'all)
 #+END_SRC
 
 ** Git gutter settings
