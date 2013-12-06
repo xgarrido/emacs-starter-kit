@@ -13,7 +13,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012  Free Software Foundation, Inc.
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -131,7 +131,7 @@ evaluated a theme is activated using the <code>load-theme</code> function.
 A light variant of the <a href="https://github.com/bbatsov/solarized-emacs">Solarized</a> color theme. The basic idea is to
 keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some <code>face</code> changes for
-<a href="https://github.com/milkypostman/powerline">powerline</a> (see <a href="#powerline">below</a>).
+<a href="https://github.com/milkypostman/powerline">powerline</a> (see <a href="#sec-1-9">below</a>).
 </p>
 <div class="org-src-container">
 
@@ -336,8 +336,19 @@ From <a href="http://whattheemacsd.com/sane-defaults.el-01.html">Magnars blog</a
 </div>
 </div>
 </div>
-</div>
+<div id="outline-container-sec-1-7-4" class="outline-4">
+<h4 id="sec-1-7-4">Activate <code>hl-line</code> minor mode</h4>
+<div class="outline-text-4" id="text-1-7-4">
+<div class="org-src-container">
 
+<pre class="src src-emacs-lisp">(add-hook 'dired-mode-hook
+          (<span class="org-keyword">lambda</span> ()
+            (hl-line-mode t)))
+</pre>
+</div>
+</div>
+</div>
+</div>
 <div id="outline-container-sec-1-8" class="outline-3">
 <h3 id="sec-1-8">Ibuffer customization</h3>
 <div class="outline-text-3" id="text-1-8">
@@ -407,15 +418,16 @@ Use human readable size column (from <a href="http://www.emacswiki.org/emacs/Ibu
           (<span class="org-string">"*buffer*"</span> (name . <span class="org-string">"\\*.*\\*"</span>))))))
 (add-hook 'ibuffer-mode-hook
           #'(<span class="org-keyword">lambda</span> ()
+              (hl-line-mode t)
               (ibuffer-switch-to-saved-filter-groups <span class="org-string">"default"</span>)))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-powerline" class="outline-3">
-<h3 id="powerline"><a id="sec-1-9" name="sec-1-9"></a>Powerline</h3>
-<div class="outline-text-3" id="text-powerline">
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9">Powerline</h3>
+<div class="outline-text-3" id="text-1-9">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">powerline</span>)
@@ -547,7 +559,7 @@ file. Not really conclusive especially when emacs server is used.
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under git version control - commit f3e9d58 - 2013-11-25
+File under git version control - commit c400e30 - 2013-12-06
 </div>
 </body>
 </html>
