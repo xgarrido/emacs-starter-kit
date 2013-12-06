@@ -211,7 +211,7 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
                      (set-face-foreground 'git-gutter-fr:added    "#69B7F0")
                      (set-face-foreground 'git-gutter-fr:deleted  "#FF6E64")
                      (diminish 'git-gutter-mode))
-  ;;(global-git-gutter-mode t)
+  (global-git-gutter-mode t)
 #+END_SRC
 
 ** diff-hl settings
