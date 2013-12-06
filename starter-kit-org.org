@@ -40,6 +40,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (org-bullets-mode t)
               (auto-complete-mode t)
               (linum-mode -1)
+              (hl-line-mode t)
               (diminish 'org-indent-mode)))
 #+END_SRC
 
@@ -395,6 +396,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 #+END_SRC
 
 ** Prevent editing invisible text
+
 The following setting prevents accidentally editing hidden text when
 the point is inside a folded region. This can happen if you are in the
 body of a heading and globally fold the org-file with =S-TAB=
@@ -411,6 +413,7 @@ is if it is buried in invisible text to allow editing again.
   (setq org-footnote-auto-adjust t)
 #+END_SRC
 ** Org fold to store folding state
+
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
 the =.fold= file is saved.
 #+BEGIN_SRC emacs-lisp
@@ -466,6 +469,7 @@ the =.fold= file is saved.
 #+END_SRC
 
 ** Function to generate all org table
+
 From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
 #+BEGIN_SRC emacs-lisp
   (defun sk-org-send-all-tables ()
@@ -475,6 +479,7 @@ From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
 #+END_SRC
 
 ** Org capture
+
 Emacs Org-mode has a feature called Org-capture that makes it easy to keep track
 of all the to-do's that crop up as we work on projects.  With Org-capture you
 can make comments across all your files and projects and link to them all from
