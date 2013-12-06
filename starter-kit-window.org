@@ -47,7 +47,7 @@ evaluated a theme is activated using the =load-theme= function.
 A light variant of the [[https://github.com/bbatsov/solarized-emacs][Solarized]] color theme. The basic idea is to
 keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some =face= changes for
-[[https://github.com/milkypostman/powerline][powerline]] (see [[#powerline][below]]).
+[[https://github.com/milkypostman/powerline][powerline]] (see [[Powerline][below]]).
 #+BEGIN_SRC emacs-lisp
   (require 'solarized)
   (defun sk-solarized-childtheme ()
@@ -181,6 +181,14 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil)
 #+END_SRC
+
+*** Activate =hl-line= minor mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (hl-line-mode t)))
+#+END_SRC
+
 ** Ibuffer customization
 Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMode#toc12][coldnew]])
 #+BEGIN_SRC emacs-lisp
@@ -245,12 +253,10 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
             ("*buffer*" (name . "\\*.*\\*"))))))
   (add-hook 'ibuffer-mode-hook
             #'(lambda ()
+                (hl-line-mode t)
                 (ibuffer-switch-to-saved-filter-groups "default")))
 #+END_SRC
 ** Powerline
-:PROPERTIES:
-:CUSTOM_ID: powerline
-:END:
 #+BEGIN_SRC emacs-lisp
   (require 'powerline)
   (defun sk-powerline-default-theme ()
