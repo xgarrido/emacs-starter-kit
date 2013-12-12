@@ -298,7 +298,7 @@ tutorial]])
 ** autocomplete mode
 #+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
-  ;;(ac-config-default)
+  (ac-config-default)
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
   (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC

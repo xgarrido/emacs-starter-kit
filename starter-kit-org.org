@@ -123,7 +123,8 @@ supported languages.
      (sh . t)
      (C . t)
      (python . t)
-     (latex . t)))
+     (latex . t)
+     (gnuplot . t)))
 #+END_SRC
 
 You are encouraged to add the following to your personal configuration
@@ -151,12 +152,20 @@ directory) file for information on the functions, and see
 [[http://orgmode.org/worg/org-contrib/babel/intro.php#library-of-babel][worg:library-of-babel]] for more usage information.
 
 Code blocks can be loaded into the library of babel from any Org-mode
-file using the `org-babel-lob-ingest' function.
+file using the =org-babel-lob-ingest= function.
 
 ** LaTeX hacks
 *** Use smart quote when exporting
 #+BEGIN_SRC emacs-lisp
   (setq org-export-with-smart-quotes t)
+#+END_SRC
+*** Add =cite= link
+#+BEGIN_SRC emacs-lisp
+  (org-add-link-type "cite" 'ebib
+                     (lambda (path desc format)
+                       (cond
+                        ((eq format 'latex)
+                         (format "\\cite{%s}" path)))))
 #+END_SRC
 *** Keep LaTeX logfiles
 #+BEGIN_SRC emacs-lisp
