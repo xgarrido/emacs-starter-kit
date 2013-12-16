@@ -161,11 +161,14 @@ file using the =org-babel-lob-ingest= function.
 #+END_SRC
 *** Add =cite= link
 #+BEGIN_SRC emacs-lisp
-  (org-add-link-type "cite" 'ebib
-                     (lambda (path desc format)
-                       (cond
-                        ((eq format 'latex)
-                         (format "\\cite{%s}" path)))))
+(org-add-link-type "cite" 'ebib
+ (lambda (keyword desc format)
+   (cond
+    ((eq format 'html) (format "(<cite>%s</cite>)" path))
+    ((eq format 'latex)
+     (concat "\\cite{"
+             (mapconcat (lambda (key) key) (cite-split-keys keyword) ",")
+             "}")))))
 #+END_SRC
 *** Keep LaTeX logfiles
 #+BEGIN_SRC emacs-lisp
