@@ -160,6 +160,7 @@ file using the =org-babel-lob-ingest= function.
   (setq org-export-with-smart-quotes t)
 #+END_SRC
 *** Add =cite= link
+From [[https://github.com/jkitchin/jmax/blob/prelude/jorg-bib.el#L332][Kohn Kitchin setup]]
 #+BEGIN_SRC emacs-lisp
 (org-add-link-type "cite" 'ebib
  (lambda (keyword desc format)
