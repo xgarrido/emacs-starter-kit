@@ -349,6 +349,16 @@ We define a new environment for "colored" box
 #+END_SRC
 
 *** Filters
+**** Ignore heading with defined tag
+Add a new tag =ignoreheading= to skip headline tagged as such.
+#+BEGIN_SRC emacs-lisp
+  (defun sk-ignore-headline (contents backend info)
+    (when (and (org-export-derived-backend-p backend 'latex)
+               (string-match "\\`.*ignoreheading.*\n"
+                             (downcase contents)))
+      (replace-match "" nil nil contents)))
+  (add-to-list 'org-export-filter-headline-functions 'sk-ignore-headline)
+#+END_SRC
 **** Change =table= into =figure= env
 When graphics are placed into table cells then change the default table
 environment into figure
