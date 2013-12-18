@@ -157,20 +157,18 @@ file using the =org-babel-lob-ingest= function.
 ** LaTeX hacks
 *** Use smart quote when exporting
 #+BEGIN_SRC emacs-lisp
-  (setq org-export-with-smart-quotes t)
+  (setq org-export-with-smart-quotes nil)
 #+END_SRC
+
 *** Add =cite= link
-From [[https://github.com/jkitchin/jmax/blob/prelude/jorg-bib.el#L332][Kohn Kitchin setup]]
 #+BEGIN_SRC emacs-lisp
 (org-add-link-type "cite" 'ebib
  (lambda (keyword desc format)
    (cond
-    ((eq format 'html) (format "(<cite>%s</cite>)" path))
-    ((eq format 'latex)
-     (concat "\\cite{"
-             (mapconcat (lambda (key) key) (cite-split-keys keyword) ",")
-             "}")))))
+    ((eq format 'html)  (format "(<cite>%s</cite>)" path))
+    ((eq format 'latex) (format "\\cite{%s}" path))))
 #+END_SRC
+
 *** Keep LaTeX logfiles
 #+BEGIN_SRC emacs-lisp
   (setq org-latex-remove-logfiles nil)
@@ -359,6 +357,7 @@ Add a new tag =ignoreheading= to skip headline tagged as such.
       (replace-match "" nil nil contents)))
   (add-to-list 'org-export-filter-headline-functions 'sk-ignore-headline)
 #+END_SRC
+
 **** Change =table= into =figure= env
 When graphics are placed into table cells then change the default table
 environment into figure
