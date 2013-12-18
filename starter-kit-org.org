@@ -166,7 +166,7 @@ file using the =org-babel-lob-ingest= function.
  (lambda (keyword desc format)
    (cond
     ((eq format 'html)  (format "(<cite>%s</cite>)" path))
-    ((eq format 'latex) (format "\\cite{%s}" path))))
+    ((eq format 'latex) (format "\\cite{%s}" path)))))
 #+END_SRC
 
 *** Keep LaTeX logfiles
