@@ -163,7 +163,7 @@ file using the =org-babel-lob-ingest= function.
 *** Add =cite= link
 #+BEGIN_SRC emacs-lisp
 (org-add-link-type "cite" 'ebib
- (lambda (keyword desc format)
+ (lambda (path desc format)
    (cond
     ((eq format 'html)  (format "(<cite>%s</cite>)" path))
     ((eq format 'latex) (format "\\cite{%s}" path)))))
@@ -300,9 +300,10 @@ Change the face of =strike-through=
 
 ***** Add email
 #+BEGIN_SRC emacs-lisp
+  (setq user-mail-address nil)
   (defun sk-beamer-email (options backend)
     "Insert EMAIL as \email{EMAIL} in the latex backend when EMAIL is present."
-    (when (and (eq backend 'beamer)
+    (when (and (org-export-derived-backend-p backend 'latex)
                (plist-get options :email))
       (plist-put options :latex-header
                  (mapconcat 'identity
@@ -316,7 +317,7 @@ Change the face of =strike-through=
       (plist-put options :with-email nil))
     options)
 
-   (add-to-list 'org-export-filter-options-functions 'sk-beamer-email)
+  (add-to-list 'org-export-filter-options-functions 'sk-beamer-email)
 #+END_SRC
 
 ***** Colored box environment
