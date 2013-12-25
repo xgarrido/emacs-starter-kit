@@ -153,8 +153,26 @@ directory) file for information on the functions, and see
 
 Code blocks can be loaded into the library of babel from any Org-mode
 file using the =org-babel-lob-ingest= function.
+#+BEGIN_SRC emacs-lisp
+(org-babel-lob-ingest (expand-file-name "starter-kit-org.org" starter-kit-dir))
+#+END_SRC
 
 ** LaTeX hacks
+*** VC status
+#+NAME: vc-status
+#+BEGIN_SRC sh :exports none
+  if [ -d .svn ]; then
+    status=$(LC_MESSAGES=en svn info)
+    rev=$(echo -e $status | sed -n 's/.*Revision: *\([^ ]*\).*/\1/p')
+    date=$(echo -e $status | sed -n 's/.*Last Changed Date: *\([^ ]*\).*/\1/p')
+    log="\texttt{svn} revision ${rev} \$-\$ ${date}"
+  fi
+  if [ -d .git ]; then
+    log=$(LC_MESSAGES=en git --no-pager log -1 HEAD --date=short --pretty=format:"\texttt{git} commit \texttt{%h} -- %ad")
+  fi
+  echo "\renewcommand*{\PrelimText}{\small\textnormal{\color{gray}${log}}}"
+#+END_SRC
+
 *** Use smart quote when exporting
 #+BEGIN_SRC emacs-lisp
   (setq org-export-with-smart-quotes nil)
