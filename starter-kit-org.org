@@ -350,21 +350,6 @@ We define a new environment for "colored" box
   (setq org-beamer-outline-frame-title "")
   (setq org-beamer-outline-frame-options "plain")
 #+END_SRC
-**** C++ lecture template
-#+BEGIN_SRC emacs-lisp :results none
-  (add-to-list 'org-latex-classes
-               '("lecture"
-                 "\\documentclass{report}
-                  [PACKAGES]
-                  \\usepackage{lecture-style}
-                  [NO-DEFAULT-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-#+END_SRC
-
 *** Filters
 **** Ignore headline
 Add a new tag =ignoreheading= to skip headline tagged as such.
