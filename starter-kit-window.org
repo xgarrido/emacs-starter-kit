@@ -110,7 +110,7 @@ Define new theme (since definition occurs here it is loaded by default)
 
 *** Fringe size
 #+BEGIN_SRC emacs-lisp :tangle yes
-(setq-default left-fringe-width 5)
+;;(setq-default left-fringe-width 5)
 #+END_SRC
 ** Setting default directories
 
@@ -342,6 +342,70 @@ next/prior keys.
   (global-set-key (kbd "<prior>") 'inertias-down)
 #+END_SRC
 
+** Naked emacs
+From [[http://bzg.fr/emacs-strip-tease.html]]
+*** Hide modeline
+From [[http://bzg.fr/emacs-hide-mode-line.html]]
+#+BEGIN_SRC emacs-lisp
+  (defvar-local sk-hidden-mode-line-mode nil)
+
+  (define-minor-mode sk-hidden-mode-line-mode
+    "Minor mode to hide the mode-line in the current buffer."
+    :init-value nil
+    :global nil
+    :variable sk-hidden-mode-line-mode
+    :group 'editing-basics
+    (if sk-hidden-mode-line-mode
+        (setq hide-mode-line mode-line-format
+              mode-line-format nil)
+      (setq mode-line-format hide-mode-line
+            hide-mode-line nil))
+    (force-mode-line-update)
+    ;; Apparently force-mode-line-update is not always enough to
+    ;; redisplay the mode-line
+    (redraw-display)
+    (when (and (called-interactively-p 'interactive)
+               sk-hidden-mode-line-mode)
+      (run-with-idle-timer
+       0 nil 'message
+       (concat "Hidden Mode Line Mode enabled.  "
+               "Use M-x sk-hidden-mode-line-mode to make the mode-line appear."))))
+#+END_SRC
+
+*** Big fringe
+#+BEGIN_SRC emacs-lisp
+  (defvar sk-big-fringe-mode nil)
+  (define-minor-mode sk-big-fringe-mode
+    "Minor mode to hide the mode-line in the current buffer."
+    :init-value nil
+    :global t
+    :variable sk-big-fringe-mode
+    :group 'editing-basics
+    (if (not sk-big-fringe-mode)
+        (set-fringe-style nil)
+      (set-fringe-mode
+       (/ (- (frame-pixel-width)
+             (* 100 (frame-char-width)))
+          2))))
+
+  ;; Get rid of the indicators in the fringe
+  (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+          fringe-bitmaps)
+#+END_SRC
+*** Shortcut
+#+BEGIN_SRC emacs-lisp
+  (defun sk-naked-emacs ()
+    (interactive)
+    (progn
+      (if (not sk-hidden-mode-line-mode)
+          (sk-hidden-mode-line-mode 1)
+        (sk-hidden-mode-line-mode 0))
+      (if (not sk-big-fringe-mode)
+          (sk-big-fringe-mode 1)
+        (sk-big-fringe-mode 0))
+      ))
+  (global-set-key (kbd "C-s-SPC") 'sk-naked-emacs)
+#+END_SRC
 ** Misc.
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
