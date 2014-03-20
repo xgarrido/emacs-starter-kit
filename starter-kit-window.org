@@ -406,6 +406,7 @@ From [[http://bzg.fr/emacs-hide-mode-line.html]]
       ))
   (global-set-key (kbd "C-s-SPC") 'sk-naked-emacs)
 #+END_SRC
+
 ** Misc.
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
