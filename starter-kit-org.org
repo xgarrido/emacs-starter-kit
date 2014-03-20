@@ -395,6 +395,7 @@ you should use the =org-koma-letter-export-to-pdf= command.
 #+BEGIN_SRC emacs-lisp
   (setq org-koma-letter-email  nil)
   (setq org-koma-letter-author nil)
+  (setq org-koma-letter-from-address "")
   (add-to-list 'org-latex-classes
                '("koma-letter"
                  "\\documentclass{scrlttr2}
