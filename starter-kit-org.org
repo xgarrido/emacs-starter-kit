@@ -447,6 +447,27 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (setq org-latex-table-caption-above nil)
 #+END_SRC
 
+** Org-reveal
+[[https://github.com/yjwen/org-reveal/][=org-reveal=]] exports =org= documents to reveal.js presentations.
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-reveal)
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/2.5.0/")
+  (setq org-reveal-hlevel 2)
+  (setq org-reveal-control nil)
+  ;;(setq org-reveal-theme "solarized")
+#+END_SRC
+*** Filters
+**** Change =pdf= file to =png= image
+#+BEGIN_SRC emacs-lisp
+  (defun sk-change-pdf-to-png (backend)
+    (when (org-export-derived-backend-p backend 'reveal)
+      (while (re-search-forward "\\(.pdf\\)" nil t)
+        (replace-match ".png"))))
+
+  (add-hook 'org-export-before-parsing-hook 'sk-change-pdf-to-png)
+#+END_SRC
+
+
 ** Prevent editing invisible text
 
 The following setting prevents accidentally editing hidden text when
