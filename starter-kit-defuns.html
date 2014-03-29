@@ -6,8 +6,9 @@
 <title>Starter Kit Defuns</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="stylesheets/styles.css">
-                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<link rel="stylesheet" href="css/styles.css">
+               <link rel="stylesheet" href="css/org-pygments.css">
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -53,9 +54,20 @@ for the JavaScript code in this tag.
      target.className = elem.cacheClassTarget;
  }
 /*]]>*///-->
+</script><script type="text/javascript">
+function displayTOC() {
+    var first = document.getElementById("text-table-of-contents").innerHTML;
+    if (first != "") {
+        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+        maincontent += "<div>" + first + "</div>";
+        document.getElementById("toc").innerHTML = maincontent;
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+   }
 </script>
 </head>
-<body>
+<body onload="displayTOC()"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Starter Kit Defuns</h1>
 <p>
@@ -514,7 +526,7 @@ From <a href="http://emacsredux.com/blog/2013/03/28/google/">Emacs redux</a>.
 </div>
 </div>
 <div id="postamble" class="status">
-File under git version control - commit cdc7aca - 2013-12-18
+File under git version control - commit 3562dc8 - 2014-03-20
 </div>
 </body>
 </html>

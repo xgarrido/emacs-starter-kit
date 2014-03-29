@@ -6,8 +6,9 @@
 <title>Emacs Starter Kit</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="stylesheets/styles.css">
-                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<link rel="stylesheet" href="css/styles.css">
+               <link rel="stylesheet" href="css/org-pygments.css">
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -53,9 +54,20 @@ for the JavaScript code in this tag.
      target.className = elem.cacheClassTarget;
  }
 /*]]>*///-->
+</script><script type="text/javascript">
+function displayTOC() {
+    var first = document.getElementById("text-table-of-contents").innerHTML;
+    if (first != "") {
+        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+        maincontent += "<div>" + first + "</div>";
+        document.getElementById("toc").innerHTML = maincontent;
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+   }
 </script>
 </head>
-<body>
+<body onload="displayTOC()"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Emacs Starter Kit</h1>
 <blockquote>
@@ -115,12 +127,12 @@ from within Emacs.
 </p>
 
 <p>
-The <a href="http://emacswiki.org">Emacs Wiki</a> is also very handy.
+The <a href="http://emacswiki.org/">Emacs Wiki</a> is also very handy.
 </p>
 </div>
 </div>
 <div id="outline-container-installation" class="outline-3">
-<h3 id="installation"><a id="sec-1-2" name="sec-1-2"></a>Installation</h3>
+<h3 id="installation"><a id="sec-1-2"></a>Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <ol class="org-ol">
 <li>Install Emacs version 24 or greater. Use your package manager if you have one
@@ -137,7 +149,7 @@ the Emacs mode for git interaction.
 </pre>
 </div>
 </li>
-<li>Move the resulting directory to <code>~/.emacs.d</code> <sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>
+<li>Move the resulting directory to <code>~/.emacs.d</code> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>
 </li>
 <li>Launch Emacs!
 </li>
@@ -173,7 +185,7 @@ is not present.
 </div>
 </div>
 <div id="outline-container-structure" class="outline-3">
-<h3 id="structure"><a id="sec-1-3" name="sec-1-3"></a>Structure</h3>
+<h3 id="structure"><a id="sec-1-3"></a>Structure</h3>
 <div class="outline-text-3" id="text-structure">
 <p>
 The <code>init.el</code> file is where everything begins. It is loaded
@@ -186,7 +198,7 @@ mentioned in <i>customizations</i> immediately below.
 </div>
 </div>
 <div id="outline-container-customization" class="outline-3">
-<h3 id="customization"><a id="sec-1-4" name="sec-1-4"></a>Customization</h3>
+<h3 id="customization"><a id="sec-1-4"></a>Customization</h3>
 <div class="outline-text-3" id="text-customization">
 <p>
 The defaults built into the starter kit are only the beginning of
@@ -210,7 +222,7 @@ email passwords.
 
 <dt> User specific config </dt><dd>Your personal configuration information can
 be stored in a user-specific-config file.  This is the file named
-after your user with the extensions <code>.el</code> or <code>.org</code> <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>.  If
+after your user with the extensions <code>.el</code> or <code>.org</code> <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.  If
 you're unsure of your user name evaluate the following code block
 to find out.
 <div class="org-src-container">
@@ -314,7 +326,7 @@ many personal key bindings
 </div>
 </div>
 <div id="outline-container-emacs-lisp-package-archive" class="outline-3">
-<h3 id="emacs-lisp-package-archive"><a id="sec-1-5" name="sec-1-5"></a>Emacs Lisp Package Archive</h3>
+<h3 id="emacs-lisp-package-archive"><a id="sec-1-5"></a>Emacs Lisp Package Archive</h3>
 <div class="outline-text-3" id="text-emacs-lisp-package-archive">
 <p>
 Libraries from <a href="http://tromey.com/elpa">ELPA</a> are preferred when available since dependencies
@@ -327,7 +339,7 @@ this directory.
 </div>
 </div>
 <div id="outline-container-contributing" class="outline-3">
-<h3 id="contributing"><a id="sec-1-6" name="sec-1-6"></a>Contributing</h3>
+<h3 id="contributing"><a id="sec-1-6"></a>Contributing</h3>
 <div class="outline-text-3" id="text-contributing">
 <p>
 If you know your way around Emacs, please try out the starter kit as a
@@ -348,7 +360,7 @@ The latest version is at <a href="http://github.com/eschulte/emacs24-starter-kit
 </div>
 </div>
 <div id="outline-container-implementation" class="outline-2">
-<h2 id="implementation"><a id="sec-2" name="sec-2"></a>Implementation</h2>
+<h2 id="implementation"><a id="sec-2"></a>Implementation</h2>
 <div class="outline-text-2" id="text-implementation">
 <p>
 This section contains all code implementing the Emacs Starter Kit.  It
@@ -446,7 +458,7 @@ session.
 </div>
 </div>
 <div id="outline-container-starter-kit-core" class="outline-3">
-<h3 id="starter-kit-core"><a id="sec-2-2" name="sec-2-2"></a>Starter kit core</h3>
+<h3 id="starter-kit-core"><a id="sec-2-2"></a>Starter kit core</h3>
 <div class="outline-text-3" id="text-starter-kit-core">
 <p>
 The following files contain the remainder of the core of the Emacs
@@ -623,15 +635,15 @@ After we've loaded all the Starter Kit defaults, lets load the User's stuff.
 </div>
 </div>
 <div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
+<h2 class="footnotes">Notes </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
 If you already have a directory at <code>~/.emacs.d</code> move it out of the
 way and put this there instead.
 </p></div>
 
-<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
 The emacs starter kit uses <a href="http://orgmode.org/">Org Mode</a> to load embedded elisp code
 directly from literate Org-mode documents.
 </p></div>
@@ -640,7 +652,7 @@ directly from literate Org-mode documents.
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under git version control - commit cdc7aca - 2013-12-18
+File under git version control - commit 3562dc8 - 2014-03-20
 </div>
 </body>
 </html>

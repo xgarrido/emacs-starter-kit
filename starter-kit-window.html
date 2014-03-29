@@ -6,8 +6,9 @@
 <title>Starter Kit Window</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="stylesheets/styles.css">
-                <link rel="stylesheet" href="stylesheets/org-pygments.css">
+<link rel="stylesheet" href="css/styles.css">
+               <link rel="stylesheet" href="css/org-pygments.css">
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -53,9 +54,20 @@ for the JavaScript code in this tag.
      target.className = elem.cacheClassTarget;
  }
 /*]]>*///-->
+</script><script type="text/javascript">
+function displayTOC() {
+    var first = document.getElementById("text-table-of-contents").innerHTML;
+    if (first != "") {
+        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+        maincontent += "<div>" + first + "</div>";
+        document.getElementById("toc").innerHTML = maincontent;
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+   }
 </script>
 </head>
-<body>
+<body onload="displayTOC()"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Starter Kit Window</h1>
 <p>
@@ -69,7 +81,7 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 <h3 id="sec-1-1">Window default settings</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-Settings in relation with emacs window behavior<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+Settings in relation with emacs window behavior<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
 </p>
 <div class="org-src-container">
 
@@ -218,7 +230,7 @@ Define new theme (since definition occurs here it is loaded by default)
 <div class="outline-text-4" id="text-1-3-3">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq-default left-fringe-width 5)
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;;</span><span class="org-comment">(setq-default left-fringe-width 5)</span>
 </pre>
 </div>
 </div>
@@ -535,8 +547,98 @@ next/prior keys.
 </div>
 </div>
 <div id="outline-container-sec-1-12" class="outline-3">
-<h3 id="sec-1-12">Misc.</h3>
+<h3 id="sec-1-12">Naked emacs</h3>
 <div class="outline-text-3" id="text-1-12">
+<p>
+From <a href="http://bzg.fr/emacs-strip-tease.html">http://bzg.fr/emacs-strip-tease.html</a>
+</p>
+</div>
+<div id="outline-container-sec-1-12-1" class="outline-4">
+<h4 id="sec-1-12-1">Hide modeline</h4>
+<div class="outline-text-4" id="text-1-12-1">
+<p>
+From <a href="http://bzg.fr/emacs-hide-mode-line.html">http://bzg.fr/emacs-hide-mode-line.html</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(defvar-local sk-hidden-mode-line-mode nil)
+
+(<span class="org-keyword">define-minor-mode</span> <span class="org-function-name">sk-hidden-mode-line-mode</span>
+  <span class="org-doc">"Minor mode to hide the mode-line in the current buffer."</span>
+  <span class="org-builtin">:init-value</span> nil
+  <span class="org-builtin">:global</span> nil
+  <span class="org-builtin">:variable</span> sk-hidden-mode-line-mode
+  <span class="org-builtin">:group</span> 'editing-basics
+  (<span class="org-keyword">if</span> sk-hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (force-mode-line-update)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Apparently force-mode-line-update is not always enough to</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">redisplay the mode-line</span>
+  (redraw-display)
+  (<span class="org-keyword">when</span> (and (called-interactively-p 'interactive)
+             sk-hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat <span class="org-string">"Hidden Mode Line Mode enabled.  "</span>
+             <span class="org-string">"Use M-x sk-hidden-mode-line-mode to make the mode-line appear."</span>))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-12-2" class="outline-4">
+<h4 id="sec-1-12-2">Big fringe</h4>
+<div class="outline-text-4" id="text-1-12-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">sk-big-fringe-mode</span> nil)
+(<span class="org-keyword">define-minor-mode</span> <span class="org-function-name">sk-big-fringe-mode</span>
+  <span class="org-doc">"Minor mode to hide the mode-line in the current buffer."</span>
+  <span class="org-builtin">:init-value</span> nil
+  <span class="org-builtin">:global</span> t
+  <span class="org-builtin">:variable</span> sk-big-fringe-mode
+  <span class="org-builtin">:group</span> 'editing-basics
+  (<span class="org-keyword">if</span> (not sk-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 100 (frame-char-width)))
+        2))))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Get rid of the indicators in the fringe</span>
+(mapcar (<span class="org-keyword">lambda</span>(fb) (set-fringe-bitmap-face fb 'org-hide))
+        fringe-bitmaps)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-12-3" class="outline-4">
+<h4 id="sec-1-12-3">Shortcut</h4>
+<div class="outline-text-4" id="text-1-12-3">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-naked-emacs</span> ()
+  (interactive)
+  (<span class="org-keyword">progn</span>
+    (<span class="org-keyword">if</span> (not sk-hidden-mode-line-mode)
+        (sk-hidden-mode-line-mode 1)
+      (sk-hidden-mode-line-mode 0))
+    (<span class="org-keyword">if</span> (not sk-big-fringe-mode)
+        (sk-big-fringe-mode 1)
+      (sk-big-fringe-mode 0))
+    ))
+(global-set-key (kbd <span class="org-string">"C-s-SPC"</span>) 'sk-naked-emacs)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-13" class="outline-3">
+<h3 id="sec-1-13">Misc.</h3>
+<div class="outline-text-3" id="text-1-13">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defalias</span> '<span class="org-function-name">yes-or-no-p</span> 'y-or-n-p)
@@ -546,10 +648,10 @@ next/prior keys.
 </div>
 </div>
 <div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
+<h2 class="footnotes">Notes </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
 <a href="http://whattheemacsd.com/init.el-01.html">Magnars</a> suggests to place all the UI stuff deactivation
 (<code>tool-bar</code>, <code>scroll-bar</code>) at the really beginning of the <code>init.el</code>
 file. Not really conclusive especially when emacs server is used.
@@ -559,7 +661,7 @@ file. Not really conclusive especially when emacs server is used.
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under git version control - commit cdc7aca - 2013-12-18
+File under git version control - commit 3562dc8 - 2014-03-20
 </div>
 </body>
 </html>
