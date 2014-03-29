@@ -59,6 +59,13 @@ buffer will disappear after 1 second. Stolen from [[http://stackoverflow.com/que
                         buffer)))
   (add-hook 'compilation-finish-functions 'sk-bury-compile-buffer-if-successful)
 #+END_SRC
+** =cpputils-cmake=
+From [[https://github.com/redguardtoo/cpputils-cmake]]
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'c++-mode-hook (lambda () (cppcm-reload-all)))
+  (setq cppcm-build-dirname "__build-Linux-x86_64")
+#+END_SRC
+
 ** Tags
 The following code makes use to =etags= program to generate a list of tags and
 to ease the code navigation.

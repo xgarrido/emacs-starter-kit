@@ -295,10 +295,11 @@ tutorial]])
   ;; (yas-global-mode 1)
   ;; (starter-kit-after yasnippet (diminish 'yas-minor-mode))
 #+END_SRC
-** autocomplete mode
+** auto-complete+ido-at-point mode
 #+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
-  (ac-config-default)
+  (global-auto-complete-mode t)
+  ;;(ac-config-default)
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
   (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC
