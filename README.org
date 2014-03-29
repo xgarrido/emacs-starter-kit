@@ -16,4 +16,5 @@ This version is a fork from the original work of Eric Schulte (see original
 project following the link http://github.com/eschulte/emacs24-starter-kit/).
 
 The latest version is at http://github.com/xgarrido/emacs-starter-kit/ and the
-documentation is located at http://xgarrido.github.io/emacs-starter-kit/.
+documentation is located at
+http://xgarrido.github.io/emacs-starter-kit/starter-kit.html.
