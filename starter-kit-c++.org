@@ -18,13 +18,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook
             (lambda ()
-              (local-set-key (kbd "<s-right>") 'hs-show-block)
-              (local-set-key (kbd "<s-left>")  'hs-hide-block)
-              (local-set-key (kbd "<s-up>")    'hs-hide-all)
-              (local-set-key (kbd "<s-down>")  'hs-show-all)
               ;; hungry delete
               ;;(c-toggle-hungry-state t)
-              (hs-minor-mode   t)
               (whitespace-mode t)))
 #+END_SRC
 
