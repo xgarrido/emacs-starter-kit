@@ -172,7 +172,6 @@ file using the =org-babel-lob-ingest= function.
   fi
   echo "\renewcommand*{\PrelimText}{\small\textnormal{\color{gray}${log}}}"
 #+END_SRC
-
 *** Use smart quote when exporting
 #+BEGIN_SRC emacs-lisp
   (setq org-export-with-smart-quotes nil)
