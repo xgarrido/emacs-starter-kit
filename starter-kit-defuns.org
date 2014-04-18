@@ -284,7 +284,7 @@ From [[http://emacsredux.com/blog/2013/03/28/google/][Emacs redux]].
 #+END_SRC
 
 *** Indent correctly pasted code
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defadvice yank (after indent-region activate)
   (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
                                            c-mode c++-mode objc-mode
