@@ -292,9 +292,9 @@ interested in the actual code implementing the starter kit.
   #+END_SRC
 
 ** Starter kit core
-   :PROPERTIES:
-   :CUSTOM_ID: starter-kit-core
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: starter-kit-core
+:END:
 The following files contain the remainder of the core of the Emacs
 Starter Kit.  All of the code in this section should be loaded by
 everyone using the starter kit.

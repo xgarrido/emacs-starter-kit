@@ -466,7 +466,6 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (add-hook 'org-export-before-parsing-hook 'sk-change-pdf-to-png)
 #+END_SRC
 
-
 ** Prevent editing invisible text
 
 The following setting prevents accidentally editing hidden text when

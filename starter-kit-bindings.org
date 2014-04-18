@@ -48,6 +48,7 @@ Key Bindings.
   ;;(windmove-default-keybindings) ;; Shift+direction
   (global-set-key (kbd "<C-tab>") 'other-window)
 #+END_SRC
+
 ** Window rotation
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<s-tab>") 'sk-toggle-window-split)
@@ -107,10 +108,12 @@ Key Bindings.
 #+BEGIN_SRC emacs-lisp
   (global-set-key [f11] 'sk-toggle-fullscreen)
 #+END_SRC
+
 ** Multi-term
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-m") 'multi-term)
 #+END_SRC
+
 ** Magit
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-s") 'magit-status)
