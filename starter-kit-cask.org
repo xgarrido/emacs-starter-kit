@@ -54,6 +54,7 @@ installed packages.
   (depends-on "browse-kill-ring")         ; Interactive selection of kill-ring
   (depends-on "expand-region")            ; Expand selection with semantic unit
   (depends-on "multiple-cursors")         ; Multiple cursors selection
+  (depends-on "lorem-ipsum")              ; Insert lorem-ipsum
 #+END_SRC
 
 ** Completion & expansion

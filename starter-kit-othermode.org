@@ -326,3 +326,8 @@ tutorial]])
   (diminish 'abbrev-mode)
   (diminish 'inertias-global-minor-mode)
 #+END_SRC
+
+** lorem ipsum
+#+BEGIN_SRC emacs-lisp
+(require 'lorem-ipsum)
+#+END_SRC
