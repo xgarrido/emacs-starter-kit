@@ -114,9 +114,18 @@ after package or component has been loaded.
                                                             minibuffer-incative-mode sr-mode))
                      (diminish 'smartparens-mode))
 #+END_SRC
-** Which func-mode
+** which-func-mode
+Set function name in the header part of emacs (from
+[[http://emacsredux.com/blog/2014/04/05/which-function-mode/]]).
 #+BEGIN_SRC emacs-lisp :tangle no
-  (which-func-mode t)
+  (require 'which-func)
+  (add-to-list 'which-func-modes 'org-mode)
+  (setq-default header-line-format
+                '((which-func-mode ("" which-func-format " "))))
+  (setq mode-line-misc-info
+        ;; We remove Which Function Mode from the mode line, because it's mostly
+        ;; invisible here anyway.
+        (assq-delete-all 'which-func-mode mode-line-misc-info))
 #+END_SRC
 ** Winner mode
 #+BEGIN_SRC emacs-lisp
@@ -329,5 +338,5 @@ tutorial]])
 
 ** lorem ipsum
 #+BEGIN_SRC emacs-lisp
-(require 'lorem-ipsum)
+  (require 'lorem-ipsum)
 #+END_SRC
