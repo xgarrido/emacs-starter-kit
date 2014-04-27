@@ -86,3 +86,12 @@ Use this function to create TAGS related to SN@ailWare software.
 #+BEGIN_SRC emacs-lisp
   (setq tags-file-name (concat temporary-file-directory "TAGS"))
 #+END_SRC
+
+** No indentation within namespace block
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defconst my-cc-style
+    '("cc-mode"
+      (c-offsets-alist . ((innamespace . [0])))))
+
+  (c-add-style "my-cc-mode" my-cc-style)
+#+END_SRC
