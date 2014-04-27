@@ -6,9 +6,9 @@
 <title>Starter Kit C++</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="css/styles.css">
-               <link rel="stylesheet" href="css/org-pygments.css">
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="css/styles.css" />
+               <link rel="stylesheet" href="css/org-pygments.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -55,19 +55,27 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script><script type="text/javascript">
-function displayTOC() {
-    var first = document.getElementById("text-table-of-contents").innerHTML;
-    if (first != "") {
-        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
-        maincontent += "<div>" + first + "</div>";
-        document.getElementById("toc").innerHTML = maincontent;
-    } else {
-        document.getElementById("toc").style.display = "none";
-    }
-   }
-</script>
+  function displayTOC() {
+      var first = document.getElementById("text-table-of-contents").innerHTML;
+      if (first != "") {
+          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+          maincontent += "<div>" + first + "</div>";
+          document.getElementById("toc").innerHTML = maincontent;
+      } else {
+          document.getElementById("toc").style.display = "none";
+      }
+     }
+  function randomLinkColor() {
+      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var random_color = colors[Math.floor(Math.random() * colors.length)];
+      var elements = document.querySelectorAll('a');
+      [].slice.call(elements).forEach(function(elem) {
+          elem.style.color = random_color;
+      });
+  }
+  </script>
 </head>
-<body onload="displayTOC()"><div id="toc"></div>
+<body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Starter Kit C++</h1>
 <p>
@@ -88,6 +96,7 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Running starter-kit-coding-hook</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -98,7 +107,6 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Un/fold function/namespace definitions</h3>
 <div class="outline-text-3" id="text-1-3">
@@ -106,18 +114,14 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 
 <pre class="src src-emacs-lisp">(add-hook 'c-mode-common-hook
           (<span class="org-keyword">lambda</span> ()
-            (local-set-key (kbd <span class="org-string">"&lt;s-right&gt;"</span>) 'hs-show-block)
-            (local-set-key (kbd <span class="org-string">"&lt;s-left&gt;"</span>)  'hs-hide-block)
-            (local-set-key (kbd <span class="org-string">"&lt;s-up&gt;"</span>)    'hs-hide-all)
-            (local-set-key (kbd <span class="org-string">"&lt;s-down&gt;"</span>)  'hs-show-all)
             <span class="org-comment-delimiter">;; </span><span class="org-comment">hungry delete</span>
             <span class="org-comment-delimiter">;;</span><span class="org-comment">(c-toggle-hungry-state t)</span>
-            (hs-minor-mode   t)
             (whitespace-mode t)))
 </pre>
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Compilation</h3>
 <div class="outline-text-3" id="text-1-4">
@@ -131,6 +135,7 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-4-2" class="outline-4">
 <h4 id="sec-1-4-2">Send notification when compilation is done</h4>
 <div class="outline-text-4" id="text-1-4-2">
@@ -143,7 +148,6 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-4-3" class="outline-4">
 <h4 id="sec-1-4-3">Bury compilation buffer</h4>
 <div class="outline-text-4" id="text-1-4-3">
@@ -172,7 +176,6 @@ buffer will disappear after 1 second. Stolen from <a href="http://stackoverflow.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5"><code>cpputils-cmake</code></h3>
 <div class="outline-text-3" id="text-1-5">
@@ -187,6 +190,7 @@ From <a href="https://github.com/redguardtoo/cpputils-cmake">https://github.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">Tags</h3>
 <div class="outline-text-3" id="text-1-6">
@@ -222,6 +226,7 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-6-2" class="outline-4">
 <h4 id="sec-1-6-2">Set TAGS filename</h4>
 <div class="outline-text-4" id="text-1-6-2">
@@ -233,10 +238,25 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">No indentation within namespace block</h3>
+<div class="outline-text-3" id="text-1-7">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defconst</span> <span class="org-variable-name">my-cc-style</span>
+  '(<span class="org-string">"cc-mode"</span>
+    (c-offsets-alist . ((innamespace . [0])))))
+
+(c-add-style <span class="org-string">"my-cc-mode"</span> my-cc-style)
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-File under git version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/64b030ca4f1c599c2afc300575190fded42506a4">64b030c</a> - 2014-03-29
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/dda83e23b9ff64e789cfcc465904aadf8c72d4e2">dda83e2</a> - 2014-04-27
 </div>
 </body>
 </html>

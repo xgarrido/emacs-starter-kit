@@ -6,9 +6,9 @@
 <title>Starter Kit Other Mode</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="css/styles.css">
-               <link rel="stylesheet" href="css/org-pygments.css">
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="css/styles.css" />
+               <link rel="stylesheet" href="css/org-pygments.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -55,19 +55,27 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script><script type="text/javascript">
-function displayTOC() {
-    var first = document.getElementById("text-table-of-contents").innerHTML;
-    if (first != "") {
-        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
-        maincontent += "<div>" + first + "</div>";
-        document.getElementById("toc").innerHTML = maincontent;
-    } else {
-        document.getElementById("toc").style.display = "none";
-    }
-   }
-</script>
+  function displayTOC() {
+      var first = document.getElementById("text-table-of-contents").innerHTML;
+      if (first != "") {
+          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+          maincontent += "<div>" + first + "</div>";
+          document.getElementById("toc").innerHTML = maincontent;
+      } else {
+          document.getElementById("toc").style.display = "none";
+      }
+     }
+  function randomLinkColor() {
+      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var random_color = colors[Math.floor(Math.random() * colors.length)];
+      var elements = document.querySelectorAll('a');
+      [].slice.call(elements).forEach(function(elem) {
+          elem.style.color = random_color;
+      });
+  }
+  </script>
 </head>
-<body onload="displayTOC()"><div id="toc"></div>
+<body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Starter Kit Other Mode</h1>
 <p>
@@ -112,6 +120,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Coding Hook</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -126,7 +135,6 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Modes setting</h2>
 <div class="outline-text-2" id="text-2">
@@ -140,6 +148,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Undo tree</h3>
 <div class="outline-text-3" id="text-2-2">
@@ -151,6 +160,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3">Recentf</h3>
 <div class="outline-text-3" id="text-2-3">
@@ -163,6 +173,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-4" class="outline-3">
 <h3 id="sec-2-4">Transparently open compressed files</h3>
 <div class="outline-text-3" id="text-2-4">
@@ -173,6 +184,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-5" class="outline-3">
 <h3 id="sec-2-5">Highlight matching parentheses when the point is on them.</h3>
 <div class="outline-text-3" id="text-2-5">
@@ -197,6 +209,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-6" class="outline-3">
 <h3 id="sec-2-6">Highlight everything strange</h3>
 <div class="outline-text-3" id="text-2-6">
@@ -210,6 +223,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-7" class="outline-3">
 <h3 id="sec-2-7">Show a column wise indicator</h3>
 <div class="outline-text-3" id="text-2-7">
@@ -222,6 +236,7 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-8" class="outline-3">
 <h3 id="sec-2-8">Highlight current line</h3>
 <div class="outline-text-3" id="text-2-8">
@@ -232,7 +247,6 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-9" class="outline-3">
 <h3 id="sec-2-9">Auto revert buffer</h3>
 <div class="outline-text-3" id="text-2-9">
@@ -245,7 +259,6 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-10" class="outline-3">
 <h3 id="sec-2-10">Smartparens settings</h3>
 <div class="outline-text-3" id="text-2-10">
@@ -259,18 +272,27 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-11" class="outline-3">
-<h3 id="sec-2-11">Which func-mode</h3>
+<h3 id="sec-2-11">which-func-mode</h3>
 <div class="outline-text-3" id="text-2-11">
+<p>
+Set function name in the header part of emacs (from
+<a href="http://emacsredux.com/blog/2014/04/05/which-function-mode/">http://emacsredux.com/blog/2014/04/05/which-function-mode/</a>).
+</p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(which-func-mode t)
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">which-func</span>)
+(add-to-list 'which-func-modes 'org-mode)
+(setq-default header-line-format
+              '((which-func-mode (<span class="org-string">""</span> which-func-format <span class="org-string">" "</span>))))
+(setq mode-line-misc-info
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">We remove Which Function Mode from the mode line, because it's mostly</span>
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">invisible here anyway.</span>
+      (assq-delete-all 'which-func-mode mode-line-misc-info))
 </pre>
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-12" class="outline-3">
 <h3 id="sec-2-12">Winner mode</h3>
 <div class="outline-text-3" id="text-2-12">
@@ -281,7 +303,6 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-13" class="outline-3">
 <h3 id="sec-2-13">idle hightlight face</h3>
 <div class="outline-text-3" id="text-2-13">
@@ -300,6 +321,7 @@ Use a less intrusive color for <code>idle-hightlight-mode</code>
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-14" class="outline-3">
 <h3 id="sec-2-14">Drag stuff mode</h3>
 <div class="outline-text-3" id="text-2-14">
@@ -316,7 +338,6 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-15" class="outline-3">
 <h3 id="sec-2-15">Magit settings</h3>
 <div class="outline-text-3" id="text-2-15">
@@ -336,7 +357,6 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-15-2" class="outline-4">
 <h4 id="sec-2-15-2">Do not show untracked material</h4>
 <div class="outline-text-4" id="text-2-15-2">
@@ -347,6 +367,7 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-15-3" class="outline-4">
 <h4 id="sec-2-15-3">Fullscreen magit-status</h4>
 <div class="outline-text-4" id="text-2-15-3">
@@ -372,6 +393,7 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-15-4" class="outline-4">
 <h4 id="sec-2-15-4">Magit commit mode</h4>
 <div class="outline-text-4" id="text-2-15-4">
@@ -399,7 +421,6 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-15-5" class="outline-4">
 <h4 id="sec-2-15-5">Colored diff</h4>
 <div class="outline-text-4" id="text-2-15-5">
@@ -411,6 +432,7 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-16" class="outline-3">
 <h3 id="sec-2-16">Git gutter settings</h3>
 <div class="outline-text-3" id="text-2-16">
@@ -432,6 +454,7 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-17" class="outline-3">
 <h3 id="sec-2-17">diff-hl settings</h3>
 <div class="outline-text-3" id="text-2-17">
@@ -450,7 +473,6 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-18" class="outline-3">
 <h3 id="sec-2-18">latex-mode</h3>
 <div class="outline-text-3" id="text-2-18">
@@ -463,6 +485,7 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-19" class="outline-3">
 <h3 id="sec-2-19">markdown-mode</h3>
 <div class="outline-text-3" id="text-2-19">
@@ -473,6 +496,7 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-20" class="outline-3">
 <h3 id="sec-2-20">multi-web-mode</h3>
 <div class="outline-text-3" id="text-2-20">
@@ -488,7 +512,6 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-21" class="outline-3">
 <h3 id="sec-2-21">cmake-mode</h3>
 <div class="outline-text-3" id="text-2-21">
@@ -503,6 +526,7 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-22" class="outline-3">
 <h3 id="sec-2-22">css-mode</h3>
 <div class="outline-text-3" id="text-2-22">
@@ -523,6 +547,7 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-23" class="outline-3">
 <h3 id="sec-2-23">trac-wiki-mode</h3>
 <div class="outline-text-3" id="text-2-23">
@@ -544,7 +569,6 @@ Define some usual <code>trac-wiki</code> projects.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-24" class="outline-3">
 <h3 id="sec-2-24">Wrap region mode</h3>
 <div class="outline-text-3" id="text-2-24">
@@ -555,7 +579,6 @@ Define some usual <code>trac-wiki</code> projects.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-25" class="outline-3">
 <h3 id="sec-2-25">yasnippet mode</h3>
 <div class="outline-text-3" id="text-2-25">
@@ -573,7 +596,6 @@ tutorial</a>)
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-26" class="outline-3">
 <h3 id="sec-2-26">auto-complete+ido-at-point mode</h3>
 <div class="outline-text-3" id="text-2-26">
@@ -588,7 +610,6 @@ tutorial</a>)
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-27" class="outline-3">
 <h3 id="sec-2-27">expand-region mode</h3>
 <div class="outline-text-3" id="text-2-27">
@@ -600,7 +621,6 @@ tutorial</a>)
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-28" class="outline-3">
 <h3 id="sec-2-28">multiple-cursors mode</h3>
 <div class="outline-text-3" id="text-2-28">
@@ -613,6 +633,7 @@ tutorial</a>)
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-2-29" class="outline-3">
 <h3 id="sec-2-29">Browse kill-ring</h3>
 <div class="outline-text-3" id="text-2-29">
@@ -624,7 +645,6 @@ tutorial</a>)
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-2-30" class="outline-3">
 <h3 id="sec-2-30">Diminish modeline clutter</h3>
 <div class="outline-text-3" id="text-2-30">
@@ -637,10 +657,21 @@ tutorial</a>)
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-2-31" class="outline-3">
+<h3 id="sec-2-31">lorem ipsum</h3>
+<div class="outline-text-3" id="text-2-31">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">lorem-ipsum</span>)
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-File under git version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/64b030ca4f1c599c2afc300575190fded42506a4">64b030c</a> - 2014-03-29
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/dda83e23b9ff64e789cfcc465904aadf8c72d4e2">dda83e2</a> - 2014-04-27
 </div>
 </body>
 </html>

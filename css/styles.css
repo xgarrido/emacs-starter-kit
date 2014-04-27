@@ -8,10 +8,10 @@ body {
     margin: 0 auto;
     padding: 50px;
     color: #555555;
-    /*font-family: 'Open Sans';
-    font-size: 10pt;*/
-    font: 14px/1.5 Lato, sans-serif;
-    font-weight: 300;
+    font-family: 'Open Sans';
+    font-size: 10pt;
+    /*font: 14px/1.5 Lato, sans-serif;
+    font-weight: 300;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,15 +46,12 @@ h4, h5, h6 {
 }
 
 a {
-    /*color: #67ad00;*/
-    color: #3399cc;
-    font-weight:400;
+    color: #67ad00;
     text-decoration:none;
 }
 
 a:hover {
-    /*color: #7fd600;*/
-    color: #006699;
+    opacity:0.75;
 }
 
 a small {
@@ -65,7 +62,7 @@ a small {
 }
 
 a:hover small {
-    color:#777777;
+    opacity:0.75;
 }
 
 p, ul, ol, table, pre, dl {
@@ -83,6 +80,22 @@ code, pre {
     font-family:Inconsolata;
     color:#777777;
     font-size:12px;
+}
+
+code {
+    display:inline-block;
+    white-space:no-wrap;
+    background:#fff;
+    font-size:.8em;
+    line-height:1.5em;
+    border:1px solid #e5e5e5;
+    -webkit-border-radius:0.4em;
+    -moz-border-radius:0.4em;
+    -ms-border-radius:0.4em;
+    -o-border-radius:0.4em;
+    border-radius:0.4em;
+    padding:0 .3em;
+    margin:-1px 0
 }
 
 pre {
@@ -144,16 +157,12 @@ img.hidden {
     position: fixed;
     top: 10px;
     right: 20px;
-    text-align: left;
-    background-color: white;
 }
 
 #toc .button {
-    padding: 3px;
+    padding-right: 5px;
     position: fixed;
-    right: 20px;
-    width: 100px;
-    text-align: right;
+    right: inherit;
     cursor: pointer;
     font-size: 20px;
 }
@@ -161,13 +170,89 @@ img.hidden {
 #toc div {
     height: 0;
     width: 0;
-    margin-top: 15px;
+    margin-top: 35px;
+    font-size: 11px;
 }
 
 #toc:hover div {
-    width: auto;
+    width: 250px;
     height: auto;
-    padding: 1em 1em;
+    padding-right: 1.5em;
+    background: #FFFFFF;
+    /*opacity: .85;*/
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    border-radius:4px;
+    overflow: hidden;
+}
+
+#toc ul {
+    color: #67ad00;
+}
+
+#toc:hover:before {
+    content: "";
+    position:absolute;
+    top:19px;
+    right:10px;
+    width:0;height:0;
+    border-color: transparent transparent rgba(0,0,0,0.03) transparent;
+    border-width:8px;
+    border-style:solid;
+}
+
+#toc:hover:after {
+    content: "";
+    position:absolute;
+    top:20px;
+    right:10px;
+    width:0;height:0;
+    border-color: transparent transparent #ffffff transparent;
+    border-width:8px;
+    border-style:solid;
+}
+
+#spinner {
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+}
+
+#spinner > div {
+    width: 8px;
+    height: 8px;
+    background-color: #555555;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+#spinner #bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+#spinner #bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0.0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
 }
 
 #content {
@@ -409,4 +494,10 @@ footer {
         font-size:12pt;
         color:#444;
     }
+}
+.footdef{
+font-size: 10px;
+right: 0;
+position: absolute;
+width:180px;
 }

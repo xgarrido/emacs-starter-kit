@@ -6,9 +6,9 @@
 <title>Starter Kit Org</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
-<link rel="stylesheet" href="css/styles.css">
-               <link rel="stylesheet" href="css/org-pygments.css">
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet" href="css/styles.css" />
+               <link rel="stylesheet" href="css/org-pygments.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -55,19 +55,27 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script><script type="text/javascript">
-function displayTOC() {
-    var first = document.getElementById("text-table-of-contents").innerHTML;
-    if (first != "") {
-        var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
-        maincontent += "<div>" + first + "</div>";
-        document.getElementById("toc").innerHTML = maincontent;
-    } else {
-        document.getElementById("toc").style.display = "none";
-    }
-   }
-</script>
+  function displayTOC() {
+      var first = document.getElementById("text-table-of-contents").innerHTML;
+      if (first != "") {
+          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+          maincontent += "<div>" + first + "</div>";
+          document.getElementById("toc").innerHTML = maincontent;
+      } else {
+          document.getElementById("toc").style.display = "none";
+      }
+     }
+  function randomLinkColor() {
+      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var random_color = colors[Math.floor(Math.random() * colors.length)];
+      var elements = document.querySelectorAll('a');
+      [].slice.call(elements).forEach(function(elem) {
+          elem.style.color = random_color;
+      });
+  }
+  </script>
 </head>
-<body onload="displayTOC()"><div id="toc"></div>
+<body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="content">
 <h1 class="title">Starter Kit Org</h1>
 <p>
@@ -117,6 +125,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-1-2" class="outline-4">
 <h4 id="sec-1-1-2">Minor mode</h4>
 <div class="outline-text-4" id="text-1-1-2">
@@ -135,6 +144,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Org-Mode keybindings</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -151,6 +161,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Org-Mode settings</h3>
 <div class="outline-text-3" id="text-1-3">
@@ -164,6 +175,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3-2" class="outline-4">
 <h4 id="sec-1-3-2">Ellipsis</h4>
 <div class="outline-text-4" id="text-1-3-2">
@@ -175,6 +187,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3-3" class="outline-4">
 <h4 id="sec-1-3-3">Using ido completing</h4>
 <div class="outline-text-4" id="text-1-3-3">
@@ -185,6 +198,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3-4" class="outline-4">
 <h4 id="sec-1-3-4">Use speed keys</h4>
 <div class="outline-text-4" id="text-1-3-4">
@@ -209,7 +223,6 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-3-5" class="outline-4">
 <h4 id="sec-1-3-5">Special word faces</h4>
 <div class="outline-text-4" id="text-1-3-5">
@@ -235,7 +248,6 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-3-6" class="outline-4">
 <h4 id="sec-1-3-6">Turn on automatic renumbering of footnotes</h4>
 <div class="outline-text-4" id="text-1-3-6">
@@ -247,6 +259,7 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Code blocks</h3>
 <div class="outline-text-3" id="text-1-4">
@@ -281,6 +294,7 @@ although it is not added by default as a security precaution.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5">Code block fontification</h3>
 <div class="outline-text-3" id="text-1-5">
@@ -299,6 +313,7 @@ much more like reading and editing of code using its major mode.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">The Library of Babel</h3>
 <div class="outline-text-3" id="text-1-6">
@@ -321,6 +336,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7">LaTeX hacks</h3>
 <div class="outline-text-3" id="text-1-7">
@@ -337,6 +353,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-3" class="outline-4">
 <h4 id="sec-1-7-3">Add <code>cite</code> link</h4>
 <div class="outline-text-4" id="text-1-7-3">
@@ -351,6 +368,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-4" class="outline-4">
 <h4 id="sec-1-7-4">Keep LaTeX logfiles</h4>
 <div class="outline-text-4" id="text-1-7-4">
@@ -361,7 +379,6 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-7-5" class="outline-4">
 <h4 id="sec-1-7-5">Default list of LaTeX packages</h4>
 <div class="outline-text-4" id="text-1-7-5">
@@ -372,6 +389,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-6" class="outline-4">
 <h4 id="sec-1-7-6">Defining org-latex classes</h4>
 <div class="outline-text-4" id="text-1-7-6">
@@ -398,6 +416,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
+
 <li>SuperNEMO articles<br  /><ul class="org-ul"><li>DocDB article<br  /><div class="outline-text-6" id="text-1-7-6-2-1">
 <div class="org-src-container">
 
@@ -417,7 +436,6 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-
 <li>Note taking<br  /><div class="outline-text-6" id="text-1-7-6-2-2">
 <div class="org-src-container">
 
@@ -436,7 +454,6 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-
 <li>SN@ilWare markup filter<br  /><div class="outline-text-6" id="text-1-7-6-2-3">
 <div class="org-src-container">
 
@@ -449,6 +466,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </li></ul>
 </li>
+
 <li>Memoir article<br  /><div class="outline-text-5" id="text-1-7-6-3">
 <div class="org-src-container">
 
@@ -467,6 +485,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
+
 <li>Beamer template<br  /><div class="outline-text-5" id="text-1-7-6-4">
 <div class="org-src-container">
 
@@ -508,7 +527,6 @@ We also translate <b>bold</b> into beamer <code>structure</code>.
 </div>
 </div>
 </li>
-
 <li>Use <code>strike</code> as alert<br  /><div class="outline-text-6" id="text-1-7-6-4-2">
 <p>
 Change the face of <code>strike-through</code>
@@ -523,7 +541,6 @@ Change the face of <code>strike-through</code>
 </div>
 </div>
 </li>
-
 <li>Add <code>frame</code> option to footnote<br  /><div class="outline-text-6" id="text-1-7-6-4-3">
 <div class="org-src-container">
 
@@ -535,6 +552,7 @@ Change the face of <code>strike-through</code>
 </div>
 </div>
 </li>
+
 <li>Add email<br  /><div class="outline-text-6" id="text-1-7-6-4-4">
 <div class="org-src-container">
 
@@ -560,6 +578,7 @@ Change the face of <code>strike-through</code>
 </div>
 </div>
 </li>
+
 <li>Colored box environment<br  /><div class="outline-text-6" id="text-1-7-6-4-5">
 <p>
 We define a new environment for "colored" box
@@ -572,6 +591,7 @@ We define a new environment for "colored" box
 </div>
 </div>
 </li>
+
 <li>Empty <code>outline</code> title<br  /><div class="outline-text-6" id="text-1-7-6-4-6">
 <div class="org-src-container">
 
@@ -583,7 +603,6 @@ We define a new environment for "colored" box
 </li></ul>
 </li></ul>
 </div>
-
 <div id="outline-container-sec-1-7-7" class="outline-4">
 <h4 id="sec-1-7-7">Filters</h4>
 <div class="outline-text-4" id="text-1-7-7">
@@ -603,6 +622,7 @@ Add a new tag <code>ignoreheading</code> to skip headline tagged as such.
 </div>
 </div>
 </li>
+
 <li>Remove section number<br  /><div class="outline-text-5" id="text-1-7-7-2">
 <p>
 Add a new tag <code>ignoresecnumber</code> to remove section number from headline.
@@ -620,6 +640,7 @@ Add a new tag <code>ignoresecnumber</code> to remove section number from headlin
 </div>
 </div>
 </li>
+
 <li>Change <code>table</code> into <code>figure</code> env<br  /><div class="outline-text-5" id="text-1-7-7-3">
 <p>
 When graphics are placed into table cells then change the default table
@@ -638,6 +659,7 @@ environment into figure
 </div>
 </li></ul>
 </div>
+
 <div id="outline-container-sec-1-7-8" class="outline-4">
 <h4 id="sec-1-7-8">KOMA/LaTeX script</h4>
 <div class="outline-text-4" id="text-1-7-8">
@@ -661,6 +683,7 @@ you should use the <code>org-koma-letter-export-to-pdf</code> command.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-9" class="outline-4">
 <h4 id="sec-1-7-9">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
 <div class="outline-text-4" id="text-1-7-9">
@@ -690,6 +713,7 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-10" class="outline-4">
 <h4 id="sec-1-7-10">Minted setup</h4>
 <div class="outline-text-4" id="text-1-7-10">
@@ -708,6 +732,7 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7-11" class="outline-4">
 <h4 id="sec-1-7-11">Place table caption below table</h4>
 <div class="outline-text-4" id="text-1-7-11">
@@ -719,6 +744,7 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-8" class="outline-3">
 <h3 id="sec-1-8">Org-reveal</h3>
 <div class="outline-text-3" id="text-1-8">
@@ -775,6 +801,7 @@ is if it is buried in invisible text to allow editing again.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-10" class="outline-3">
 <h3 id="sec-1-10">Automatically renumber footnotes</h3>
 <div class="outline-text-3" id="text-1-10">
@@ -785,7 +812,6 @@ is if it is buried in invisible text to allow editing again.
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-11" class="outline-3">
 <h3 id="sec-1-11">Org fold to store folding state</h3>
 <div class="outline-text-3" id="text-1-11">
@@ -848,6 +874,7 @@ the <code>.fold</code> file is saved.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-12" class="outline-3">
 <h3 id="sec-1-12">Function to generate all org table</h3>
 <div class="outline-text-3" id="text-1-12">
@@ -864,6 +891,7 @@ From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Domini
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-13" class="outline-3">
 <h3 id="sec-1-13">Org capture</h3>
 <div class="outline-text-3" id="text-1-13">
@@ -884,6 +912,7 @@ one place.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-13-2" class="outline-4">
 <h4 id="sec-1-13-2">Closing items</h4>
 <div class="outline-text-4" id="text-1-13-2">
@@ -899,7 +928,6 @@ finished. This is achieved with
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-1-14" class="outline-3">
 <h3 id="sec-1-14">Org calendar synchronization with Google Agenda&#xa0;&#xa0;&#xa0;<span class="tag"><span class="DEPRECATED">DEPRECATED</span></span></h3>
 <div class="outline-text-3" id="text-1-14">
@@ -918,7 +946,7 @@ finished. This is achieved with
 </div>
 </div>
 <div id="postamble" class="status">
-File under git version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/64b030ca4f1c599c2afc300575190fded42506a4">64b030c</a> - 2014-03-29
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/dda83e23b9ff64e789cfcc465904aadf8c72d4e2">dda83e2</a> - 2014-04-27
 </div>
 </body>
 </html>

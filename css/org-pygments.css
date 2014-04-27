@@ -7,7 +7,7 @@
 .org-variable-name,
 .org-constant,
 .org-function-name {
-    color: #67ad00; /* #69B7F0;*/
+    color: #67ad00;
 }
 
 .org-comment,
