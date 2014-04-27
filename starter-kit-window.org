@@ -63,6 +63,11 @@ some small part of it here. There is also some =face= changes for
      `(powerline-inactive1 ((,class (:background "gray25"))))
      `(powerline-active2   ((,class (:background "gray40"))))
      `(powerline-inactive2 ((,class (:background "gray40"))))
+     `(which-func ((,class (:foreground ,magenta :weight bold))))
+     `(header-line         ((,class (:background ,solarized-bg
+                                                 :foreground ,solarized-fg
+                                                 :underline nil
+                                                 :overline nil))))
      ;; Change some org faces
      `(org-document-title        ((,class (:foreground ,blue-hc :weight bold))))
      `(org-document-info         ((,class (:foreground ,blue-hc))))
