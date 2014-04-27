@@ -1,3 +1,4 @@
+#+TITLE: Emacs Starter Kit
 This is a Literate Programming fork of the original Emacs Starter Kit
 
 This should provide a saner set of defaults than you get normally with
