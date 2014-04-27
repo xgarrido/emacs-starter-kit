@@ -46,7 +46,7 @@ The [[http://emacswiki.org][Emacs Wiki]] is also very handy.
    checkout this [[http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html][git-tutorial]], also we'd highly recommend that you try out [[http://zagadka.vm.bytemark.co.uk/magit/magit.html][magit]]
    the Emacs mode for git interaction.
    #+BEGIN_SRC sh
-     git clone http://github.com/eschulte/emacs24-starter-kit.git
+     git clone http://github.com/xgarrido/emacs24-starter-kit.git
    #+END_SRC
 3. Move the resulting directory to =~/.emacs.d= [1]
 7. Launch Emacs!
