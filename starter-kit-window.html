@@ -55,16 +55,6 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script><script type="text/javascript">
-  function displayTOC() {
-      var first = document.getElementById("text-table-of-contents").innerHTML;
-      if (first != "") {
-          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
-          maincontent += "<div>" + first + "</div>";
-          document.getElementById("toc").innerHTML = maincontent;
-      } else {
-          document.getElementById("toc").style.display = "none";
-      }
-     }
   function randomLinkColor() {
       var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
       var random_color = colors[Math.floor(Math.random() * colors.length)];
@@ -73,9 +63,23 @@ for the JavaScript code in this tag.
           //elem.style.color = random_color;
       });
   }
+  function displayTOC() {
+      var ttoc = document.getElementById("text-table-of-contents");
+      if (ttoc) {
+          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+          maincontent += "<div>" + ttoc.innerHTML + "</div>";
+          document.getElementById("toc").innerHTML = maincontent;
+      } else {
+          document.getElementById("toc").style.display = "none";
+          document.getElementById("preamble").style.top = "10px";
+      }
+     }
   </script>
 </head>
 <body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
+<div id="preamble" class="status">
+<a href="index.html"><i class="fa fa-home"></i></a><br/> <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/>
+</div>
 <div id="content">
 <h1 class="title">Starter Kit Window</h1>
 <p>
@@ -681,7 +685,7 @@ From <a href="http://bzg.fr/emacs-hide-mode-line.html">http://bzg.fr/emacs-hide-
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/dda83e23b9ff64e789cfcc465904aadf8c72d4e2">dda83e2</a> - 2014-04-27
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ec66a7227ef68cfca8dce82887ce1d5cf762c4fc">ec66a72</a> - 2014-04-30
 </div>
 </body>
 </html>
