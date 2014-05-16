@@ -120,7 +120,7 @@ supported languages.
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (sh . t)
+     (shell . t)
      (C . t)
      (python . t)
      (latex . t)
@@ -448,7 +448,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 
 ** Org-reveal
 [[https://github.com/yjwen/org-reveal/][=org-reveal=]] exports =org= documents to reveal.js presentations.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'ox-reveal)
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/2.5.0/")
   (setq org-reveal-hlevel 2)
