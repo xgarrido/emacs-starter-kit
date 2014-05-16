@@ -113,7 +113,15 @@ code are largely inspired by [[http://toumorokoshi.github.com/automatic-package-
 *** Setup packages
 #+BEGIN_SRC emacs-lisp
   (setq el-get-sources
-       '((:name trac-wiki
+       '((:name cask
+          :description "Emacs dependency management"
+          :type github
+          :pkgname "cask/cask")
+         (:name pallet
+          :description "A package management tool for Emacs, built on Cask"
+          :type github
+          :pkgname "rdallasgray/pallet")
+         (:name trac-wiki
           :description "Simple but efficient interface to Trac."
           :type github
           :pkgname "tiborsimko/trac-wiki-el")

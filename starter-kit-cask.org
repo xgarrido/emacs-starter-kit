@@ -101,7 +101,7 @@ installed packages.
 
 * Cask configuration
 #+BEGIN_SRC emacs-lisp
-  (require 'cask "~/Development/github/cask/cask.el")
+  (require 'cask "~/.emacs.d/el-get/cask/cask.el")
   (cask-initialize)
   (require 'pallet)
 #+END_SRC
