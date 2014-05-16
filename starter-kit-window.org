@@ -124,6 +124,11 @@ a given file. =backup-directory-alist= is related to the directory
 where emacs backup file will be stored.
 #+BEGIN_SRC emacs-lisp
   (setq temporary-file-directory     (concat starter-kit-dir "tmp/"))
+  (unless (file-exists-p temporary-file-directory)
+    (make-directory temporary-file-directory))
+#+END_SRC
+
+#+BEGIN_SRC sh
   (setq save-place-file              (concat temporary-file-directory "places"))
   (setq recentf-save-file            (concat temporary-file-directory "recentf"))
   (setq smex-save-file               (concat temporary-file-directory "smex-items"))
