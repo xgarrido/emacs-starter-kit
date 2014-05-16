@@ -488,11 +488,12 @@ is if it is buried in invisible text to allow editing again.
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
 the =.fold= file is saved.
 #+BEGIN_SRC emacs-lisp
+  (setq org-fold-directory (concat temporary-file-directory "org-fold/"))
+  (unless (file-exists-p org-fold-directory)
+    (make-directory org-fold-directory))
+
   (defun org-fold-get-fold-info-file-name ()
-    (let (fold-directory (concat temporary-file-directory "org-fold/"))
-      unless (file-exists-p fold-directory)
-      (make-directory fold-directory)
-      (concat fold-directory (buffer-name) ".fold")))
+    (concat org-fold-directory (buffer-name) ".fold"))
 
   (defun org-fold-save ()
     (save-excursion
