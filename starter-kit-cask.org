@@ -21,11 +21,6 @@ installed packages.
   (source gnu)
   (source marmalade)
 #+END_SRC
-** Package management
-#+BEGIN_SRC emacs-lisp
-  (depends-on "pallet")
-#+END_SRC
-
 ** Color themes & customization
 #+BEGIN_SRC emacs-lisp
   (depends-on "solarized-theme")
