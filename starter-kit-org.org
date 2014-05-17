@@ -321,7 +321,7 @@ Change the face of =strike-through=
   (defun sk-beamer-email (options backend)
     "Insert EMAIL as \email{EMAIL} in the latex backend when EMAIL is present."
     (when (and (org-export-derived-backend-p backend 'latex)
-               (plist-get options :email))
+               (plist-get options :with-email))
       (plist-put options :latex-header
                  (mapconcat 'identity
                             (remove nil
