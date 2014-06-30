@@ -543,7 +543,8 @@ the =.fold= file is saved.
       (org-fold-save)))
 #+END_SRC
 
-** Function to generate all org table
+** Functions for =orgtbl=
+*** Sending all table
 
 From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
 #+BEGIN_SRC emacs-lisp
@@ -551,6 +552,14 @@ From [[http://article.gmane.org/gmane.emacs.orgmode/64670][Carsten Dominik]]
      (interactive)
      (org-table-map-tables
         (lambda () (orgtbl-send-table 'maybe))))
+#+END_SRC
+
+*** Aligning all table
+
+#+BEGIN_SRC emacs-lisp
+  (defun sk-org-align-all-tables ()
+    (interactive)
+    (org-table-map-tables 'org-table-align 'quietly))
 #+END_SRC
 
 ** Org capture
