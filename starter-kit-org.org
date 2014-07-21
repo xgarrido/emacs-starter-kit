@@ -592,4 +592,11 @@ finished. This is achieved with
         org-caldav-url "https://www.google.com/calendar/dav";
         org-caldav-files '("~/Documents/Org/rdv.org")
         org-caldav-inbox "~/Documents/Org/inbox.org")
+        #+END_SRC
+** Misc.
+*** Edit email from thunerbird within emacs
+[[http://globs.org/articles.php?pg=2&lng=en][External editor]] allows to edit mail from thunderbird within emacs. Here, we just
+set the default writing mode to be =org= for =.eml= files.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.eml\\'" . org-mode))
 #+END_SRC
