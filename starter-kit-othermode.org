@@ -239,7 +239,6 @@ Tweak face by removing the foreground colors
   (add-hook 'latex-mode-hook 'turn-on-orgtbl)
   ;;(add-hook 'latex-mode-hook 'turn-on-auto-fill)
 #+END_SRC
-
 ** markdown-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
