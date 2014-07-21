@@ -86,6 +86,11 @@ display a list of the code blocks commands and their related keys.
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq org-use-speed-commands t)
 #+END_SRC
+*** Easy templates
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-structure-template-alist '("al" "#+BEGIN_SRC latex\n\\begin{align*}\n?\\end{align*}\n#+END_SRC"))
+#+END_SRC
+
 *** Special word faces
 #+BEGIN_SRC emacs-lisp :tangle no
   (defface my/highlight-face
