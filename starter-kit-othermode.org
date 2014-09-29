@@ -233,6 +233,7 @@ Tweak face by removing the foreground colors
     )
   ;;(global-diff-hl-mode)
 #+END_SRC
+
 ** latex-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
