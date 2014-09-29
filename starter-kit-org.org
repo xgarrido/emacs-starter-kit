@@ -121,6 +121,7 @@ more languages using the customize interface for the =org-babel-load-languages=
 variable, or with an elisp form like the one below.  The customize interface of
 =org-babel-load-languages= contains an up to date list of the currently
 supported languages.
+*** Supported languages
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -138,7 +139,7 @@ although it is not added by default as a security precaution.
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
-** Code block fontification
+*** Fontification
 The following displays the contents of code blocks in Org-mode files
 using the major-mode of the code.  It also changes the behavior of
 =TAB= to as if it were used in the appropriate major mode.  This means
@@ -406,26 +407,31 @@ you should use the =org-koma-letter-export-to-pdf= command.
                   [NO-DEFAULT-PACKAGES]"))
 #+END_SRC
 
+*** Define =org-latex-pdf-process= command
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -quiet %f"))
+#+END_SRC
+
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
 From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-faq]]
 #+BEGIN_SRC emacs-lisp
-    (defun sk-latexmk-cmd (backend)
-      "When exporting from .org with latex, automatically run latex,
-         pdflatex, or xelatex as appropriate, using latexmk."
-      (when (org-export-derived-backend-p backend 'latex)
-        (let ((texcmd)))
-        ;; default command: xelatex
-        (setq texcmd "jobname=$(basename %f | sed 's/\.tex//');latexmk -xelatex -shell-escape -quiet %f && mkdir -p latex.d && mv ${jobname}.* latex.d/. && mv latex.d/${jobname}.{org,pdf,fdb_latexmk,aux} .")
-        ;; pdflatex -> .pdf
-        (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-            (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
-        ;; xelatex -> .pdf
-        (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-            (setq texcmd "latexmk -xelatex -shell-escape -quiet %f"))
-        ;; LaTeX compilation command
-        (setq org-latex-pdf-process (list texcmd))))
+  (defun sk-latexmk-cmd (backend)
+    "When exporting from .org with latex, automatically run latex,
+       pdflatex, or xelatex as appropriate, using latexmk."
+    (when (org-export-derived-backend-p backend 'latex)
+      (let ((texcmd)))
+      ;; default command: xelatex
+      (setq texcmd "jobname=$(basename %f | sed 's/\.tex//');latexmk -xelatex -shell-escape -quiet %f && mkdir -p latex.d && mv ${jobname}.* latex.d/. && mv latex.d/${jobname}.{org,pdf,fdb_latexmk,aux} .")
+      ;; pdflatex -> .pdf
+      (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+          (setq texcmd "latexmk -pdf -shell-escape -quiet %f"))
+      ;; xelatex -> .pdf
+      (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+          (setq texcmd "latexmk -xelatex -shell-escape -quiet %f"))
+      ;; LaTeX compilation command
+      (setq org-latex-pdf-process (list texcmd))))
 
-    (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
+  (org-add-hook 'org-export-before-processing-hook 'sk-latexmk-cmd)
 #+END_SRC
 
 # The pretty long command with symbolic link is because =minted= package does not
@@ -449,6 +455,17 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 *** Place table caption below table
 #+BEGIN_SRC emacs-lisp
   (setq org-latex-table-caption-above nil)
+#+END_SRC
+
+*** Configuring =org-latex-preview=
+- Set the program to create formula (either =dvipng= or =imagemagick=)
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-create-formula-image-program 'imagemagick)
+#+END_SRC
+
+- Set the output directory
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-preview-ltxpng-directory (expand-file-name "/tmp/ltxpng/"))
 #+END_SRC
 
 ** Org-reveal
@@ -584,7 +601,7 @@ finished. This is achieved with
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time)
 #+END_SRC
-** Org calendar synchronization with Google Agenda :DEPRECATED:
+** Org calendar synchronization with Google Agenda              :deprecated:
 #+BEGIN_SRC emacs-lisp :tangle no
   ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
 
