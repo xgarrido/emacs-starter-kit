@@ -36,7 +36,7 @@ navigating through ido item
 ** Extensions ordering and ignored ones
 #+BEGIN_SRC emacs-lisp
   (setq ido-file-extensions-order     '(".cc" ".h" ".tex" ".sh" ".org"
-                                        ".el"))
+                                        ".el" ".tex" ".pdf"))
   (setq completion-ignored-extensions '(".o" ".elc" "~" ".bin" ".bak"
                                         ".obj" ".map" ".a" ".so"
                                         ".mod" ".aux" ".out" ".pyg"))
