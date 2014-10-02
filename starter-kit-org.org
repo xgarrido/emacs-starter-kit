@@ -512,10 +512,6 @@ is if it is buried in invisible text to allow editing again.
   (setq org-catch-invisible-edits 'error)
 #+END_SRC
 
-** Automatically renumber footnotes
-#+BEGIN_SRC emacs-lisp
-  (setq org-footnote-auto-adjust t)
-#+END_SRC
 ** Org fold to store folding state
 
 Stolen from [[https://github.com/dandavison/org-fold][Dan Davison]] git account. Just changing the directory where
