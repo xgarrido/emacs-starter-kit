@@ -372,12 +372,10 @@ we execute a hook before parsing file to change =CBOX= into =cbox=.
 **** Ignore headline
 Add a new tag =ignoreheading= to skip headline tagged as such.
 #+BEGIN_SRC emacs-lisp
-  (defun sk-ignore-headline (contents backend info)
-    (when (and (org-export-derived-backend-p backend 'latex)
-               (string-match "\\`.*ignoreheading.*\n"
-                             (downcase contents)))
-      (replace-match "" nil nil contents)))
-  (add-to-list 'org-export-filter-headline-functions 'sk-ignore-headline)
+  (defun sk-ignore-headline (backend)
+    (when (org-export-derived-backend-p backend 'latex)
+      (delete-matching-lines ":ignoreheading:")))
+  (add-to-list 'org-export-before-parsing-hook 'sk-ignore-headline)
 #+END_SRC
 
 **** Remove section number
