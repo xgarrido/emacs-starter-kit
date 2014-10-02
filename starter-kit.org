@@ -34,9 +34,9 @@ from within Emacs.
 The [[http://emacswiki.org][Emacs Wiki]] is also very handy.
 
 ** Installation
-   :PROPERTIES:
-   :CUSTOM_ID: installation
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
 
 1. Install Emacs version 24 or greater. Use your package manager if you have one
    and it has an install candidate for Emacs 24, otherwise install it directly
@@ -192,9 +192,9 @@ installed through ELPA will be stored in the =elpa/= sub-directory of
 this directory.
 
 ** Contributing
-   :PROPERTIES:
-   :CUSTOM_ID: contributing
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: contributing
+:END:
 If you know your way around Emacs, please try out the starter kit as a
 replacement for your regular dotfiles for a while. If there's anything
 you just can't live without, add it or let me know so I can add
@@ -206,9 +206,9 @@ specified. See the file [[file:COPYING][COPYING]] for details.
 The latest version is at http://github.com/xgarrido/emacs24-starter-kit/
 
 * Implementation
-  :PROPERTIES:
-  :CUSTOM_ID: implementation
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: implementation
+:END:
 
 This section contains all code implementing the Emacs Starter Kit.  It
 is probably safe to stop reading at this point unless you are
