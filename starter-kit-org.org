@@ -114,6 +114,10 @@ display a list of the code blocks commands and their related keys.
 #+BEGIN_SRC emacs-lisp
   (setq org-footnote-auto-adjust t)
 #+END_SRC
+*** Random footnote label
+#+BEGIN_SRC emacs-lisp
+  (setq org-footnote-auto-label 'random)
+#+END_SRC
 
 ** Code blocks
 This activates a number of widely used languages, you are encouraged to activate
