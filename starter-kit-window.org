@@ -122,7 +122,7 @@ Define new theme (since definition occurs here it is loaded by default)
 First, set the temporary directory name and create it if it does not already
 exist.
 #+BEGIN_SRC emacs-lisp
-  (setq temporary-file-directory     (concat starter-kit-dir "tmp/"))
+  (setq temporary-file-directory     (concat starter-kit-dir "/tmp/"))
   (unless (file-exists-p temporary-file-directory)
     (make-directory temporary-file-directory))
 #+END_SRC
