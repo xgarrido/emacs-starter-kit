@@ -422,7 +422,7 @@ you should use the =org-koma-letter-export-to-pdf= command.
 
 *** Define =org-latex-pdf-process= command
 #+BEGIN_SRC emacs-lisp
-  (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -quiet %f"))
+  (setq org-latex-pdf-process (list "xelatex -shell-escape %f"))
 #+END_SRC
 
 *** Add new LATEX_CMD option to choose between =pdflatex= and =xelatex=
@@ -478,7 +478,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 
 - Set the output directory
 #+BEGIN_SRC emacs-lisp
-  (setq org-latex-preview-ltxpng-directory (expand-file-name "/tmp/ltxpng/"))
+  (setq org-latex-preview-ltxpng-directory "ltxpng/")
 #+END_SRC
 
 ** Org-reveal
