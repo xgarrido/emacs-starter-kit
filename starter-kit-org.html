@@ -8,7 +8,7 @@
 <meta  name="generator" content="Org-mode" />
 <link rel="stylesheet" href="css/styles.css" />
                <link rel="stylesheet" href="css/org-pygments.css" />
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -56,7 +56,7 @@ for the JavaScript code in this tag.
 /*]]>*///-->
 </script><script type="text/javascript">
   function randomLinkColor() {
-      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var colors = ['#f1c40f','#e74c3c','#3399cc','#e67e22','#67ad00','#8e44ad','#1abc9c','#003399'];
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       var elements = document.querySelectorAll('a');
       [].slice.call(elements).forEach(function(elem) {
@@ -78,7 +78,7 @@ for the JavaScript code in this tag.
 </head>
 <body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="preamble" class="status">
-<a href="index.html"><i class="fa fa-home"></i></a><br/> <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/>
+ <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/> 
 </div>
 <div id="content">
 <h1 class="title">Starter Kit Org</h1>
@@ -228,8 +228,19 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 <div id="outline-container-sec-1-3-5" class="outline-4">
-<h4 id="sec-1-3-5">Special word faces</h4>
+<h4 id="sec-1-3-5">Easy templates</h4>
 <div class="outline-text-4" id="text-1-3-5">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'org-structure-template-alist '(<span class="org-string">"al"</span> <span class="org-string">"#+BEGIN_SRC latex :results drawer :exports results\n\\begin{align*}\n?\\end{align*}\n#+END_SRC"</span>))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6">Special word faces</h4>
+<div class="outline-text-4" id="text-1-3-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defface</span> <span class="org-variable-name">my/highlight-face</span>
@@ -252,12 +263,22 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-3-6" class="outline-4">
-<h4 id="sec-1-3-6">Turn on automatic renumbering of footnotes</h4>
-<div class="outline-text-4" id="text-1-3-6">
+<div id="outline-container-sec-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7">Turn on automatic renumbering of footnotes</h4>
+<div class="outline-text-4" id="text-1-3-7">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-footnote-auto-adjust t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3-8" class="outline-4">
+<h4 id="sec-1-3-8">Random footnote label</h4>
+<div class="outline-text-4" id="text-1-3-8">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq org-footnote-auto-label 'random)
 </pre>
 </div>
 </div>
@@ -274,12 +295,16 @@ variable, or with an elisp form like the one below.  The customize interface of
 <code>org-babel-load-languages</code> contains an up to date list of the currently
 supported languages.
 </p>
+</div>
+<div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1">Supported languages</h4>
+<div class="outline-text-4" id="text-1-4-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (sh . t)
+   (shell . t)
    (C . t)
    (python . t)
    (latex . t)
@@ -299,9 +324,9 @@ although it is not added by default as a security precaution.
 </div>
 </div>
 
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5">Code block fontification</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2">Fontification</h4>
+<div class="outline-text-4" id="text-1-4-2">
 <p>
 The following displays the contents of code blocks in Org-mode files
 using the major-mode of the code.  It also changes the behavior of
@@ -317,10 +342,32 @@ much more like reading and editing of code using its major mode.
 </div>
 </div>
 </div>
+<div id="outline-container-sec-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3">Code progression</h4>
+<div class="outline-text-4" id="text-1-4-3">
+<p>
+A progress indicator for code blocks in org-mode courtesy
+of <a href="https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.html">John Kitchin</a>
+</p>
 
-<div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6">The Library of Babel</h3>
-<div class="outline-text-3" id="text-1-6">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defadvice</span> <span class="org-function-name">org-babel-execute-src-block</span> (around progress nil activate)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(set-face-attribute</span>
+  <span class="org-comment-delimiter">;;  </span><span class="org-comment">'org-block-background nil :background "LightSteelBlue")</span>
+  (message <span class="org-string">"Running your code block"</span>)
+  ad-do-it
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(set-face-attribute 'org-block-background nil :background "gray")</span>
+  (message <span class="org-string">"Done with code block"</span>))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">The Library of Babel</h3>
+<div class="outline-text-3" id="text-1-5">
 <p>
 The library of babel contains makes many useful functions available
 for use by code blocks in <b>any</b> emacs file.  See the actual
@@ -341,15 +388,15 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7">LaTeX hacks</h3>
-<div class="outline-text-3" id="text-1-7">
-</div><div id="outline-container-sec-1-7-1" class="outline-4">
-<h4 id="sec-1-7-1">VC status</h4>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">LaTeX hacks</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">VC status</h4>
 </div>
-<div id="outline-container-sec-1-7-2" class="outline-4">
-<h4 id="sec-1-7-2">Use smart quote when exporting</h4>
-<div class="outline-text-4" id="text-1-7-2">
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">Use smart quote when exporting</h4>
+<div class="outline-text-4" id="text-1-6-2">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-export-with-smart-quotes nil)
@@ -358,9 +405,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-3" class="outline-4">
-<h4 id="sec-1-7-3">Add <code>cite</code> link</h4>
-<div class="outline-text-4" id="text-1-7-3">
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">Add <code>cite</code> link</h4>
+<div class="outline-text-4" id="text-1-6-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(org-add-link-type <span class="org-string">"cite"</span> 'ebib
@@ -373,9 +420,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-4" class="outline-4">
-<h4 id="sec-1-7-4">Keep LaTeX logfiles</h4>
-<div class="outline-text-4" id="text-1-7-4">
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4">Keep LaTeX logfiles</h4>
+<div class="outline-text-4" id="text-1-6-4">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-remove-logfiles nil)
@@ -383,9 +430,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-7-5" class="outline-4">
-<h4 id="sec-1-7-5">Default list of LaTeX packages</h4>
-<div class="outline-text-4" id="text-1-7-5">
+<div id="outline-container-sec-1-6-5" class="outline-4">
+<h4 id="sec-1-6-5">Default list of LaTeX packages</h4>
+<div class="outline-text-4" id="text-1-6-5">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-packages-alist '(<span class="org-string">""</span> <span class="org-string">"org-preamble"</span>))
@@ -394,9 +441,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-6" class="outline-4">
-<h4 id="sec-1-7-6">Defining org-latex classes</h4>
-<div class="outline-text-4" id="text-1-7-6">
+<div id="outline-container-sec-1-6-6" class="outline-4">
+<h4 id="sec-1-6-6">Defining org-latex classes</h4>
+<div class="outline-text-4" id="text-1-6-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">unless</span> (boundp 'org-latex-classes)
@@ -404,7 +451,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li>General article class<br  /><div class="outline-text-5" id="text-1-7-6-1">
+<ul class="org-ul"><li><a id="sec-1-6-6-1"></a>General article class<br  /><div class="outline-text-5" id="text-1-6-6-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -421,7 +468,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </li>
 
-<li>SuperNEMO articles<br  /><ul class="org-ul"><li>DocDB article<br  /><div class="outline-text-6" id="text-1-7-6-2-1">
+<li><a id="sec-1-6-6-2"></a>SuperNEMO articles<br  /><ul class="org-ul"><li><a id="sec-1-6-6-2-1"></a>DocDB article<br  /><div class="outline-text-6" id="text-1-6-6-2-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -440,7 +487,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-<li>Note taking<br  /><div class="outline-text-6" id="text-1-7-6-2-2">
+<li><a id="sec-1-6-6-2-2"></a>Note taking<br  /><div class="outline-text-6" id="text-1-6-6-2-2">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -458,7 +505,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-<li>SN@ilWare markup filter<br  /><div class="outline-text-6" id="text-1-7-6-2-3">
+<li><a id="sec-1-6-6-2-3"></a>SN@ilWare markup filter<br  /><div class="outline-text-6" id="text-1-6-6-2-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">snailware-markup-filter</span> (contents backend info)
@@ -471,7 +518,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </li></ul>
 </li>
 
-<li>Memoir article<br  /><div class="outline-text-5" id="text-1-7-6-3">
+<li><a id="sec-1-6-6-3"></a>Memoir article<br  /><div class="outline-text-5" id="text-1-6-6-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -490,7 +537,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </li>
 
-<li>Beamer template<br  /><div class="outline-text-5" id="text-1-7-6-4">
+<li><a id="sec-1-6-6-4"></a>Beamer template<br  /><div class="outline-text-5" id="text-1-6-6-4">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -508,7 +555,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<ul class="org-ul"><li><b>bold</b> becomes <code>structure</code><br  /><div class="outline-text-6" id="text-1-7-6-4-1">
+<ul class="org-ul"><li><a id="sec-1-6-6-4-1"></a><b>bold</b> becomes <code>structure</code><br  /><div class="outline-text-6" id="text-1-6-6-4-1">
 <p>
 We also translate <b>bold</b> into beamer <code>structure</code>.
 </p>
@@ -531,7 +578,7 @@ We also translate <b>bold</b> into beamer <code>structure</code>.
 </div>
 </div>
 </li>
-<li>Use <code>strike</code> as alert<br  /><div class="outline-text-6" id="text-1-7-6-4-2">
+<li><a id="sec-1-6-6-4-2"></a>Use <code>strike</code> as alert<br  /><div class="outline-text-6" id="text-1-6-6-4-2">
 <p>
 Change the face of <code>strike-through</code>
 </p>
@@ -545,7 +592,7 @@ Change the face of <code>strike-through</code>
 </div>
 </div>
 </li>
-<li>Add <code>frame</code> option to footnote<br  /><div class="outline-text-6" id="text-1-7-6-4-3">
+<li><a id="sec-1-6-6-4-3"></a>Add <code>frame</code> option to footnote<br  /><div class="outline-text-6" id="text-1-6-6-4-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-beamer-footnote</span> (contents backend info)
@@ -557,14 +604,14 @@ Change the face of <code>strike-through</code>
 </div>
 </li>
 
-<li>Add email<br  /><div class="outline-text-6" id="text-1-7-6-4-4">
+<li><a id="sec-1-6-6-4-4"></a>Add email<br  /><div class="outline-text-6" id="text-1-6-6-4-4">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq user-mail-address nil)
 (<span class="org-keyword">defun</span> <span class="org-function-name">sk-beamer-email</span> (options backend)
   <span class="org-doc">"Insert EMAIL as \email{EMAIL} in the latex backend when EMAIL is present."</span>
   (<span class="org-keyword">when</span> (and (org-export-derived-backend-p backend 'latex)
-             (plist-get options <span class="org-builtin">:email</span>))
+             (plist-get options <span class="org-builtin">:with-email</span>))
     (plist-put options <span class="org-builtin">:latex-header</span>
                (mapconcat 'identity
                           (remove nil
@@ -583,7 +630,7 @@ Change the face of <code>strike-through</code>
 </div>
 </li>
 
-<li>Colored box environment<br  /><div class="outline-text-6" id="text-1-7-6-4-5">
+<li><a id="sec-1-6-6-4-5"></a>Colored box environment<br  /><div class="outline-text-6" id="text-1-6-6-4-5">
 <p>
 We define a new environment for "colored" box
 </p>
@@ -593,10 +640,23 @@ We define a new environment for "colored" box
              '(<span class="org-string">"cbox"</span> <span class="org-string">"c"</span> <span class="org-string">"\\begin{cbox}%o(%h)"</span> <span class="org-string">"\\end{cbox}"</span>))
 </pre>
 </div>
+
+<p>
+Since 26/09/2014, it seems that fragment block are not "lowercased" anymore so
+we execute a hook before parsing file to change <code>CBOX</code> into <code>cbox</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-beamer-cbox</span> (backend)
+  (<span class="org-keyword">when</span> (eq backend 'beamer)
+    (replace-regexp <span class="org-string">"CBOX"</span> <span class="org-string">"cbox"</span>)))
+(add-to-list 'org-export-before-parsing-hook 'sk-beamer-cbox)
+</pre>
+</div>
 </div>
 </li>
 
-<li>Empty <code>outline</code> title<br  /><div class="outline-text-6" id="text-1-7-6-4-6">
+<li><a id="sec-1-6-6-4-6"></a>Empty <code>outline</code> title<br  /><div class="outline-text-6" id="text-1-6-6-4-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-beamer-outline-frame-title <span class="org-string">""</span>)
@@ -607,45 +667,43 @@ We define a new environment for "colored" box
 </li></ul>
 </li></ul>
 </div>
-<div id="outline-container-sec-1-7-7" class="outline-4">
-<h4 id="sec-1-7-7">Filters</h4>
-<div class="outline-text-4" id="text-1-7-7">
-</div><ul class="org-ul"><li>Ignore headline<br  /><div class="outline-text-5" id="text-1-7-7-1">
+<div id="outline-container-sec-1-6-7" class="outline-4">
+<h4 id="sec-1-6-7">Filters</h4>
+<div class="outline-text-4" id="text-1-6-7">
+</div><ul class="org-ul"><li><a id="sec-1-6-7-1"></a>Ignore headline<br  /><div class="outline-text-5" id="text-1-6-7-1">
 <p>
-Add a new tag <code>ignoreheading</code> to skip headline tagged as such.
+Add a new tag <code></code> to skip headline tagged as such.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-ignore-headline</span> (contents backend info)
-  (<span class="org-keyword">when</span> (and (org-export-derived-backend-p backend 'latex)
-             (string-match <span class="org-string">"\\`.*ignoreheading.*\n"</span>
-                           (downcase contents)))
-    (replace-match <span class="org-string">""</span> nil nil contents)))
-(add-to-list 'org-export-filter-headline-functions 'sk-ignore-headline)
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-ignore-headline</span> (backend)
+  (<span class="org-keyword">when</span> (org-export-derived-backend-p backend 'latex)
+    (delete-matching-lines <span class="org-string">"::"</span>)))
+(add-to-list 'org-export-before-parsing-hook 'sk-ignore-headline)
 </pre>
 </div>
 </div>
 </li>
 
-<li>Remove section number<br  /><div class="outline-text-5" id="text-1-7-7-2">
+<li><a id="sec-1-6-7-2"></a>Remove section number<br  /><div class="outline-text-5" id="text-1-6-7-2">
 <p>
-Add a new tag <code>ignoresecnumber</code> to remove section number from headline.
+Add a new tag <code></code> to remove section number from headline.
 </p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-ignore-section-number</span> (contents backend info)
   (<span class="org-keyword">when</span> (and (org-export-derived-backend-p backend 'latex)
-             (string-match <span class="org-string">"\\`.*ignoresecnumber.*\n"</span>
+             (string-match <span class="org-string">"\\`.*.*\n"</span>
                            (downcase contents)))
     (replace-regexp-in-string <span class="org-string">"\\`\\\\[</span><span class="org-constant"><span class="org-string">A-Za-z0-9</span></span><span class="org-string">]+"</span> <span class="org-string">"\\\\section\*"</span>
-    (replace-regexp-in-string <span class="org-string">"\\\\textsc{ignoresecnumber}"</span> <span class="org-string">""</span> contents))))
+    (replace-regexp-in-string <span class="org-string">"\\\\textsc{}"</span> <span class="org-string">""</span> contents))))
   (add-to-list 'org-export-filter-headline-functions 'sk-ignore-section-number)
 </pre>
 </div>
 </div>
 </li>
 
-<li>Change <code>table</code> into <code>figure</code> env<br  /><div class="outline-text-5" id="text-1-7-7-3">
+<li><a id="sec-1-6-7-3"></a>Change <code>table</code> into <code>figure</code> env<br  /><div class="outline-text-5" id="text-1-6-7-3">
 <p>
 When graphics are placed into table cells then change the default table
 environment into figure
@@ -664,9 +722,9 @@ environment into figure
 </li></ul>
 </div>
 
-<div id="outline-container-sec-1-7-8" class="outline-4">
-<h4 id="sec-1-7-8">KOMA/LaTeX script</h4>
-<div class="outline-text-4" id="text-1-7-8">
+<div id="outline-container-sec-1-6-8" class="outline-4">
+<h4 id="sec-1-6-8">KOMA/LaTeX script</h4>
+<div class="outline-text-4" id="text-1-6-8">
 <p>
 Define a special <code>org-latex-classes</code> to make use of KOMA/LaTeX letter
 style. The <code>ox-koma-letter</code> backend from org-mode contribution directory must
@@ -688,9 +746,20 @@ you should use the <code>org-koma-letter-export-to-pdf</code> command.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-9" class="outline-4">
-<h4 id="sec-1-7-9">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
-<div class="outline-text-4" id="text-1-7-9">
+<div id="outline-container-sec-1-6-9" class="outline-4">
+<h4 id="sec-1-6-9">Define <code>org-latex-pdf-process</code> command</h4>
+<div class="outline-text-4" id="text-1-6-9">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq org-latex-pdf-process (list <span class="org-string">"xelatex -shell-escape %f"</span>))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-10" class="outline-4">
+<h4 id="sec-1-6-10">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
+<div class="outline-text-4" id="text-1-6-10">
 <p>
 From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export">org-faq</a>
 </p>
@@ -718,9 +787,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-10" class="outline-4">
-<h4 id="sec-1-7-10">Minted setup</h4>
-<div class="outline-text-4" id="text-1-7-10">
+<div id="outline-container-sec-1-6-11" class="outline-4">
+<h4 id="sec-1-6-11">Minted setup</h4>
+<div class="outline-text-4" id="text-1-6-11">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-listings 'minted)
@@ -737,9 +806,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-sec-1-7-11" class="outline-4">
-<h4 id="sec-1-7-11">Place table caption below table</h4>
-<div class="outline-text-4" id="text-1-7-11">
+<div id="outline-container-sec-1-6-12" class="outline-4">
+<h4 id="sec-1-6-12">Place table caption below table</h4>
+<div class="outline-text-4" id="text-1-6-12">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-table-caption-above nil)
@@ -747,11 +816,36 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-1-6-13" class="outline-4">
+<h4 id="sec-1-6-13">Configuring <code>org-latex-preview</code></h4>
+<div class="outline-text-4" id="text-1-6-13">
+<ul class="org-ul">
+<li>Set the program to create formula (either <code>dvipng</code> or <code>imagemagick</code>)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq org-latex-create-formula-image-program 'imagemagick)
+</pre>
 </div>
 
-<div id="outline-container-sec-1-8" class="outline-3">
-<h3 id="sec-1-8">Org-reveal</h3>
-<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>Set the output directory
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq org-latex-preview-ltxpng-directory <span class="org-string">"ltxpng/"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">Org-reveal</h3>
+<div class="outline-text-3" id="text-1-7">
 <p>
 <a href="https://github.com/yjwen/org-reveal/"><code>org-reveal</code></a> exports <code>org</code> documents to reveal.js presentations.
 </p>
@@ -765,10 +859,10 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </pre>
 </div>
 </div>
-<div id="outline-container-sec-1-8-1" class="outline-4">
-<h4 id="sec-1-8-1">Filters</h4>
-<div class="outline-text-4" id="text-1-8-1">
-</div><ul class="org-ul"><li>Change <code>pdf</code> file to <code>png</code> image<br  /><div class="outline-text-5" id="text-1-8-1-1">
+<div id="outline-container-sec-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1">Filters</h4>
+<div class="outline-text-4" id="text-1-7-1">
+</div><ul class="org-ul"><li><a id="sec-1-7-1-1"></a>Change <code>pdf</code> file to <code>png</code> image<br  /><div class="outline-text-5" id="text-1-7-1-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-change-pdf-to-png</span> (backend)
@@ -784,9 +878,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9">Prevent editing invisible text</h3>
-<div class="outline-text-3" id="text-1-9">
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8">Prevent editing invisible text</h3>
+<div class="outline-text-3" id="text-1-8">
 <p>
 The following setting prevents accidentally editing hidden text when
 the point is inside a folded region. This can happen if you are in the
@@ -806,27 +900,21 @@ is if it is buried in invisible text to allow editing again.
 </div>
 </div>
 
-<div id="outline-container-sec-1-10" class="outline-3">
-<h3 id="sec-1-10">Automatically renumber footnotes</h3>
-<div class="outline-text-3" id="text-1-10">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(setq org-footnote-auto-adjust t)
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-11" class="outline-3">
-<h3 id="sec-1-11">Org fold to store folding state</h3>
-<div class="outline-text-3" id="text-1-11">
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9">Org fold to store folding state</h3>
+<div class="outline-text-3" id="text-1-9">
 <p>
 Stolen from <a href="https://github.com/dandavison/org-fold">Dan Davison</a> git account. Just changing the directory where
 the <code>.fold</code> file is saved.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-get-fold-info-file-name</span> ()
-  (concat temporary-file-directory <span class="org-string">"org-fold/"</span> (buffer-name) <span class="org-string">".fold"</span>))
+<pre class="src src-emacs-lisp">(setq org-fold-directory (concat temporary-file-directory <span class="org-string">"org-fold/"</span>))
+(<span class="org-keyword">unless</span> (file-exists-p org-fold-directory)
+  (make-directory org-fold-directory))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-get-fold-info-file-name</span> ()
+  (concat org-fold-directory (buffer-name) <span class="org-string">".fold"</span>))
 
 (<span class="org-keyword">defun</span> <span class="org-function-name">org-fold-save</span> ()
   (<span class="org-keyword">save-excursion</span>
@@ -879,9 +967,12 @@ the <code>.fold</code> file is saved.
 </div>
 </div>
 
-<div id="outline-container-sec-1-12" class="outline-3">
-<h3 id="sec-1-12">Function to generate all org table</h3>
-<div class="outline-text-3" id="text-1-12">
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10">Functions for <code>orgtbl</code></h3>
+<div class="outline-text-3" id="text-1-10">
+</div><div id="outline-container-sec-1-10-1" class="outline-4">
+<h4 id="sec-1-10-1">Sending all table</h4>
+<div class="outline-text-4" id="text-1-10-1">
 <p>
 From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Dominik</a>
 </p>
@@ -896,9 +987,23 @@ From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Domini
 </div>
 </div>
 
-<div id="outline-container-sec-1-13" class="outline-3">
-<h3 id="sec-1-13">Org capture</h3>
-<div class="outline-text-3" id="text-1-13">
+<div id="outline-container-sec-1-10-2" class="outline-4">
+<h4 id="sec-1-10-2">Aligning all table</h4>
+<div class="outline-text-4" id="text-1-10-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-org-align-all-tables</span> ()
+  (interactive)
+  (org-table-map-tables 'org-table-align 'quietly))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11">Org capture</h3>
+<div class="outline-text-3" id="text-1-11">
 <p>
 Emacs Org-mode has a feature called Org-capture that makes it easy to keep track
 of all the to-do's that crop up as we work on projects.  With Org-capture you
@@ -906,9 +1011,9 @@ can make comments across all your files and projects and link to them all from
 one place.
 </p>
 </div>
-<div id="outline-container-sec-1-13-1" class="outline-4">
-<h4 id="sec-1-13-1">Setting the TODO file location</h4>
-<div class="outline-text-4" id="text-1-13-1">
+<div id="outline-container-sec-1-11-1" class="outline-4">
+<h4 id="sec-1-11-1">Setting the TODO file location</h4>
+<div class="outline-text-4" id="text-1-11-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-default-notes-file <span class="org-string">"~/Development/org-notes/misc/todo-list.org"</span>)
@@ -917,9 +1022,9 @@ one place.
 </div>
 </div>
 
-<div id="outline-container-sec-1-13-2" class="outline-4">
-<h4 id="sec-1-13-2">Closing items</h4>
-<div class="outline-text-4" id="text-1-13-2">
+<div id="outline-container-sec-1-11-2" class="outline-4">
+<h4 id="sec-1-11-2">Closing items</h4>
+<div class="outline-text-4" id="text-1-11-2">
 <p>
 The most basic logging is to keep track of when a certain TODO item was
 finished. This is achieved with
@@ -932,9 +1037,9 @@ finished. This is achieved with
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-14" class="outline-3">
-<h3 id="sec-1-14">Org calendar synchronization with Google Agenda&#xa0;&#xa0;&#xa0;<span class="tag"><span class="DEPRECATED">DEPRECATED</span></span></h3>
-<div class="outline-text-3" id="text-1-14">
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12">Org calendar synchronization with Google Agenda&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></h3>
+<div class="outline-text-3" id="text-1-12">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">(add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))</span>
@@ -947,10 +1052,28 @@ finished. This is achieved with
 </div>
 </div>
 </div>
+<div id="outline-container-sec-1-13" class="outline-3">
+<h3 id="sec-1-13">Misc.</h3>
+<div class="outline-text-3" id="text-1-13">
+</div><div id="outline-container-sec-1-13-1" class="outline-4">
+<h4 id="sec-1-13-1">Edit email from thunerbird within emacs</h4>
+<div class="outline-text-4" id="text-1-13-1">
+<p>
+<a href="http://globs.org/articles.php?pg=2&lng=en">External editor</a> allows to edit mail from thunderbird within emacs. Here, we just
+set the default writing mode to be <code>org</code> for <code>.eml</code> files.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span class="org-string">"\\.eml\\'"</span> . org-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ec66a7227ef68cfca8dce82887ce1d5cf762c4fc">ec66a72</a> - 2014-04-30
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
 </div>
 </body>
 </html>

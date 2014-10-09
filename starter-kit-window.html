@@ -8,7 +8,7 @@
 <meta  name="generator" content="Org-mode" />
 <link rel="stylesheet" href="css/styles.css" />
                <link rel="stylesheet" href="css/org-pygments.css" />
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -56,7 +56,7 @@ for the JavaScript code in this tag.
 /*]]>*///-->
 </script><script type="text/javascript">
   function randomLinkColor() {
-      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var colors = ['#f1c40f','#e74c3c','#3399cc','#e67e22','#67ad00','#8e44ad','#1abc9c','#003399'];
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       var elements = document.querySelectorAll('a');
       [].slice.call(elements).forEach(function(elem) {
@@ -78,7 +78,7 @@ for the JavaScript code in this tag.
 </head>
 <body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="preamble" class="status">
-<a href="index.html"><i class="fa fa-home"></i></a><br/> <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/>
+ <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/> 
 </div>
 <div id="content">
 <h1 class="title">Starter Kit Window</h1>
@@ -94,7 +94,8 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 <div class="outline-text-3" id="text-1-1">
 <p>
 Settings in relation with emacs window behavior<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
- <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara"> <a href="http://whattheemacsd.com/init.el-01.html">Magnars</a> suggests to place all the UI stuff deactivation (<code>tool-bar</code>, <code>scroll-bar</code>) at the really beginning of the <code>init.el</code> file. Not really conclusive especially when emacs server is used. </p></div>
+ <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara"> <a href="http://whattheemacsd.com/init.el-01.html">Magnars</a> suggests to place all the UI stuff deactivation (<code>tool-bar</code>, <code>scroll-bar</code>) at the really beginning of the <code>init.el</code> file. Not really conclusive especially when emacs server is used. </p><br/></div>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq frame-title-format '(buffer-file-name <span class="org-string">"%b [%f]"</span> <span class="org-string">"%b"</span>))
@@ -262,14 +263,26 @@ Define new theme (since definition occurs here it is loaded by default)
 <h3 id="sec-1-4">Setting default directories</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
-<a href="http://www.emacswiki.org/emacs/SavePlace">SavePlace</a> stores the position where the point was at the last visit of
-a given file. <code>backup-directory-alist</code> is related to the directory
-where emacs backup file will be stored.
+First, set the temporary directory name and create it if it does not already
+exist.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq temporary-file-directory     (concat starter-kit-dir <span class="org-string">"tmp/"</span>))
-(setq save-place-file              (concat temporary-file-directory <span class="org-string">"places"</span>))
+<pre class="src src-emacs-lisp">(setq temporary-file-directory     (concat starter-kit-dir <span class="org-string">"/tmp/"</span>))
+(<span class="org-keyword">unless</span> (file-exists-p temporary-file-directory)
+  (make-directory temporary-file-directory))
+</pre>
+</div>
+
+<p>
+Define several place where temporary files will be stored. For instance,
+<a href="http://www.emacswiki.org/emacs/SavePlace">SavePlace</a> stores the position where the point was at the last visit of a given
+file. <code>backup-directory-alist</code> is related to the directory where emacs backup
+file will be stored.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq save-place-file              (concat temporary-file-directory <span class="org-string">"places"</span>))
 (setq recentf-save-file            (concat temporary-file-directory <span class="org-string">"recentf"</span>))
 (setq smex-save-file               (concat temporary-file-directory <span class="org-string">"smex-items"</span>))
 (setq ido-save-directory-list-file (concat temporary-file-directory <span class="org-string">"ido.last"</span>))
@@ -279,7 +292,6 @@ where emacs backup file will be stored.
 (setq backup-directory-alist         `((<span class="org-string">"."</span> . ,(concat temporary-file-directory <span class="org-string">"backups"</span>))))
 </pre>
 </div>
-
 
 <p>
 Automatically save and restore sessions
@@ -293,6 +305,8 @@ Automatically save and restore sessions
       desktop-save                t
       desktop-files-not-to-save   <span class="org-string">"^$"</span> <span class="org-comment-delimiter">;</span><span class="org-comment">reload tramp paths</span>
       desktop-load-locked-desktop nil)
+(<span class="org-keyword">unless</span> (file-exists-p desktop-dirname)
+  (make-directory desktop-dirname))
 (desktop-save-mode 0)
 </pre>
 </div>
@@ -685,7 +699,7 @@ From <a href="http://bzg.fr/emacs-hide-mode-line.html">http://bzg.fr/emacs-hide-
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ec66a7227ef68cfca8dce82887ce1d5cf762c4fc">ec66a72</a> - 2014-04-30
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
 </div>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <meta  name="generator" content="Org-mode" />
 <link rel="stylesheet" href="css/styles.css" />
                <link rel="stylesheet" href="css/org-pygments.css" />
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -56,7 +56,7 @@ for the JavaScript code in this tag.
 /*]]>*///-->
 </script><script type="text/javascript">
   function randomLinkColor() {
-      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var colors = ['#f1c40f','#e74c3c','#3399cc','#e67e22','#67ad00','#8e44ad','#1abc9c','#003399'];
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       var elements = document.querySelectorAll('a');
       [].slice.call(elements).forEach(function(elem) {
@@ -78,7 +78,7 @@ for the JavaScript code in this tag.
 </head>
 <body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="preamble" class="status">
-<a href="index.html"><i class="fa fa-home"></i></a><br/> <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/>
+ <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/> 
 </div>
 <div id="content">
 <h1 class="title">Starter Kit Package Manager</h1>
@@ -116,107 +116,15 @@ managers.  This should not work under Windows system since it does not have the
       (some (<span class="org-keyword">lambda</span> (iface) (<span class="org-keyword">unless</span> (equal <span class="org-string">"lo"</span> (car iface))
                          (member 'up (first (last (network-interface-info
                                                    (car iface)))))))
-            (network-interface-list))
-    t))
+            (network-interface-list)) t))
 </pre>
 </div>
 </div>
 </div>
 
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">ELPA</h3>
+<h3 id="sec-1-2"><code>el-get</code></h3>
 <div class="outline-text-3" id="text-1-2">
-</div>
-<div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1">Defining ELPA sources</h4>
-<div class="outline-text-4" id="text-1-2-1">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(setq package-archives
-      '((<span class="org-string">"gnu"</span>         . <span class="org-string">"http://elpa.gnu.org/packages/"</span>)
-        (<span class="org-string">"original"</span>    . <span class="org-string">"http://tromey.com/elpa/"</span>)
-        (<span class="org-string">"org"</span>         . <span class="org-string">"http://orgmode.org/elpa/"</span>)
-        (<span class="org-string">"marmalade"</span>   . <span class="org-string">"http://marmalade-repo.org/packages/"</span>)
-        (<span class="org-string">"melpa"</span>       . <span class="org-string">"http://melpa.milkbox.net/packages/"</span>)))
-(package-initialize)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2">Default packages</h4>
-<div class="outline-text-4" id="text-1-2-2">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">starter-kit-packages</span>
-  (list 'yasnippet-bundle
-        'magit
-        'smex
-        'solarized-theme
-        'markdown-mode
-        'highlight-parentheses
-        'idle-highlight-mode
-        'auto-complete
-        'cmake-mode
-        'org-bullets
-        'ido-ubiquitous
-        'dired-details
-        'powerline
-        'rainbow-mode
-        'diminish
-        'wrap-region
-        'multi-term
-        'multi-web-mode
-        'go-mode
-        'gnuplot
-        'undo-tree
-        'fill-column-indicator
-        'xml-rpc
-        'ack-and-a-half
-        'smartparens
-        'htmlize
-        'flx
-        'git-gutter-fringe+)
-  <span class="org-doc">"Libraries that should be installed by default."</span>)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3">Install defun</h4>
-<div class="outline-text-4" id="text-1-2-3">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">starter-kit-elpa-install</span> ()
-  <span class="org-doc">"Install all starter-kit packages that aren't installed."</span>
-  (interactive)
-  (<span class="org-keyword">dolist</span> (package starter-kit-packages)
-    (<span class="org-keyword">unless</span> (package-installed-p package)
-      (message <span class="org-string">"Installing %s"</span> (symbol-name package))
-      (package-install package))))
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-1-2-4" class="outline-4">
-<h4 id="sec-1-2-4">Installing ELPA package</h4>
-<div class="outline-text-4" id="text-1-2-4">
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span class="org-keyword">when</span> (starter-kit-elpa-online)
-  (<span class="org-keyword">unless</span> package-archive-contents (package-refresh-contents))
-  (starter-kit-elpa-install))
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">el-get</h3>
-<div class="outline-text-3" id="text-1-3">
 <p>
 <a href="https://github.com/dimitri/el-get"><code>el-get</code></a> allows you to install and manage elisp code for Emacs. It supports lots
 of differents types of sources and is able to install them, update them and
@@ -225,30 +133,38 @@ code are largely inspired by <a href="http://toumorokoshi.github.com/automatic-p
 </p>
 </div>
 
-<div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1">Checking <code>el-get</code></h4>
-<div class="outline-text-4" id="text-1-3-1">
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Checking <code>el-get</code></h4>
+<div class="outline-text-4" id="text-1-2-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'load-path <span class="org-string">"~/.emacs.d/el-get/el-get"</span>)
 (<span class="org-keyword">unless</span> (<span class="org-keyword">require</span> '<span class="org-constant">el-get</span> nil t)
-  (url-retrieve
-   <span class="org-string">"https://raw.github.com/dimitri/el-get/master/el-get-install.el"</span>
-   (<span class="org-keyword">lambda</span> (s)
-     (goto-char (point-max))
-     (eval-print-last-sexp))))
+  (<span class="org-keyword">with-current-buffer</span>
+      (url-retrieve-synchronously
+       <span class="org-string">"https://raw.github.com/dimitri/el-get/master/el-get-install.el"</span>)
+    (end-of-buffer)
+    (eval-print-last-sexp)))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2">Setup packages</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Setup packages</h4>
+<div class="outline-text-4" id="text-1-2-2">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq el-get-sources
-     '((<span class="org-builtin">:name</span> trac-wiki
+     '((<span class="org-builtin">:name</span> cask
+        <span class="org-builtin">:description</span> <span class="org-string">"Emacs dependency management"</span>
+        <span class="org-builtin">:type</span> github
+        <span class="org-builtin">:pkgname</span> <span class="org-string">"cask/cask"</span>)
+       (<span class="org-builtin">:name</span> pallet
+        <span class="org-builtin">:description</span> <span class="org-string">"A package management tool for Emacs, built on Cask"</span>
+        <span class="org-builtin">:type</span> github
+        <span class="org-builtin">:pkgname</span> <span class="org-string">"rdallasgray/pallet"</span>)
+       (<span class="org-builtin">:name</span> trac-wiki
         <span class="org-builtin">:description</span> <span class="org-string">"Simple but efficient interface to Trac."</span>
         <span class="org-builtin">:type</span> github
         <span class="org-builtin">:pkgname</span> <span class="org-string">"tiborsimko/trac-wiki-el"</span>)
@@ -267,9 +183,9 @@ code are largely inspired by <a href="http://toumorokoshi.github.com/automatic-p
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-3" class="outline-4">
-<h4 id="sec-1-3-3">Install packages</h4>
-<div class="outline-text-4" id="text-1-3-3">
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3">Install packages</h4>
+<div class="outline-text-4" id="text-1-2-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(mapc (<span class="org-keyword">lambda</span> (f)
@@ -283,7 +199,7 @@ code are largely inspired by <a href="http://toumorokoshi.github.com/automatic-p
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ec66a7227ef68cfca8dce82887ce1d5cf762c4fc">ec66a72</a> - 2014-04-30
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
 </div>
 </body>
 </html>

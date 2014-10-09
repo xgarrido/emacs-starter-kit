@@ -8,7 +8,7 @@
 <meta  name="generator" content="Org-mode" />
 <link rel="stylesheet" href="css/styles.css" />
                <link rel="stylesheet" href="css/org-pygments.css" />
-               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -56,7 +56,7 @@ for the JavaScript code in this tag.
 /*]]>*///-->
 </script><script type="text/javascript">
   function randomLinkColor() {
-      var colors = ['#67ad00', '#D5BC23', '#FF9927', '#FF2D27', '#AB0045', '#B81FC8'];
+      var colors = ['#f1c40f','#e74c3c','#3399cc','#e67e22','#67ad00','#8e44ad','#1abc9c','#003399'];
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       var elements = document.querySelectorAll('a');
       [].slice.call(elements).forEach(function(elem) {
@@ -78,7 +78,7 @@ for the JavaScript code in this tag.
 </head>
 <body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
 <div id="preamble" class="status">
-<a href="index.html"><i class="fa fa-home"></i></a><br/> <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/>
+ <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/> 
 </div>
 <div id="content">
 <h1 class="title">Emacs Starter Kit</h1>
@@ -139,7 +139,7 @@ from within Emacs.
 </p>
 
 <p>
-The <a href="http://emacswiki.org">Emacs Wiki</a> is also very handy.
+The <a href="http://emacswiki.org/">Emacs Wiki</a> is also very handy.
 </p>
 </div>
 </div>
@@ -153,9 +153,11 @@ and it has an install candidate for Emacs 24, otherwise install it directly
 <a href="http://savannah.gnu.org/projects/emacs/">from source</a>, or Mac binaries may be downloaded from the <i>nightlies</i> section
 of <a href="http://emacsformacosx.com/builds">http://emacsformacosx.com/builds</a>
 </li>
-<li>Checkout a version of the starter kit using git &#x2013; if you're new to git
+<li><p>
+Checkout a version of the starter kit using git &#x2013; if you're new to git
 checkout this <a href="http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html">git-tutorial</a>, also we'd highly recommend that you try out <a href="http://zagadka.vm.bytemark.co.uk/magit/magit.html">magit</a>
 the Emacs mode for git interaction.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-sh">git clone http://github.com/xgarrido/emacs24-starter-kit.git
@@ -172,7 +174,8 @@ the Emacs mode for git interaction.
 After setup you may need to restart Emacs one or twice while it downloads
 packages from <a href="#sec-1-5">ELPA</a> &#x2013; errors parsing html from <code>*tromey.com:80*</code> can generally
 be safely ignored.
- <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara"> If you already have a directory at <code>~/.emacs.d</code> move it out of the way and put this there instead. </p></div>
+ <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara"> If you already have a directory at <code>~/.emacs.d</code> move it out of the way and put this there instead. </p><br/></div>
+</p>
 
 <p>
 If you are missing some autoloads after an update (should manifest
@@ -235,11 +238,14 @@ accidentally <code>git push</code>'ing up a patch with all of your gnus
 email passwords.
 </dd>
 
-<dt>User specific config</dt><dd>Your personal configuration information can
+<dt>User specific config</dt><dd><p>
+Your personal configuration information can
 be stored in a user-specific-config file.  This is the file named
 after your user with the extensions <code>.el</code> or <code>.org</code> <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>.  If
 you're unsure of your user name evaluate the following code block
 to find out.
+ <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara"> The emacs starter kit uses <a href="http://orgmode.org/">Org Mode</a> to load embedded elisp code directly from literate Org-mode documents. </p><br/></div>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-sh"><span class="org-builtin">echo</span> $<span class="org-variable-name">USER</span> <span class="org-comment-delimiter"># </span><span class="org-comment">note: on windows this is the USERNAME variable</span>
@@ -254,15 +260,17 @@ you can also create a directory named after your system user
 name.  If a such a directory exists, it will be added to the
 load-path, and any elisp or org-mode w/embedded elisp files in it
 will be loaded.
- <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara"> The emacs starter kit uses <a href="http://orgmode.org/">Org Mode</a> to load embedded elisp code directly from literate Org-mode documents. </p></div>
+</p>
 </dd>
 
-<dt>System specific config</dt><dd>Finally, you may want to configure
+<dt>System specific config</dt><dd><p>
+Finally, you may want to configure
 different settings for different machines.  The Starter Kit will
 look for a file named after the current hostname ending in <code>.el</code>
 or <code>.org</code> which will allow host-specific configuration.  If
 you're unsure of your hostname the following can be executed to
 find out.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-sh">hostname
@@ -270,7 +278,8 @@ find out.
 </div>
 </dd>
 
-<dt>Activating more of the starter kit</dt><dd>By default, the starter kit
+<dt>Activating more of the starter kit</dt><dd><p>
+By default, the starter kit
 only includes customizations which are likely to be useful across
 nearly any Emacs install (the only automatically loaded external
 files are those listed in <i>Load the rest of the starter kit core</i>).
@@ -282,6 +291,7 @@ often work with Python source code you will probably want to load
 <code>starter-kit-python.org</code> either by directly copying the sections
 that look useful into your personal config, or simply by loading
 the entire file directly with the following.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"python"</span>)
@@ -391,7 +401,9 @@ interested in the actual code implementing the starter kit.
 <h3 id="sec-2-1">Starter kit basics</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
-<li>Load path etc.
+<li><p>
+Load path etc.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp" id="starter-kit-load-paths">(add-to-list 'load-path starter-kit-dir)
@@ -403,9 +415,11 @@ interested in the actual code implementing the starter kit.
 </div>
 </li>
 
-<li>Ubiquitous Packages which should be loaded on startup rather than
+<li><p>
+Ubiquitous Packages which should be loaded on startup rather than
 autoloaded on demand since they are likely to be used in every
 session.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp" id="starter-kit-load-on-startup">(<span class="org-keyword">require</span> '<span class="org-constant">cl</span>)
@@ -418,7 +432,9 @@ session.
 </div>
 </li>
 
-<li>Functions for loading other parts of the starter kit
+<li><p>
+Functions for loading other parts of the starter kit
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp" id="starter-kit-load">(<span class="org-keyword">defun</span> <span class="org-function-name">starter-kit-load</span> (file <span class="org-type">&amp;optional</span> header-or-tag)
@@ -486,7 +502,9 @@ everyone using the starter kit.
 </p>
 
 <ul class="org-ul">
-<li>ELPA archive repositories and packages to install by default in <a href="starter-kit-elpa.html">starter-kit-elpa</a>
+<li><p>
+ELPA archive repositories and packages to install by default in <a href="starter-kit-elpa.html">starter-kit-elpa</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-elpa.org"</span>)
@@ -494,7 +512,9 @@ everyone using the starter kit.
 </div>
 </li>
 
-<li>Cask initialization in <a href="starter-kit-cask.html">starter-kit-cask</a>
+<li><p>
+Cask initialization in <a href="starter-kit-cask.html">starter-kit-cask</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-cask.org"</span>)
@@ -502,7 +522,9 @@ everyone using the starter kit.
 </div>
 </li>
 
-<li>External lisp files in <a href="starter-kit-site-lisp.html">starter-kit-site-lisp</a>
+<li><p>
+External lisp files in <a href="starter-kit-site-lisp.html">starter-kit-site-lisp</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-site-lisp.org"</span>)
@@ -510,7 +532,9 @@ everyone using the starter kit.
 </div>
 </li>
 
-<li>Window settings (color theme&#x2026;) in <a href="starter-kit-window.html">starter-kit-window</a>
+<li><p>
+Window settings (color theme&#x2026;) in <a href="starter-kit-window.html">starter-kit-window</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-window.org"</span>)
@@ -518,7 +542,9 @@ everyone using the starter kit.
 </div>
 </li>
 
-<li>Starter kit function definitions in <a href="starter-kit-defuns.html">starter-kit-defuns</a>
+<li><p>
+Starter kit function definitions in <a href="starter-kit-defuns.html">starter-kit-defuns</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-defuns.org"</span>)
@@ -526,7 +552,9 @@ everyone using the starter kit.
 </div>
 </li>
 
-<li>Key Bindings in <a href="starter-kit-bindings.html">starter-kit-bindings</a>
+<li><p>
+Key Bindings in <a href="starter-kit-bindings.html">starter-kit-bindings</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-bindings.org"</span>)
@@ -545,8 +573,10 @@ The following files contain specific settings for several modules.
 </p>
 
 <ul class="org-ul">
-<li><a href="http://emacswiki.org/emacs/InteractivelyDoThings">Interactively Do Things</a> aka ido lets you do interactively things within
+<li><p>
+<a href="http://emacswiki.org/emacs/InteractivelyDoThings">Interactively Do Things</a> aka ido lets you do interactively things within
 buffers and files like switching between buffers (see <a href="./starter-kit-ido.html">starter-kit-ido</a> file)
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-ido.org"</span>)
@@ -554,7 +584,9 @@ buffers and files like switching between buffers (see <a href="./starter-kit-ido
 </div>
 </li>
 
-<li><a href="starter-kit-c++.html">C++ specific tweaks</a>
+<li><p>
+<a href="starter-kit-c++.html">C++ specific tweaks</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-c++.org"</span>)
@@ -562,7 +594,9 @@ buffers and files like switching between buffers (see <a href="./starter-kit-ido
 </div>
 </li>
 
-<li>other mode in <a href="starter-kit-othermode.html">starter-kit-othermode</a>
+<li><p>
+other mode in <a href="starter-kit-othermode.html">starter-kit-othermode</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-othermode.org"</span>)
@@ -570,7 +604,9 @@ buffers and files like switching between buffers (see <a href="./starter-kit-ido
 </div>
 </li>
 
-<li><a href="http://orgmode.org/">Orgmode</a> settings in <a href="starter-kit-org.html">starter-kit-org</a>
+<li><p>
+<a href="http://orgmode.org/">Orgmode</a> settings in <a href="starter-kit-org.html">starter-kit-org</a>
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-load <span class="org-string">"starter-kit-org.org"</span>)
@@ -666,7 +702,7 @@ After we've loaded all the Starter Kit defaults, lets load the User's stuff.
 </div>
 </div></div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ec66a7227ef68cfca8dce82887ce1d5cf762c4fc">ec66a72</a> - 2014-04-30
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
 </div>
 </body>
 </html>
