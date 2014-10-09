@@ -153,6 +153,19 @@ much more like reading and editing of code using its major mode.
   (setq org-src-fontify-natively  t)
   (setq org-src-tab-acts-natively t)
 #+END_SRC
+*** Code progression
+A progress indicator for code blocks in org-mode courtesy
+of [[https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.html][John Kitchin]]
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice org-babel-execute-src-block (around progress nil activate)
+    ;; (set-face-attribute
+    ;;  'org-block-background nil :background "LightSteelBlue")
+    (message "Running your code block")
+    ad-do-it
+    ;; (set-face-attribute 'org-block-background nil :background "gray")
+    (message "Done with code block"))
+#+END_SRC
 
 ** The Library of Babel
 The library of babel contains makes many useful functions available
@@ -164,7 +177,7 @@ directory) file for information on the functions, and see
 Code blocks can be loaded into the library of babel from any Org-mode
 file using the =org-babel-lob-ingest= function.
 #+BEGIN_SRC emacs-lisp
-(org-babel-lob-ingest (expand-file-name "starter-kit-org.org" starter-kit-dir))
+  (org-babel-lob-ingest (expand-file-name "starter-kit-org.org" starter-kit-dir))
 #+END_SRC
 
 ** LaTeX hacks
