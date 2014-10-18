@@ -208,19 +208,46 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 #+END_SRC
 
 ** Git gutter settings
-#+BEGIN_SRC emacs-lisp :tangle no
-  (starter-kit-after git-gutter
-                     (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
-                     (require 'git-gutter-fringe)
-                     ;;(git-gutter-fr-minimal)
-                     ;;(set-face-foreground 'git-gutter-fr+-modified "#DEB542")
-                     ;;(set-face-foreground 'git-gutter-fr+-added    "#DC322F")
-                     ;;(set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")
-                     (set-face-foreground 'git-gutter-fr:modified "#DEB542")
-                     (set-face-foreground 'git-gutter-fr:added    "#69B7F0")
-                     (set-face-foreground 'git-gutter-fr:deleted  "#FF6E64")
-                     (diminish 'git-gutter-mode))
+#+BEGIN_SRC emacs-lisp
+  (require 'git-gutter)
+  (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
+  (diminish 'git-gutter-mode)
   (global-git-gutter-mode t)
+  ;; If you would like to use git-gutter.el and linum-mode
+  (git-gutter:linum-setup)
+  (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+  ;; Jump to next/previous hunk
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
+  ;; Stage current hunk
+  (global-set-key (kbd "C-x v s") 'git-gutter:stage-hunk)
+
+  ;; Revert current hunk
+  (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+#+END_SRC
+** direx & direx-k
+#+BEGIN_SRC emacs-lisp
+  (require 'popwin)
+  (popwin-mode 1)
+  (require 'direx)
+  (push '(direx:direx-mode :position left :width 40 :dedicated t)
+        popwin:special-display-config)
+  (global-set-key (kbd "C-ù") 'direx-project:jump-to-project-root-other-window)
+  (setq direx:leaf-icon "  "
+        direx:open-icon "▾ "
+        direx:closed-icon "▸ ")
+  (defface direx-k-modified
+    '((t (:inherit warning :weight bold)))
+    "Face of added file in git repository"
+    :group 'dired-k)
+
+  (defface direx-k-untracked
+    '((t (:inherit error)))
+    "Face of untracked file in git repository"
+    :group 'dired-k)
+  (require 'direx-k)
+  (define-key direx:direx-mode-map (kbd "g") 'direx-k)
 #+END_SRC
 
 ** diff-hl settings
