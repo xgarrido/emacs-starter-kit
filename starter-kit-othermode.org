@@ -207,6 +207,11 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (setq magit-diff-refine-hunk 'all)
 #+END_SRC
 
+*** Diminish =magit= auto revert mode
+#+BEGIN_SRC emacs-lisp
+  (diminish 'magit-auto-revert-mode)
+#+END_SRC
+
 ** Git gutter settings
 #+BEGIN_SRC emacs-lisp
   (require 'git-gutter)
