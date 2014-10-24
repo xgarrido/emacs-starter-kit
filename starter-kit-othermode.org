@@ -131,7 +131,7 @@ Set function name in the header part of emacs (from
 #+BEGIN_SRC emacs-lisp
   (winner-mode 1)
 #+END_SRC
-** idle hightlight face
+** Idle hightlight face
 Use a less intrusive color for =idle-hightlight-mode=
 #+BEGIN_SRC emacs-lisp
   (defface idle-highlight
