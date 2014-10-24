@@ -77,7 +77,6 @@ installed packages.
   (depends-on "magit-svn")                ; Git-svn frontend
   (depends-on "diff-hl")                  ; Test diff-hl
   (depends-on "git-gutter")               ; Show Diff state in buffer…
-  (depends-on "git-gutter-fringe")        ; …and do so in the fringe
 #+END_SRC
 
 ** Org additions
@@ -89,6 +88,9 @@ installed packages.
 ** Utilities
 #+BEGIN_SRC emacs-lisp
   (depends-on "dired-details")
+  (depends-on "popwin")
+  (depends-on "direx")
+  (depends-on "dired-k")
   (depends-on "ack-and-a-half")           ; Ack frontend
   (depends-on "multi-term")
   (depends-on "xml-rpc")
