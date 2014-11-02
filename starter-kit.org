@@ -70,9 +70,9 @@ loading, so if you've having trouble loading it, make sure that file
 is not present.
 
 ** Structure
-   :PROPERTIES:
-   :CUSTOM_ID: structure
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: structure
+:END:
 The =init.el= file is where everything begins. It is loaded
 automatically by Emacs on startup, its sole purpose is to load the
 elisp code embedded in this file.  This file then loads some minimal
@@ -180,9 +180,9 @@ general starter-kit updates without conflict.
      many personal key bindings
 
 ** Emacs Lisp Package Archive
-   :PROPERTIES:
-   :CUSTOM_ID: emacs-lisp-package-archive
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: emacs-lisp-package-archive
+:END:
 
 Libraries from [[http://tromey.com/elpa][ELPA]] are preferred when available since dependencies
 are handled automatically, and the burden to update them is removed
