@@ -86,12 +86,12 @@ for the JavaScript code in this tag.
 This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Starter Kit C++</h2>
-<div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Set C++ mode for <code>*.h</code> and <code>*.ipp</code> files (instead of plain-old C mode)</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-unnumbered-1" class="outline-2">
+<h2 id="unnumbered-1">Starter Kit C++</h2>
+<div class="outline-text-2" id="text-unnumbered-1">
+</div><div id="outline-container-unnumbered-2" class="outline-3">
+<h3 id="unnumbered-2">Set C++ mode for <code>*.h</code> and <code>*.ipp</code> files (instead of plain-old C mode)</h3>
+<div class="outline-text-3" id="text-unnumbered-2">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq auto-mode-alist (cons '(<span class="org-string">"\\.h$"</span>   . c++-mode) auto-mode-alist))
@@ -101,9 +101,9 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">Running starter-kit-coding-hook</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-unnumbered-3" class="outline-3">
+<h3 id="unnumbered-3">Running starter-kit-coding-hook</h3>
+<div class="outline-text-3" id="text-unnumbered-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-hook 'c-mode-common-hook 'run-starter-kit-coding-hook)
@@ -111,9 +111,9 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">Un/fold function/namespace definitions</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-unnumbered-4" class="outline-3">
+<h3 id="unnumbered-4">Un/fold function/namespace definitions</h3>
+<div class="outline-text-3" id="text-unnumbered-4">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-hook 'c-mode-common-hook
@@ -126,12 +126,12 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">Compilation</h3>
-<div class="outline-text-3" id="text-1-4">
-</div><div id="outline-container-sec-1-4-1" class="outline-4">
-<h4 id="sec-1-4-1">Scroll down compilation messages</h4>
-<div class="outline-text-4" id="text-1-4-1">
+<div id="outline-container-unnumbered-5" class="outline-3">
+<h3 id="unnumbered-5">Compilation</h3>
+<div class="outline-text-3" id="text-unnumbered-5">
+</div><div id="outline-container-unnumbered-6" class="outline-4">
+<h4 id="unnumbered-6">Scroll down compilation messages</h4>
+<div class="outline-text-4" id="text-unnumbered-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq compilation-scroll-output t)
@@ -140,9 +140,9 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 
-<div id="outline-container-sec-1-4-2" class="outline-4">
-<h4 id="sec-1-4-2">Send notification when compilation is done</h4>
-<div class="outline-text-4" id="text-1-4-2">
+<div id="outline-container-unnumbered-7" class="outline-4">
+<h4 id="unnumbered-7">Send notification when compilation is done</h4>
+<div class="outline-text-4" id="text-unnumbered-7">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">compile-notify</span> (buffer message)
@@ -152,9 +152,9 @@ This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-4-3" class="outline-4">
-<h4 id="sec-1-4-3">Bury compilation buffer</h4>
-<div class="outline-text-4" id="text-1-4-3">
+<div id="outline-container-unnumbered-8" class="outline-4">
+<h4 id="unnumbered-8">Bury compilation buffer</h4>
+<div class="outline-text-4" id="text-unnumbered-8">
 <p>
 If compilation is successful namely neither errors nor warnings, the compilation
 buffer will disappear after 1 second. Stolen from <a href="http://stackoverflow.com/questions/11043004/emacs-compile-buffer-auto-close/11059012#11059012">stackoverflow</a>.
@@ -180,9 +180,9 @@ buffer will disappear after 1 second. Stolen from <a href="http://stackoverflow.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><code>cpputils-cmake</code></h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-unnumbered-9" class="outline-3">
+<h3 id="unnumbered-9"><code>cpputils-cmake</code></h3>
+<div class="outline-text-3" id="text-unnumbered-9">
 <p>
 From <a href="https://github.com/redguardtoo/cpputils-cmake">https://github.com/redguardtoo/cpputils-cmake</a>
 </p>
@@ -195,18 +195,18 @@ From <a href="https://github.com/redguardtoo/cpputils-cmake">https://github.com/
 </div>
 </div>
 
-<div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6">Tags</h3>
-<div class="outline-text-3" id="text-1-6">
+<div id="outline-container-unnumbered-10" class="outline-3">
+<h3 id="unnumbered-10">Tags</h3>
+<div class="outline-text-3" id="text-unnumbered-10">
 <p>
 The following code makes use to <code>etags</code> program to generate a list of tags and
 to ease the code navigation.
 </p>
 </div>
 
-<div id="outline-container-sec-1-6-1" class="outline-4">
-<h4 id="sec-1-6-1">Create TAGS table</h4>
-<div class="outline-text-4" id="text-1-6-1">
+<div id="outline-container-unnumbered-11" class="outline-4">
+<h4 id="unnumbered-11">Create TAGS table</h4>
+<div class="outline-text-4" id="text-unnumbered-11">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-create-tags</span> (dirname)
@@ -231,9 +231,9 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 
-<div id="outline-container-sec-1-6-2" class="outline-4">
-<h4 id="sec-1-6-2">Set TAGS filename</h4>
-<div class="outline-text-4" id="text-1-6-2">
+<div id="outline-container-unnumbered-12" class="outline-4">
+<h4 id="unnumbered-12">Set TAGS filename</h4>
+<div class="outline-text-4" id="text-unnumbered-12">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq tags-file-name (concat temporary-file-directory <span class="org-string">"TAGS"</span>))
@@ -243,9 +243,9 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 
-<div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7">No indentation within namespace block</h3>
-<div class="outline-text-3" id="text-1-7">
+<div id="outline-container-unnumbered-13" class="outline-3">
+<h3 id="unnumbered-13">No indentation within namespace block</h3>
+<div class="outline-text-3" id="text-unnumbered-13">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defconst</span> <span class="org-variable-name">my-cc-style</span>
@@ -260,7 +260,7 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/a9af957dcae91d2bfcc64edcec782765b0dc48aa">a9af957</a> - 2014-11-02
 </div>
 </body>
 </html>

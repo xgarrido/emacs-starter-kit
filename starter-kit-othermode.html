@@ -86,12 +86,12 @@ for the JavaScript code in this tag.
 This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Starter Kit Other Mode</h2>
-<div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Eval after load</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-unnumbered-1" class="outline-2">
+<h2 id="unnumbered-1">Starter Kit Other Mode</h2>
+<div class="outline-text-2" id="text-unnumbered-1">
+</div><div id="outline-container-unnumbered-2" class="outline-3">
+<h3 id="unnumbered-2">Eval after load</h3>
+<div class="outline-text-3" id="text-unnumbered-2">
 <p>
 This macro is stolen from lunaryorn setup (see <a href="https://github.com/lunaryorn/stante-pede/blob/master/init.el">.emacs</a> config) eval parameter
 after package or component has been loaded.
@@ -101,7 +101,7 @@ after package or component has been loaded.
 <pre class="src src-emacs-lisp">(<span class="org-keyword">unless</span> (fboundp 'with-eval-after-load)
   (<span class="org-keyword">defmacro</span> <span class="org-function-name">with-eval-after-load</span> (file <span class="org-type">&amp;rest</span> body)
     <span class="org-doc">"Execute BODY after FILE is loaded. Forward compatibility wrapper."</span>
-    `(<span class="org-keyword">eval-after-load</span> ,file
+    `(eval-after-load ,file
        `(funcall (function ,(<span class="org-keyword">lambda</span> () ,@body))))))
 
 (<span class="org-keyword">defmacro</span> <span class="org-function-name">starter-kit-after</span> (feature <span class="org-type">&amp;rest</span> forms)
@@ -119,15 +119,15 @@ after package or component has been loaded.
            'progn
          (message <span class="org-string">"starter-kit-after: cannot find %s"</span> feature)
          'with-no-warnings)
-      (with-eval-after-load ',feature ,@forms)))
+      (<span class="org-keyword">with-eval-after-load</span> ',feature ,@forms)))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">Coding Hook</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-unnumbered-3" class="outline-3">
+<h3 id="unnumbered-3">Coding Hook</h3>
+<div class="outline-text-3" id="text-unnumbered-3">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-hook 'emacs-lisp-mode-hook 'run-starter-kit-coding-hook)
@@ -139,12 +139,12 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Modes setting</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">CUA mode</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-unnumbered-4" class="outline-2">
+<h2 id="unnumbered-4">Modes setting</h2>
+<div class="outline-text-2" id="text-unnumbered-4">
+</div><div id="outline-container-unnumbered-5" class="outline-3">
+<h3 id="unnumbered-5">CUA mode</h3>
+<div class="outline-text-3" id="text-unnumbered-5">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(cua-mode t)
@@ -153,9 +153,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2">Undo tree</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-unnumbered-6" class="outline-3">
+<h3 id="unnumbered-6">Undo tree</h3>
+<div class="outline-text-3" id="text-unnumbered-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after undo-tree (diminish 'undo-tree-mode))<span class="org-comment-delimiter">;; </span><span class="org-comment">"&#10554;"))</span>
@@ -165,9 +165,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3">Recentf</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-unnumbered-7" class="outline-3">
+<h3 id="unnumbered-7">Recentf</h3>
+<div class="outline-text-3" id="text-unnumbered-7">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after recentf
@@ -178,9 +178,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4">Transparently open compressed files</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-unnumbered-8" class="outline-3">
+<h3 id="unnumbered-8">Transparently open compressed files</h3>
+<div class="outline-text-3" id="text-unnumbered-8">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(auto-compression-mode t)
@@ -189,9 +189,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5">Highlight matching parentheses when the point is on them.</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-unnumbered-9" class="outline-3">
+<h3 id="unnumbered-9">Highlight matching parentheses when the point is on them.</h3>
+<div class="outline-text-3" id="text-unnumbered-9">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(show-paren-mode t)
@@ -214,9 +214,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6">Highlight everything strange</h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-unnumbered-10" class="outline-3">
+<h3 id="unnumbered-10">Highlight everything strange</h3>
+<div class="outline-text-3" id="text-unnumbered-10">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after whitespace
@@ -228,9 +228,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7">Show a column wise indicator</h3>
-<div class="outline-text-3" id="text-2-7">
+<div id="outline-container-unnumbered-11" class="outline-3">
+<h3 id="unnumbered-11">Show a column wise indicator</h3>
+<div class="outline-text-3" id="text-unnumbered-11">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after fill-column-indicator
@@ -241,9 +241,9 @@ after package or component has been loaded.
 </div>
 </div>
 
-<div id="outline-container-sec-2-8" class="outline-3">
-<h3 id="sec-2-8">Highlight current line</h3>
-<div class="outline-text-3" id="text-2-8">
+<div id="outline-container-unnumbered-12" class="outline-3">
+<h3 id="unnumbered-12">Highlight current line</h3>
+<div class="outline-text-3" id="text-unnumbered-12">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(global-hl-line-mode t)
@@ -251,9 +251,9 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-9" class="outline-3">
-<h3 id="sec-2-9">Auto revert buffer</h3>
-<div class="outline-text-3" id="text-2-9">
+<div id="outline-container-unnumbered-13" class="outline-3">
+<h3 id="unnumbered-13">Auto revert buffer</h3>
+<div class="outline-text-3" id="text-unnumbered-13">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(global-auto-revert-mode t)
@@ -263,9 +263,9 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-10" class="outline-3">
-<h3 id="sec-2-10">Smartparens settings</h3>
-<div class="outline-text-3" id="text-2-10">
+<div id="outline-container-unnumbered-14" class="outline-3">
+<h3 id="unnumbered-14">Smartparens settings</h3>
+<div class="outline-text-3" id="text-unnumbered-14">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after smartparens
@@ -276,9 +276,9 @@ after package or component has been loaded.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-11" class="outline-3">
-<h3 id="sec-2-11">which-func-mode</h3>
-<div class="outline-text-3" id="text-2-11">
+<div id="outline-container-unnumbered-15" class="outline-3">
+<h3 id="unnumbered-15">which-func-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-15">
 <p>
 Set function name in the header part of emacs (from
 <a href="http://emacsredux.com/blog/2014/04/05/which-function-mode/">http://emacsredux.com/blog/2014/04/05/which-function-mode/</a>).
@@ -297,9 +297,9 @@ Set function name in the header part of emacs (from
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-12" class="outline-3">
-<h3 id="sec-2-12">Winner mode</h3>
-<div class="outline-text-3" id="text-2-12">
+<div id="outline-container-unnumbered-16" class="outline-3">
+<h3 id="unnumbered-16">Winner mode</h3>
+<div class="outline-text-3" id="text-unnumbered-16">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(winner-mode 1)
@@ -307,9 +307,9 @@ Set function name in the header part of emacs (from
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-13" class="outline-3">
-<h3 id="sec-2-13">idle hightlight face</h3>
-<div class="outline-text-3" id="text-2-13">
+<div id="outline-container-unnumbered-17" class="outline-3">
+<h3 id="unnumbered-17">Idle hightlight face</h3>
+<div class="outline-text-3" id="text-unnumbered-17">
 <p>
 Use a less intrusive color for <code>idle-hightlight-mode</code>
 </p>
@@ -326,9 +326,9 @@ Use a less intrusive color for <code>idle-hightlight-mode</code>
 </div>
 </div>
 
-<div id="outline-container-sec-2-14" class="outline-3">
-<h3 id="sec-2-14">Drag stuff mode</h3>
-<div class="outline-text-3" id="text-2-14">
+<div id="outline-container-unnumbered-18" class="outline-3">
+<h3 id="unnumbered-18">Drag stuff mode</h3>
+<div class="outline-text-3" id="text-unnumbered-18">
 <p>
 See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/drag-stuff</a>
 </p>
@@ -342,18 +342,18 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-15" class="outline-3">
-<h3 id="sec-2-15">Magit settings</h3>
-<div class="outline-text-3" id="text-2-15">
+<div id="outline-container-unnumbered-19" class="outline-3">
+<h3 id="unnumbered-19">Magit settings</h3>
+<div class="outline-text-3" id="text-unnumbered-19">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">magit</span>)
 </pre>
 </div>
 </div>
-<div id="outline-container-sec-2-15-1" class="outline-4">
-<h4 id="sec-2-15-1">Do not ask for confirmation</h4>
-<div class="outline-text-4" id="text-2-15-1">
+<div id="outline-container-unnumbered-20" class="outline-4">
+<h4 id="unnumbered-20">Do not ask for confirmation</h4>
+<div class="outline-text-4" id="text-unnumbered-20">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq magit-stage-all-confirm nil)
@@ -361,9 +361,9 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-15-2" class="outline-4">
-<h4 id="sec-2-15-2">Do not show untracked material</h4>
-<div class="outline-text-4" id="text-2-15-2">
+<div id="outline-container-unnumbered-21" class="outline-4">
+<h4 id="unnumbered-21">Do not show untracked material</h4>
+<div class="outline-text-4" id="text-unnumbered-21">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq magit-omit-untracked-dir-contents t)
@@ -372,9 +372,9 @@ See <a href="https://github.com/rejeep/drag-stuff">https://github.com/rejeep/dra
 </div>
 </div>
 
-<div id="outline-container-sec-2-15-3" class="outline-4">
-<h4 id="sec-2-15-3">Fullscreen magit-status</h4>
-<div class="outline-text-4" id="text-2-15-3">
+<div id="outline-container-unnumbered-22" class="outline-4">
+<h4 id="unnumbered-22">Fullscreen magit-status</h4>
+<div class="outline-text-4" id="text-unnumbered-22">
 <p>
 From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </p>
@@ -398,9 +398,9 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 
-<div id="outline-container-sec-2-15-4" class="outline-4">
-<h4 id="sec-2-15-4">Magit commit mode</h4>
-<div class="outline-text-4" id="text-2-15-4">
+<div id="outline-container-unnumbered-23" class="outline-4">
+<h4 id="unnumbered-23">Magit commit mode</h4>
+<div class="outline-text-4" id="text-unnumbered-23">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">magit-exit-commit-mode</span> ()
@@ -408,7 +408,7 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
   (kill-buffer)
   (delete-window))
 
-(<span class="org-keyword">eval-after-load</span> <span class="org-string">"git-commit-mode"</span>
+(eval-after-load <span class="org-string">"git-commit-mode"</span>
   '(define-key git-commit-mode-map (kbd <span class="org-string">"C-c C-k"</span>) 'magit-exit-commit-mode))
 
 (<span class="org-keyword">defun</span> <span class="org-function-name">magit-commit-mode-init</span> ()
@@ -425,9 +425,9 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-15-5" class="outline-4">
-<h4 id="sec-2-15-5">Colored diff</h4>
-<div class="outline-text-4" id="text-2-15-5">
+<div id="outline-container-unnumbered-24" class="outline-4">
+<h4 id="unnumbered-24">Colored diff</h4>
+<div class="outline-text-4" id="text-unnumbered-24">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq magit-diff-refine-hunk 'all)
@@ -435,33 +435,77 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
 </div>
 </div>
 </div>
-</div>
 
-<div id="outline-container-sec-2-16" class="outline-3">
-<h3 id="sec-2-16">Git gutter settings</h3>
-<div class="outline-text-3" id="text-2-16">
+<div id="outline-container-unnumbered-25" class="outline-4">
+<h4 id="unnumbered-25">Diminish <code>magit</code> auto revert mode</h4>
+<div class="outline-text-4" id="text-unnumbered-25">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(starter-kit-after git-gutter
-                   (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
-                   (<span class="org-keyword">require</span> '<span class="org-constant">git-gutter-fringe</span>)
-                   <span class="org-comment-delimiter">;;</span><span class="org-comment">(git-gutter-fr-minimal)</span>
-                   <span class="org-comment-delimiter">;;</span><span class="org-comment">(set-face-foreground 'git-gutter-fr+-modified "#DEB542")</span>
-                   <span class="org-comment-delimiter">;;</span><span class="org-comment">(set-face-foreground 'git-gutter-fr+-added    "#DC322F")</span>
-                   <span class="org-comment-delimiter">;;</span><span class="org-comment">(set-face-foreground 'git-gutter-fr+-deleted  "#268BD2")</span>
-                   (set-face-foreground 'git-gutter-fr:modified <span class="org-string">"#DEB542"</span>)
-                   (set-face-foreground 'git-gutter-fr:added    <span class="org-string">"#69B7F0"</span>)
-                   (set-face-foreground 'git-gutter-fr:deleted  <span class="org-string">"#FF6E64"</span>)
-                   (diminish 'git-gutter-mode))
+<pre class="src src-emacs-lisp">(diminish 'magit-auto-revert-mode)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-26" class="outline-3">
+<h3 id="unnumbered-26">Git gutter settings</h3>
+<div class="outline-text-3" id="text-unnumbered-26">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">git-gutter</span>)
+(setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
+(diminish 'git-gutter-mode)
 (global-git-gutter-mode t)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">If you would like to use git-gutter.el and linum-mode</span>
+(git-gutter:linum-setup)
+(global-set-key (kbd <span class="org-string">"C-x C-g"</span>) 'git-gutter:toggle)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Jump to next/previous hunk</span>
+(global-set-key (kbd <span class="org-string">"C-x p"</span>) 'git-gutter:previous-hunk)
+(global-set-key (kbd <span class="org-string">"C-x n"</span>) 'git-gutter:next-hunk)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Stage current hunk</span>
+(global-set-key (kbd <span class="org-string">"C-x v s"</span>) 'git-gutter:stage-hunk)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Revert current hunk</span>
+(global-set-key (kbd <span class="org-string">"C-x v r"</span>) 'git-gutter:revert-hunk)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-unnumbered-27" class="outline-3">
+<h3 id="unnumbered-27">direx &amp; direx-k</h3>
+<div class="outline-text-3" id="text-unnumbered-27">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">popwin</span>)
+(popwin-mode 1)
+(<span class="org-keyword">require</span> '<span class="org-constant">direx</span>)
+(push '(direx:direx-mode <span class="org-builtin">:position</span> left <span class="org-builtin">:width</span> 40 <span class="org-builtin">:dedicated</span> t)
+      popwin:special-display-config)
+(global-set-key (kbd <span class="org-string">"C-&#249;"</span>) 'direx-project:jump-to-project-root-other-window)
+(setq direx:leaf-icon <span class="org-string">"  "</span>
+      direx:open-icon <span class="org-string">"&#9662; "</span>
+      direx:closed-icon <span class="org-string">"&#9656; "</span>)
+(<span class="org-keyword">defface</span> <span class="org-variable-name">direx-k-modified</span>
+  '((t (<span class="org-builtin">:inherit</span> warning <span class="org-builtin">:weight</span> bold)))
+  <span class="org-doc">"Face of added file in git repository"</span>
+  <span class="org-builtin">:group</span> 'dired-k)
+
+(<span class="org-keyword">defface</span> <span class="org-variable-name">direx-k-untracked</span>
+  '((t (<span class="org-builtin">:inherit</span> error)))
+  <span class="org-doc">"Face of untracked file in git repository"</span>
+  <span class="org-builtin">:group</span> 'dired-k)
+(<span class="org-keyword">require</span> '<span class="org-constant">direx-k</span>)
+(define-key direx:direx-mode-map (kbd <span class="org-string">"g"</span>) 'direx-k)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-2-17" class="outline-3">
-<h3 id="sec-2-17">diff-hl settings</h3>
-<div class="outline-text-3" id="text-2-17">
+<div id="outline-container-unnumbered-28" class="outline-3">
+<h3 id="unnumbered-28">diff-hl settings</h3>
+<div class="outline-text-3" id="text-unnumbered-28">
 <p>
 Tweak face by removing the foreground colors
 </p>
@@ -478,9 +522,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 
-<div id="outline-container-sec-2-18" class="outline-3">
-<h3 id="sec-2-18">latex-mode</h3>
-<div class="outline-text-3" id="text-2-18">
+<div id="outline-container-unnumbered-29" class="outline-3">
+<h3 id="unnumbered-29">latex-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-29">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span class="org-string">"\\.tikz\\'"</span> . latex-mode))
@@ -490,9 +534,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-19" class="outline-3">
-<h3 id="sec-2-19">markdown-mode</h3>
-<div class="outline-text-3" id="text-2-19">
+<div id="outline-container-unnumbered-30" class="outline-3">
+<h3 id="unnumbered-30">markdown-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-30">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span class="org-string">"\\.md\\'"</span> . markdown-mode))
@@ -501,9 +545,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 
-<div id="outline-container-sec-2-20" class="outline-3">
-<h3 id="sec-2-20">multi-web-mode</h3>
-<div class="outline-text-3" id="text-2-20">
+<div id="outline-container-unnumbered-31" class="outline-3">
+<h3 id="unnumbered-31">multi-web-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-31">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq mweb-default-major-mode 'html-mode)
@@ -516,9 +560,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-21" class="outline-3">
-<h3 id="sec-2-21">cmake-mode</h3>
-<div class="outline-text-3" id="text-2-21">
+<div id="outline-container-unnumbered-32" class="outline-3">
+<h3 id="unnumbered-32">cmake-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-32">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">cmake-mode</span>)
@@ -531,9 +575,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 
-<div id="outline-container-sec-2-22" class="outline-3">
-<h3 id="sec-2-22">css-mode</h3>
-<div class="outline-text-3" id="text-2-22">
+<div id="outline-container-unnumbered-33" class="outline-3">
+<h3 id="unnumbered-33">css-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-33">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">hexcolour-keywords</span>
@@ -552,9 +596,9 @@ Tweak face by removing the foreground colors
 </div>
 </div>
 
-<div id="outline-container-sec-2-23" class="outline-3">
-<h3 id="sec-2-23">trac-wiki-mode</h3>
-<div class="outline-text-3" id="text-2-23">
+<div id="outline-container-unnumbered-34" class="outline-3">
+<h3 id="unnumbered-34">trac-wiki-mode</h3>
+<div class="outline-text-3" id="text-unnumbered-34">
 <p>
 Define some usual <code>trac-wiki</code> projects.
 </p>
@@ -573,9 +617,9 @@ Define some usual <code>trac-wiki</code> projects.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-24" class="outline-3">
-<h3 id="sec-2-24">Wrap region mode</h3>
-<div class="outline-text-3" id="text-2-24">
+<div id="outline-container-unnumbered-35" class="outline-3">
+<h3 id="unnumbered-35">Wrap region mode</h3>
+<div class="outline-text-3" id="text-unnumbered-35">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(starter-kit-after wrap-region (diminish 'wrap-region-mode))
@@ -583,9 +627,9 @@ Define some usual <code>trac-wiki</code> projects.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-25" class="outline-3">
-<h3 id="sec-2-25">yasnippet mode</h3>
-<div class="outline-text-3" id="text-2-25">
+<div id="outline-container-unnumbered-36" class="outline-3">
+<h3 id="unnumbered-36">yasnippet mode</h3>
+<div class="outline-text-3" id="text-unnumbered-36">
 <p>
 <a href="http://code.google.com/p/yasnippet/">yasnippet</a> is yet another snippet expansion system for Emacs.  It is inspired by
 TextMate's templating syntax (watch the <a href="http://www.youtube.com/watch?v=vOj7btx3ATg">video on YouTube</a> or see the <a href="http://yasnippet.googlecode.com/svn/trunk/doc/index.html">intro and
@@ -594,29 +638,32 @@ tutorial</a>)
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">yasnippet</span>)
-<span class="org-comment-delimiter">;; </span><span class="org-comment">(yas-global-mode 1)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">(starter-kit-after yasnippet (diminish 'yas-minor-mode))</span>
+(yas-global-mode 1)
+(setq yas-snippet-dirs '(concat starter-kit-dir <span class="org-string">"/snippets"</span>))
+(starter-kit-after yasnippet (diminish 'yas-minor-mode))
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-26" class="outline-3">
-<h3 id="sec-2-26">auto-complete+ido-at-point mode</h3>
-<div class="outline-text-3" id="text-2-26">
+<div id="outline-container-unnumbered-37" class="outline-3">
+<h3 id="unnumbered-37">auto-complete+ido-at-point mode</h3>
+<div class="outline-text-3" id="text-unnumbered-37">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">auto-complete-config</span>)
-(global-auto-complete-mode t)
-<span class="org-comment-delimiter">;;</span><span class="org-comment">(ac-config-default)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(global-auto-complete-mode t)</span>
+(ac-config-default)
+(ac-set-trigger-key <span class="org-string">"TAB"</span>)
+(ac-set-trigger-key <span class="org-string">"&lt;tab&gt;"</span>)
 (define-key ac-completing-map (kbd <span class="org-string">"ESC"</span>) 'ac-stop)
 (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-27" class="outline-3">
-<h3 id="sec-2-27">expand-region mode</h3>
-<div class="outline-text-3" id="text-2-27">
+<div id="outline-container-unnumbered-38" class="outline-3">
+<h3 id="unnumbered-38">expand-region mode</h3>
+<div class="outline-text-3" id="text-unnumbered-38">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">expand-region</span>)
@@ -625,9 +672,9 @@ tutorial</a>)
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-28" class="outline-3">
-<h3 id="sec-2-28">multiple-cursors mode</h3>
-<div class="outline-text-3" id="text-2-28">
+<div id="outline-container-unnumbered-39" class="outline-3">
+<h3 id="unnumbered-39">multiple-cursors mode</h3>
+<div class="outline-text-3" id="text-unnumbered-39">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">multiple-cursors</span>)
@@ -638,9 +685,9 @@ tutorial</a>)
 </div>
 </div>
 
-<div id="outline-container-sec-2-29" class="outline-3">
-<h3 id="sec-2-29">Browse kill-ring</h3>
-<div class="outline-text-3" id="text-2-29">
+<div id="outline-container-unnumbered-40" class="outline-3">
+<h3 id="unnumbered-40">Browse kill-ring</h3>
+<div class="outline-text-3" id="text-unnumbered-40">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">browse-kill-ring</span>)
@@ -649,9 +696,9 @@ tutorial</a>)
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-30" class="outline-3">
-<h3 id="sec-2-30">Diminish modeline clutter</h3>
-<div class="outline-text-3" id="text-2-30">
+<div id="outline-container-unnumbered-41" class="outline-3">
+<h3 id="unnumbered-41">Diminish modeline clutter</h3>
+<div class="outline-text-3" id="text-unnumbered-41">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(diminish 'auto-fill-function)
@@ -662,9 +709,9 @@ tutorial</a>)
 </div>
 </div>
 
-<div id="outline-container-sec-2-31" class="outline-3">
-<h3 id="sec-2-31">lorem ipsum</h3>
-<div class="outline-text-3" id="text-2-31">
+<div id="outline-container-unnumbered-42" class="outline-3">
+<h3 id="unnumbered-42">lorem ipsum</h3>
+<div class="outline-text-3" id="text-unnumbered-42">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">lorem-ipsum</span>)
@@ -675,7 +722,7 @@ tutorial</a>)
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/2aad905f1fd6763d60d541556593c27b5b97b6f4">2aad905</a> - 2014-10-09
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/a9af957dcae91d2bfcc64edcec782765b0dc48aa">a9af957</a> - 2014-11-02
 </div>
 </body>
 </html>
