@@ -333,14 +333,17 @@ TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx
 tutorial]])
 #+BEGIN_SRC emacs-lisp
   (require 'yasnippet)
-  ;; (yas-global-mode 1)
-  ;; (starter-kit-after yasnippet (diminish 'yas-minor-mode))
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs '(concat starter-kit-dir "/snippets"))
+  (starter-kit-after yasnippet (diminish 'yas-minor-mode))
 #+END_SRC
 ** auto-complete+ido-at-point mode
 #+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
-  (global-auto-complete-mode t)
-  ;;(ac-config-default)
+  ;; (global-auto-complete-mode t)
+  (ac-config-default)
+  (ac-set-trigger-key "TAB")
+  (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
   (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC
