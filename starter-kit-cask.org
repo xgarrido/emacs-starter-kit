@@ -21,6 +21,7 @@ installed packages.
   (source gnu)
   (source marmalade)
 #+END_SRC
+
 ** Color themes & customization
 #+BEGIN_SRC emacs-lisp
   (depends-on "solarized-theme")
@@ -50,6 +51,7 @@ installed packages.
   (depends-on "expand-region")            ; Expand selection with semantic unit
   (depends-on "multiple-cursors")         ; Multiple cursors selection
   (depends-on "lorem-ipsum")              ; Insert lorem-ipsum
+  (depends-on "fold-this")                ; (Un)Fold active region
 #+END_SRC
 
 ** Completion & expansion
