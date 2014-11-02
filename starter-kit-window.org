@@ -38,7 +38,7 @@ of the starter kit which ignored by git.  Once downloaded and
 evaluated a theme is activated using the =load-theme= function.
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'custom-theme-load-path (concat starter-kit-dir "themes"))
+  (add-to-list 'custom-theme-load-path (concat starter-kit-dir "/themes"))
   (setq custom-safe-themes t)
   ;;(load-theme 'solarized-light t)
 #+END_SRC
