@@ -150,6 +150,7 @@ Automatically save and restore sessions
         desktop-path                (list desktop-dirname)
         desktop-save                t
         desktop-files-not-to-save   "^$" ;reload tramp paths
+        desktop-restore-frames      nil
         desktop-load-locked-desktop nil)
   (unless (file-exists-p desktop-dirname)
     (make-directory desktop-dirname))
