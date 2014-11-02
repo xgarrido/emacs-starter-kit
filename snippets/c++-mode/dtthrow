@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: dthrow
-# key: dthrow
+# name: dtthrow
+# key: dtthrow
 # --
 DT_THROW_IF(${1:condition}, ${2:std::logic_error}, "${3:message}");
