@@ -137,6 +137,7 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 
 <pre class="src src-emacs-lisp">(add-hook 'org-mode-hook
           (<span class="org-keyword">lambda</span> ()
+            (yas-minor-mode -1)
             (org-indent-mode  t)
             (org-bullets-mode t)
             (auto-complete-mode t)
@@ -152,26 +153,49 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 <div id="outline-container-unnumbered-5" class="outline-3">
 <h3 id="unnumbered-5">Org-Mode keybindings</h3>
 <div class="outline-text-3" id="text-unnumbered-5">
+</div><div id="outline-container-unnumbered-6" class="outline-4">
+<h4 id="unnumbered-6"><code>ox-latex</code></h4>
+<div class="outline-text-4" id="text-unnumbered-6">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">ox-latex</span>)
 (define-key org-mode-map (kbd <span class="org-string">"s-p"</span>) 'org-latex-export-to-pdf)
 (define-key org-mode-map (kbd <span class="org-string">"s-l"</span>) 'org-latex-export-to-latex)
 (define-key org-mode-map (kbd <span class="org-string">"s-h"</span>) 'org-html-export-to-html)
-(<span class="org-keyword">require</span> '<span class="org-constant">ox-beamer</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-unnumbered-7" class="outline-4">
+<h4 id="unnumbered-7"><code>ox-beamer</code></h4>
+<div class="outline-text-4" id="text-unnumbered-7">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">ox-beamer</span>)
 (define-key org-beamer-mode-map (kbd <span class="org-string">"s-p"</span>) 'org-beamer-export-to-pdf)
 (define-key org-beamer-mode-map (kbd <span class="org-string">"s-l"</span>) 'org-beamer-export-to-latex)
 </pre>
 </div>
 </div>
 </div>
+<div id="outline-container-unnumbered-8" class="outline-4">
+<h4 id="unnumbered-8">Source block</h4>
+<div class="outline-text-4" id="text-unnumbered-8">
+<div class="org-src-container">
 
-<div id="outline-container-unnumbered-6" class="outline-3">
-<h3 id="unnumbered-6">Org-Mode settings</h3>
-<div class="outline-text-3" id="text-unnumbered-6">
-</div><div id="outline-container-unnumbered-7" class="outline-4">
-<h4 id="unnumbered-7">Setting org timestamp directory</h4>
-<div class="outline-text-4" id="text-unnumbered-7">
+<pre class="src src-emacs-lisp">(define-key org-mode-map <span class="org-string">"\C-x\C-a"</span> 'org-babel-mark-block)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-9" class="outline-3">
+<h3 id="unnumbered-9">Org-Mode settings</h3>
+<div class="outline-text-3" id="text-unnumbered-9">
+</div><div id="outline-container-unnumbered-10" class="outline-4">
+<h4 id="unnumbered-10">Setting org timestamp directory</h4>
+<div class="outline-text-4" id="text-unnumbered-10">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-publish-timestamp-directory (concat temporary-file-directory <span class="org-string">"org-timestamps"</span>))
@@ -180,9 +204,9 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 
-<div id="outline-container-unnumbered-8" class="outline-4">
-<h4 id="unnumbered-8">Ellipsis</h4>
-<div class="outline-text-4" id="text-unnumbered-8">
+<div id="outline-container-unnumbered-11" class="outline-4">
+<h4 id="unnumbered-11">Ellipsis</h4>
+<div class="outline-text-4" id="text-unnumbered-11">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-ellipsis <span class="org-string">"&#8230;"</span>
@@ -192,9 +216,9 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 
-<div id="outline-container-unnumbered-9" class="outline-4">
-<h4 id="unnumbered-9">Using ido completing</h4>
-<div class="outline-text-4" id="text-unnumbered-9">
+<div id="outline-container-unnumbered-12" class="outline-4">
+<h4 id="unnumbered-12">Using ido completing</h4>
+<div class="outline-text-4" id="text-unnumbered-12">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-completion-use-ido t)
@@ -203,9 +227,9 @@ which is also <b>implemented using</b> Org-mode and <a href="http://git-scm.com/
 </div>
 </div>
 
-<div id="outline-container-unnumbered-10" class="outline-4">
-<h4 id="unnumbered-10">Use speed keys</h4>
-<div class="outline-text-4" id="text-unnumbered-10">
+<div id="outline-container-unnumbered-13" class="outline-4">
+<h4 id="unnumbered-13">Use speed keys</h4>
+<div class="outline-text-4" id="text-unnumbered-13">
 <p>
 Speed commands enable single-letter commands in Org-mode files when
 the point is at the beginning of a headline, or at the beginning of a
@@ -227,9 +251,9 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-11" class="outline-4">
-<h4 id="unnumbered-11">Easy templates</h4>
-<div class="outline-text-4" id="text-unnumbered-11">
+<div id="outline-container-unnumbered-14" class="outline-4">
+<h4 id="unnumbered-14">Easy templates</h4>
+<div class="outline-text-4" id="text-unnumbered-14">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-structure-template-alist '(<span class="org-string">"al"</span> <span class="org-string">"#+BEGIN_SRC latex :results drawer :exports results\n\\begin{align*}\n?\\end{align*}\n#+END_SRC"</span>))
@@ -238,9 +262,9 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-12" class="outline-4">
-<h4 id="unnumbered-12">Special word faces</h4>
-<div class="outline-text-4" id="text-unnumbered-12">
+<div id="outline-container-unnumbered-15" class="outline-4">
+<h4 id="unnumbered-15">Special word faces</h4>
+<div class="outline-text-4" id="text-unnumbered-15">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defface</span> <span class="org-variable-name">my/highlight-face</span>
@@ -263,9 +287,9 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-13" class="outline-4">
-<h4 id="unnumbered-13">Turn on automatic renumbering of footnotes</h4>
-<div class="outline-text-4" id="text-unnumbered-13">
+<div id="outline-container-unnumbered-16" class="outline-4">
+<h4 id="unnumbered-16">Turn on automatic renumbering of footnotes</h4>
+<div class="outline-text-4" id="text-unnumbered-16">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-footnote-auto-adjust t)
@@ -273,9 +297,9 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-14" class="outline-4">
-<h4 id="unnumbered-14">Random footnote label</h4>
-<div class="outline-text-4" id="text-unnumbered-14">
+<div id="outline-container-unnumbered-17" class="outline-4">
+<h4 id="unnumbered-17">Random footnote label</h4>
+<div class="outline-text-4" id="text-unnumbered-17">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-footnote-auto-label 'random)
@@ -285,9 +309,9 @@ display a list of the code blocks commands and their related keys.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-15" class="outline-3">
-<h3 id="unnumbered-15">Code blocks</h3>
-<div class="outline-text-3" id="text-unnumbered-15">
+<div id="outline-container-unnumbered-18" class="outline-3">
+<h3 id="unnumbered-18">Code blocks</h3>
+<div class="outline-text-3" id="text-unnumbered-18">
 <p>
 This activates a number of widely used languages, you are encouraged to activate
 more languages using the customize interface for the <code>org-babel-load-languages</code>
@@ -296,9 +320,9 @@ variable, or with an elisp form like the one below.  The customize interface of
 supported languages.
 </p>
 </div>
-<div id="outline-container-unnumbered-16" class="outline-4">
-<h4 id="unnumbered-16">Supported languages</h4>
-<div class="outline-text-4" id="text-unnumbered-16">
+<div id="outline-container-unnumbered-19" class="outline-4">
+<h4 id="unnumbered-19">Supported languages</h4>
+<div class="outline-text-4" id="text-unnumbered-19">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(org-babel-do-load-languages
@@ -324,9 +348,9 @@ although it is not added by default as a security precaution.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-17" class="outline-4">
-<h4 id="unnumbered-17">Fontification</h4>
-<div class="outline-text-4" id="text-unnumbered-17">
+<div id="outline-container-unnumbered-20" class="outline-4">
+<h4 id="unnumbered-20">Fontification</h4>
+<div class="outline-text-4" id="text-unnumbered-20">
 <p>
 The following displays the contents of code blocks in Org-mode files
 using the major-mode of the code.  It also changes the behavior of
@@ -342,9 +366,9 @@ much more like reading and editing of code using its major mode.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-18" class="outline-4">
-<h4 id="unnumbered-18">Code progression</h4>
-<div class="outline-text-4" id="text-unnumbered-18">
+<div id="outline-container-unnumbered-21" class="outline-4">
+<h4 id="unnumbered-21">Code progression</h4>
+<div class="outline-text-4" id="text-unnumbered-21">
 <p>
 A progress indicator for code blocks in org-mode courtesy
 of <a href="https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.html">John Kitchin</a>
@@ -363,11 +387,51 @@ of <a href="https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.ht
 </div>
 </div>
 </div>
+
+<div id="outline-container-unnumbered-22" class="outline-4">
+<h4 id="unnumbered-22">Narrowing code block</h4>
+<div class="outline-text-4" id="text-unnumbered-22">
+<p>
+Stolen from <a href="http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html">http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">narrow-or-widen-dwim</span> (p)
+  <span class="org-doc">"If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.</span>
+<span class="org-doc">  Intelligently means: region, org-src-block, org-subtree, or defun,</span>
+<span class="org-doc">  whichever applies first.</span>
+<span class="org-doc">  Narrowing to org-src-block actually calls `</span><span class="org-constant"><span class="org-doc">org-edit-src-code</span></span><span class="org-doc">'.</span>
+
+<span class="org-doc">  With prefix P, don't widen, just narrow even if buffer is already</span>
+<span class="org-doc">  narrowed."</span>
+  (interactive <span class="org-string">"P"</span>)
+  (<span class="org-keyword">declare</span> (interactive-only))
+  (<span class="org-keyword">cond</span> ((and (buffer-narrowed-p) (not p)) (widen))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-constant"><span class="org-comment">org-edit-src-code</span></span><span class="org-comment">' is not a real narrowing command.</span>
+         <span class="org-comment-delimiter">;; </span><span class="org-comment">Remove this first conditional if you don't want it.</span>
+         (<span class="org-keyword">cond</span> ((<span class="org-keyword">ignore-errors</span> (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        (t (narrow-to-defun))))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This line actually replaces Emacs' entire narrowing keymap, that's</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">how much I like this command. Only copy it if that's what you want.</span>
+(define-key org-mode-map <span class="org-string">"\C-x\C-n"</span> #'narrow-or-widen-dwim)
+</pre>
+</div>
+</div>
+</div>
 </div>
 
-<div id="outline-container-unnumbered-19" class="outline-3">
-<h3 id="unnumbered-19">The Library of Babel</h3>
-<div class="outline-text-3" id="text-unnumbered-19">
+<div id="outline-container-unnumbered-23" class="outline-3">
+<h3 id="unnumbered-23">The Library of Babel</h3>
+<div class="outline-text-3" id="text-unnumbered-23">
 <p>
 The library of babel contains makes many useful functions available
 for use by code blocks in <b>any</b> emacs file.  See the actual
@@ -388,15 +452,15 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-20" class="outline-3">
-<h3 id="unnumbered-20">LaTeX hacks</h3>
-<div class="outline-text-3" id="text-unnumbered-20">
-</div><div id="outline-container-unnumbered-21" class="outline-4">
-<h4 id="unnumbered-21">VC status</h4>
+<div id="outline-container-unnumbered-24" class="outline-3">
+<h3 id="unnumbered-24">LaTeX hacks</h3>
+<div class="outline-text-3" id="text-unnumbered-24">
+</div><div id="outline-container-unnumbered-25" class="outline-4">
+<h4 id="unnumbered-25">VC status</h4>
 </div>
-<div id="outline-container-unnumbered-22" class="outline-4">
-<h4 id="unnumbered-22">Use smart quote when exporting</h4>
-<div class="outline-text-4" id="text-unnumbered-22">
+<div id="outline-container-unnumbered-26" class="outline-4">
+<h4 id="unnumbered-26">Use smart quote when exporting</h4>
+<div class="outline-text-4" id="text-unnumbered-26">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-export-with-smart-quotes nil)
@@ -405,9 +469,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-23" class="outline-4">
-<h4 id="unnumbered-23">Add <code>cite</code> link</h4>
-<div class="outline-text-4" id="text-unnumbered-23">
+<div id="outline-container-unnumbered-27" class="outline-4">
+<h4 id="unnumbered-27">Add <code>cite</code> link</h4>
+<div class="outline-text-4" id="text-unnumbered-27">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(org-add-link-type <span class="org-string">"cite"</span> 'ebib
@@ -420,9 +484,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-24" class="outline-4">
-<h4 id="unnumbered-24">Keep LaTeX logfiles</h4>
-<div class="outline-text-4" id="text-unnumbered-24">
+<div id="outline-container-unnumbered-28" class="outline-4">
+<h4 id="unnumbered-28">Keep LaTeX logfiles</h4>
+<div class="outline-text-4" id="text-unnumbered-28">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-remove-logfiles nil)
@@ -430,9 +494,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-25" class="outline-4">
-<h4 id="unnumbered-25">Default list of LaTeX packages</h4>
-<div class="outline-text-4" id="text-unnumbered-25">
+<div id="outline-container-unnumbered-29" class="outline-4">
+<h4 id="unnumbered-29">Default list of LaTeX packages</h4>
+<div class="outline-text-4" id="text-unnumbered-29">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-packages-alist '(<span class="org-string">""</span> <span class="org-string">"org-preamble"</span>))
@@ -441,9 +505,9 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-26" class="outline-4">
-<h4 id="unnumbered-26">Defining org-latex classes</h4>
-<div class="outline-text-4" id="text-unnumbered-26">
+<div id="outline-container-unnumbered-30" class="outline-4">
+<h4 id="unnumbered-30">Defining org-latex classes</h4>
+<div class="outline-text-4" id="text-unnumbered-30">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">unless</span> (boundp 'org-latex-classes)
@@ -451,7 +515,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </pre>
 </div>
 </div>
-<ul class="org-ul"><li><a id="unnumbered-27"></a>General article class<br  /><div class="outline-text-5" id="text-unnumbered-27">
+<ul class="org-ul"><li><a id="unnumbered-31"></a>General article class<br  /><div class="outline-text-5" id="text-unnumbered-31">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -468,7 +532,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </li>
 
-<li><a id="unnumbered-28"></a>SuperNEMO articles<br  /><ul class="org-ul"><li><a id="unnumbered-29"></a>DocDB article<br  /><div class="outline-text-6" id="text-unnumbered-29">
+<li><a id="unnumbered-32"></a>SuperNEMO articles<br  /><ul class="org-ul"><li><a id="unnumbered-33"></a>DocDB article<br  /><div class="outline-text-6" id="text-unnumbered-33">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -487,7 +551,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-<li><a id="unnumbered-30"></a>Note taking<br  /><div class="outline-text-6" id="text-unnumbered-30">
+<li><a id="unnumbered-34"></a>Note taking<br  /><div class="outline-text-6" id="text-unnumbered-34">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -505,7 +569,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 </li>
-<li><a id="unnumbered-31"></a>SN@ilWare markup filter<br  /><div class="outline-text-6" id="text-unnumbered-31">
+<li><a id="unnumbered-35"></a>SN@ilWare markup filter<br  /><div class="outline-text-6" id="text-unnumbered-35">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">snailware-markup-filter</span> (contents backend info)
@@ -518,7 +582,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </li></ul>
 </li>
 
-<li><a id="unnumbered-32"></a>Memoir article<br  /><div class="outline-text-5" id="text-unnumbered-32">
+<li><a id="unnumbered-36"></a>Memoir article<br  /><div class="outline-text-5" id="text-unnumbered-36">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -537,7 +601,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </li>
 
-<li><a id="unnumbered-33"></a>Beamer template<br  /><div class="outline-text-5" id="text-unnumbered-33">
+<li><a id="unnumbered-37"></a>Beamer template<br  /><div class="outline-text-5" id="text-unnumbered-37">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'org-latex-classes
@@ -555,7 +619,7 @@ file using the <code>org-babel-lob-ingest</code> function.
 </div>
 </div>
 
-<ul class="org-ul"><li><a id="unnumbered-34"></a><b>bold</b> becomes <code>structure</code><br  /><div class="outline-text-6" id="text-unnumbered-34">
+<ul class="org-ul"><li><a id="unnumbered-38"></a><b>bold</b> becomes <code>structure</code><br  /><div class="outline-text-6" id="text-unnumbered-38">
 <p>
 We also translate <b>bold</b> into beamer <code>structure</code>.
 </p>
@@ -578,7 +642,7 @@ We also translate <b>bold</b> into beamer <code>structure</code>.
 </div>
 </div>
 </li>
-<li><a id="unnumbered-35"></a>Use <code>strike</code> as alert<br  /><div class="outline-text-6" id="text-unnumbered-35">
+<li><a id="unnumbered-39"></a>Use <code>strike</code> as alert<br  /><div class="outline-text-6" id="text-unnumbered-39">
 <p>
 Change the face of <code>strike-through</code>
 </p>
@@ -592,7 +656,7 @@ Change the face of <code>strike-through</code>
 </div>
 </div>
 </li>
-<li><a id="unnumbered-36"></a>Add <code>frame</code> option to footnote<br  /><div class="outline-text-6" id="text-unnumbered-36">
+<li><a id="unnumbered-40"></a>Add <code>frame</code> option to footnote<br  /><div class="outline-text-6" id="text-unnumbered-40">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-beamer-footnote</span> (contents backend info)
@@ -604,7 +668,7 @@ Change the face of <code>strike-through</code>
 </div>
 </li>
 
-<li><a id="unnumbered-37"></a>Add email<br  /><div class="outline-text-6" id="text-unnumbered-37">
+<li><a id="unnumbered-41"></a>Add email<br  /><div class="outline-text-6" id="text-unnumbered-41">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq user-mail-address nil)
@@ -630,7 +694,7 @@ Change the face of <code>strike-through</code>
 </div>
 </li>
 
-<li><a id="unnumbered-38"></a>Colored box environment<br  /><div class="outline-text-6" id="text-unnumbered-38">
+<li><a id="unnumbered-42"></a>Colored box environment<br  /><div class="outline-text-6" id="text-unnumbered-42">
 <p>
 We define a new environment for "colored" box
 </p>
@@ -656,7 +720,7 @@ we execute a hook before parsing file to change <code>CBOX</code> into <code>cbo
 </div>
 </li>
 
-<li><a id="unnumbered-39"></a>Empty <code>outline</code> title<br  /><div class="outline-text-6" id="text-unnumbered-39">
+<li><a id="unnumbered-43"></a>Empty <code>outline</code> title<br  /><div class="outline-text-6" id="text-unnumbered-43">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-beamer-outline-frame-title <span class="org-string">""</span>)
@@ -667,10 +731,10 @@ we execute a hook before parsing file to change <code>CBOX</code> into <code>cbo
 </li></ul>
 </li></ul>
 </div>
-<div id="outline-container-unnumbered-40" class="outline-4">
-<h4 id="unnumbered-40">Filters</h4>
-<div class="outline-text-4" id="text-unnumbered-40">
-</div><ul class="org-ul"><li><a id="unnumbered-41"></a>Ignore headline<br  /><div class="outline-text-5" id="text-unnumbered-41">
+<div id="outline-container-unnumbered-44" class="outline-4">
+<h4 id="unnumbered-44">Filters</h4>
+<div class="outline-text-4" id="text-unnumbered-44">
+</div><ul class="org-ul"><li><a id="unnumbered-45"></a>Ignore headline<br  /><div class="outline-text-5" id="text-unnumbered-45">
 <p>
 Add a new tag <code></code> to skip headline tagged as such.
 </p>
@@ -685,7 +749,7 @@ Add a new tag <code></code> to skip headline tagged as such.
 </div>
 </li>
 
-<li><a id="unnumbered-42"></a>Remove section number<br  /><div class="outline-text-5" id="text-unnumbered-42">
+<li><a id="unnumbered-46"></a>Remove section number<br  /><div class="outline-text-5" id="text-unnumbered-46">
 <p>
 Add a new tag <code></code> to remove section number from headline.
 </p>
@@ -703,7 +767,7 @@ Add a new tag <code></code> to remove section number from headline.
 </div>
 </li>
 
-<li><a id="unnumbered-43"></a>Change <code>table</code> into <code>figure</code> env<br  /><div class="outline-text-5" id="text-unnumbered-43">
+<li><a id="unnumbered-47"></a>Change <code>table</code> into <code>figure</code> env<br  /><div class="outline-text-5" id="text-unnumbered-47">
 <p>
 When graphics are placed into table cells then change the default table
 environment into figure
@@ -722,9 +786,9 @@ environment into figure
 </li></ul>
 </div>
 
-<div id="outline-container-unnumbered-44" class="outline-4">
-<h4 id="unnumbered-44">KOMA/LaTeX script</h4>
-<div class="outline-text-4" id="text-unnumbered-44">
+<div id="outline-container-unnumbered-48" class="outline-4">
+<h4 id="unnumbered-48">KOMA/LaTeX script</h4>
+<div class="outline-text-4" id="text-unnumbered-48">
 <p>
 Define a special <code>org-latex-classes</code> to make use of KOMA/LaTeX letter
 style. The <code>ox-koma-letter</code> backend from org-mode contribution directory must
@@ -746,9 +810,9 @@ you should use the <code>org-koma-letter-export-to-pdf</code> command.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-45" class="outline-4">
-<h4 id="unnumbered-45">Define <code>org-latex-pdf-process</code> command</h4>
-<div class="outline-text-4" id="text-unnumbered-45">
+<div id="outline-container-unnumbered-49" class="outline-4">
+<h4 id="unnumbered-49">Define <code>org-latex-pdf-process</code> command</h4>
+<div class="outline-text-4" id="text-unnumbered-49">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-pdf-process (list <span class="org-string">"xelatex -shell-escape %f"</span>))
@@ -757,9 +821,9 @@ you should use the <code>org-koma-letter-export-to-pdf</code> command.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-46" class="outline-4">
-<h4 id="unnumbered-46">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
-<div class="outline-text-4" id="text-unnumbered-46">
+<div id="outline-container-unnumbered-50" class="outline-4">
+<h4 id="unnumbered-50">Add new LATEX_CMD option to choose between <code>pdflatex</code> and <code>xelatex</code></h4>
+<div class="outline-text-4" id="text-unnumbered-50">
 <p>
 From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export">org-faq</a>
 </p>
@@ -787,9 +851,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-unnumbered-47" class="outline-4">
-<h4 id="unnumbered-47">Minted setup</h4>
-<div class="outline-text-4" id="text-unnumbered-47">
+<div id="outline-container-unnumbered-51" class="outline-4">
+<h4 id="unnumbered-51">Minted setup</h4>
+<div class="outline-text-4" id="text-unnumbered-51">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-listings 'minted)
@@ -806,9 +870,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-unnumbered-48" class="outline-4">
-<h4 id="unnumbered-48">Place table caption below table</h4>
-<div class="outline-text-4" id="text-unnumbered-48">
+<div id="outline-container-unnumbered-52" class="outline-4">
+<h4 id="unnumbered-52">Place table caption below table</h4>
+<div class="outline-text-4" id="text-unnumbered-52">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-latex-table-caption-above nil)
@@ -817,9 +881,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-unnumbered-49" class="outline-4">
-<h4 id="unnumbered-49">Configuring <code>org-latex-preview</code></h4>
-<div class="outline-text-4" id="text-unnumbered-49">
+<div id="outline-container-unnumbered-53" class="outline-4">
+<h4 id="unnumbered-53">Configuring <code>org-latex-preview</code></h4>
+<div class="outline-text-4" id="text-unnumbered-53">
 <ul class="org-ul">
 <li>Set the program to create formula (either <code>dvipng</code> or <code>imagemagick</code>)
 </li>
@@ -843,9 +907,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-unnumbered-50" class="outline-3">
-<h3 id="unnumbered-50">Org-reveal</h3>
-<div class="outline-text-3" id="text-unnumbered-50">
+<div id="outline-container-unnumbered-54" class="outline-3">
+<h3 id="unnumbered-54">Org-reveal</h3>
+<div class="outline-text-3" id="text-unnumbered-54">
 <p>
 <a href="https://github.com/yjwen/org-reveal/"><code>org-reveal</code></a> exports <code>org</code> documents to reveal.js presentations.
 </p>
@@ -859,10 +923,10 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </pre>
 </div>
 </div>
-<div id="outline-container-unnumbered-51" class="outline-4">
-<h4 id="unnumbered-51">Filters</h4>
-<div class="outline-text-4" id="text-unnumbered-51">
-</div><ul class="org-ul"><li><a id="unnumbered-52"></a>Change <code>pdf</code> file to <code>png</code> image<br  /><div class="outline-text-5" id="text-unnumbered-52">
+<div id="outline-container-unnumbered-55" class="outline-4">
+<h4 id="unnumbered-55">Filters</h4>
+<div class="outline-text-4" id="text-unnumbered-55">
+</div><ul class="org-ul"><li><a id="unnumbered-56"></a>Change <code>pdf</code> file to <code>png</code> image<br  /><div class="outline-text-5" id="text-unnumbered-56">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-change-pdf-to-png</span> (backend)
@@ -878,9 +942,9 @@ From <a href="http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export"
 </div>
 </div>
 
-<div id="outline-container-unnumbered-53" class="outline-3">
-<h3 id="unnumbered-53">Prevent editing invisible text</h3>
-<div class="outline-text-3" id="text-unnumbered-53">
+<div id="outline-container-unnumbered-57" class="outline-3">
+<h3 id="unnumbered-57">Prevent editing invisible text</h3>
+<div class="outline-text-3" id="text-unnumbered-57">
 <p>
 The following setting prevents accidentally editing hidden text when
 the point is inside a folded region. This can happen if you are in the
@@ -900,9 +964,9 @@ is if it is buried in invisible text to allow editing again.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-54" class="outline-3">
-<h3 id="unnumbered-54">Org fold to store folding state</h3>
-<div class="outline-text-3" id="text-unnumbered-54">
+<div id="outline-container-unnumbered-58" class="outline-3">
+<h3 id="unnumbered-58">Org fold to store folding state</h3>
+<div class="outline-text-3" id="text-unnumbered-58">
 <p>
 Stolen from <a href="https://github.com/dandavison/org-fold">Dan Davison</a> git account. Just changing the directory where
 the <code>.fold</code> file is saved.
@@ -967,12 +1031,12 @@ the <code>.fold</code> file is saved.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-55" class="outline-3">
-<h3 id="unnumbered-55">Functions for <code>orgtbl</code></h3>
-<div class="outline-text-3" id="text-unnumbered-55">
-</div><div id="outline-container-unnumbered-56" class="outline-4">
-<h4 id="unnumbered-56">Sending all table</h4>
-<div class="outline-text-4" id="text-unnumbered-56">
+<div id="outline-container-unnumbered-59" class="outline-3">
+<h3 id="unnumbered-59">Functions for <code>orgtbl</code></h3>
+<div class="outline-text-3" id="text-unnumbered-59">
+</div><div id="outline-container-unnumbered-60" class="outline-4">
+<h4 id="unnumbered-60">Sending all table</h4>
+<div class="outline-text-4" id="text-unnumbered-60">
 <p>
 From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Dominik</a>
 </p>
@@ -987,9 +1051,9 @@ From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Domini
 </div>
 </div>
 
-<div id="outline-container-unnumbered-57" class="outline-4">
-<h4 id="unnumbered-57">Aligning all table</h4>
-<div class="outline-text-4" id="text-unnumbered-57">
+<div id="outline-container-unnumbered-61" class="outline-4">
+<h4 id="unnumbered-61">Aligning all table</h4>
+<div class="outline-text-4" id="text-unnumbered-61">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-org-align-all-tables</span> ()
@@ -1001,9 +1065,9 @@ From <a href="http://article.gmane.org/gmane.emacs.orgmode/64670">Carsten Domini
 </div>
 </div>
 
-<div id="outline-container-unnumbered-58" class="outline-3">
-<h3 id="unnumbered-58">Org capture</h3>
-<div class="outline-text-3" id="text-unnumbered-58">
+<div id="outline-container-unnumbered-62" class="outline-3">
+<h3 id="unnumbered-62">Org capture</h3>
+<div class="outline-text-3" id="text-unnumbered-62">
 <p>
 Emacs Org-mode has a feature called Org-capture that makes it easy to keep track
 of all the to-do's that crop up as we work on projects.  With Org-capture you
@@ -1011,9 +1075,9 @@ can make comments across all your files and projects and link to them all from
 one place.
 </p>
 </div>
-<div id="outline-container-unnumbered-59" class="outline-4">
-<h4 id="unnumbered-59">Setting the TODO file location</h4>
-<div class="outline-text-4" id="text-unnumbered-59">
+<div id="outline-container-unnumbered-63" class="outline-4">
+<h4 id="unnumbered-63">Setting the TODO file location</h4>
+<div class="outline-text-4" id="text-unnumbered-63">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq org-default-notes-file <span class="org-string">"~/Development/org-notes/misc/todo-list.org"</span>)
@@ -1022,9 +1086,9 @@ one place.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-60" class="outline-4">
-<h4 id="unnumbered-60">Closing items</h4>
-<div class="outline-text-4" id="text-unnumbered-60">
+<div id="outline-container-unnumbered-64" class="outline-4">
+<h4 id="unnumbered-64">Closing items</h4>
+<div class="outline-text-4" id="text-unnumbered-64">
 <p>
 The most basic logging is to keep track of when a certain TODO item was
 finished. This is achieved with
@@ -1037,9 +1101,9 @@ finished. This is achieved with
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-61" class="outline-3">
-<h3 id="unnumbered-61">Org calendar synchronization with Google Agenda&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></h3>
-<div class="outline-text-3" id="text-unnumbered-61">
+<div id="outline-container-unnumbered-65" class="outline-3">
+<h3 id="unnumbered-65">Org calendar synchronization with Google Agenda&#xa0;&#xa0;&#xa0;<span class="tag"><span class="deprecated">deprecated</span></span></h3>
+<div class="outline-text-3" id="text-unnumbered-65">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">(add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))</span>
@@ -1052,12 +1116,12 @@ finished. This is achieved with
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-62" class="outline-3">
-<h3 id="unnumbered-62">Misc.</h3>
-<div class="outline-text-3" id="text-unnumbered-62">
-</div><div id="outline-container-unnumbered-63" class="outline-4">
-<h4 id="unnumbered-63">Edit email from thunerbird within emacs</h4>
-<div class="outline-text-4" id="text-unnumbered-63">
+<div id="outline-container-unnumbered-66" class="outline-3">
+<h3 id="unnumbered-66">Misc.</h3>
+<div class="outline-text-3" id="text-unnumbered-66">
+</div><div id="outline-container-unnumbered-67" class="outline-4">
+<h4 id="unnumbered-67">Edit email from thunerbird within emacs</h4>
+<div class="outline-text-4" id="text-unnumbered-67">
 <p>
 <a href="http://globs.org/articles.php?pg=2&lng=en">External editor</a> allows to edit mail from thunderbird within emacs. Here, we just
 set the default writing mode to be <code>org</code> for <code>.eml</code> files.
@@ -1073,7 +1137,7 @@ set the default writing mode to be <code>org</code> for <code>.eml</code> files.
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/a9af957dcae91d2bfcc64edcec782765b0dc48aa">a9af957</a> - 2014-11-02
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/f26c0f32287df837308fcc152b2248a43617ebc2">f26c0f3</a> - 2014-11-04
 </div>
 </body>
 </html>
