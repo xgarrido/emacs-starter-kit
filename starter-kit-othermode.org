@@ -212,6 +212,15 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (diminish 'magit-auto-revert-mode)
 #+END_SRC
 
+*** Automatically enable =magit-svn-mode=
+Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-magit/]]
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'magit-mode-hook (lambda()
+                               (require 'magit-svn)
+                               (if (magit-svn-get-ref-info)
+                                   (magit-svn-mode))))
+#+END_SRC
+
 ** Git gutter settings
 #+BEGIN_SRC emacs-lisp
   (require 'git-gutter)
