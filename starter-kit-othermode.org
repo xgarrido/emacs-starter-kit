@@ -179,6 +179,7 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
   (define-key magit-status-mode-map (kbd "p") 'magit-push)
+  (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
 #+END_SRC
 
 *** Magit commit mode
@@ -240,6 +241,7 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
   ;; Revert current hunk
   (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
 #+END_SRC
+
 ** direx & direx-k
 #+BEGIN_SRC emacs-lisp
   (require 'popwin)
