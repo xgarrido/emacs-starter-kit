@@ -113,8 +113,3 @@ Key Bindings.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-m") 'multi-term)
 #+END_SRC
-
-** Magit
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-s") 'magit-status)
-#+END_SRC
