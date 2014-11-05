@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dtprio
+# key: dtprio
+# --
+datatools::logger::PRIO_${1:$$(upcase yas-text)}
