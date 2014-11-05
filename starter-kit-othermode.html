@@ -391,8 +391,11 @@ From <a href="http://whattheemacsd.com/setup-magit.el-01.html">Magnars blog</a>
   (kill-buffer)
   (jump-to-register <span class="org-builtin">:magit-fullscreen</span>))
 
+(global-set-key (kbd <span class="org-string">"M-s"</span>) 'magit-status)
+
 (define-key magit-status-mode-map (kbd <span class="org-string">"q"</span>) 'magit-quit-session)
 (define-key magit-status-mode-map (kbd <span class="org-string">"p"</span>) 'magit-push)
+(<span class="org-keyword">require</span> '<span class="org-constant">magit-svn</span>)
 (define-key magit-svn-mode-map    (kbd <span class="org-string">"p"</span>) 'magit-svn-dcommit)
 </pre>
 </div>
@@ -741,7 +744,7 @@ tutorial</a>)
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/f26c0f32287df837308fcc152b2248a43617ebc2">f26c0f3</a> - 2014-11-04
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ca36d898eb26a0a28edd198439d599bbab05bb1c">ca36d89</a> - 2014-11-05
 </div>
 </body>
 </html>
