@@ -23,8 +23,8 @@ Key Bindings.
   (define-key global-map (kbd "C--") 'text-scale-decrease)
 #+END_SRC
 
-** Use regex searches by default
-#+BEGIN_SRC emacs-lisp
+** Use regex searches by default                                 :nottangle:
+#+BEGIN_SRC emacs-lisp :tangle no
   (global-set-key (kbd "C-s") 'isearch-forward-regexp)
   (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 #+END_SRC

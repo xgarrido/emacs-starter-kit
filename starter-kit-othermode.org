@@ -51,7 +51,7 @@ after package or component has been loaded.
   (global-undo-tree-mode)
 #+END_SRC
 
-** Recentf
+** recentf
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after recentf
                      (setq recentf-max-saved-items 100))
@@ -90,6 +90,13 @@ after package or component has been loaded.
                            whitespace-line-column 80))
 #+END_SRC
 
+** isearch with flex support
+#+BEGIN_SRC emacs-lisp
+  (require 'flex-isearch)
+  (global-flex-isearch-mode 1)
+  (setq flex-isearch-auto 'on-failed)
+#+END_SRC
+
 ** Show a column wise indicator
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after fill-column-indicator
@@ -97,7 +104,7 @@ after package or component has been loaded.
   (setq-default fill-column 80)
 #+END_SRC
 
-** Highlight current line
+** Highlight current line                                        :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (global-hl-line-mode t)
 #+END_SRC
@@ -114,7 +121,7 @@ after package or component has been loaded.
                                                             minibuffer-incative-mode sr-mode))
                      (diminish 'smartparens-mode))
 #+END_SRC
-** which-func-mode
+** which-func-mode                                               :nottangle:
 Set function name in the header part of emacs (from
 [[http://emacsredux.com/blog/2014/04/05/which-function-mode/]]).
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -142,7 +149,7 @@ Use a less intrusive color for =idle-hightlight-mode=
     (diminish 'idle-highlight-mode))
 #+END_SRC
 
-** Drag stuff mode
+** Drag stuff mode                                               :nottangle:
 See [[https://github.com/rejeep/drag-stuff]]
 #+BEGIN_SRC emacs-lisp :tangle no
   (starter-kit-after drag-stuff
@@ -206,7 +213,7 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
   (add-hook 'git-commit-mode-hook (lambda () (auto-complete-mode t)))
 #+END_SRC
-*** Colored diff
+*** Colored diff                                                :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq magit-diff-refine-hunk 'all)
 #+END_SRC
@@ -251,7 +258,7 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
   (popwin-mode 1)
   (require 'direx)
   (push '(direx:direx-mode :position left :width 40 :dedicated t)
-        popwin:special-display-config)
+  popwin:special-display-config)
   (global-set-key (kbd "C-ù") 'direx-project:jump-to-project-root-other-window)
   (setq direx:leaf-icon "  "
         direx:open-icon "▾ "

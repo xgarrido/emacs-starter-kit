@@ -52,6 +52,7 @@ installed packages.
   (depends-on "multiple-cursors")         ; Multiple cursors selection
   (depends-on "lorem-ipsum")              ; Insert lorem-ipsum
   (depends-on "fold-this")                ; (Un)Fold active region
+  (depends-on "flex-isearch")             ; Fuzzy matching for isearch
 #+END_SRC
 
 ** Completion & expansion
