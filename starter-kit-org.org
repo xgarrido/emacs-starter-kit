@@ -662,15 +662,34 @@ finished. This is achieved with
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time)
 #+END_SRC
-** Org calendar synchronization with Google Agenda              :deprecated:
+** Org calendar
+*** Synchronization with LAL owncloud                           :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
-  ;; (add-to-list 'load-path (concat starter-kit-lisp-directory "org-caldav"))
-
-  (setq org-caldav-calendar-id "dmpa69a5ajdi54dtl8jsdqcivs@group.calendar.google.com"
-        org-caldav-url "https://www.google.com/calendar/dav";
-        org-caldav-files '("~/Documents/Org/rdv.org")
-        org-caldav-inbox "~/Documents/Org/inbox.org")
+  (setq org-caldav-calendar-id "teaching"
+        org-caldav-url "https://owncloud.lal.in2p3.fr/remote.php/caldav/calendars/garrido"
+        org-caldav-files '("~/Development/org-caldav/org/teaching.org")
+        org-caldav-inbox "~/Development/org-caldav/org/inbox.org")
 #+END_SRC
+
+*** Playing with calfw                                          :nottangle:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (require 'calfw-org)
+  (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+  (setq org-agenda-files nil)
+  (defun my-open-calendar ()
+    (interactive)
+    (let ((cp (cfw:create-calendar-component-buffer
+               :view 'month
+               :contents-sources
+               (list
+                (cfw:org-create-file-source
+                 "schedule"
+                 "~/Development/org-caldav/org/teaching.org"
+                 "#859900")))))
+      (switch-to-buffer (cfw:cp-get-buffer cp))))
+#+END_SRC
+
 ** Misc.
 *** Edit email from thunerbird within emacs
 [[http://globs.org/articles.php?pg=2&lng=en][External editor]] allows to edit mail from thunderbird within emacs. Here, we just
