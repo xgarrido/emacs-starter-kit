@@ -269,7 +269,8 @@ file using the =org-babel-lob-ingest= function.
   (add-to-list 'org-latex-classes
                '("article"
                  "\\documentclass[11pt]{article}
-                  [NO-DEFAULT-PACKAGES]"
+                  [NO-DEFAULT-PACKAGES]
+                   \\usepackage{libertineotf}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -533,7 +534,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (setq org-latex-preview-ltxpng-directory "ltxpng/")
 #+END_SRC
 
-** Org-reveal
+** Org-reveal                                                    :nottangle:
 [[https://github.com/yjwen/org-reveal/][=org-reveal=]] exports =org= documents to reveal.js presentations.
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'ox-reveal)
