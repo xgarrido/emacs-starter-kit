@@ -34,7 +34,7 @@ a list of pre-built themes at http://elpa.gnu.org/themes/view.html and
 themes are available through ELPA.
 
 Downloaded themes may be saved to the =themes/= directory in the base
-of the starter kit which ignored by git.  Once downloaded and
+of the starter kit which ignored by git. Once downloaded and
 evaluated a theme is activated using the =load-theme= function.
 
 #+BEGIN_SRC emacs-lisp

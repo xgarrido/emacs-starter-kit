@@ -268,7 +268,7 @@ file using the =org-babel-lob-ingest= function.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-latex-classes
                '("article"
-                 "\\documentclass[11pt]{article}
+                 "\\documentclass{article}
                   [NO-DEFAULT-PACKAGES]
                    \\usepackage{libertineotf}"
                  ("\\section{%s}" . "\\section*{%s}")

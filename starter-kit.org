@@ -195,13 +195,13 @@ this directory.
 :PROPERTIES:
 :CUSTOM_ID: contributing
 :END:
+Files are licensed under the same license as Emacs unless otherwise
+specified. See the file [[file:COPYING][COPYING]] for details.
+
 If you know your way around Emacs, please try out the starter kit as a
 replacement for your regular dotfiles for a while. If there's anything
 you just can't live without, add it or let me know so I can add
 it. Take a look at what happens in [[file:init.el][init.el]] to get started.
-
-Files are licensed under the same license as Emacs unless otherwise
-specified. See the file [[file:COPYING][COPYING]] for details.
 
 The latest version is at http://github.com/xgarrido/emacs24-starter-kit/
 
