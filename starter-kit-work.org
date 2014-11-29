@@ -25,5 +25,4 @@ Use this function to create TAGS related to SN@ilWare software.
                            (concat temporary-file-directory "/TAGS-falaise")
                            (concat temporary-file-directory "/TAGS-chevreuse")))
     (sk-popup "Emacs" "TAGS file for SN@ilWare generated"))
-    )
 #+END_SRC
