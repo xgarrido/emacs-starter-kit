@@ -209,23 +209,11 @@ to ease the code navigation.
 <div class="outline-text-4" id="text-unnumbered-11">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-create-tags</span> (dirname)
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-create-tags</span>(dirname name)
   <span class="org-doc">"Create tags file."</span>
-  (interactive <span class="org-string">"DDirectory: "</span>)
+  (interactive <span class="org-string">"DDirectory: \nsName suffix: "</span>)
   (shell-command
-   (format <span class="org-string">"find %s -type f </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string"> -name '*.cc' -o -name '*.h' </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string"> | grep -v '__' | grep -v '/devel/' | etags - &amp;&amp; mv %s/TAGS %s/."</span> dirname default-directory temporary-file-directory)))
-</pre>
-</div>
-
-<p>
-Use this function to create TAGS related to SN@ailWare software.
-</p>
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-create-snailware-tags</span> ()
-  <span class="org-doc">"Create SN@ilWare tags file."</span>
-  (interactive)
-  (sk-create-tags <span class="org-string">"$SNAILWARE_DEV_DIR"</span>))
+   (format <span class="org-string">"find %s -type f </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">(</span></span><span class="org-string"> -name '*.cc' -o -name '*.h' </span><span class="org-regexp-grouping-backslash"><span class="org-string">\\</span></span><span class="org-regexp-grouping-construct"><span class="org-string">)</span></span><span class="org-string"> | etags - &amp;&amp; mv %s/TAGS %s/TAGS-%s"</span> dirname default-directory temporary-file-directory name)))
 </pre>
 </div>
 </div>
@@ -260,7 +248,7 @@ Use this function to create TAGS related to SN@ailWare software.
 </div>
 </div>
 <div id="postamble" class="status">
-File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/ca36d898eb26a0a28edd198439d599bbab05bb1c">ca36d89</a> - 2014-11-05
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/135971e5f05bfbf8ec7a03e5d85d0c55480d83fa">135971e</a> - 2014-11-29
 </div>
 </body>
 </html>
