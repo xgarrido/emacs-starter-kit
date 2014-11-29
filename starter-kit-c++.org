@@ -67,19 +67,11 @@ to ease the code navigation.
 
 *** Create TAGS table
 #+BEGIN_SRC emacs-lisp
-  (defun sk-create-tags (dirname)
+  (defun sk-create-tags(dirname name)
     "Create tags file."
-    (interactive "DDirectory: ")
+    (interactive "DDirectory: \nsName suffix: ")
     (shell-command
-     (format "find %s -type f \\( -name '*.cc' -o -name '*.h' \\) | grep -v '__' | grep -v '/devel/' | etags - && mv %s/TAGS %s/." dirname default-directory temporary-file-directory)))
-#+END_SRC
-
-Use this function to create TAGS related to SN@ailWare software.
-#+BEGIN_SRC emacs-lisp
-  (defun sk-create-snailware-tags ()
-    "Create SN@ilWare tags file."
-    (interactive)
-    (sk-create-tags "$SNAILWARE_DEV_DIR"))
+     (format "find %s -type f \\( -name '*.cc' -o -name '*.h' \\) | etags - && mv %s/TAGS %s/TAGS-%s" dirname default-directory temporary-file-directory name)))
 #+END_SRC
 
 *** Set TAGS filename

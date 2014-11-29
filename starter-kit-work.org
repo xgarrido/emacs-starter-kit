@@ -1,0 +1,29 @@
+#+TITLE: Starter Kit C++
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* Starter kit work
+This file provides some functions in relation with SuperNEMO "work".
+
+** Create and load SN@ilWare TAGS file
+
+Use this function to create TAGS related to SN@ilWare software.
+#+BEGIN_SRC emacs-lisp
+  (defun sk-create-snailware-tags ()
+    "Create SN@ilWare tags file."
+    (interactive)
+    (setenv "SNAILWARE_PRO_DIR" "/home/garrido/Workdir/NEMO/supernemo/snware")
+    (sk-create-tags "$SNAILWARE_PRO_DIR/cadfael/install" "cadfael")
+    (sk-create-tags "$SNAILWARE_PRO_DIR/bayeux/repo"     "bayeux")
+    (sk-create-tags "$SNAILWARE_PRO_DIR/falaise/repo"    "falaise")
+    (sk-create-tags "$SNAILWARE_PRO_DIR/chevreuse/repo"  "chevreuse")
+    (setq tags-file-name nil)
+    (setq tags-table-list (list
+                           (concat temporary-file-directory "/TAGS-cadfael")
+                           (concat temporary-file-directory "/TAGS-bayeux")
+                           (concat temporary-file-directory "/TAGS-falaise")
+                           (concat temporary-file-directory "/TAGS-chevreuse")))
+    (sk-popup "Emacs" "TAGS file for SN@ilWare generated"))
+    )
+#+END_SRC

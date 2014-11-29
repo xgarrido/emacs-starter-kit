@@ -353,6 +353,11 @@ The following files contain specific settings for several modules.
     (starter-kit-load "starter-kit-org.org")
   #+END_SRC
 
+- settings related to [[file:starter-kit-work.org][SuperNEMO work]]
+  #+BEGIN_SRC emacs-lisp
+    (starter-kit-load "starter-kit-work.org")
+  #+END_SRC
+
 ** Load User/System Specific Files
 *** System/User specific customizations
 You can keep system- or user-specific customizations here in either
