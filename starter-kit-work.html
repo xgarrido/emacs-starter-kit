@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Starter Kit C++</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<link rel="stylesheet" href="css/styles.css" />
+               <link rel="stylesheet" href="css/org-pygments.css" />
+               <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script><script type="text/javascript">
+  function randomLinkColor() {
+      var colors = ['#f1c40f','#e74c3c','#3399cc','#e67e22','#67ad00','#8e44ad','#1abc9c','#003399'];
+      var random_color = colors[Math.floor(Math.random() * colors.length)];
+      var elements = document.querySelectorAll('a');
+      [].slice.call(elements).forEach(function(elem) {
+          //elem.style.color = random_color;
+      });
+  }
+  function displayTOC() {
+      var ttoc = document.getElementById("text-table-of-contents");
+      if (ttoc) {
+          var maincontent = '<a class="button"><i class="fa fa-list"></i></a>'
+          maincontent += "<div>" + ttoc.innerHTML + "</div>";
+          document.getElementById("toc").innerHTML = maincontent;
+      } else {
+          document.getElementById("toc").style.display = "none";
+          document.getElementById("preamble").style.top = "10px";
+      }
+     }
+  </script>
+</head>
+<body onload="randomLinkColor();displayTOC();"><div id="toc"></div>
+<div id="preamble" class="status">
+ <a href="https://github.com/xgarrido/emacs-starter-kit"><i class="fa fa-github"></i></a><br/> 
+</div>
+<div id="content">
+<h1 class="title">Starter Kit C++</h1>
+<p>
+This is part of the <a href="starter-kit.html">Emacs Starter Kit</a>.
+</p>
+
+<div id="outline-container-unnumbered-1" class="outline-2">
+<h2 id="unnumbered-1">Starter kit work</h2>
+<div class="outline-text-2" id="text-unnumbered-1">
+<p>
+This file provides some functions in relation with SuperNEMO "work".
+</p>
+</div>
+
+<div id="outline-container-unnumbered-2" class="outline-3">
+<h3 id="unnumbered-2">Create and load SN@ilWare TAGS file</h3>
+<div class="outline-text-3" id="text-unnumbered-2">
+<p>
+Use this function to create TAGS related to SN@ilWare software.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">sk-create-snailware-tags</span> ()
+  <span class="org-doc">"Create SN@ilWare tags file."</span>
+  (interactive)
+  (setenv <span class="org-string">"SNAILWARE_PRO_DIR"</span> <span class="org-string">"/home/garrido/Workdir/NEMO/supernemo/snware"</span>)
+  (sk-create-tags <span class="org-string">"$SNAILWARE_PRO_DIR/cadfael/install"</span> <span class="org-string">"cadfael"</span>)
+  (sk-create-tags <span class="org-string">"$SNAILWARE_PRO_DIR/bayeux/repo"</span>     <span class="org-string">"bayeux"</span>)
+  (sk-create-tags <span class="org-string">"$SNAILWARE_PRO_DIR/falaise/repo"</span>    <span class="org-string">"falaise"</span>)
+  (sk-create-tags <span class="org-string">"$SNAILWARE_PRO_DIR/chevreuse/repo"</span>  <span class="org-string">"chevreuse"</span>)
+  (setq tags-file-name nil)
+  (setq tags-table-list (list
+                         (concat temporary-file-directory <span class="org-string">"/TAGS-cadfael"</span>)
+                         (concat temporary-file-directory <span class="org-string">"/TAGS-bayeux"</span>)
+                         (concat temporary-file-directory <span class="org-string">"/TAGS-falaise"</span>)
+                         (concat temporary-file-directory <span class="org-string">"/TAGS-chevreuse"</span>)))
+  (sk-popup <span class="org-string">"Emacs"</span> <span class="org-string">"TAGS file for SN@ilWare generated"</span>))
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+File under <i class="fa fa-github-alt"></i> version control - commit <a href="https://github.com/xgarrido/emacs-starter-kit/commit/135971e5f05bfbf8ec7a03e5d85d0c55480d83fa">135971e</a> - 2014-11-29
+</div>
+</body>
+</html>
