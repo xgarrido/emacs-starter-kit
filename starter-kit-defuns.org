@@ -263,6 +263,27 @@ From [[http://emacsredux.com/blog/2013/03/28/google/][Emacs redux]].
   (global-set-key (kbd "s-g") 'sk-google)
 #+END_SRC
 
+*** Printing unicode
+From [[http://tromey.com/blog/?p=831]].
+#+BEGIN_SRC emacs-lisp
+  (defun sk-list-unicode-display (&optional regexp)
+    "Display a list of unicode characters and their names in a buffer."
+    (interactive "sRegexp (default \".*\"): ")
+    (let* ((regexp (or regexp ".*"))
+           (case-fold-search t)
+           (cmp (lambda (x y) (< (cdr x) (cdr y))))
+           ;; alist like ("name" . code-point)
+           (char-alist (sort (cl-remove-if-not (lambda (x) (string-match regexp (car x)))
+                                               (ucs-names))
+                             cmp)))
+      (with-help-window "*Unicode characters*"
+        (with-current-buffer standard-output
+          (dolist (c char-alist)
+            (insert (format "0x%06X\t" (cdr c)))
+            (insert (cdr c))
+            (insert (format "\t%s\n" (car c))))))))
+#+END_SRC
+
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
