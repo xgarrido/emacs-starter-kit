@@ -663,7 +663,7 @@ finished. This is achieved with
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time)
 #+END_SRC
-** Org calendar
+** Org calendar                                                  :nottangle:
 *** Synchronization with LAL owncloud                           :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq org-caldav-calendar-id "teaching"
