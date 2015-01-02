@@ -78,7 +78,6 @@ installed packages.
 #+BEGIN_SRC emacs-lisp
   (depends-on "magit")                    ; Git frontend
   (depends-on "magit-svn")                ; Git-svn frontend
-  (depends-on "diff-hl")                  ; Test diff-hl
   (depends-on "git-gutter")               ; Show Diff state in buffer…
 #+END_SRC
 
@@ -91,12 +90,18 @@ installed packages.
 ** Utilities
 #+BEGIN_SRC emacs-lisp
   (depends-on "dired-details")
-  (depends-on "popwin")
+  (depends-on "popwin") ; popup window
   (depends-on "direx")
   (depends-on "dired-k")
   (depends-on "ack-and-a-half")           ; Ack frontend
   (depends-on "multi-term")
   (depends-on "xml-rpc")
+#+END_SRC
+
+** Package & project manager
+#+BEGIN_SRC emacs-lisp
+  (depends-on "paradox")    ; Better emacs's package menu
+  (depends-on "projectile") ; Project manager
 #+END_SRC
 
 * Cask configuration
