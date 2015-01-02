@@ -398,11 +398,11 @@ Define some usual =trac-wiki= projects.
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after wrap-region (diminish 'wrap-region-mode))
 #+END_SRC
-** yasnippet mode
+** yasnippet mode                                                :nottangle:
 [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is inspired by
 TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]] or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and
 tutorial]])
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'yasnippet)
   (yas-global-mode 1)
   (setq yas-snippet-dirs '(concat starter-kit-dir "/snippets"))
