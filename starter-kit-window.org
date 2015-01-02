@@ -272,8 +272,43 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                 (ibuffer-switch-to-saved-filter-groups "default")))
 #+END_SRC
 ** Powerline
+*** Requirement
 #+BEGIN_SRC emacs-lisp
   (require 'powerline)
+#+END_SRC
+
+*** Function to update git modeline status
+The following function checks if a current buffer is under git and if yes,
+checks if it is a clean repository (nothing to stage) or a dirty one. Given the
+result, the color for the git branch is accordingly changed. This function is
+called every time a file is changed (through =after-save-hook= hook).
+#+BEGIN_SRC emacs-lisp
+  (defun sk-git-modeline-status ()
+    (when vc-mode
+      (setq git-clean
+            (shell-command-to-string "git status -s --ignore-submodules=dirty -uno 2> /dev/null | tail -n1"))
+      (if (string= "" git-clean)
+        (if (boundp 'powerline-git-face)
+            (face-remap-remove-relative powerline-git-face))
+        (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
+        )))
+
+  (add-hook 'focus-in-hook 'sk-git-modeline-status)
+  (add-hook 'after-save-hook 'sk-git-modeline-status)
+#+END_SRC
+*** Powerline function to improve version control status
+#+BEGIN_SRC emacs-lisp
+  (defpowerline sk-powerline-vc
+    (when (and (buffer-file-name (current-buffer))
+               vc-mode)
+      (format-mode-line '(" ❬↯ " (:propertize
+                                  ;; Strip the backend name from the VC status information
+                                  (:eval (let ((backend (symbol-name (vc-backend (buffer-file-name)))))
+                                           (substring vc-mode (+ (length backend) 2))))
+                                  ) "❭"))))
+#+END_SRC
+*** Powerline theme
+#+BEGIN_SRC emacs-lisp
   (defun sk-powerline-default-theme ()
     "Starter-kit default mode-line."
     (interactive)
@@ -282,15 +317,15 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                     (:eval
                      (let* ((active (powerline-selected-window-active))
                             (mode-line (if active 'mode-line 'mode-line-inactive))
-                            (face1 (if active 'powerline-active1
-                                     'powerline-inactive1))
-                            (face2 (if active 'powerline-active2
-                                     'powerline-inactive2))
+                            (face1 'powerline-active1)
+                            (face2 'powerline-active2)
+                            (face3 'powerline-inactive1)
                             (lhs (list
-                                  (powerline-raw "%*" nil 'l)
-                                  (powerline-buffer-size nil 'l)
+                                  ;; (powerline-raw "%*" nil 'l)
+                                  ;; (powerline-buffer-size nil 'l)
 
                                   ;;(powerline-raw mode-line-mule-info nil 'l)
+                                  (powerline-raw " ☭")
                                   (powerline-buffer-id nil 'l)
 
                                   (powerline-raw " ")
@@ -299,25 +334,27 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                                   (powerline-major-mode face1 'l)
                                   (powerline-process face1)
                                   (powerline-minor-modes face1 'l)
+                                  (sk-powerline-vc face3)
                                   (powerline-narrow face1 'l)
 
                                   (powerline-raw " " face1)
                                   (powerline-arrow-left face1 face2)
 
-                                  (powerline-vc face2)))
+                                  ))
                             (rhs (list
                                   (powerline-raw global-mode-string face2 'r)
 
                                   (powerline-arrow-left face2 face1)
 
-                                  (powerline-raw "%4l" face1 'l)
-                                  (powerline-raw ":" face1 'l)
-                                  (powerline-raw "%3c" face1 'r)
+                                  ;; (powerline-raw "%4l" face1 'l)
+                                  ;; (powerline-raw "/" face1 'l)
+                                  (powerline-raw " " face1)
+                                  (powerline-raw "%4l|%0c" face1 'r)
 
                                   (powerline-arrow-left face1 mode-line)
                                   (powerline-raw " ")
 
-                                  (powerline-raw "%6p" nil 'r)
+                                  (powerline-raw "%3p" nil 'r)
                                   )))
                        (concat
                         (powerline-render lhs)
@@ -325,6 +362,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                         (powerline-render rhs)))))))
   (sk-powerline-default-theme)
 #+END_SRC
+
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp
   ;;(require 'diminish)
