@@ -138,7 +138,7 @@ Set function name in the header part of emacs (from
 #+BEGIN_SRC emacs-lisp
   (winner-mode 1)
 #+END_SRC
-** Idle hightlight face
+** Idle highlight face
 Use a less intrusive color for =idle-hightlight-mode=
 #+BEGIN_SRC emacs-lisp
   (defface idle-highlight
@@ -279,15 +279,62 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
 #+RESULTS:
 : direx-k
 
-** diff-hl settings
+** diff-hl settings                                                :nottangle:
 Tweak face by removing the foreground colors
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (starter-kit-after diff-hl
     (set-face-foreground 'diff-hl-insert nil)
     (set-face-foreground 'diff-hl-change nil)
     (set-face-foreground 'diff-hl-delete nil)
     )
   ;;(global-diff-hl-mode)
+#+END_SRC
+** projectile-mode
+[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
+#+BEGIN_SRC emacs-lisp
+  (projectile-global-mode)
+#+END_SRC
+
+*** Remove directory name when completing
+Stolen from [[https://gist.github.com/rejeep/5933343]].
+#+BEGIN_SRC emacs-lisp
+  (defun rejeep-projectile-completion-fn (prompt choises)
+    "Projectile completion function that only shows file name.
+  If two files have same name, new completion appears to select between
+  them. These include the path relative to the project root."
+    (interactive)
+    (let* ((stripped-choises
+            (-uniq (--map (file-name-nondirectory it) choises)))
+           (choise
+            (ido-completing-read prompt stripped-choises))
+           (matching-files
+            (-filter
+             (lambda (file)
+               (equal (file-name-nondirectory file) choise))
+             choises)))
+      (if (> (length matching-files) 1)
+          (ido-completing-read prompt matching-files)
+        (car matching-files))))
+
+  (setq projectile-completion-system 'rejeep-projectile-completion-fn)
+#+END_SRC
+
+*** Reduce modeline information
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-mode-line '(:propertize
+                               (:eval (format " ❬⊶ %s❭" (projectile-project-name)))
+                               ))
+#+END_SRC
+
+*** Set bookmark directory
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld"
+                                                         temporary-file-directory))
+#+END_SRC
+
+*** Sort file by most recent
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-sort-order 'recentf)
 #+END_SRC
 
 ** latex-mode
@@ -366,11 +413,13 @@ tutorial]])
   (require 'auto-complete-config)
   ;; (global-auto-complete-mode t)
   (ac-config-default)
+  (setq ac-auto-start 6)
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
   (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC
+
 ** expand-region mode
 #+BEGIN_SRC emacs-lisp
   (require 'expand-region)
