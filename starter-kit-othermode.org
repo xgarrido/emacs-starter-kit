@@ -322,7 +322,8 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 *** Reduce modeline information
 #+BEGIN_SRC emacs-lisp
   (setq projectile-mode-line '(:propertize
-                               (:eval (format " ❬⊶ %s❭" (projectile-project-name)))
+                               (:eval (format " ❬⊶ %s❭"
+                                              (truncate-string-to-width (projectile-project-name) 10 nil nil "…")))
                                ))
 #+END_SRC
 
