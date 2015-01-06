@@ -139,14 +139,12 @@ Set function name in the header part of emacs (from
   (winner-mode 1)
 #+END_SRC
 ** Idle highlight face
-Use a less intrusive color for =idle-hightlight-mode=
+Use a less intrusive color for =idle-highlight-mode=
 #+BEGIN_SRC emacs-lisp
   (defface idle-highlight
     '((t (:inherit match)))
     "Face used to highlight other occurrences of the word at point."
     :group 'idle-highlight)
-  (starter-kit-after idle-highlight
-    (diminish 'idle-highlight-mode))
 #+END_SRC
 
 ** Drag stuff mode                                               :nottangle:
@@ -250,6 +248,10 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
 
   ;; Revert current hunk
   (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+
+  ;; (setq git-gutter:modified-sign "◽")
+  ;; (setq git-gutter:added-sign    "◾")
+  ;; (setq git-gutter:deleted-sign  "⚫")
 #+END_SRC
 
 ** direx & direx-k
@@ -321,10 +323,11 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 
 *** Reduce modeline information
 #+BEGIN_SRC emacs-lisp
-  (setq projectile-mode-line '(:propertize
-                               (:eval (format " ❬⊶ %s❭"
-                                              (truncate-string-to-width (projectile-project-name) 10 nil nil "…")))
-                               ))
+  (setq projectile-mode-line
+        '(:propertize
+          (:eval (format " ❬⊶ %s❭"
+                         (truncate-string-to-width (projectile-project-name) 10 nil nil "…")))
+          ))
 #+END_SRC
 
 *** Set bookmark directory
