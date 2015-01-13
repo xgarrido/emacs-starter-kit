@@ -127,6 +127,8 @@ Set function name in the header part of emacs (from
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'which-func)
   (add-to-list 'which-func-modes 'org-mode)
+  (add-to-list 'which-func-modes 'c++-mode)
+  (setq which-func-unknown "n/a")
   (setq-default header-line-format
                 '((which-func-mode ("" which-func-format " "))))
   (setq mode-line-misc-info
@@ -406,12 +408,16 @@ Define some usual =trac-wiki= projects.
 [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is inspired by
 TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]] or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and
 tutorial]])
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (require 'yasnippet)
-  (yas-global-mode 1)
+  ;; (yas-global-mode 1)
+  (yas-reload-all)
   (setq yas-snippet-dirs '(concat starter-kit-dir "/snippets"))
   (starter-kit-after yasnippet (diminish 'yas-minor-mode))
+  (add-hook 'starter-kit-coding-hook '(lambda ()
+                                        (yas-minor-mode)))
 #+END_SRC
+
 ** auto-complete+ido-at-point mode
 #+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
@@ -445,7 +451,6 @@ tutorial]])
 #+BEGIN_SRC emacs-lisp
   (diminish 'auto-fill-function)
   (diminish 'abbrev-mode)
-  (diminish 'inertias-global-minor-mode)
 #+END_SRC
 
 ** lorem ipsum
