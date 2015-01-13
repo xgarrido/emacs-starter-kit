@@ -271,6 +271,7 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
                 (hl-line-mode t)
                 (ibuffer-switch-to-saved-filter-groups "default")))
 #+END_SRC
+
 ** Powerline
 *** Requirement
 #+BEGIN_SRC emacs-lisp
