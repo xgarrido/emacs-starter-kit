@@ -293,9 +293,10 @@ called every time a file is changed (through =after-save-hook= hook).
         (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
         )))
 
-  (add-hook 'focus-in-hook 'sk-git-modeline-status)
+  ;; (add-hook 'focus-in-hook 'sk-git-modeline-status)
   (add-hook 'after-save-hook 'sk-git-modeline-status)
 #+END_SRC
+
 *** Powerline function to improve version control status
 #+BEGIN_SRC emacs-lisp
   (defpowerline sk-powerline-vc
@@ -393,6 +394,7 @@ next/prior keys.
   (global-set-key [(mouse-4)] 'inertias-down-wheel)
   (global-set-key (kbd "<next>")  'inertias-up)
   (global-set-key (kbd "<prior>") 'inertias-down)
+  (diminish 'inertias-global-minor-mode)
 #+END_SRC
 
 ** Naked emacs
