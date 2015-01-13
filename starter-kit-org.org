@@ -128,6 +128,12 @@ display a list of the code blocks commands and their related keys.
   (setq org-footnote-auto-label 'random)
 #+END_SRC
 
+*** Make export asynchronous
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-in-background t)
+  (setq org-export-async-debug t)
+#+END_SRC
+
 ** Code blocks
 This activates a number of widely used languages, you are encouraged to activate
 more languages using the customize interface for the =org-babel-load-languages=
