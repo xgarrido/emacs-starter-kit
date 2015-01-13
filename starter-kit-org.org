@@ -227,6 +227,47 @@ file using the =org-babel-lob-ingest= function.
   (org-babel-lob-ingest (expand-file-name "starter-kit-org.org" starter-kit-dir))
 #+END_SRC
 
+
+*** Starter-kit library
+
+First of all, I do not want to wrap raw output with =begin/end_example=
+block. For some obscure reasons, =org-babel-examplify-region= is called and thus
+wrap the result output. To avoid such wrapping, I set the minimal number of
+lines of code above which the code is wrapped to =nil=
+#+BEGIN_SRC emacs-lisp
+  ;;(setq org-babel-min-lines-for-block-output 0)
+#+END_SRC
+
+The following lines provide several "useful" functions. To use them, do
+#+BEGIN_SRC org
+  ,#+CALL: function_name(var1="...", var2="...")
+#+END_SRC
+
+**** Generate =org= containing one figure per header
+
+#+NAME: org-figure-to-slide
+#+HEADERS: :var title="Empty title"
+#+HEADERS: :var dir="./figures" :var ext="*.pdf"
+#+HEADERS: :var width="\linewidth" :var options=""
+#+BEGIN_SRC sh :results raw :exports none
+  if [ ! -d ${dir} ]; then
+      echo "${dir} is not a directory !"
+      exit 1
+  fi
+  for i in ${dir}/${ext}; do
+      echo "* ${title}"
+      if [ ! -z ${options} ]; then
+          echo ":PROPERTIES:"
+          echo ${options}
+          echo ":END:"
+      fi
+      echo "#+BEGIN_CENTER"
+      echo "#+ATTR_LATEX: :width ${width}"
+      echo "[[file:${i}]]"
+      echo "#+END_CENTER"
+  done
+#+END_SRC
+
 ** LaTeX hacks
 *** VC status
 #+NAME: vc-status
