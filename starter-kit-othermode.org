@@ -458,3 +458,9 @@ tutorial]])
 #+BEGIN_SRC emacs-lisp
   (require 'lorem-ipsum)
 #+END_SRC
+
+** script-mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
