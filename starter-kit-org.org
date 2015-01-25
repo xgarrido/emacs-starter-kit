@@ -495,6 +495,22 @@ environment into figure
   (add-to-list 'org-export-filter-table-functions 'sk-multicolumn-figure)
 #+END_SRC
 
+**** Lowercase =\begin/\end= environment
+#+BEGIN_SRC emacs-lisp
+  (defun latex::downcase-begin-filter (contents backend info)
+    (when (org-export-derived-backend-p backend 'latex)
+      (replace-regexp-in-string "\\\\begin{.*}"
+                              (lambda (str) (downcase str))
+                              contents nil t)))
+  (defun latex::downcase-end-filter (contents backend info)
+    (when (org-export-derived-backend-p backend 'latex)
+      (replace-regexp-in-string "\\\\end{.*}"
+                              (lambda (str) (downcase str))
+                              contents nil t)))
+  (add-to-list 'org-export-filter-final-output-functions 'latex::downcase-begin-filter)
+  (add-to-list 'org-export-filter-final-output-functions 'latex::downcase-end-filter)
+#+END_SRC
+
 *** KOMA/LaTeX script
 Define a special =org-latex-classes= to make use of KOMA/LaTeX letter
 style. The =ox-koma-letter= backend from org-mode contribution directory must
