@@ -249,7 +249,7 @@ The following lines provide several "useful" functions. To use them, do
 #+HEADERS: :var title="Empty title"
 #+HEADERS: :var dir="./figures" :var ext="*.pdf"
 #+HEADERS: :var width="\linewidth" :var options=""
-#+BEGIN_SRC sh :results raw :exports none
+#+BEGIN_SRC shell :results raw :exports none
   if [ ! -d ${dir} ]; then
       echo "${dir} is not a directory !"
       exit 1
@@ -461,7 +461,17 @@ We define a new environment for "colored" box
   (setq org-beamer-outline-frame-title "")
   (setq org-beamer-outline-frame-options "plain")
 #+END_SRC
+
 *** Filters
+**** Get headline properties
+From Rasmus
+#+BEGIN_SRC emacs-lisp
+(defun sk-get-org-headline-string-element  (headline backend info)
+  "Return the org element representation of an element.  Does not
+    work with verbatim only headlines, e.g. \"* ~Verb~.\""
+  (let ((prop-point (next-property-change 0 headline)))
+    (if prop-point (plist-get (text-properties-at prop-point headline) :parent))))
+#+END_SRC
 **** Ignore headline
 Add a new tag =ignoreheading= to skip headline tagged as such.
 #+BEGIN_SRC emacs-lisp
@@ -749,7 +759,7 @@ finished. This is achieved with
 #+END_SRC
 
 ** Misc.
-*** Edit email from thunerbird within emacs
+*** Edit email from thunderbird within emacs
 [[http://globs.org/articles.php?pg=2&lng=en][External editor]] allows to edit mail from thunderbird within emacs. Here, we just
 set the default writing mode to be =org= for =.eml= files.
 #+BEGIN_SRC emacs-lisp
