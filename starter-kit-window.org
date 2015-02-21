@@ -44,6 +44,7 @@ evaluated a theme is activated using the =load-theme= function.
 #+END_SRC
 
 *** Custom solarized theme
+
 A light variant of the [[https://github.com/bbatsov/solarized-emacs][Solarized]] color theme. The basic idea is to
 keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some =face= changes for
@@ -51,55 +52,61 @@ some small part of it here. There is also some =face= changes for
 #+BEGIN_SRC emacs-lisp
   (require 'solarized)
   (defun sk-solarized-childtheme ()
-    (custom-theme-set-faces
-     theme-name
-     ;; Modeline and powerline
-     `(mode-line           ((,class (:foreground ,solarized-bg
-                                                 :background ,blue :box nil))))
-     `(mode-line-inactive  ((,class (:foreground ,solarized-bg
-                                                 :background ,blue-d :box nil))))
-     `(mode-line-buffer-id ((,class (:foreground ,solarized-bg :box nil))))
-     `(powerline-active1   ((,class (:background "gray25"))))
-     `(powerline-inactive1 ((,class (:background "gray25"))))
-     `(powerline-active2   ((,class (:background "gray40"))))
-     `(powerline-inactive2 ((,class (:background "gray40"))))
-     `(which-func ((,class (:foreground ,magenta :weight bold))))
-     `(header-line         ((,class (:background ,solarized-bg
-                                                 :foreground ,solarized-fg
-                                                 :underline nil
-                                                 :overline nil))))
-     ;; Change some org faces
-     `(org-document-title        ((,class (:foreground ,blue-hc :weight bold))))
-     `(org-document-info         ((,class (:foreground ,blue-hc))))
-     `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
-     `(org-table ((,class (:foreground ,blue-d))))
-     `(org-level-1 ((,class (:foreground ,orange))))
-     `(org-level-2 ((,class (:foreground ,green))))
-     `(org-level-3 ((,class (:foreground ,blue))))
-     `(org-level-4 ((,class (:foreground ,yellow))))
-     `(org-level-5 ((,class (:foreground ,cyan))))
-     `(org-level-6 ((,class (:foreground ,green))))
-     `(org-level-7 ((,class (:foreground ,red))))
-     `(org-level-8 ((,class (:foreground ,blue))))
-     ;; Autocomplete faces
-     `(ac-candidate-face ((,class (:background ,solarized-hl :foreground ,yellow))))
-     `(ac-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
-     `(ac-candidate-mouse-face ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
-     `(ac-completion-face ((,class (:foreground ,solarized-emph :underline t))))
-     `(ac-gtags-candidate-face ((,class (:background ,solarized-hl :foreground ,blue))))
-     `(ac-gtags-selection-face ((,class (:background ,blue-lc :foreground ,blue-hc))))
-     `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
-     `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
-     ;; Linum & fringe
-     `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-     `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-     ))
+    (let* ((solarized-fg (if (eq variant 'light) s-base00 "#CCCCCC"))
+           (solarized-bg (if (eq variant 'light) s-base3 "#1A1A1A"))
+           (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg)))
+
+      (custom-theme-set-faces
+       theme-name
+       ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+
+       ;; Modeline and powerline
+       `(mode-line           ((,class (:foreground ,modeline-fg
+                                                   :background ,blue :box nil))))
+       `(mode-line-inactive  ((,class (:foreground ,modeline-fg
+                                                   :background ,blue-d :box nil))))
+       `(mode-line-buffer-id ((,class (:foreground ,modeline-fg :box nil))))
+       `(powerline-active1   ((,class (:background "gray25"))))
+       `(powerline-inactive1 ((,class (:background "gray25"))))
+       `(powerline-active2   ((,class (:background "gray40"))))
+       `(powerline-inactive2 ((,class (:background "gray40"))))
+       `(which-func ((,class (:foreground ,magenta :weight bold))))
+       `(header-line         ((,class (:background ,solarized-bg
+                                                   :foreground ,solarized-fg
+                                                   :underline nil
+                                                   :overline nil))))
+       ;; Change some org faces
+       `(org-document-title        ((,class (:foreground ,blue-hc :weight bold))))
+       `(org-document-info         ((,class (:foreground ,blue-hc))))
+       `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
+       `(org-table ((,class (:foreground ,blue-d))))
+       `(org-level-1 ((,class (:foreground ,orange))))
+       `(org-level-2 ((,class (:foreground ,green))))
+       `(org-level-3 ((,class (:foreground ,blue))))
+       `(org-level-4 ((,class (:foreground ,yellow))))
+       `(org-level-5 ((,class (:foreground ,cyan))))
+       `(org-level-6 ((,class (:foreground ,green))))
+       `(org-level-7 ((,class (:foreground ,red))))
+       `(org-level-8 ((,class (:foreground ,blue))))
+       ;; Autocomplete faces
+       `(ac-candidate-face ((,class (:background ,solarized-hl :foreground ,yellow))))
+       `(ac-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
+       `(ac-candidate-mouse-face ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
+       `(ac-completion-face ((,class (:foreground ,solarized-emph :underline t))))
+       `(ac-gtags-candidate-face ((,class (:background ,solarized-hl :foreground ,blue))))
+       `(ac-gtags-selection-face ((,class (:background ,blue-lc :foreground ,blue-hc))))
+       `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
+       `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
+       ;; Linum & fringe
+       `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       )))
 #+END_SRC
 
 Define new theme (since definition occurs here it is loaded by default)
 #+BEGIN_SRC emacs-lisp
-  (deftheme sk-solarized-light)
-  (create-solarized-theme 'light 'sk-solarized-light 'sk-solarized-childtheme)
+  (deftheme sk-solarized)
+  (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme)
 #+END_SRC
 
 ** UI settings
