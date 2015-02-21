@@ -87,3 +87,40 @@ to ease the code navigation.
 
   (c-add-style "my-cc-mode" my-cc-style)
 #+END_SRC
+** Automatically adding object name
+From [[http://oremacs.com/2015/01/15/c++-smart-dot/]]
+
+#+BEGIN_SRC emacs-lisp
+  (defconst c++-var-regex "[A-Za-z][A-Za-z0-9_]*"
+    "The regex for C++ variable name.")
+
+  (defun c++-get-recent-var ()
+    "Return the closest thing that looks like an object.
+  The search is performed backwards through code."
+    (save-excursion
+      (when (or
+             ;; variable dot chain
+             (looking-back
+              (format " \\(%s\\)\\.%s.*\n[\t ]*"
+                      c++-var-regex
+                      c++-var-regex))
+             ;; variable constructor init
+             (looking-back
+              (format "[\t ]+\\(%s\\)\\(?:([^)]*)\\)?;[\t\n ]*"
+                      c++-var-regex))
+             ;; variable dot, first on line
+             (re-search-backward
+              (format "^[ \t]*\\(%s\\)\\." c++-var-regex) nil t))
+        (match-string-no-properties 1))))
+
+  (defun c++-smart-dot ()
+    "Insert a dot or an object name plus dot when appropriate."
+    (interactive)
+    (let (var-name)
+      (if (and (looking-back "^[ \t]*")
+               (setq var-name (c++-get-recent-var)))
+          (insert var-name ".")
+        (insert "."))))
+  (eval-after-load "cc-mode"
+    `(define-key c++-mode-map "." 'c++-smart-dot))
+#+END_SRC
