@@ -481,18 +481,6 @@ Add a new tag =ignoreheading= to skip headline tagged as such.
   (add-to-list 'org-export-before-parsing-hook 'sk-ignore-headline)
 #+END_SRC
 
-**** Remove section number
-Add a new tag =ignoresecnumber= to remove section number from headline.
-#+BEGIN_SRC emacs-lisp
-  (defun sk-ignore-section-number (contents backend info)
-    (when (and (org-export-derived-backend-p backend 'latex)
-               (string-match "\\`.*ignoresecnumber.*\n"
-                             (downcase contents)))
-      (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\section\*"
-      (replace-regexp-in-string "\\\\textsc{ignoresecnumber}" "" contents))))
-    (add-to-list 'org-export-filter-headline-functions 'sk-ignore-section-number)
-#+END_SRC
-
 **** Change =table= into =figure= env
 When graphics are placed into table cells then change the default table
 environment into figure
