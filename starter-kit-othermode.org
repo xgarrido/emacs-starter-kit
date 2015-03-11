@@ -344,6 +344,12 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
   (setq projectile-sort-order 'recentf)
 #+END_SRC
 
+** golden-ratio
+#+BEGIN_SRC emacs-lisp
+  (require 'golden-ratio)
+  (golden-ratio-mode 1)
+  (diminish 'golden-ratio-mode)
+#+END_SRC
 ** latex-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))
