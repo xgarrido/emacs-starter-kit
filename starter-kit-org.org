@@ -615,6 +615,10 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (setq org-latex-table-caption-above nil)
 #+END_SRC
 
+*** Force figure positionning
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-default-figure-position "!htb")
+#+END_SRC
 *** Configuring =org-latex-preview=
 - Set the program to create formula (either =dvipng= or =imagemagick=)
 #+BEGIN_SRC emacs-lisp
