@@ -53,11 +53,13 @@ installed packages.
   (depends-on "lorem-ipsum")              ; Insert lorem-ipsum
   (depends-on "fold-this")                ; (Un)Fold active region
   (depends-on "flex-isearch")             ; Fuzzy matching for isearch
+  (depends-on "golden-ratio")             ; Rescale buffer given golden ratio
 #+END_SRC
 
 ** Completion & expansion
 #+BEGIN_SRC emacs-lisp
   (depends-on "auto-complete")
+  (depends-on "hydra")
 #+END_SRC
 
 ** Markup languages
