@@ -158,6 +158,55 @@ See [[https://github.com/rejeep/drag-stuff]]
                      (diminish 'drag-stuff-mode));; "⇅"))
   (drag-stuff-global-mode)
 #+END_SRC
+** projectile-mode
+[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
+#+BEGIN_SRC emacs-lisp
+  (projectile-global-mode)
+#+END_SRC
+
+*** Remove directory name when completing
+Stolen from [[https://gist.github.com/rejeep/5933343]].
+#+BEGIN_SRC emacs-lisp
+  (defun rejeep-projectile-completion-fn (prompt choises)
+    "Projectile completion function that only shows file name.
+  If two files have same name, new completion appears to select between
+  them. These include the path relative to the project root."
+    (interactive)
+    (let* ((stripped-choises
+            (-uniq (--map (file-name-nondirectory it) choises)))
+           (choise
+            (ido-completing-read prompt stripped-choises))
+           (matching-files
+            (-filter
+             (lambda (file)
+               (equal (file-name-nondirectory file) choise))
+             choises)))
+      (if (> (length matching-files) 1)
+          (ido-completing-read prompt matching-files)
+        (car matching-files))))
+
+  (setq projectile-completion-system 'rejeep-projectile-completion-fn)
+#+END_SRC
+
+*** Reduce modeline information
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-mode-line
+        '(:propertize
+          (:eval (format " ❬⊶ %s❭"
+                         (truncate-string-to-width (projectile-project-name) 10 nil nil "…")))
+          ))
+#+END_SRC
+
+*** Set bookmark directory
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld"
+                                                         temporary-file-directory))
+#+END_SRC
+
+*** Sort file by most recent
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-sort-order 'recentf)
+#+END_SRC
 ** Magit settings
 #+BEGIN_SRC emacs-lisp
   (require 'magit)
