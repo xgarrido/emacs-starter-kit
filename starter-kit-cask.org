@@ -15,6 +15,7 @@ local Emacs installation and Emacs package development.
 [[https://github.com/rdallasgray/pallet][pallet]] will manage latter the Cask file if you do =pallet-init=. I strongly
 recommend not to do that and only use =pallet-update= command to update
 installed packages.
+
 ** Defining sources
 #+BEGIN_SRC emacs-lisp
   (source melpa)
@@ -60,6 +61,7 @@ installed packages.
 #+BEGIN_SRC emacs-lisp
   (depends-on "auto-complete")
   (depends-on "hydra")
+  (depends-on "key-chord")                ; Map pairs of simultaneously pressed keys
 #+END_SRC
 
 ** Markup languages
