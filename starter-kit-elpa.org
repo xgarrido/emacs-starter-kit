@@ -132,6 +132,10 @@ code are largely inspired by [[http://toumorokoshi.github.com/automatic-package-
           :description "Soft mouse scrolling."
           :type github
           :pkgname "kiwanami/emacs-inertial-scroll")
+         (:name ox-ioslide
+          :description "Export your Org document to Google I/O HTML5 slide."
+          :type github
+          :pkgname "coldnew/org-ioslide")
          )
        )
 #+END_SRC
