@@ -592,14 +592,17 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
   (setq org-latex-preview-ltxpng-directory "ltxpng/")
 #+END_SRC
 
-** Other exporters
+** Other exporters                                               :nottangle:
+:PROPERTIES:
+:TANGLE: no
+:END:
 *** Org-ioslide
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (require 'ox-ioslide)
 #+END_SRC
-*** Org-reveal                                                  :nottangle:
+*** Org-reveal
 [[https://github.com/yjwen/org-reveal/][=org-reveal=]] exports =org= documents to reveal.js presentations.
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (require 'ox-reveal)
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/2.5.0/")
   (setq org-reveal-hlevel 2)
