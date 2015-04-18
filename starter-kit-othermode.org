@@ -409,7 +409,7 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 ** golden-ratio
 #+BEGIN_SRC emacs-lisp
   (require 'golden-ratio)
-  (golden-ratio-mode 1)
+  ;; (golden-ratio-mode 1)
   (diminish 'golden-ratio-mode)
 #+END_SRC
 ** hydra
@@ -488,7 +488,7 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+BEGIN_SRC emacs-lisp
   (require 'key-chord)
   (key-chord-define-global "qq" 'delete-window)
-  (key-chord-define-global "oo" 'delete-other-windows)
+  (key-chord-define-global "ùù" 'delete-other-windows)
   (key-chord-mode +1)
 #+END_SRC
 
@@ -496,6 +496,7 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+BEGIN_SRC emacs-lisp
   (setq swiper-completion-method 'ivy)
   (global-set-key "\C-s" 'swiper)
+  (setq recenter-positions '(top middle bottom))
 #+END_SRC
 
 ** latex-mode
