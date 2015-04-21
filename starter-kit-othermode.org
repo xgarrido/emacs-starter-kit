@@ -509,10 +509,13 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+END_SRC
 
 ** swiper
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq swiper-completion-method 'ivy)
   (global-set-key "\C-s" 'swiper)
   (setq recenter-positions '(top middle bottom))
+  (require 'ivy)
+  (define-key ivy-minibuffer-map (kbd "<up>") 'ivy-previous-line)
+  (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
 #+END_SRC
 
 ** latex-mode
