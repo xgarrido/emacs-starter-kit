@@ -40,6 +40,7 @@ installed packages.
   (depends-on "idle-highlight-mode")      ; Highlights all occurences
   (depends-on "highlight-parentheses")    ; Highlight parentheses
   (depends-on "rainbow-mode")             ; Interpret HTML color code
+  (depends-on "hideshowvis")              ; Hide/Show block in fringe
 #+END_SRC
 
 ** Editing utilities

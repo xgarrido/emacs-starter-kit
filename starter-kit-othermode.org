@@ -518,6 +518,12 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
   (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
 #+END_SRC
 
+** hideshowvis
+#+BEGIN_SRC emacs-lisp
+  (require 'hideshowvis)
+  (define-fringe-bitmap 'hideshowvis-hideable-marker [0 0 254 124 56 16 0 0])
+  (define-fringe-bitmap 'hs-marker [0 32 48 56 60 56 48 32])
+#+END_SRC
 ** latex-mode
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.tikz\\'" . latex-mode))

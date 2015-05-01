@@ -210,9 +210,9 @@ The latest version is at http://github.com/xgarrido/emacs24-starter-kit/
 :CUSTOM_ID: implementation
 :END:
 
-This section contains all code implementing the Emacs Starter Kit.  It
-is probably safe to stop reading at this point unless you are
-interested in the actual code implementing the starter kit.
+This section contains all code implementing the Emacs Starter Kit. It is
+probably safe to stop reading at this point unless you are interested in the
+actual code implementing the starter kit.
 
 ** Starter kit basics
 - Load path etc.
@@ -295,9 +295,9 @@ interested in the actual code implementing the starter kit.
 :PROPERTIES:
 :CUSTOM_ID: starter-kit-core
 :END:
-The following files contain the remainder of the core of the Emacs
-Starter Kit.  All of the code in this section should be loaded by
-everyone using the starter kit.
+The following files contain the remainder of the core of the Emacs Starter Kit.
+All of the code in this section should be loaded by everyone using the starter
+kit.
 
 - ELPA archive repositories and packages to install by default in [[file:starter-kit-elpa.org][starter-kit-elpa]]
   #+BEGIN_SRC emacs-lisp
