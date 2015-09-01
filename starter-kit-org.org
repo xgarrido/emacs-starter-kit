@@ -500,13 +500,15 @@ environment into figure
       (replace-regexp-in-string "\\\\begin{CBOX}"     "\\\\begin{cbox}"
       (replace-regexp-in-string "\\\\begin{QUESTION}" "\\\\begin{question}"
       (replace-regexp-in-string "\\\\begin{REMARK}"   "\\\\begin{remark}"
-                              contents)))))
+      (replace-regexp-in-string "\\\\begin{ABSTRACT}" "\\\\begin{abstract}"
+                              contents))))))
   (defun latex::downcase-end-filter (contents backend info)
     (when (org-export-derived-backend-p backend 'latex)
       (replace-regexp-in-string "\\\\end{CBOX}"     "\\\\end{cbox}"
       (replace-regexp-in-string "\\\\end{QUESTION}" "\\\\end{question}"
       (replace-regexp-in-string "\\\\end{REMARK}"   "\\\\end{remark}"
-                              contents)))))
+      (replace-regexp-in-string "\\\\end{ABSTRACT}" "\\\\end{abstract}"
+                              contents))))))
   (add-to-list 'org-export-filter-final-output-functions 'latex::downcase-begin-filter)
   (add-to-list 'org-export-filter-final-output-functions 'latex::downcase-end-filter)
 #+END_SRC
