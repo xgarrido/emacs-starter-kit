@@ -31,14 +31,14 @@ added to melpa).
 
 ** External Lisp files
 *** trac-wiki
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (install-site-lisp-file
    "trac-wiki"
    (list "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"))
 #+END_SRC
 
 *** inertial-scroll
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (install-site-lisp-file
    "inertial-scroll"
    (list
