@@ -206,7 +206,6 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 
   (setq projectile-completion-system 'rejeep-projectile-completion-fn)
 #+END_SRC
-
 *** Reduce modeline information
 #+BEGIN_SRC emacs-lisp
   (setq projectile-mode-line
@@ -239,6 +238,11 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
   (setq magit-omit-untracked-dir-contents t)
 #+END_SRC
 
+*** Do not verify where to push
+#+BEGIN_SRC emacs-lisp
+  (setq magit-push-always-verify nil)
+#+END_SRC
+
 *** Fullscreen magit-status
 From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 #+BEGIN_SRC emacs-lisp
@@ -256,32 +260,11 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (global-set-key (kbd "M-s") 'magit-status)
 
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-  (define-key magit-status-mode-map (kbd "p") 'magit-push)
+  (define-key magit-status-mode-map (kbd "p") 'magit-push-current)
   (require 'magit-svn)
   (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
 #+END_SRC
 
-*** Magit commit mode
-#+BEGIN_SRC emacs-lisp
-  (defun magit-exit-commit-mode ()
-    (interactive)
-    (kill-buffer)
-    (delete-window))
-
-  (eval-after-load "git-commit-mode"
-    '(define-key git-commit-mode-map (kbd "C-c C-k") 'magit-exit-commit-mode))
-
-  (defun magit-commit-mode-init ()
-    (when (looking-at "\n")
-      (open-line 1)))
-
-  (add-hook 'git-commit-mode-hook 'magit-commit-mode-init)
-
-  (defadvice git-commit-commit (after delete-window activate)
-    (delete-window))
-
-  (add-hook 'git-commit-mode-hook (lambda () (auto-complete-mode t)))
-#+END_SRC
 *** Colored diff                                                :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq magit-diff-refine-hunk 'all)
@@ -289,33 +272,16 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 
 *** Diminish =magit= auto revert mode
 #+BEGIN_SRC emacs-lisp
-  (diminish 'magit-auto-revert-mode)
+  ;;(diminish 'magit-auto-revert-mode)
 #+END_SRC
 
 *** Automatically enable =magit-svn-mode=
 Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-magit/]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'magit-mode-hook (lambda()
                                (require 'magit-svn)
-                               (if (magit-svn-get-ref-info)
-                                   (magit-svn-mode))))
+                               (magit-svn-mode)))
 #+END_SRC
-
-*** Navigating arround git project
-#+BEGIN_SRC emacs-lisp
-  (setq magit-repo-dirs
-        (mapcar
-         (lambda (dir)
-           (substring dir 0 -1))
-         (cl-remove-if-not
-          (lambda (project)
-            (unless (file-remote-p project)
-              (file-directory-p (concat project "/.git/"))))
-          (projectile-relevant-known-projects))))
-  (setq magit-completing-read-function 'magit-ido-completing-read)
-#+END_SRC
-
-Defining =hydra=
 
 ** Git gutter settings
 #+BEGIN_SRC emacs-lisp
@@ -362,7 +328,7 @@ Defining =hydra=
     "Face of untracked file in git repository"
     :group 'dired-k)
   (require 'direx-k)
-  (define-key direx:direx-mode-map (kbd "g") 'direx-k)
+  (define-key direx:direx-mode-map (kbd "G") 'direx-k)
 #+END_SRC
 
 ** diff-hl settings                                                :nottangle:
@@ -375,7 +341,11 @@ Tweak face by removing the foreground colors
     )
   ;;(global-diff-hl-mode)
 #+END_SRC
-** projectile-mode
+** projectile-mode                                                :nottangle:
+:PROPERTIES:
+:TANGLE: no
+:END:
+
 [[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
 #+BEGIN_SRC emacs-lisp
   (projectile-global-mode)
@@ -511,7 +481,7 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
   (key-chord-mode +1)
 #+END_SRC
 
-** swiper
+** swiper                                                        :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (setq swiper-completion-method 'ivy)
   (global-set-key "\C-s" 'swiper)
@@ -607,7 +577,7 @@ tutorial]])
   (require 'auto-complete-config)
   ;; (global-auto-complete-mode t)
   (ac-config-default)
-  (setq ac-auto-start 6)
+  (setq ac-auto-start 3)
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
@@ -619,7 +589,10 @@ tutorial]])
   (require 'expand-region)
   (global-set-key (kbd "C-w") 'er/expand-region)
 #+END_SRC
-** multiple-cursors mode
+** multiple-cursors mode                                         :nottangle:
+:PROPERTIES:
+:TANGLE: no
+:END:
 #+BEGIN_SRC emacs-lisp
   (require 'multiple-cursors)
   (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
