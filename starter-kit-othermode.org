@@ -174,7 +174,10 @@ See [[https://github.com/rejeep/drag-stuff]]
                      (diminish 'drag-stuff-mode));; "⇅"))
   (drag-stuff-global-mode)
 #+END_SRC
-** projectile-mode
+** projectile-mode                                               :nottangle:
+:PROPERTIES:
+:TANGLE: no
+:END:
 [[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
 #+BEGIN_SRC emacs-lisp
   (projectile-global-mode)
