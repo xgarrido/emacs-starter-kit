@@ -12,15 +12,18 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
 ** Running starter-kit-coding-hook
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'c-mode-common-hook 'run-starter-kit-coding-hook)
+  (add-hook 'c-mode-common-hook 'run-starter-kit-coding-hook
+            'hideshowvis-minor-mode)
 #+END_SRC
+
 ** Un/fold function/namespace definitions
 #+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook
             (lambda ()
               ;; hungry delete
               ;;(c-toggle-hungry-state t)
-              (whitespace-mode t)))
+              ;;(whitespace-mode t)
+))
 #+END_SRC
 
 ** Compilation
@@ -81,12 +84,16 @@ to ease the code navigation.
 
 ** No indentation within namespace block
 #+BEGIN_SRC emacs-lisp :tangle no
-  (defconst my-cc-style
-    '("cc-mode"
-      (c-offsets-alist . ((innamespace . [0])))))
-
-  (c-add-style "my-cc-mode" my-cc-style)
+  ;;  (defconst my-cc-style
+  ;;    '("cc-mode"
+  ;;      (c-offsets-alist . ((innamespace . [0])))))
+  ;;
+  ;;  (c-add-style "my-cc-style" my-cc-style)
+  (defun my-c-setup ()
+     (c-set-offset 'innamespace [0]))
+  (add-hook 'c++-mode-hook 'my-c-setup)
 #+END_SRC
+
 ** Automatically adding object name
 From [[http://oremacs.com/2015/01/15/c++-smart-dot/]]
 

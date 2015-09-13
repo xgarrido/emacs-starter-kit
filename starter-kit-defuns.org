@@ -47,7 +47,6 @@ a lambda doesn't already exist in the list.
     (local-set-key (kbd "<s-down>")  'hs-show-all)
     (hs-minor-mode   t)
     (diminish 'hs-minor-mode)
-    (hideshowvis-minor-mode t)
     )
 #+END_SRC
 
