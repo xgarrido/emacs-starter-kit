@@ -26,73 +26,150 @@ managers.  This should not work under Windows system since it does not have the
               (network-interface-list)) t))
 #+END_SRC
 
-** ELPA                                                         :noexport:
-:PROPERTIES:
-:TANGLE: no
-:END:
+** ELPA
+
 *** Defining ELPA sources
 #+BEGIN_SRC emacs-lisp
   (setq package-archives
         '(("gnu"         . "http://elpa.gnu.org/packages/")
-          ("original"    . "http://tromey.com/elpa/")
-          ("org"         . "http://orgmode.org/elpa/")
           ("marmalade"   . "http://marmalade-repo.org/packages/")
           ("melpa"       . "http://melpa.org/packages/")))
   (package-initialize)
+  (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
+    (package-refresh-contents))
 #+END_SRC
 
-*** Default packages
 #+BEGIN_SRC emacs-lisp
-  (defvar starter-kit-packages
-    (list 'yasnippet-bundle
-          'magit
-          'smex
-          'solarized-theme
-          'markdown-mode
-          'highlight-parentheses
-          'idle-highlight-mode
-          'auto-complete
-          'cmake-mode
-          'org-bullets
-          'ido-ubiquitous
-          'dired-details
-          'powerline
-          'rainbow-mode
-          'diminish
-          'wrap-region
-          'multi-term
-          'multi-web-mode
-          'go-mode
-          'gnuplot
-          'undo-tree
-          'fill-column-indicator
-          'xml-rpc
-          'ack-and-a-half
-          'smartparens
-          'htmlize
-          'flx
-          'git-gutter-fringe+)
-    "Libraries that should be installed by default.")
+(defun starter-packages-install (packages)
+  (dolist (it packages)
+    (when (not (package-installed-p it))
+      (package-install it)))
+  (delete-other-windows))
 #+END_SRC
 
-*** Install defun
+
+*** On-demand installation of packages
 #+BEGIN_SRC emacs-lisp
-  (defun starter-kit-elpa-install ()
-    "Install all starter-kit packages that aren't installed."
-    (interactive)
-    (dolist (package starter-kit-packages)
-      (unless (package-installed-p package)
-        (message "Installing %s" (symbol-name package))
-        (package-install package))))
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
 #+END_SRC
 
-*** Installing ELPA package
+*** Install packages
+**** Header function
 #+BEGIN_SRC emacs-lisp
-  (when (starter-kit-elpa-online)
-    (unless package-archive-contents (package-refresh-contents))
-    (starter-kit-elpa-install))
+  (defun starter-install-packages ()
+    (starter-packages-install
+     '(
 #+END_SRC
+
+**** Color themes & customization
+#+BEGIN_SRC emacs-lisp
+  solarized-theme
+  powerline
+#+END_SRC
+
+**** UI improvements
+#+BEGIN_SRC emacs-lisp
+  diminish                 ; De-clutter mode line
+  smex                     ; Improved M-x
+  flx-ido                  ; Powerful flex matching for IDO
+  ido-ubiquitous           ; Use IDO for all `completing-read's…
+  ido-at-point             ; …and even for completion-at-point
+  idle-highlight-mode      ; Highlights all occurences
+  highlight-parentheses    ; Highlight parentheses
+  rainbow-mode             ; Interpret HTML color code
+  hideshowvis              ; Hide/Show block in fringe
+#+END_SRC
+
+**** Editing utilities
+#+BEGIN_SRC emacs-lisp
+  fill-column-indicator    ; Indicate fill column
+  smartparens              ; Parenthesis reloaded
+  undo-tree                ; Undo reloaded
+  wrap-region              ; Wrap region
+  browse-kill-ring         ; Interactive selection of kill-ring
+  expand-region            ; Expand selection with semantic unit
+  lorem-ipsum              ; Insert lorem-ipsum
+  fold-this                ; (Un)Fold active region
+  flex-isearch             ; Fuzzy matching for isearch
+  golden-ratio             ; Rescale buffer given golden ratio
+#+END_SRC
+
+**** Completion & expansion
+#+BEGIN_SRC emacs-lisp
+  auto-complete
+  hydra
+  key-chord                ; Map pairs of simultaneously pressed keys
+#+END_SRC
+
+**** Markup languages
+#+BEGIN_SRC emacs-lisp
+  markdown-mode            ; Markdown major mode
+  multi-web-mode           ; Multi-web major mode
+#+END_SRC
+
+**** Programming languages
+#+BEGIN_SRC emacs-lisp
+  yasnippet                ; Yasnippet tool
+  cmake-mode               ; Cmake major mode
+  go-mode                  ; Go major mode
+  gnuplot                  ; Gnuplot mode
+#+END_SRC
+
+**** Git integration
+#+BEGIN_SRC emacs-lisp
+  magit                    ; Git frontend
+  magit-svn                ; Git-svn frontend
+  git-gutter               ; Show Diff state in buffer…
+#+END_SRC
+
+**** Org additions
+#+BEGIN_SRC emacs-lisp
+  org-bullets              ; Changing bullets to ASCII char
+  htmlize                  ; HTMLize org code
+#+END_SRC
+
+**** Utilities
+#+BEGIN_SRC emacs-lisp
+  dired-details
+  popwin ; popup window
+  direx
+  dired-k
+  ack-and-a-half           ; Ack frontend
+  multi-term
+  xml-rpc
+#+END_SRC
+
+**** Package & project manager
+#+BEGIN_SRC emacs-lisp
+  paradox    ; Better emacs's package menu
+  projectile ; Project manager
+#+END_SRC
+
+**** Footer function
+#+BEGIN_SRC emacs-lisp
+  )))
+
+  (condition-case nil
+      (starter-install-packages)
+    (error
+     (package-refresh-contents)
+     (starter-install-packages)))
+#+END_SRC
+
 ** =el-get=
+:PROPERTIES:
+:TANGLE: no
+:END:
 [[https://github.com/dimitri/el-get][=el-get=]] allows you to install and manage elisp code for Emacs. It supports lots
 of differents types of sources and is able to install them, update them and
 remove them, but more importantly it will init them for you. The next pieces of
@@ -112,15 +189,7 @@ code are largely inspired by [[http://toumorokoshi.github.com/automatic-package-
 *** Setup packages
 #+BEGIN_SRC emacs-lisp
   (setq el-get-sources
-       '((:name cask
-          :description "Emacs dependency management"
-          :type github
-          :pkgname "cask/cask")
-         (:name pallet
-          :description "A package management tool for Emacs, built on Cask"
-          :type github
-          :pkgname "rdallasgray/pallet")
-         (:name trac-wiki
+       '((:name trac-wiki
           :description "Simple but efficient interface to Trac."
           :type github
           :pkgname "tiborsimko/trac-wiki-el")
@@ -142,7 +211,9 @@ code are largely inspired by [[http://toumorokoshi.github.com/automatic-package-
 
 *** Install packages
 #+BEGIN_SRC emacs-lisp
-  (mapc (lambda (f)
-          (let ((name (plist-get f :name)))
-            (when (not (require name nil t)) (el-get-install name)))) el-get-sources)
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  (el-get 'sync)
+  ;; (mapc (lambda (f)
+  ;;         (let ((name (plist-get f :name)))
+  ;;           (when (not (require name nil t)) (el-get-install name)))) el-get-sources)
 #+END_SRC
