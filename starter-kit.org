@@ -218,11 +218,11 @@ actual code implementing the starter kit.
 - Load path etc.
   #+name: starter-kit-load-paths
   #+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path starter-kit-dir)
     (setq autoload-file (concat starter-kit-dir "loaddefs.el"))
     ;;(setq package-user-dir (concat starter-kit-dir "elpa"))
     (setq custom-file (concat starter-kit-dir "custom.el"))
     (setq starter-kit-lisp-directory (concat starter-kit-dir "lisp/"))
+    (add-to-list 'load-path starter-kit-lisp-directory)
   #+END_SRC
 
 - Ubiquitous Packages which should be loaded on startup rather than
@@ -304,11 +304,6 @@ kit.
     (starter-kit-load "starter-kit-elpa.org")
   #+END_SRC
 
-- Cask initialization in [[file:starter-kit-cask.org][starter-kit-cask]]
-  #+BEGIN_SRC emacs-lisp
-    (starter-kit-load "starter-kit-cask.org")
-  #+END_SRC
-
 - External lisp files in [[file:starter-kit-site-lisp.org][starter-kit-site-lisp]]
   #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-site-lisp.org")
@@ -330,6 +325,9 @@ kit.
   #+END_SRC
 
 ** Load module files
+:PROPERTIES:
+:TANGLE: no
+:END:
 The following files contain specific settings for several modules.
 
 - [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things within
