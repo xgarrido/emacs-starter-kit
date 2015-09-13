@@ -236,6 +236,7 @@ actual code implementing the starter kit.
     (require 'ansi-color)
     (require 'recentf)
     (require 'linum)
+    (require 'dired)
   #+END_SRC
 
 - Functions for loading other parts of the starter kit
@@ -325,9 +326,6 @@ kit.
   #+END_SRC
 
 ** Load module files
-:PROPERTIES:
-:TANGLE: no
-:END:
 The following files contain specific settings for several modules.
 
 - [[http://emacswiki.org/emacs/InteractivelyDoThings][Interactively Do Things]] aka ido lets you do interactively things within
