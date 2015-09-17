@@ -102,6 +102,7 @@ re-downloaded in order to locate PACKAGE."
   fold-this                ; (Un)Fold active region
   flex-isearch             ; Fuzzy matching for isearch
   golden-ratio             ; Rescale buffer given golden ratio
+  wgrep                    ; Writable grep buffer
 #+END_SRC
 
 **** Completion & expansion
