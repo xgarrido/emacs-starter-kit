@@ -336,12 +336,13 @@ called every time a file is changed (through =after-save-hook= hook).
   (defpowerline sk-powerline-vc
     (when (and (buffer-file-name (current-buffer))
                vc-mode)
-      (format-mode-line '(" ❬↯ " (:propertize
+      (format-mode-line '(" ❬⊶ " (:propertize
                                   ;; Strip the backend name from the VC status information
                                   (:eval (let ((backend (symbol-name (vc-backend (buffer-file-name)))))
                                            (substring vc-mode (+ (length backend) 2))))
                                   ) "❭"))))
 #+END_SRC
+
 *** Powerline theme
 #+BEGIN_SRC emacs-lisp
   (defun sk-powerline-default-theme ()
