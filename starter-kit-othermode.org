@@ -620,3 +620,7 @@ tutorial]])
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p)
 #+END_SRC
+** firestarter-mode
+#+BEGIN_SRC emacs-lisp
+  (setq firestarter-lighter "↯")
+#+END_SRC
