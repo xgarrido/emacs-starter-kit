@@ -16,7 +16,7 @@ If there is no internet connection then no way to use any of the package
 managers.  This should not work under Windows system since it does not have the
 =network-interface-list= function
 #+BEGIN_SRC emacs-lisp
-  (defun starter-kit-elpa-online ()
+  (defun sk-elpa-online ()
     "Check internet connectivity."
     (if (and (functionp 'network-interface-list)
              (network-interface-list))
@@ -46,7 +46,6 @@ managers.  This should not work under Windows system since it does not have the
       (package-install it)))
   (delete-other-windows))
 #+END_SRC
-
 
 *** On-demand installation of packages
 #+BEGIN_SRC emacs-lisp
