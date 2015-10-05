@@ -35,7 +35,9 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 *** Send notification when compilation is done
 #+BEGIN_SRC emacs-lisp
   (defun compile-notify (buffer message)
-    (sk-popup "Emacs compilation" message))
+    (if (string-match "^finished" message)
+        (sk-popup "Emacs compilation" message "normal")
+      (sk-popup "Emacs compilation fail" message "critical")))
   (setq compilation-finish-function 'compile-notify)
 #+END_SRC
 *** Bury compilation buffer
