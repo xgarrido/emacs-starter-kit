@@ -102,7 +102,10 @@ re-downloaded in order to locate PACKAGE."
   fold-this                ; (Un)Fold active region
   flex-isearch             ; Fuzzy matching for isearch
   golden-ratio             ; Rescale buffer given golden ratio
+  ack-and-a-half           ; Ack frontend
+  ag                       ; Ag frontend
   wgrep                    ; Writable grep buffer
+  wgrep-ag                 ; Writable grep-ag buffer
 #+END_SRC
 
 **** Completion & expansion
