@@ -51,8 +51,8 @@ some small part of it here. There is also some =face= changes for
 [[https://github.com/milkypostman/powerline][powerline]] (see [[Powerline][below]]).
 #+BEGIN_SRC emacs-lisp
   (defun sk-solarized-childtheme ()
-    (let* ((solarized-fg (if (eq variant 'light) s-base00 s-base0))
-           (solarized-bg (if (eq variant 'light) s-base3 s-base03))
+    (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
+           (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
            (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
            (solarized-hl (if (eq variant 'light) s-base2 s-base02))
            (solarized-emph (if (eq variant 'light) s-base01 s-base1))
@@ -114,6 +114,12 @@ Define new theme (since definition occurs here it is loaded by default)
   (load-theme 'solarized-light t)
   (deftheme sk-solarized "A slightly modified version of solarized theme.")
   (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme)
+  (defun sk-switch-to-dark-theme ()
+    (interactive)
+    (create-solarized-theme 'dark 'sk-solarized 'sk-solarized-childtheme))
+  (defun sk-switch-to-light-theme ()
+    (interactive)
+    (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme))
 #+END_SRC
 
 ** UI settings
