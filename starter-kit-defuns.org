@@ -236,14 +236,17 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
 
 *** Sending libnotify popup
 #+BEGIN_SRC emacs-lisp
-  (defun sk-popup (title msg priority)
+  (defun sk-popup (title msg &optional priority)
     "Show a popup if we're on X, or echo it otherwise; TITLE is the
-  title of the message, MSG is the context."
+  title of the message, MSG is the context and PRIORITY is the priority level."
     (if (eq window-system 'x)
-        (shell-command (concat "notify-send -t 2000 -i emacs -u " priority
-                               " '" title "' '" msg "'"))
+        (if priority
+            (shell-command (concat "notify-send -t 2000 -i emacs -u " priority
+                                   " '" title "' '" msg "'"))
+          (shell-command (concat "notify-send -t 2000 -i emacs "
+                                 " '" title "' '" msg "'"))))
       ;; text only version
-      (message (concat title ": " msg))))
+      (message (concat title ": " msg)))
   (defun sk-test-popup ()
     (interactive)
     (sk-popup "Test Notification :" "test"))
