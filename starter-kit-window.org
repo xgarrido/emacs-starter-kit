@@ -62,7 +62,7 @@ some small part of it here. There is also some =face= changes for
 
       (custom-theme-set-faces
        theme-name
-       `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+       ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
 
        ;; Modeline and powerline
        `(mode-line           ((,class (:foreground ,modeline-fg :background ,blue
@@ -338,7 +338,7 @@ called every time a file is changed (through =after-save-hook= hook).
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
         (progn
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
-          (sk-popup "git status" (concat "toto" buffer-file-name)))
+          (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification))))
         )))
 
   ;; (add-hook 'focus-in-hook 'sk-git-modeline-status)
