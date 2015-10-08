@@ -244,9 +244,9 @@ Try to use also [[https://github.com/jhelwig/ack-and-a-half][ack-and-a-half]] an
             (shell-command (concat "notify-send -t 2000 -i emacs -u " priority
                                    " '" title "' '" msg "'"))
           (shell-command (concat "notify-send -t 2000 -i emacs "
-                                 " '" title "' '" msg "'"))))
+                                 " '" title "' '" msg "'")))
       ;; text only version
-      (message (concat title ": " msg)))
+      (message (concat title ": " msg))))
   (defun sk-test-popup ()
     (interactive)
     (sk-popup "Test Notification :" "test"))
