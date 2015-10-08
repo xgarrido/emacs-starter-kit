@@ -227,7 +227,6 @@ file using the =org-babel-lob-ingest= function.
   (org-babel-lob-ingest (expand-file-name "starter-kit-org.org" starter-kit-dir))
 #+END_SRC
 
-
 *** Starter-kit library
 
 First of all, I do not want to wrap raw output with =begin/end_example=

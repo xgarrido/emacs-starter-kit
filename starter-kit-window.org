@@ -62,7 +62,7 @@ some small part of it here. There is also some =face= changes for
 
       (custom-theme-set-faces
        theme-name
-       ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+       `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
 
        ;; Modeline and powerline
        `(mode-line           ((,class (:foreground ,modeline-fg :background ,blue
@@ -114,6 +114,10 @@ Define new theme (since definition occurs here it is loaded by default)
   (load-theme 'solarized-light t)
   (deftheme sk-solarized "A slightly modified version of solarized theme.")
   (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme)
+#+END_SRC
+
+Create interactive functions to easily switch from one theme to another
+#+BEGIN_SRC emacs-lisp
   (defun sk-switch-to-dark-theme ()
     (interactive)
     (create-solarized-theme 'dark 'sk-solarized 'sk-solarized-childtheme))
@@ -328,9 +332,13 @@ called every time a file is changed (through =after-save-hook= hook).
       (setq git-clean
             (shell-command-to-string "git status -s --ignore-submodules=dirty -uno 2> /dev/null | tail -n1"))
       (if (string= "" git-clean)
-        (if (boundp 'powerline-git-face)
-            (face-remap-remove-relative powerline-git-face))
-        (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
+        (progn
+          (if (boundp 'powerline-git-face)
+              (face-remap-remove-relative powerline-git-face))
+          (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
+        (progn
+          (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
+          (sk-popup "git status" (concat "toto" buffer-file-name)))
         )))
 
   ;; (add-hook 'focus-in-hook 'sk-git-modeline-status)
