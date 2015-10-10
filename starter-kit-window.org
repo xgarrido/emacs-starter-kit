@@ -338,7 +338,7 @@ called every time a file is changed (through =after-save-hook= hook).
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
         (progn
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
-          (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification))))
+          (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification)) "low"))
         )))
 
   ;; (add-hook 'focus-in-hook 'sk-git-modeline-status)
