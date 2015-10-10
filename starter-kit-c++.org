@@ -37,7 +37,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (defun compile-notify (buffer message)
     (if (string-match "^finished" message)
         (sk-popup "Emacs compilation" message "normal")
-      (sk-popup "Emacs compilation fail" message "critical")))
+      (sk-popup "Emacs compilation fails" message "critical")))
   (setq compilation-finish-function 'compile-notify)
 #+END_SRC
 *** Bury compilation buffer
