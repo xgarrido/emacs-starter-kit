@@ -332,16 +332,16 @@ called every time a file is changed (through =after-save-hook= hook).
       (setq git-clean
             (shell-command-to-string "git status -s --ignore-submodules=dirty -uno 2> /dev/null | tail -n1"))
       (if (string= "" git-clean)
-        (progn
-          (if (boundp 'powerline-git-face)
-              (face-remap-remove-relative powerline-git-face))
-          (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
+          (progn
+            (if (boundp 'powerline-git-face)
+                (face-remap-remove-relative powerline-git-face))
+            (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
         (progn
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
           (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification)) "low"))
         )))
 
-  (add-hook 'focus-in-hook 'sk-git-modeline-status)
+  ;;(add-hook 'focus-in-hook 'sk-git-modeline-status)
   (add-hook 'after-save-hook 'sk-git-modeline-status)
 #+END_SRC
 
