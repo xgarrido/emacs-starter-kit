@@ -341,7 +341,7 @@ called every time a file is changed (through =after-save-hook= hook).
           (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification)) "low"))
         )))
 
-  ;; (add-hook 'focus-in-hook 'sk-git-modeline-status)
+  (add-hook 'focus-in-hook 'sk-git-modeline-status)
   (add-hook 'after-save-hook 'sk-git-modeline-status)
 #+END_SRC
 
