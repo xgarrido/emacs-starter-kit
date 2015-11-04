@@ -72,7 +72,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 *** Ellipsis
 #+BEGIN_SRC emacs-lisp
-  (setq org-ellipsis "…"
+  (setq org-ellipsis "⤵"
         org-columns-ellipses "…")
 #+END_SRC
 
