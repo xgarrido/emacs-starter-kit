@@ -87,6 +87,7 @@ re-downloaded in order to locate PACKAGE."
   highlight-parentheses    ; Highlight parentheses
   rainbow-mode             ; Interpret HTML color code
   hideshowvis              ; Hide/Show block in fringe
+  swiper                   ; Better i-search
 #+END_SRC
 
 **** Editing utilities
@@ -133,6 +134,7 @@ re-downloaded in order to locate PACKAGE."
   magit                    ; Git frontend
   magit-svn                ; Git-svn frontend
   git-gutter               ; Show Diff state in buffer…
+  gist                     ; Integration for gist.github.com
 #+END_SRC
 
 **** Org additions
