@@ -482,13 +482,21 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+END_SRC
 
 ** swiper                                                        :nottangle:
-#+BEGIN_SRC emacs-lisp :tangle no
-  (setq swiper-completion-method 'ivy)
-  (global-set-key "\C-s" 'swiper)
-  (setq recenter-positions '(top middle bottom))
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-s") 'swiper)
+  (setq ivy-display-style 'fancy)
+  ;; (setq swiper-completion-method 'ivy)
+  ;; (setq recenter-positions '(top middle bottom))
+  ;;advise swiper to recenter on exit
+  (defun sk-swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter)
+    )
+  (advice-add 'swiper :after #'sk-swiper-recenter)
   (require 'ivy)
   (define-key ivy-minibuffer-map (kbd "<up>") 'ivy-previous-line)
   (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-yank-word)
 #+END_SRC
 
 ** hideshowvis
