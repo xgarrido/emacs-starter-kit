@@ -134,6 +134,11 @@ display a list of the code blocks commands and their related keys.
   (setq org-export-async-debug t)
 #+END_SRC
 
+*** Hide =org= emphasis symbol
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
 ** Code blocks
 This activates a number of widely used languages, you are encouraged to activate
 more languages using the customize interface for the =org-babel-load-languages=
