@@ -31,7 +31,7 @@ Key Bindings.
 
 ** File finding
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-o")     'find-file)
+  ;; (global-set-key (kbd "C-o")     'find-file)
   (global-set-key (kbd "C-x r")   'recentf-ido-find-file)
   (global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
 #+END_SRC
