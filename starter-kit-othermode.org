@@ -307,6 +307,33 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
   ;; (setq git-gutter:deleted-sign  "⚫")
 #+END_SRC
 
+Defining hydra
+#+BEGIN_SRC emacs-lisp
+  (key-chord-define-global
+   "$$"
+   (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
+                                         :hint nil)
+     "
+  [↑] prev hunk [↓] next hunk [_s_] stage hunk [_r_] revert hunk [_p_] popup hunk [_q_] quit
+  "
+         ("<down>" git-gutter:next-hunk)
+         ("<up>" git-gutter:previous-hunk)
+         ("h" (progn (goto-char (point-min))
+                     (git-gutter:next-hunk 1)))
+         ("l" (progn (goto-char (point-min))
+                     (git-gutter:previous-hunk 1)))
+         ("s" git-gutter:stage-hunk)
+         ("r" git-gutter:revert-hunk)
+         ("p" git-gutter:popup-hunk)
+         ("R" git-gutter:set-start-revision)
+         ("q" nil :color blue)
+         )
+       )
+#+END_SRC
+
+#+RESULTS:
+: hydra-git-gutter/body
+
 ** direx & direx-k
 #+BEGIN_SRC emacs-lisp
   (require 'popwin)
