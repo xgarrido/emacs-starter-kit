@@ -2,4 +2,4 @@
 # name: dtlog
 # key: dtlog
 # --
-DT_LOG_${1:$$(upcase yas-text)}(${2:get_logging_priority()}, "${3:message}");
+DT_LOG_${1:$$(upcase yas-text)}(${2:datatools::logger::PRIO_$1}, "${3:message}");
