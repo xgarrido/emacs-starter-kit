@@ -104,6 +104,26 @@ some small part of it here. There is also some =face= changes for
        ;; Linum & fringe
        `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
        `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       ;; mu4e faces
+       `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-2-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-cited-3-face ((,class (:foreground ,orange :slant italic :weight normal))))
+       `(mu4e-cited-4-face ((,class (:foreground ,yellow :slant italic :weight normal))))
+       `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
+       `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-flagged-face ((,class (:foreground ,blue :weight normal))))
+       `(mu4e-unread-face ((,class (:foreground ,blue-d :weight bold))))
+       `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
+       `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
+       `(mu4e-header-highlight-face
+         ((,class (:inherit unspecified :foreground unspecified :background ,base02
+                            :underline unspecified  :weight unspecified))))
+       `(mu4e-view-contact-face ((,class (:foreground ,base0  :weight normal))))
+       `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
+       `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
+       `(mu4e-view-link-face ((,class (:inherit link))))
+       `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
        )))
 #+END_SRC
 
