@@ -1,0 +1,254 @@
+#+TITLE: Starter Kit =mu4e= configuration
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
+
+* =mu4e= configuration
+#+BEGIN_SRC emacs-lisp
+  (require 'mu4e)
+  (require 'smtpmail)
+
+  (setq mu4e-maildir "/home/garrido/.Maildir")
+
+  ;; set mu4e as default email client
+  (setq mail-user-agent 'mu4e-user-agent)
+
+  ;; allow for updating mail using 'U' in the main view:
+  (when (executable-find "myofflineimap")
+    (setq mu4e-get-mail-command "myofflineimap"))
+
+  ;; .offlineimaprc is a unix conf file
+  (add-to-list 'auto-mode-alist '("\\.offlineimaprc" . conf-mode))
+
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  ;; (setq mu4e-sent-messages-behavior 'delete)
+
+  ;; use 'fancy' non-ascii characters in various places in mu4e
+  ;; (setq mu4e-use-fancy-chars t)
+
+  ;; save attachment to my desktop (this can also be a function)
+  (setq mu4e-attachment-dir "/tmp/")
+
+  ;; attempt to show images when viewing messages
+  (setq mu4e-view-show-images t)
+
+  (setq mu4e-confirm-quit nil
+        mu4e-headers-date-format "%d-%m-%Y %H:%M")
+
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
+
+  ;; Check for mail 3 minute
+  (setq mu4e-update-interval (* 3 60))
+
+  ;; disable minibuffer message
+  (setq mu4e-hide-index-messages t)
+
+  ;; always show mail adress
+  (setq mu4e-view-show-addresses t)
+
+  ;; try to render html mail
+  ;; (setq mu4e-view-prefer-html t)
+  (when (executable-find "html2text")
+    (setq mu4e-html2text-command "html2text"))
+  ;; (add-to-list 'mu4e-view-actions
+  ;;              '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+  ;; split vertically when reading mail
+  (setq mu4e-split-view 'vertical)
+
+  (defconst mu4e-headers-from-or-to-prefix '("" . ""))
+
+  ;; header fields
+  (setq mu4e-headers-fields
+        '( (:date       . 18)
+           ;; (:flags   . 6)
+           (:from-or-to . 22)
+           (:subject    . nil)))
+#+END_SRC
+
+** Select and insert contact with =ido=
+From
+http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete-email-addresses-in-mu4e
+
+#+BEGIN_SRC emacs-lisp
+  (defun sk-select-and-insert-contact (&optional start)
+    (interactive)
+    (let ((mail-abbrev-mode-regexp mu4e~compose-address-fields-regexp)
+          (eoh ;; end-of-headers
+           (save-excursion
+             (goto-char (point-min))
+             (search-forward-regexp mail-header-separator nil t))))
+      (when (and eoh (> eoh (point)) (mail-abbrev-in-expansion-header-p))
+        (let* ((end (point))
+               (start
+                (or start
+                    (save-excursion
+                      (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
+                      (goto-char (match-end 0))
+                      (point))))
+               (contact
+                (ido-completing-read "Contact: "
+                                     mu4e~contacts-for-completion
+                                     nil
+                                     nil
+                                     (buffer-substring-no-properties start end))))
+          (unless (equal contact "")
+            (kill-region start end)
+            (insert contact))))))
+#+END_SRC
+
+** =org= setting
+#+BEGIN_SRC emacs-lisp
+  ;;store org-mode links to messages
+  (require 'org-mu4e)
+
+  ;;store link to message if in header view, not to header query
+  (setq org-mu4e-link-query-in-headers-mode nil)
+
+  ;; when mail is sent, automatically convert org body to HTML
+  (setq org-mu4e-convert-to-html t)
+
+  (setq org-capture-templates
+        '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
+           "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+  (define-key mu4e-headers-mode-map (kbd "c") 'org-capture)
+  ;; (define-key mu4e-view-mode-map (kbd "c") 'org-capture)
+
+  (add-hook 'message-mode-hook 'orgstruct++-mode 'append)
+  (add-hook 'message-mode-hook 'turn-on-auto-fill 'append)
+  (add-hook 'message-mode-hook 'org-bullets-mode 'append)
+  (add-hook 'message-mode-hook 'orgtbl-mode 'append)
+  (add-hook 'message-mode-hook 'auto-complete-mode 'append)
+#+END_SRC
+
+** Accounts
+*** Setting accounts
+#+BEGIN_SRC emacs-lisp
+  (defvar sk-mu4e-account-alist
+    '(("LAL"
+       (user-mail-address  "garrido@lal.in2p3.fr")
+       (user-full-name     "Xavier Garrido")
+       (mu4e-compose-signature (concat
+                                "                                                                     \n"
+                                "  |                                                                  \n"
+                                "  |__     GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n"
+                                "   /\     NEMO                 Université Paris-Sud 11               \n"
+                                "  /--\    garrido@lal.in2p3.fr UMR 8607                              \n"
+                                "  |       garrido@in2p3.fr     Batiment 200                          \n"
+                                "  |__     +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
+                                )))
+      ("Gmail"
+       (user-mail-address  "xavier.garrido@gmail.com")
+       (user-full-name     "Xavier Garrido")
+       (mu4e-compose-signature (concat
+                                "Xavier Garrido\n"
+                                "http://xgarrido.github.io\n")))))
+
+  (setq mu4e-user-mail-address-list
+        (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
+                sk-mu4e-account-alist))
+#+END_SRC
+*** Set account when composing mail
+#+BEGIN_SRC emacs-lisp
+  (defun sk-mu4e-set-account ()
+    "Set the account for composing a message."
+    (let* ((account
+            (if mu4e-compose-parent-message
+                (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                  (string-match "/\\(.*?\\)/" maildir)
+                  (match-string 1 maildir))
+              (completing-read (format "Compose with account: (%s) "
+                                       (mapconcat #'(lambda (var) (car var))
+                                                  sk-mu4e-account-alist "/"))
+                               (mapcar #'(lambda (var) (car var)) sk-mu4e-account-alist)
+                               nil t nil nil (caar sk-mu4e-account-alist))))
+           (account-vars (cdr (assoc account sk-mu4e-account-alist))))
+      (if account-vars
+          (mapc #'(lambda (var)
+                    (set (car var) (cadr var)))
+                account-vars)
+        (error "No email account found"))))
+
+  ;; ask for account when composing mail
+  (add-hook 'mu4e-compose-pre-hook 'sk-mu4e-set-account)
+#+END_SRC
+** Gmail configuration
+#+BEGIN_SRC emacs-lisp
+  (defun sk-email-gmail ()
+    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq smtpmail-stream-type 'starttls)
+    (setq smtpmail-default-smtp-server "smtp.gmail.com")
+    (setq smtpmail-smtp-server "smtp.gmail.com")
+    (setq smtpmail-smtp-service 587)
+    (setq mu4e-drafts-folder "/Gmail/drafts")
+    (setq mu4e-sent-folder   "/Gmail/sent")
+    (setq mu4e-trash-folder  "/Gmail/trash")
+    (setq mu4e-refile-folder (lambda (msg)
+                               (cond
+                                ;; messages to the mu mailing list go to the /org-mode folder
+                                ((or (mu4e-message-contact-field-matches msg :cc "emacs-orgmode@gnu.org")
+                                     (mu4e-message-contact-field-matches msg :to "emacs-orgmode@gnu.org"))
+                                 "/Gmail/ml/org-mode")
+                                ;; everything else goes to /archive
+                                ;; important to have a catch-all at the end!
+                                (t  "/Gmail/archive"))))
+    (setq mu4e-maildir-shortcuts  '(("/Gmail/inbox"   . ?i)
+                                    ("/Gmail/sent"    . ?s)
+                                    ("/Gmail/trash"   . ?t)
+                                    ("/Gmail/archive" . ?a)))
+    )
+#+END_SRC
+
+** LAL configuration
+#+BEGIN_SRC emacs-lisp
+  (defun sk-email-lal ()
+    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq smtpmail-stream-type 'ssl)
+    (setq smtpmail-default-smtp-server "smtps.lal.in2p3.fr")
+    (setq smtpmail-smtp-server "smtps.lal.in2p3.fr")
+    (setq smtpmail-smtp-service 465)
+    (setq mu4e-drafts-folder "/LAL/drafts")
+    (setq mu4e-sent-folder   "/LAL/sent")
+    (setq mu4e-trash-folder  "/LAL/trash")
+    (setq mu4e-refile-folder (lambda (msg)
+                               (cond
+                                ;; messages to the mu mailing list go to the /na61 folder
+                                ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
+                                     (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
+                                 "/LAL/inbox/Experiment/NA61")
+                                ;; everything else goes to /archive
+                                ;; important to have a catch-all at the end!
+                                (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
+    ;; (setq mu4e-refile-folder "/LAL/archives/2016" )
+    (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
+                                    ("/LAL/sent"          . ?s)
+                                    ("/LAL/trash"         . ?t)
+                                    ("/LAL/archives/2016" . ?a)))
+    )
+#+END_SRC
+
+** Hydra
+#+BEGIN_SRC emacs-lisp
+  (defun sk-mu4e-lal ()
+    (interactive)
+    (sk-email-lal)
+    (mu4e~headers-jump-to-maildir "/LAL/inbox"))
+  (defun sk-mu4e-gmail()
+    (interactive)
+    (sk-email-gmail)
+    (mu4e~headers-jump-to-maildir "/Gmail/inbox"))
+
+  (defhydra hydra-email (:color blue :hint nil)
+    "
+  [mu4e] _g_mail _l_al"
+    ("g" sk-mu4e-gmail)
+    ("l" sk-mu4e-lal))
+  (global-set-key [f2] 'hydra-email/body)
+#+END_SRC
+** Mailing list
+#+BEGIN_SRC shell :tangle /home/garrido/.mailrc
+  alias coursex sarazin@lal.in2p3.fr duarte@lal.in2p3.fr roulet@lal.in2p3.fr machefert@lal.in2p3.fr
+  alias bureau_ccsu laurent.verstraete@ias.u-psud.fr nicolas.pavloff@u-psud.fr mathieu.vincendon@u-psud.fr
+  # alias m1_cpp
+#+END_SRC
