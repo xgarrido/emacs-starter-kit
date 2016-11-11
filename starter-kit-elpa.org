@@ -173,7 +173,7 @@ re-downloaded in order to locate PACKAGE."
 
 ** =el-get=
 :PROPERTIES:
-:TANGLE: no
+:HEADER-ARGS: :tangle no
 :END:
 [[https://github.com/dimitri/el-get][=el-get=]] allows you to install and manage elisp code for Emacs. It supports lots
 of differents types of sources and is able to install them, update them and

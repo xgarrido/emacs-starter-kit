@@ -127,6 +127,7 @@ Enable flex support
 ** Auto revert buffer
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
+  (diminish 'auto-revert-mode)
   ;; revert without asking
   (setq revert-without-query '(".*"))
 #+END_SRC
@@ -153,8 +154,8 @@ Set function name in the header part of emacs (from
         (assq-delete-all 'which-func-mode mode-line-misc-info))
 #+END_SRC
 
-** Winner mode
-#+BEGIN_SRC emacs-lisp
+** Winner mode                                                   :nottangle:
+#+BEGIN_SRC emacs-lisp :tangle no
   (winner-mode 1)
 #+END_SRC
 ** Idle highlight face
@@ -176,7 +177,7 @@ See [[https://github.com/rejeep/drag-stuff]]
 #+END_SRC
 ** projectile-mode                                               :nottangle:
 :PROPERTIES:
-:TANGLE: no
+:HEADER-ARGS: :tangle no
 :END:
 [[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
 #+BEGIN_SRC emacs-lisp
@@ -301,10 +302,13 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
 
   ;; Revert current hunk
   (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+#+END_SRC
 
+Set =git-gutter= signs
+#+BEGIN_SRC emacs-lisp
   ;; (setq git-gutter:modified-sign "◽")
   ;; (setq git-gutter:added-sign    "◾")
-  ;; (setq git-gutter:deleted-sign  "⚫")
+  ;; (setq git-gutter:deleted-sign  "▴")
 #+END_SRC
 
 Defining hydra
@@ -331,9 +335,6 @@ Defining hydra
        )
 #+END_SRC
 
-#+RESULTS:
-: hydra-git-gutter/body
-
 ** direx & direx-k
 #+BEGIN_SRC emacs-lisp
   (require 'popwin)
@@ -358,7 +359,7 @@ Defining hydra
   (define-key direx:direx-mode-map (kbd "G") 'direx-k)
 #+END_SRC
 
-** diff-hl settings                                                :nottangle:
+** diff-hl settings                                              :nottangle:
 Tweak face by removing the foreground colors
 #+BEGIN_SRC emacs-lisp :tangle no
   (starter-kit-after diff-hl
@@ -368,9 +369,9 @@ Tweak face by removing the foreground colors
     )
   ;;(global-diff-hl-mode)
 #+END_SRC
-** projectile-mode                                                :nottangle:
+** projectile-mode                                               :nottangle:
 :PROPERTIES:
-:TANGLE: no
+:HEADER-ARGS: :tangle no
 :END:
 
 [[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.
@@ -425,9 +426,12 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 ** golden-ratio
 #+BEGIN_SRC emacs-lisp
   (require 'golden-ratio)
-  ;; (golden-ratio-mode 1)
+  (golden-ratio-mode 1)
   (diminish 'golden-ratio-mode)
+  (setq golden-ratio-exclude-modes '("dired-mode"))
+  (setq golden-ratio-exclude-buffer-names '(" *compilation*" " *scratch*" " Direx"))
 #+END_SRC
+
 ** hydra
 *** org-mode
 
@@ -468,14 +472,14 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
         (self-insert-command 1))))
 #+END_SRC
 
-*** window/file management
+*** Main manager
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-window (:color red
-                          :hint nil)
+  (defhydra hydra-main (:color red :hint nil)
     "
    Split: _v_ert _h_orz
   Delete: _o_nly _w_indow
-    File: _f_ile _g_it
+    File: _f_ile g_i_t-gutter
+    Mail: _g_mail _l_al
     "
     ("<left>"  windmove-left)
     ("<down>"  windmove-down)
@@ -493,12 +497,16 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
     ("h" split-window-below)
     ("o" delete-other-windows :exit t)
     ("w" delete-window)
-    ("f" projectile-find-file)
-    ("g" (let ((current-prefix-arg 4))
-           (call-interactively #'magit-status)))
-    ("q" nil))
-  (global-set-key "²" 'hydra-window/body)
+    ("f" ido-find-file)
+    ("i" hydra-git-gutter/body :exit t)
+    ("g" sk-mu4e-gmail :exit t)
+    ("l" sk-mu4e-lal :exit t)
+    ("q" nil "quit"))
+  (global-set-key "²" 'hydra-main/body)
 #+END_SRC
+
+#+RESULTS:
+: hydra-main/body
 
 ** key-chord
 #+BEGIN_SRC emacs-lisp
@@ -612,7 +620,10 @@ tutorial]])
   (require 'auto-complete-config)
   ;; (global-auto-complete-mode t)
   (ac-config-default)
-  (setq ac-auto-start 3)
+  (setq ac-auto-start 3
+        ac-ignore-case nil
+        ac-use-fuzzy t
+        ac-use-comphist t)
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
@@ -626,7 +637,7 @@ tutorial]])
 #+END_SRC
 ** multiple-cursors mode                                         :nottangle:
 :PROPERTIES:
-:TANGLE: no
+:HEADER-ARGS: :tangle no
 :END:
 #+BEGIN_SRC emacs-lisp
   (require 'multiple-cursors)
@@ -658,4 +669,8 @@ tutorial]])
 ** firestarter-mode
 #+BEGIN_SRC emacs-lisp
   (setq firestarter-lighter "↯")
+#+END_SRC
+** tramp
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-ssh-controlmaster-options "")
 #+END_SRC

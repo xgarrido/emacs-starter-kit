@@ -83,7 +83,7 @@ mentioned in [[customizations]] immediately below.
 ** Customization
 :PROPERTIES:
 :CUSTOM_ID: customization
-:TANGLE:   no
+:HEADER-ARGS: :tangle no
 :END:
 
 The defaults built into the starter kit are only the beginning of
@@ -417,8 +417,8 @@ After we've loaded all the Starter Kit defaults, lets load the User's stuff.
 
 * Footnotes
 
-[1] If you already have a directory at =~/.emacs.d= move it out of the
-    way and put this there instead.
+[1] If you already have a directory at =~/.emacs.d= move it out of the way and put
+    this there instead.
 
-[2] The emacs starter kit uses [[http://orgmode.org/][Org Mode]] to load embedded elisp code
-    directly from literate Org-mode documents.
+[2] The emacs starter kit uses [[http://orgmode.org/][Org Mode]] to load embedded elisp code directly
+from literate Org-mode documents.

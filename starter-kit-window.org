@@ -102,7 +102,7 @@ some small part of it here. There is also some =face= changes for
        `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
        `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
        ;; Linum & fringe
-       `(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       ;;`(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
        `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
        ;; mu4e faces
        `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
@@ -124,7 +124,8 @@ some small part of it here. There is also some =face= changes for
        `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
        `(mu4e-view-link-face ((,class (:inherit link))))
        `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
-       )))
+       `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
+  )))
 #+END_SRC
 
 Define new theme (since definition occurs here it is loaded by default)
@@ -468,6 +469,7 @@ next/prior keys.
 
 ** Naked emacs
 From [[http://bzg.fr/emacs-strip-tease.html]]
+
 *** Hide modeline
 From [[http://bzg.fr/emacs-hide-mode-line.html]]
 #+BEGIN_SRC emacs-lisp
@@ -531,6 +533,15 @@ From [[http://bzg.fr/emacs-hide-mode-line.html]]
   (global-set-key (kbd "C-s-SPC") 'sk-naked-emacs)
 #+END_SRC
 
+** Hide =async-shell-command= buffer
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'display-buffer-alist '("^*Async Shell Command*" . (display-buffer-no-window)))
+#+END_SRC
+** Copy text selected with the mouse
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-drag-copy-region t)
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
 ** Misc.
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)

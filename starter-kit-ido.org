@@ -106,7 +106,7 @@ https://github.com/lewang/flx
 #+END_SRC
 
 Increase emacs garbage collection size
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq gc-cons-threshold 20000000)
 #+END_SRC
 

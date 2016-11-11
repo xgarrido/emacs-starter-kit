@@ -10,7 +10,7 @@ local Emacs installation and Emacs package development.
 
 * Cask file
 :PROPERTIES:
-:TANGLE: Cask
+:HEADER-ARGS: :tangle Cask
 :END:
 [[https://github.com/rdallasgray/pallet][pallet]] will manage latter the Cask file if you do =pallet-init=. I strongly
 recommend not to do that and only use =pallet-update= command to update
