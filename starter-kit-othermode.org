@@ -311,30 +311,6 @@ Set =git-gutter= signs
   ;; (setq git-gutter:deleted-sign  "▴")
 #+END_SRC
 
-Defining hydra
-#+BEGIN_SRC emacs-lisp
-  (key-chord-define-global
-   "$$"
-   (defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
-                                         :hint nil)
-     "
-  [↑] prev hunk [↓] next hunk [_s_] stage hunk [_r_] revert hunk [_p_] popup hunk [_q_] quit
-  "
-         ("<down>" git-gutter:next-hunk)
-         ("<up>" git-gutter:previous-hunk)
-         ("h" (progn (goto-char (point-min))
-                     (git-gutter:next-hunk 1)))
-         ("l" (progn (goto-char (point-min))
-                     (git-gutter:previous-hunk 1)))
-         ("s" git-gutter:stage-hunk)
-         ("r" git-gutter:revert-hunk)
-         ("p" git-gutter:popup-hunk)
-         ("R" git-gutter:set-start-revision)
-         ("q" nil :color blue)
-         )
-       )
-#+END_SRC
-
 ** direx & direx-k
 #+BEGIN_SRC emacs-lisp
   (require 'popwin)
@@ -474,6 +450,8 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 
 *** Main manager
 #+BEGIN_SRC emacs-lisp
+(key-chord-define-global
+ ",,"
   (defhydra hydra-main (:color red :hint nil)
     "
    Split: _v_ert _h_orz
@@ -501,12 +479,43 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
     ("i" hydra-git-gutter/body :exit t)
     ("g" sk-mu4e-gmail :exit t)
     ("l" sk-mu4e-lal :exit t)
-    ("q" nil "quit"))
-  (global-set-key "²" 'hydra-main/body)
+    ("q" nil "quit")))
+#+END_SRC
+
+*** git gutter + dumb-jump
+Defining hydra
+#+BEGIN_SRC emacs-lisp
+  (key-chord-define-global
+   "$$"
+   (defhydra hydra-code (:body-pre (git-gutter-mode 1)(dumb-jump-mode 1)
+                                   :hint nil)
+     "
+  [_q_] quit  git-gutter         dumb-jump
+            [↑] prev hunk      [_g_] goto definition
+            [↓] next hunk      [_b_] go back
+            [_s_] stage hunk     [_l_] quick look
+            [_r_] revert hunk
+            [_p_] popup hunk
+  "
+         ("<down>" git-gutter:next-hunk)
+         ("<up>" git-gutter:previous-hunk)
+         ("h" (progn (goto-char (point-min))
+                     (git-gutter:next-hunk 1)))
+         ("l" (progn (goto-char (point-min))
+                     (git-gutter:previous-hunk 1)))
+         ("s" git-gutter:stage-hunk)
+         ("r" git-gutter:revert-hunk)
+         ("p" git-gutter:popup-hunk)
+         ("g" dumb-jump-go)
+         ("b" dumb-jump-back)
+         ("l" dumb-jump-quick-look)
+         ("q" nil :color blue)
+         )
+       )
 #+END_SRC
 
 #+RESULTS:
-: hydra-main/body
+: hydra-code/body
 
 ** key-chord
 #+BEGIN_SRC emacs-lisp
