@@ -23,7 +23,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (lambda ()
                 (local-set-key "\C-n" 'outline-next-visible-heading)
                 (local-set-key "\C-p" 'outline-previous-visible-heading)
-                (local-set-key "\C-u" 'outline-up-heading)
+                ;; (local-set-key "\C-u" 'outline-up-heading)
                 ;; table
                 (local-set-key "\M-\C-w" 'org-table-copy-region)
                 (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
@@ -40,9 +40,11 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (org-indent-mode  t)
               (org-bullets-mode t)
               (auto-complete-mode t)
-              (linum-mode -1)
+              ;; (linum-mode -1)
               (hl-line-mode t)
-              (diminish 'org-indent-mode)))
+              (diminish 'org-indent-mode)
+              ;;(set-input-method "TeX")
+              ))
 #+END_SRC
 
 ** Org-Mode keybindings
@@ -139,6 +141,10 @@ display a list of the code blocks commands and their related keys.
   (setq org-hide-emphasis-markers t)
 #+END_SRC
 
+** Add =org= contrib to =load-path=
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/Development/orgmode.org/org-mode/contrib/lisp")
+#+END_SRC
 ** Code blocks
 This activates a number of widely used languages, you are encouraged to activate
 more languages using the customize interface for the =org-babel-load-languages=
@@ -151,6 +157,7 @@ supported languages.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (shell . t)
+     (awk . t)
      (C . t)
      (python . t)
      (latex . t)
@@ -165,14 +172,15 @@ although it is not added by default as a security precaution.
 
 *** Fontification
 The following displays the contents of code blocks in Org-mode files
-using the major-mode of the code.  It also changes the behavior of
-=TAB= to as if it were used in the appropriate major mode.  This means
+using the major-mode of the code. It also changes the behavior of
+TAB= to as if it were used in the appropriate major mode.  This means
 that reading and editing code form inside of your Org-mode files is
 much more like reading and editing of code using its major mode.
 #+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively  t)
+  (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
 #+END_SRC
+
 *** Code progression
 A progress indicator for code blocks in org-mode courtesy
 of [[https://lists.gnu.org/archive/html/emacs-orgmode/2014-08/msg01000.html][John Kitchin]]
@@ -295,6 +303,15 @@ The following lines provide several "useful" functions. To use them, do
 *** Add =cite= link
 #+BEGIN_SRC emacs-lisp
 (org-add-link-type "cite" 'ebib
+ (lambda (path desc format)
+   (cond
+    ((eq format 'html)  (format "(<cite>%s</cite>)" path))
+    ((eq format 'latex) (format "\\cite{%s}" path)))))
+#+END_SRC
+
+*** Add =mu4e= link
+#+BEGIN_SRC emacs-lisp
+(org-add-link-type "mu4e" 'org-mu4e-open
  (lambda (path desc format)
    (cond
     ((eq format 'html)  (format "(<cite>%s</cite>)" path))
@@ -493,7 +510,7 @@ environment into figure
     (when (and (org-export-derived-backend-p backend 'latex)
                (string-match "table" contents)
                (string-match "includegraphics" contents))
-      (replace-regexp-in-string "table" "figure" contents)))
+      (replace-regexp-in-string "{table}" "{figure}" contents)))
   (add-to-list 'org-export-filter-table-functions 'sk-multicolumn-figure)
 #+END_SRC
 
@@ -590,17 +607,17 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
 *** Configuring =org-latex-preview=
 - Set the program to create formula (either =dvipng= or =imagemagick=)
 #+BEGIN_SRC emacs-lisp
-  (setq org-latex-create-formula-image-program 'imagemagick)
+  (setq org-preview-latex-default-process 'dvisvgm)
 #+END_SRC
 
 - Set the output directory
-#+BEGIN_SRC emacs-lisp
-  (setq org-latex-preview-ltxpng-directory "ltxpng/")
+#+BEGIN_SRC emacs-lisp :tangle no
+  (setq org-preview-latex-image-directory "ltximg/")
 #+END_SRC
 
 ** Other exporters                                               :nottangle:
 :PROPERTIES:
-:TANGLE: no
+:HEADER-ARGS: :tangle no
 :END:
 *** Org-ioslide
 #+BEGIN_SRC emacs-lisp
@@ -726,7 +743,7 @@ can make comments across all your files and projects and link to them all from
 one place.
 *** Setting the TODO file location
 #+BEGIN_SRC emacs-lisp
-  (setq org-default-notes-file "~/Development/org-notes/misc/todo-list.org")
+  (setq org-default-notes-file "~/Development/github.com/xgarrido/org-notes/misc/todo-list.org")
 #+END_SRC
 
 *** Closing items
