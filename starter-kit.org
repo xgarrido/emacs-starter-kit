@@ -49,7 +49,7 @@ The [[http://emacswiki.org][Emacs Wiki]] is also very handy.
      git clone http://github.com/xgarrido/emacs24-starter-kit.git
    #+END_SRC
 3. Move the resulting directory to =~/.emacs.d= [1]
-7. Launch Emacs!
+4. Launch Emacs!
 
 After setup you may need to restart Emacs one or twice while it downloads
 packages from [[* Emacs Lisp Package Archive][ELPA]] -- errors parsing html from =*tromey.com:80*= can generally
