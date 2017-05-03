@@ -37,7 +37,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
 
-  ;; Check for mail 3 minutes
+  ;; Check for mail every 3 minutes
   (setq mu4e-update-interval (* 3 60))
 
   ;; disable minibuffer message
@@ -50,23 +50,54 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (setq mu4e-headers-skip-duplicates t)
 
   ;; try to render html mail
-  ;; (setq mu4e-view-prefer-html t)
-  (when (executable-find "html2text")
-    (setq mu4e-html2text-command "html2text"))
-  ;; (add-to-list 'mu4e-view-actions
-  ;;              '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+  ;;(setq mu4e-view-prefer-html t)
+  ;; (when (executable-find "html2text")
+  ;;   (setq mu4e-html2text-command "html2text -utf8 -nobs -width 72"))
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+
+  (add-hook 'mu4e-view-mode-hook
+            (lambda()
+              ;; try to emulate some of the eww key-bindings
+              (local-set-key (kbd "<tab>") 'shr-next-link)
+              (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+
+  (add-to-list 'mu4e-view-actions
+               '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
   ;; split vertically when reading mail
   (setq mu4e-split-view 'vertical)
 
-  (defconst mu4e-headers-from-or-to-prefix '("" . ""))
-
   ;; header fields
   (setq mu4e-headers-fields
         '( (:date       . 18)
-           ;; (:flags   . 6)
+           (:flags      . 4)
            (:from-or-to . 22)
            (:subject    . nil)))
+
+  ;; (setq
+  ;;  mu4e-index-cleanup nil      ;; don't do a full cleanup check
+  ;;  mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
+#+END_SRC
+
+** Better fancy chars
+Basically change nothing except uparrow and downarrow (flags are hidden)
+#+BEGIN_SRC emacs-lisp
+  (defconst mu4e-headers-from-or-to-prefix '("" . ""))
+  (setq mu4e-use-fancy-chars t)
+  (setq mu4e-headers-has-child-prefix    '("+"  . "+"))
+  (setq mu4e-headers-empty-parent-prefix '("-"  . "-"))
+  (setq mu4e-headers-first-child-prefix  '("\\" . "\\"))
+  (setq mu4e-headers-duplicate-prefix    '("="  . "="))
+  (setq mu4e-headers-default-prefix      '("|"  . "|"))
+  (setq mu4e-headers-unread-mark         '("u"  . ""))
+  (setq mu4e-headers-attach-mark         '("a"  . "+"))
+  (setq mu4e-headers-flagged-mark        '("F"  . "!"))
+  (setq mu4e-headers-new-mark            '("N"  . "*"))
+  (setq mu4e-headers-passed-mark         '("P"  . "»"))
+  (setq mu4e-headers-replied-mark        '("R"  . "«"))
+  (setq mu4e-headers-seen-mark           '("S"  . ""))
+  (setq mu4e-headers-trashed-mark        '("T"  . ""))
 #+END_SRC
 
 ** Select and insert contact with =ido=
@@ -101,6 +132,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 #+END_SRC
 
 ** =org= setting
+*** Storing link to mails
 #+BEGIN_SRC emacs-lisp
   ;;store org-mode links to messages
   (require 'org-mu4e)
@@ -111,19 +143,229 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
   ;; when mail is sent, automatically convert org body to HTML
   (setq org-mu4e-convert-to-html t)
 
-  (setq org-capture-templates
-        '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
-           "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
-  (define-key mu4e-headers-mode-map (kbd "c") 'org-capture)
-  ;; (define-key mu4e-view-mode-map (kbd "c") 'org-capture)
+  (define-key mu4e-headers-mode-map (kbd "C-c l") 'org-store-link)
+  (add-hook 'message-mode-hook
+            (lambda () (set-input-method "TeX")))
+#+END_SRC
+*** Htmlization with =org-mime=
+#+BEGIN_SRC emacs-lisp :tangle no
+  (require 'org-mime)
+  (defun org-mime-org-buffer-htmlize ()
+    "Create an email buffer containing the current org-mode file
+        exported to html and encoded in both html and in org formats as
+        mime alternatives."
+    (interactive)
+    (org-mime-send-buffer 'html)
+    (message-goto-to))
 
-  (add-hook 'message-mode-hook 'orgstruct++-mode 'append)
-  (add-hook 'message-mode-hook 'turn-on-auto-fill 'append)
-  (add-hook 'message-mode-hook 'org-bullets-mode 'append)
-  (add-hook 'message-mode-hook 'orgtbl-mode 'append)
-  (add-hook 'message-mode-hook 'auto-complete-mode 'append)
+  (defun org-mime-subtree ()
+    "Create an email buffer containing the current org-mode subtree
+    exported to a org format or to the format specified by the
+    MAIL_FMT property of the subtree."
+    (interactive)
+    (org-mime-send-subtree
+     (or (org-entry-get nil "MAIL_FMT" org-mime-use-property-inheritance) 'org))
+    (message-goto-to))
+
+  (defun htmlize-and-send ()
+    "When in an org-mu4e-compose-org-mode message, htmlize and send it."
+    (interactive)
+    (when (member 'org~mu4e-mime-switch-headers-or-body post-command-hook)
+      (org-mime-htmlize)
+      (message-send-and-exit)))
+
+  (defun org-mime-compose (body fmt file &optional to subject headers)
+    (require 'message)
+    (let ((bhook
+           (lambda (body fmt)
+             (let ((hook (intern (concat "org-mime-pre-"
+                                         (symbol-name fmt)
+                                         "-hook"))))
+               (if (> (eval `(length ,hook)) 0)
+                   (with-temp-buffer
+                     (insert body)
+                     (goto-char (point-min))
+                     (eval `(run-hooks ',hook))
+                     (buffer-string))
+                 body))))
+          (fmt (if (symbolp fmt) fmt (intern fmt)))
+          (files (org-element-map (org-element-parse-buffer) 'link
+                   (lambda (link)
+                     (when (string= (org-element-property :type link) "file")
+                       (file-truename (org-element-property :path link)))))))
+      (compose-mail to subject headers nil)
+      (message-goto-body)
+      (cond
+       ((eq fmt 'org)
+        (require 'ox-org)
+        (insert (org-export-string-as
+                 (org-babel-trim (funcall bhook body 'org)) 'org t)))
+       ((eq fmt 'ascii)
+        (require 'ox-ascii)
+        (insert (org-export-string-as
+                 (concat "#+Title:\n" (funcall bhook body 'ascii)) 'ascii t)))
+       ((or (eq fmt 'html) (eq fmt 'html-ascii))
+        (require 'ox-ascii)
+        (require 'ox-org)
+        (let* ((org-link-file-path-type 'absolute)
+               ;; we probably don't want to export a huge style file
+               (org-export-htmlize-output-type 'inline-css)
+               (org-html-with-latex 'dvisvgm)
+               (html-and-images
+                (org-mime-replace-images
+                 (org-export-string-as (funcall bhook body 'html) 'html t)))
+               (images (cdr html-and-images))
+               (html (org-mime-apply-html-hook (car html-and-images))))
+          (insert (org-mime-multipart
+                   (org-export-string-as
+                    (org-babel-trim
+                     (funcall bhook body (if (eq fmt 'html) 'org 'ascii)))
+                    (if (eq fmt 'html) 'org 'ascii) t)
+                   html)
+                  (mapconcat 'identity images "\n")))))
+      (mapc #'mml-attach-file files)))
+
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'htmlize-and-send t)
+  ;; (define-key mu4e-compose-mode-map (kbd "C-c o") 'org-mu4e-compose-org-mode)
+  (global-set-key (kbd "C-c o") 'org-mu4e-compose-org-mode)
 #+END_SRC
 
+** Better mail completion
+#+BEGIN_SRC emacs-lisp
+;need this for hash access
+(require 'subr-x)
+
+(defun bjm/read-contact-list ()
+  "Return a list of email addresses"
+  (with-temp-buffer
+    (split-string (buffer-string) "\n" t)))
+
+;; code from https://github.com/abo-abo/swiper/issues/596
+(defun bjm/counsel-email-action (contact)
+  (with-ivy-window
+    (insert contact)))
+
+;; bind comma to launch new search
+(defvar bjm/counsel-email-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "," 'bjm/counsel-email-more)
+    map))
+
+(defun bjm/counsel-email-more ()
+  "Insert email address and prompt for another."
+  (interactive)
+  (ivy-call)
+  (with-ivy-window
+    (insert ", "))
+  (delete-minibuffer-contents)
+  (setq ivy-text ""))
+
+;; ivy contacts
+;; based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
+(defun bjm/ivy-select-and-insert-contact (&optional start)
+  (interactive)
+  ;; make sure mu4e contacts list is updated - I was having
+  ;; intermittent problems that this was empty but couldn't see why
+  (mu4e~request-contacts)
+  (let ((eoh ;; end-of-headers
+         (save-excursion
+           (goto-char (point-min))
+           (search-forward-regexp mail-header-separator nil t)))
+        ;; append full sorted contacts list to favourites and delete duplicates
+        (contacts-list
+         (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts))))))
+
+    ;; only run if we are in the headers section
+    (when (and eoh (> eoh (point)) (mail-abbrev-in-expansion-header-p))
+      (let* ((end (point))
+           (start
+            (or start
+                (save-excursion
+                  (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
+                  (goto-char (match-end 0))
+                  (point))))
+           (initial-input (buffer-substring-no-properties start end)))
+
+      (kill-region start end)
+
+      (ivy-read "Contact: "
+                contacts-list
+                :re-builder #'ivy--regex
+                :sort nil
+                :initial-input initial-input
+                :action 'bjm/counsel-email-action
+                :keymap bjm/counsel-email-map)
+      ))))
+
+;;launch automatically
+(add-hook 'mu4e-compose-mode-hook 'bjm/ivy-select-and-insert-contact)
+
+;;ivy contacts for use anywhere
+;;based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
+(defun bjm/ivy-select-and-insert-contact-anywhere ()
+  (interactive)
+  (let (contacts-list contact)
+    ;;append full sorted contacts list to favourites and delete duplicates
+    (setq contacts-list
+          (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts)))))
+    (setq contact
+          (ivy-read "Contact: "
+                    contacts-list
+                    :re-builder #'ivy--regex
+                    :sort nil))
+        (unless (equal contact "")
+          (insert contact))))
+#+END_SRC
+** Remove maildir string in mode-line
+#+BEGIN_SRC emacs-lisp :tangle no
+  (defun mu4e~headers-jump-to-maildir (maildir)
+    "Show the messages in maildir (user is prompted to ask what
+  maildir)."
+    (interactive
+     (let ((maildir (mu4e-ask-maildir "Jump to maildir: ")))
+       (list maildir)))
+    (when maildir
+      (mu4e-mark-handle-when-leaving)
+      (mu4e-headers-search
+       (format "%s" maildir))))
+#+END_SRC
+
+** Save all attachments
+#+BEGIN_SRC emacs-lisp
+  (defvar bulk-saved-attachments-dir (expand-file-name "/tmp/mu4e"))
+
+  (defun cleanse-subject (sub)
+    (replace-regexp-in-string
+     "[^A-Z0-9]+"
+     "-"
+     (downcase sub)))
+
+  (defun view-attachments-dired (&optional msg)
+    "Saves all of the attachments in `msg' to a directory under
+  `bulk-saved-attachments-dir' which is derived from the subject
+  beloning to `msg'. Existing filenames will be overwritten without
+  prompt. The directories are not cleaned up in any way."
+    (interactive)
+    (let* ((msg (or msg (mu4e-message-at-point)))
+           (id (cleanse-subject (mu4e-message-field msg :subject)))
+           (attachdir (concat bulk-saved-attachments-dir "/" id))
+           (count (hash-table-count mu4e~view-attach-map)))
+      (if (> count 0)
+          (progn
+            (mkdir attachdir t)
+            (dolist (num (number-sequence 1 count))
+              (let* ((att (mu4e~view-get-attach msg num))
+                     (fname (plist-get att :name))
+                     (index (plist-get att :index))
+                     fpath)
+                (setq fpath (concat attachdir "/" fname))
+                (mu4e~proc-extract
+                 'save (mu4e-message-field msg :docid)
+                 index mu4e-decryption-policy fpath)))
+            (dired attachdir)
+            (revert-buffer))
+        (message "Nothing to extract."))))
+#+END_SRC
 ** Accounts
 *** Setting accounts
 #+BEGIN_SRC emacs-lisp
@@ -131,18 +373,20 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     '(("LAL"
        (user-mail-address  "garrido@lal.in2p3.fr")
        (user-full-name     "Xavier Garrido")
+       (mu4e-drafts-folder "/LAL/drafts")
+       (mu4e-sent-folder   "/LAL/sent")
        (mu4e-compose-signature (concat
-                                "                                                                     \n"
-                                "  |                                                                  \n"
-                                "  |__     GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n"
-                                "   /\     NEMO                 Université Paris-Sud 11               \n"
-                                "  /--\    garrido@lal.in2p3.fr UMR 8607                              \n"
-                                "  |       garrido@in2p3.fr     Batiment 200                          \n"
-                                "  |__     +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
+                                "  GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n"
+                                "  NEMO                 Université Paris-Sud 11               \n"
+                                "  garrido@lal.in2p3.fr UMR 8607                              \n"
+                                "  garrido@in2p3.fr     Batiment 200                          \n"
+                                "  +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
                                 )))
       ("Gmail"
        (user-mail-address  "xavier.garrido@gmail.com")
        (user-full-name     "Xavier Garrido")
+       (mu4e-drafts-folder "/Gmail/drafts")
+       (mu4e-sent-folder   "/Gmail/sent")
        (mu4e-compose-signature (concat
                                 "Xavier Garrido\n"
                                 "http://xgarrido.github.io\n")))))
@@ -151,6 +395,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
         (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
                 sk-mu4e-account-alist))
 #+END_SRC
+
 *** Set account when composing mail
 #+BEGIN_SRC emacs-lisp
   (defun sk-mu4e-set-account ()
@@ -192,6 +437,8 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
                                 ((or (mu4e-message-contact-field-matches msg :cc "emacs-orgmode@gnu.org")
                                      (mu4e-message-contact-field-matches msg :to "emacs-orgmode@gnu.org"))
                                  "/Gmail/ml/org-mode")
+                                ((mu4e-message-contact-field-matches msg :from "notifications@github.com")
+                                 "/Gmail/ml/github")
                                 ;; everything else goes to /archive
                                 ;; important to have a catch-all at the end!
                                 (t  "/Gmail/archive"))))
@@ -226,7 +473,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
                                     ("/LAL/sent"          . ?s)
                                     ("/LAL/trash"         . ?t)
-                                    ("/LAL/archives/2016" . ?a)))
+                                    ("/LAL/archives/2017" . ?a)))
     )
 #+END_SRC
 
@@ -235,22 +482,30 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
   (defun sk-mu4e-lal ()
     (interactive)
     (sk-email-lal)
+    (mu4e)
     (mu4e~headers-jump-to-maildir "/LAL/inbox"))
   (defun sk-mu4e-gmail()
     (interactive)
     (sk-email-gmail)
+    (mu4e)
     (mu4e~headers-jump-to-maildir "/Gmail/inbox"))
 
-  (defhydra hydra-email (:color blue :hint nil)
-    "
-  [mu4e] _g_mail _l_al"
-    ("g" sk-mu4e-gmail)
-    ("l" sk-mu4e-lal))
-  (global-set-key [f2] 'hydra-email/body)
+  (key-chord-define-global
+   "!!"
+   (defhydra hydra-email (:color blue :hint nil)
+     "
+    [mu4e] _g_mail _l_al"
+     ("g" sk-mu4e-gmail)
+     ("l" sk-mu4e-lal)))
 #+END_SRC
 ** Mailing list
 #+BEGIN_SRC shell :tangle /home/garrido/.mailrc
   alias coursex sarazin@lal.in2p3.fr duarte@lal.in2p3.fr roulet@lal.in2p3.fr machefert@lal.in2p3.fr
   alias bureau_ccsu laurent.verstraete@ias.u-psud.fr nicolas.pavloff@u-psud.fr mathieu.vincendon@u-psud.fr
-  # alias m1_cpp
+  alias m1_cpp rabah.abdul-khalek@u-psud.fr leo.adenis@u-psud.fr aghilas.aoudia@u-psud.fr aurelie.astoul@u-psud.fr quentin.barthelemy@u-psud.fr alexandre.boissinot@u-psud.fr anthony.bonfils@u-psud.fr dolachai.boniface@u-psud.fr theophile.carniel@u-psud.fr hugo.fortin@u-psud.fr florian.goirand@u-psud.fr vincent.labarre@u-psud.fr clement.leroy@u-psud.fr arnaud.lorin@u-psud.fr antoine.martinez@u-psud.fr amine.missaoui@u-psud.fr lina.oulebsir@u-psud.fr ioannis.touloupas@u-psud.fr alexandre.achard-de-lustrac@u-psud.fr emmanuel.arbouch@u-psud.fr chloe.azria@u-psud.fr tess.berthier@u-psud.fr aurore.caquas@u-psud.fr mathieu.dedenon@u-psud.fr alix.goudyme@u-psud.fr quentin.henry@u-psud.fr thomas.lavoisier@u-psud.fr renaud.lustrat@u-psud.fr louis.manchon@u-psud.fr manon.marchand@u-psud.fr lucas.menou@u-psud.fr jacky.nguyen@u-psud.fr julie.rode@u-psud.fr julien.rojas-arispe@u-psud.fr dylan.russon@u-psud.fr remy.thoer@u-psud.fr gaylor.wafflard-fernandez@u-psud.fr natalia.zambrana-prado@u-psud.fr yu.zhang@u-psud.fr
+  alias l3_d2pfo l3-d2pfo-supelec-16-lal-l@in2p3.fr l3-d2pfo-ae-16-lal-l@in2p3.fr l3-d2pfo-iogs-16-lal-l@in2p3.fr l3-d2pfo-ecp-16-lal-l@in2p3.fr
+  alias responsable_d2pfo nathalie.cornay@ecp.fr sebastien.derossi@institutoptique.fr nouha.el-hassan@centralesupelec.fr olivier.de-becdelievre@ecp.fr
+  alias l3_enseignant asmaa.abada@u-psud.fr bartjan.van-tent@u-psud.fr bruno.espagnon@u-psud.fr charis.quay@u-psud.fr christophe.texier@u-psud.fr claire.marrache@u-psud.fr clarisse.hamadache@u-psud.fr claude.pasquier@u-psud.fr cyril.falvo@u-psud.fr elias.khan@u-psud.fr francois.naulin@u-psud.fr frederic.bouquet@u-psud.fr gatien.verley@u-psud.fr giuseppe.foffi@u-psud.fr hans.lignier@u-psud.fr hendrik-jan.hilhorst@u-psud.fr herve.bergeron@u-psud.fr jean-marcel.rax@u-psud.fr julien.bobroff@u-psud.fr laurent.simard@u-psud.fr mathieu.langer@u-psud.fr nicolas.pavloff@u-psud.fr pascal.simon@u-psud.fr renaud.parentani@u-psud.fr robin.zegers@u-psud.fr roland.mastrippolito@u-psud.fr segolene.guilbaud@u-psud.fr sophie.kazamias@u-psud.fr stephane.douin@u-psud.fr stephanie.roccia@u-psud.fr
+  alias m1_enseignant brigitte.pansu@u-psud.fr  carole.gaulard@u-psud.fr  catherine.krafft@u-psud.fr  claire.marrache@u-psud.fr  donia.baklouti@u-psud.fr  elias.khan@u-psud.fr  fabrice.bert@u-psud.fr  frederic.moisy@u-psud.fr  jerome.leygnier@u-psud.fr  marion.jacquey@u-psud.fr  nouari.kebaili@u-psud.fr  pascal.parneix@u-psud.fr  philippe.mendels@u-psud.fr  severine.boye-peronne@u-psud.fr
+  alias l3_python alexandra.darco@u-psud.fr arthur.hirsch@u-psud.fr cyril.foucard@u-psud.fr florent.saudrais@u-psud.fr jade.briend-diop@u-psud.fr jean-thibaut.spaniol@u-psud.fr lea.chibani@u-psud.fr lolita.bucher@u-psud.fr mael.arveiler@u-psud.fr my-an.tran@u-psud.fr pierre.gourbin@u-psud.fr valentin.thirion@u-psud.fr
 #+END_SRC
