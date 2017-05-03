@@ -29,6 +29,9 @@ added to melpa).
             (url-copy-file url file t))))))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (network-interface-list)
+#+END_SRC
 ** External Lisp files
 *** trac-wiki
 #+BEGIN_SRC emacs-lisp
@@ -45,4 +48,20 @@ added to melpa).
    "https://raw.github.com/kiwanami/emacs-inertial-scroll/master/inertial-scroll.el"
    "https://raw.github.com/kiwanami/emacs-deferred/master/concurrent.el"
    "https://raw.github.com/kiwanami/emacs-deferred/master/deferred.el"))
+#+END_SRC
+
+*** org-tree-slide
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "org-tree-slide"
+   (list
+    "https://raw.githubusercontent.com/takaxp/org-tree-slide/master/org-tree-slide.el"))
+#+END_SRC
+
+*** ox-twbs
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "ox-twbs"
+   (list
+    "https://raw.githubusercontent.com/marsmining/ox-twbs/master/ox-twbs.el"))
 #+END_SRC
