@@ -36,6 +36,11 @@ Key Bindings.
   (global-set-key (kbd "C-x C-r") 'recentf-ido-find-file)
 #+END_SRC
 
+** Touch file
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c t")   'sk-touch)
+#+END_SRC
+
 ** Buffer handling
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
