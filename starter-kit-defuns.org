@@ -289,6 +289,17 @@ From [[http://tromey.com/blog/?p=831]].
 #+END_SRC
 
 
+*** Remove newline
+
+#+BEGIN_SRC emacs-lisp
+(defun sk-remove-newlines-in-region ()
+  "Removes all newlines in the region."
+  (interactive)
+  (save-restriction
+    (narrow-to-region (point) (mark))
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t) (replace-match " " nil t))))
+#+END_SRC
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
