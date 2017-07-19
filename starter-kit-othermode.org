@@ -485,33 +485,34 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 *** git gutter + dumb-jump
 Defining hydra
 #+BEGIN_SRC emacs-lisp
+  (setq dumb-jump-selector 'ivy)
   (key-chord-define-global
    "$$"
    (defhydra hydra-code (:body-pre (git-gutter-mode 1)(dumb-jump-mode 1)
                                    :hint nil)
      "
-  [_q_] quit  git-gutter         dumb-jump
-            [↑] prev hunk      [_g_] goto definition
-            [↓] next hunk      [_b_] go back
-            [_s_] stage hunk     [_l_] quick look
-            [_r_] revert hunk
-            [_p_] popup hunk
-  "
-         ("<down>" git-gutter:next-hunk)
-         ("<up>" git-gutter:previous-hunk)
-         ("h" (progn (goto-char (point-min))
-                     (git-gutter:next-hunk 1)))
-         ("l" (progn (goto-char (point-min))
-                     (git-gutter:previous-hunk 1)))
-         ("s" git-gutter:stage-hunk)
-         ("r" git-gutter:revert-hunk)
-         ("p" git-gutter:popup-hunk)
-         ("g" dumb-jump-go)
-         ("b" dumb-jump-back)
-         ("l" dumb-jump-quick-look)
-         ("q" nil :color blue)
-         )
-       )
+    [_q_] quit  git-gutter         dumb-jump
+              [↑] prev hunk      [_g_] goto definition
+              [↓] next hunk      [_b_] go back
+              [_s_] stage hunk     [_l_] quick look
+              [_r_] revert hunk
+              [_p_] popup hunk
+    "
+     ("<down>" git-gutter:next-hunk)
+     ("<up>" git-gutter:previous-hunk)
+     ("h" (progn (goto-char (point-min))
+                 (git-gutter:next-hunk 1)))
+     ("l" (progn (goto-char (point-min))
+                 (git-gutter:previous-hunk 1)))
+     ("s" git-gutter:stage-hunk)
+     ("r" git-gutter:revert-hunk)
+     ("p" git-gutter:popup-hunk)
+     ("g" dumb-jump-go)
+     ("b" dumb-jump-back)
+     ("l" dumb-jump-quick-look)
+     ("q" nil :color blue)
+     )
+   )
 #+END_SRC
 
 #+RESULTS:
