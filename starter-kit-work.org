@@ -26,3 +26,8 @@ Use this function to create TAGS related to SN@ilWare software.
                            (concat temporary-file-directory "/TAGS-chevreuse")))
     (sk-popup "Emacs" "TAGS file for SN@ilWare generated"))
 #+END_SRC
+
+** =tramp= executable path for Lyon machines
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'tramp-remote-path "/sps/nemo/scratch/garrido/software/bin")
+#+END_SRC
