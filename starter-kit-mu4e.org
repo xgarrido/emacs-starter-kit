@@ -463,9 +463,9 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (setq mu4e-refile-folder (lambda (msg)
                                (cond
                                 ;; messages to the mu mailing list go to the /na61 folder
-                                ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
-                                     (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
-                                 "/LAL/inbox/Experiment/NA61")
+                                ;; ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
+                                ;;      (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
+                                ;;  "/LAL/inbox/Experiment/NA61")
                                 ;; everything else goes to /archive
                                 ;; important to have a catch-all at the end!
                                 (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
@@ -501,11 +501,9 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 ** Mailing list
 #+BEGIN_SRC shell :tangle /home/garrido/.mailrc
   alias coursex sarazin@lal.in2p3.fr duarte@lal.in2p3.fr roulet@lal.in2p3.fr machefert@lal.in2p3.fr
-  alias bureau_ccsu laurent.verstraete@ias.u-psud.fr nicolas.pavloff@u-psud.fr mathieu.vincendon@u-psud.fr
-  alias m1_cpp rabah.abdul-khalek@u-psud.fr leo.adenis@u-psud.fr aghilas.aoudia@u-psud.fr aurelie.astoul@u-psud.fr quentin.barthelemy@u-psud.fr alexandre.boissinot@u-psud.fr anthony.bonfils@u-psud.fr dolachai.boniface@u-psud.fr theophile.carniel@u-psud.fr hugo.fortin@u-psud.fr florian.goirand@u-psud.fr vincent.labarre@u-psud.fr clement.leroy@u-psud.fr arnaud.lorin@u-psud.fr antoine.martinez@u-psud.fr amine.missaoui@u-psud.fr lina.oulebsir@u-psud.fr ioannis.touloupas@u-psud.fr alexandre.achard-de-lustrac@u-psud.fr emmanuel.arbouch@u-psud.fr chloe.azria@u-psud.fr tess.berthier@u-psud.fr aurore.caquas@u-psud.fr mathieu.dedenon@u-psud.fr alix.goudyme@u-psud.fr quentin.henry@u-psud.fr thomas.lavoisier@u-psud.fr renaud.lustrat@u-psud.fr louis.manchon@u-psud.fr manon.marchand@u-psud.fr lucas.menou@u-psud.fr jacky.nguyen@u-psud.fr julie.rode@u-psud.fr julien.rojas-arispe@u-psud.fr dylan.russon@u-psud.fr remy.thoer@u-psud.fr gaylor.wafflard-fernandez@u-psud.fr natalia.zambrana-prado@u-psud.fr yu.zhang@u-psud.fr
-  alias l3_d2pfo l3-d2pfo-supelec-16-lal-l@in2p3.fr l3-d2pfo-ae-16-lal-l@in2p3.fr l3-d2pfo-iogs-16-lal-l@in2p3.fr l3-d2pfo-ecp-16-lal-l@in2p3.fr
-  alias responsable_d2pfo nathalie.cornay@ecp.fr sebastien.derossi@institutoptique.fr nouha.el-hassan@centralesupelec.fr olivier.de-becdelievre@ecp.fr
   alias l3_enseignant asmaa.abada@u-psud.fr bartjan.van-tent@u-psud.fr bruno.espagnon@u-psud.fr charis.quay@u-psud.fr christophe.texier@u-psud.fr claire.marrache@u-psud.fr clarisse.hamadache@u-psud.fr claude.pasquier@u-psud.fr cyril.falvo@u-psud.fr elias.khan@u-psud.fr francois.naulin@u-psud.fr frederic.bouquet@u-psud.fr gatien.verley@u-psud.fr giuseppe.foffi@u-psud.fr hans.lignier@u-psud.fr hendrik-jan.hilhorst@u-psud.fr herve.bergeron@u-psud.fr jean-marcel.rax@u-psud.fr julien.bobroff@u-psud.fr laurent.simard@u-psud.fr mathieu.langer@u-psud.fr nicolas.pavloff@u-psud.fr pascal.simon@u-psud.fr renaud.parentani@u-psud.fr robin.zegers@u-psud.fr roland.mastrippolito@u-psud.fr segolene.guilbaud@u-psud.fr sophie.kazamias@u-psud.fr stephane.douin@u-psud.fr stephanie.roccia@u-psud.fr
   alias m1_enseignant brigitte.pansu@u-psud.fr  carole.gaulard@u-psud.fr  catherine.krafft@u-psud.fr  claire.marrache@u-psud.fr  donia.baklouti@u-psud.fr  elias.khan@u-psud.fr  fabrice.bert@u-psud.fr  frederic.moisy@u-psud.fr  jerome.leygnier@u-psud.fr  marion.jacquey@u-psud.fr  nouari.kebaili@u-psud.fr  pascal.parneix@u-psud.fr  philippe.mendels@u-psud.fr  severine.boye-peronne@u-psud.fr
   alias l3_python alexandra.darco@u-psud.fr arthur.hirsch@u-psud.fr cyril.foucard@u-psud.fr florent.saudrais@u-psud.fr jade.briend-diop@u-psud.fr jean-thibaut.spaniol@u-psud.fr lea.chibani@u-psud.fr lolita.bucher@u-psud.fr mael.arveiler@u-psud.fr my-an.tran@u-psud.fr pierre.gourbin@u-psud.fr valentin.thirion@u-psud.fr
 #+END_SRC
+
+#+RESULTS:

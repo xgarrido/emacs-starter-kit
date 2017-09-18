@@ -160,7 +160,7 @@ Create interactive functions to easily switch from one theme to another
 #+END_SRC
 
 *** Fringe size
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp
 ;;(setq-default left-fringe-width 5)
 #+END_SRC
 ** Setting default directories
