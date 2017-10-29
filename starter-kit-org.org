@@ -160,6 +160,7 @@ supported languages.
      (awk . t)
      (C . t)
      (python . t)
+     (ipython . t)
      (latex . t)
      (gnuplot . t)))
 #+END_SRC
@@ -281,6 +282,11 @@ The following lines provide several "useful" functions. To use them, do
 #+END_SRC
 
 ** LaTeX hacks
+*** Highlight LaTeX fragments
+#+BEGIN_SRC emacs-lisp
+  (setq org-highlight-latex-and-related '(latex))
+#+END_SRC
+
 *** VC status
 #+NAME: vc-status
 #+BEGIN_SRC sh :exports none
