@@ -117,7 +117,7 @@ Enable flex support
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after fill-column-indicator
                      (setq fci-rule-width 3))
-  (setq-default fill-column 80)
+  (setq-default fill-column 100)
 #+END_SRC
 
 ** Highlight current line                                        :nottangle:
