@@ -50,83 +50,85 @@ keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some =face= changes for
 [[https://github.com/milkypostman/powerline][powerline]] (see [[Powerline][below]]).
 #+BEGIN_SRC emacs-lisp
-    (defun sk-solarized-childtheme ()
-      (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
-             (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
-             (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
-             (solarized-hl (if (eq variant 'light) s-base2 s-base02))
-             (solarized-emph (if (eq variant 'light) s-base01 s-base1))
-             (solarized-comments (if (eq variant 'light) s-base1 s-base01))
-             (solarized-fg-hc (if (eq variant 'light) s-base3 s-base03))
-             (solarized-fg-lc (if (eq variant 'light) s-base03 s-base3)))
+  (defun sk-solarized-childtheme ()
+    (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
+           (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
+           (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
+           (solarized-hl (if (eq variant 'light) s-base2 s-base02))
+           (solarized-emph (if (eq variant 'light) s-base01 s-base1))
+           (solarized-comments (if (eq variant 'light) s-base1 s-base01))
+           (solarized-fg-hc (if (eq variant 'light) s-base3 s-base03))
+           (solarized-fg-lc (if (eq variant 'light) s-base03 s-base3)))
 
-        (custom-theme-set-faces
-         theme-name
-         ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+      (custom-theme-set-faces
+       theme-name
+       ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
 
-         ;; Modeline and powerline
-         `(mode-line           ((,class (:foreground ,modeline-fg :background ,blue
-                                                     :box nil :overline nil :underline nil))))
-         `(mode-line-inactive  ((,class (:foreground ,modeline-fg :background ,blue-d
-                                                     :box nil :overline nil :underline nil))))
-         `(mode-line-buffer-id ((,class (:foreground ,modeline-fg :box nil :weight normal))))
-         `(powerline-active1   ((,class (:background "gray25" :foreground ,modeline-fg))))
-         `(powerline-inactive1 ((,class (:background "gray25" :foreground ,modeline-fg))))
-         `(powerline-active2   ((,class (:background "gray40" :foreground ,modeline-fg))))
-         `(powerline-inactive2 ((,class (:background "gray40" :foreground ,modeline-fg))))
-         `(which-func          ((,class (:foreground ,magenta :weight bold))))
-         `(header-line         ((,class (:background ,solarized-bg
-                                                     :foreground ,solarized-fg
-                                                     :underline nil
-                                                     :overline nil))))
-         ;; Change some org faces
-         `(org-block ((,class (:foreground ,solarized-fg))))
-         `(org-document-title        ((,class (:foreground ,blue-hc :weight bold :height 1.0))))
-         `(org-document-info         ((,class (:foreground ,blue-hc))))
-         `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
-         `(org-table ((,class (:foreground ,blue-d))))
-         `(org-level-1 ((,class (:foreground ,orange))))
-         `(org-level-2 ((,class (:foreground ,green))))
-         `(org-level-3 ((,class (:foreground ,blue))))
-         `(org-level-4 ((,class (:foreground ,yellow))))
-         `(org-level-5 ((,class (:foreground ,cyan))))
-         `(org-level-6 ((,class (:foreground ,green))))
-         `(org-level-7 ((,class (:foreground ,red))))
-         `(org-level-8 ((,class (:foreground ,blue))))
-         ;; Autocomplete faces
-         `(ac-candidate-face           ((,class (:background ,solarized-hl :foreground ,yellow))))
-         `(ac-selection-face           ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
-         `(ac-candidate-mouse-face     ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
-         `(ac-completion-face          ((,class (:foreground ,solarized-emph :underline t))))
-         `(ac-gtags-candidate-face     ((,class (:background ,solarized-hl :foreground ,blue))))
-         `(ac-gtags-selection-face     ((,class (:background ,blue-lc :foreground ,blue-hc))))
-         `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
-         `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
-         ;; Linum & fringe
-         ;;`(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-         `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-         ;; mu4e faces
-         `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
-         `(mu4e-cited-2-face ((,class (:foreground ,blue :slant italic :weight normal))))
-         `(mu4e-cited-3-face ((,class (:foreground ,orange :slant italic :weight normal))))
-         `(mu4e-cited-4-face ((,class (:foreground ,yellow :slant italic :weight normal))))
-         `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
-         `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
-         `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
-         `(mu4e-flagged-face ((,class (:foreground ,blue :weight normal))))
-         `(mu4e-unread-face ((,class (:foreground ,blue-d :weight bold))))
-         `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
-         `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
-         `(mu4e-header-highlight-face
-           ((,class (:inherit unspecified :foreground unspecified :background ,base02
-                              :underline unspecified  :weight unspecified))))
-         `(mu4e-view-contact-face ((,class (:foreground ,base0  :weight normal))))
-         `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
-         `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
-         `(mu4e-view-link-face ((,class (:inherit link))))
-         `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
-         `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
-    )))
+       ;; Modeline and powerline
+       `(mode-line           ((,class (:foreground ,modeline-fg :background ,blue
+                                                   :box nil :overline nil :underline nil))))
+       `(mode-line-inactive  ((,class (:foreground ,modeline-fg :background ,blue-d
+                                                   :box nil :overline nil :underline nil))))
+       `(mode-line-buffer-id ((,class (:foreground ,modeline-fg :box nil :weight normal))))
+       `(powerline-active1   ((,class (:background "gray25" :foreground ,modeline-fg))))
+       `(powerline-inactive1 ((,class (:background "gray25" :foreground ,modeline-fg))))
+       `(powerline-active2   ((,class (:background "gray40" :foreground ,modeline-fg))))
+       `(powerline-inactive2 ((,class (:background "gray40" :foreground ,modeline-fg))))
+       `(which-func          ((,class (:foreground ,magenta :weight bold))))
+       `(header-line         ((,class (:background ,solarized-bg
+                                                   :foreground ,solarized-fg
+                                                   :underline nil
+                                                   :overline nil))))
+       ;; Change some org faces
+       `(org-block ((,class (:foreground ,solarized-fg))))
+       `(org-document-title        ((,class (:foreground ,blue-hc :weight bold :height 1.0))))
+       `(org-document-info         ((,class (:foreground ,blue-hc))))
+       `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
+       `(org-table ((,class (:foreground ,blue-d))))
+       `(org-level-1 ((,class (:foreground ,orange))))
+       `(org-level-2 ((,class (:foreground ,green))))
+       `(org-level-3 ((,class (:foreground ,blue))))
+       `(org-level-4 ((,class (:foreground ,yellow))))
+       `(org-level-5 ((,class (:foreground ,cyan))))
+       `(org-level-6 ((,class (:foreground ,green))))
+       `(org-level-7 ((,class (:foreground ,red))))
+       `(org-level-8 ((,class (:foreground ,blue))))
+       ;;       `(org-latex-and-related ((,class (:inherit org-latex-and-export-specials))))
+       ;; Autocomplete faces
+       `(ac-candidate-face           ((,class (:background ,solarized-hl :foreground ,yellow))))
+       `(ac-selection-face           ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
+       `(ac-candidate-mouse-face     ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
+       `(ac-completion-face          ((,class (:foreground ,solarized-emph :underline t))))
+       `(ac-gtags-candidate-face     ((,class (:background ,solarized-hl :foreground ,blue))))
+       `(ac-gtags-selection-face     ((,class (:background ,blue-lc :foreground ,blue-hc))))
+       `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
+       `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
+       ;; Linum & fringe
+       ;;`(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       ;; mu4e faces
+       `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-2-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-cited-3-face ((,class (:foreground ,orange :slant italic :weight normal))))
+       `(mu4e-cited-4-face ((,class (:foreground ,yellow :slant italic :weight normal))))
+       `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
+       `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-flagged-face ((,class (:foreground ,blue :weight normal))))
+       `(mu4e-unread-face ((,class (:foreground ,blue-d :weight bold))))
+       `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
+       `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
+       `(mu4e-header-marks-face ((,class (:foreground ,green :slant normal :weight bold))))
+       `(mu4e-header-highlight-face
+         ((,class (:inherit unspecified :foreground unspecified :background ,solarized-hl
+                            :underline unspecified  :weight unspecified :box nil))))
+       `(mu4e-view-contact-face ((,class (:foreground ,base0  :weight normal))))
+       `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
+       `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
+       `(mu4e-view-link-face ((,class (:inherit link))))
+       `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
+       `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
+       )))
 #+END_SRC
 
 Define new theme (since definition occurs here it is loaded by default)
@@ -142,10 +144,17 @@ Create interactive functions to easily switch from one theme to another
 #+BEGIN_SRC emacs-lisp
   (defun sk-switch-to-dark-theme ()
     (interactive)
-    (create-solarized-theme 'dark 'sk-solarized 'sk-solarized-childtheme))
+    (create-solarized-theme 'dark 'sk-solarized 'sk-solarized-childtheme)
+    (fci-make-overlay-strings)
+    (fci-update-all-windows t)
+    )
   (defun sk-switch-to-light-theme ()
     (interactive)
-    (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme))
+    (create-solarized-theme 'light 'sk-solarized 'sk-solarized-childtheme)
+    (fci-make-overlay-strings)
+    (fci-update-all-windows t))
+  (global-set-key (kbd "C-c l") 'sk-switch-to-light-theme)
+  (global-set-key (kbd "C-c d") 'sk-switch-to-dark-theme)
 #+END_SRC
 
 ** UI settings
@@ -255,6 +264,7 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
   (define-key dired-mode-map "i" 'ido-find-file)
 #+END_SRC
 *** Files size
+
 #+BEGIN_SRC emacs-lisp
   (defun dired-get-size ()
     (interactive)
@@ -267,6 +277,12 @@ From [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars blog]]
            (re-search-backward "\\(^[0-9.,]+[A-Za-z]+\\).*total$")
            (match-string 1))))))
   (define-key dired-mode-map (kbd "z") 'dired-get-size)
+#+END_SRC
+*** Dired subtree
+#+BEGIN_SRC emacs-lisp
+  (require 'dired-subtree)
+  (define-key dired-mode-map "+" 'dired-subtree-insert)
+  (define-key dired-mode-map "-" 'dired-subtree-remove)
 #+END_SRC
 
 ** Ibuffer customization
