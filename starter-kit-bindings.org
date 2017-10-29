@@ -56,7 +56,7 @@ Key Bindings.
 
 ** Window rotation
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<s-tab>") 'sk-toggle-window-split)
+  (global-set-key (kbd "C-:") 'sk-toggle-window-split)
 #+END_SRC
 
 ** Line operations
