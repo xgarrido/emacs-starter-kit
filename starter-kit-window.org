@@ -115,11 +115,11 @@ some small part of it here. There is also some =face= changes for
          `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
          `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
          `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
-         `(mu4e-flagged-face ((,class (:foreground ,red-d :weight normal))))
+         `(mu4e-flagged-face ((,class (:foreground ,red :weight bold))))
          `(mu4e-header-face ((,class (:foreground ,solarized-comments))))
          `(mu4e-unread-face ((,class (:foreground ,blue-d :weight bold))))
-         `(mu4e-replied-face ((,class (:foreground ,yellow-d :weight normal))))
-         `(mu4e-forward-face ((,class (:foreground ,green-d :weight normal))))
+         `(mu4e-replied-face ((,class (:foreground ,yellow-l :weight normal))))
+         `(mu4e-forward-face ((,class (:foreground ,green-l :weight normal))))
          `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
          `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
          `(mu4e-header-marks-face ((,class (:foreground ,green :slant normal :weight bold))))
@@ -134,6 +134,9 @@ some small part of it here. There is also some =face= changes for
          `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
          )))
 #+END_SRC
+
+#+RESULTS:
+: sk-solarized-childtheme
 
 Define new theme (since definition occurs here it is loaded by default)
 #+BEGIN_SRC emacs-lisp
