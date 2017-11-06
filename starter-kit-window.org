@@ -117,12 +117,13 @@ some small part of it here. There is also some =face= changes for
          `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
          `(mu4e-flagged-face ((,class (:foreground ,red :weight bold))))
          `(mu4e-header-face ((,class (:foreground ,solarized-comments))))
-         `(mu4e-unread-face ((,class (:foreground ,blue-d :weight bold))))
+         `(mu4e-unread-face ((,class (:foreground ,blue :weight bold))))
          `(mu4e-replied-face ((,class (:foreground ,yellow-l :weight normal))))
-         `(mu4e-forward-face ((,class (:foreground ,green-l :weight normal))))
+         `(mu4e-forwarded-face ((,class (:foreground ,green-l :weight normal))))
          `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
          `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
-         `(mu4e-header-marks-face ((,class (:foreground ,green :slant normal :weight bold))))
+         `(mu4e-system-face ((,class (:foreground ,solarized-comments :slant italic :weight bold))))
+         `(mu4e-header-marks-face ((,class (:foreground ,solarized-comments :slant normal :weight bold))))
          `(mu4e-header-highlight-face
            ((,class (:inherit unspecified :foreground unspecified :background ,solarized-hl
                               :underline unspecified  :weight bold :box nil))))
