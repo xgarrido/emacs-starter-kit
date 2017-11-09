@@ -119,7 +119,7 @@ some small part of it here. There is also some =face= changes for
          `(mu4e-header-face ((,class (:foreground ,solarized-comments))))
          `(mu4e-unread-face ((,class (:foreground ,blue :weight bold))))
          `(mu4e-replied-face ((,class (:foreground ,yellow-l :weight normal))))
-         `(mu4e-forwarded-face ((,class (:foreground ,green-l :weight normal))))
+         `(mu4e-forwarded-face ((,class (:foreground ,red-l :weight normal))))
          `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
          `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
          `(mu4e-system-face ((,class (:foreground ,solarized-comments :slant italic :weight bold))))
