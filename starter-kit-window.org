@@ -52,7 +52,8 @@ some small part of it here. There is also some =face= changes for
 #+BEGIN_SRC emacs-lisp
   (defun sk-solarized-childtheme ()
     (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
-           (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
+           ;; (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
+           (solarized-bg (if (eq variant 'light) s-base3 "#2F343F"))
            (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
            (solarized-hl (if (eq variant 'light) s-base2 s-base02))
            (solarized-emph (if (eq variant 'light) s-base01 s-base1))
