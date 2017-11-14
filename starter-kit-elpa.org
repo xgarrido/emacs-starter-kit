@@ -147,6 +147,7 @@ re-downloaded in order to locate PACKAGE."
 **** Utilities
 #+BEGIN_SRC emacs-lisp
   dired-details
+  dired-subtree
   popwin ; popup window
   direx
   dired-k
