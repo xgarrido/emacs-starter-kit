@@ -50,90 +50,90 @@ keep the default solarized theme clean and up-to-date and just change
 some small part of it here. There is also some =face= changes for
 [[https://github.com/milkypostman/powerline][powerline]] (see [[Powerline][below]]).
 #+BEGIN_SRC emacs-lisp
-    (defun sk-solarized-childtheme ()
-      (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
-             (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
-             (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
-             (solarized-hl (if (eq variant 'light) s-base2 s-base02))
-             (solarized-emph (if (eq variant 'light) s-base01 s-base1))
-             (solarized-comments (if (eq variant 'light) s-base1 s-base01))
-             (solarized-fg-hc (if (eq variant 'light) s-base3 s-base03))
-             (solarized-fg-lc (if (eq variant 'light) s-base03 s-base3)))
+  (defun sk-solarized-childtheme ()
+    (let* ((solarized-fg (if (eq variant 'light) s-base00 "#FFFFFF"))
+           (solarized-bg (if (eq variant 'light) s-base3 "#2D2D2D"))
+           (modeline-fg (if (eq variant 'light) solarized-bg solarized-fg))
+           (solarized-hl (if (eq variant 'light) s-base2 s-base02))
+           (solarized-emph (if (eq variant 'light) s-base01 s-base1))
+           (solarized-comments (if (eq variant 'light) s-base1 s-base01))
+           (solarized-fg-hc (if (eq variant 'light) s-base3 s-base03))
+           (solarized-fg-lc (if (eq variant 'light) s-base03 s-base3)))
 
-        (custom-theme-set-faces
-         theme-name
-         ;; `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+      (custom-theme-set-faces
+       theme-name
+       `(default ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
 
-         ;; Modeline and powerline
-         `(mode-line           ((,class (:foreground ,modeline-fg :background ,green-d
-                                                     :box nil :overline nil :underline nil))))
-         `(mode-line-inactive  ((,class (:foreground ,modeline-fg :background ,blue-d
-                                                     :box nil :overline nil :underline nil))))
-         `(mode-line-buffer-id ((,class (:foreground ,modeline-fg :box nil :weight normal))))
-         `(powerline-active1   ((,class (:background "gray25" :foreground ,modeline-fg))))
-         `(powerline-inactive1 ((,class (:background "gray25" :foreground ,modeline-fg))))
-         `(powerline-active2   ((,class (:background "gray40" :foreground ,modeline-fg))))
-         `(powerline-inactive2 ((,class (:background "gray40" :foreground ,modeline-fg))))
-         `(which-func          ((,class (:foreground ,magenta :weight bold))))
-         `(header-line         ((,class (:background ,solarized-bg
-                                                     :foreground ,solarized-fg
-                                                     :underline nil
-                                                     :overline nil
-                                                     :box nil))))
-         ;; Change some org faces
-         `(org-block ((,class (:foreground ,solarized-fg))))
-         `(org-document-title        ((,class (:foreground ,blue-hc :weight bold :height 1.0))))
-         `(org-document-info         ((,class (:foreground ,blue-hc))))
-         `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
-         `(org-table ((,class (:foreground ,blue-d))))
-         `(org-level-1 ((,class (:foreground ,orange))))
-         `(org-level-2 ((,class (:foreground ,green))))
-         `(org-level-3 ((,class (:foreground ,blue))))
-         `(org-level-4 ((,class (:foreground ,yellow))))
-         `(org-level-5 ((,class (:foreground ,cyan))))
-         `(org-level-6 ((,class (:foreground ,green))))
-         `(org-level-7 ((,class (:foreground ,red))))
-         `(org-level-8 ((,class (:foreground ,blue))))
-         ;;       `(org-latex-and-related ((,class (:inherit org-latex-and-export-specials))))
-         ;; Autocomplete faces
-         `(ac-candidate-face           ((,class (:background ,solarized-hl :foreground ,yellow))))
-         `(ac-selection-face           ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
-         `(ac-candidate-mouse-face     ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
-         `(ac-completion-face          ((,class (:foreground ,solarized-emph :underline t))))
-         `(ac-gtags-candidate-face     ((,class (:background ,solarized-hl :foreground ,blue))))
-         `(ac-gtags-selection-face     ((,class (:background ,blue-lc :foreground ,blue-hc))))
-         `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
-         `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
-         ;; Linum & fringe
-         ;;`(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-         `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
-         ;; mu4e faces
-         `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
-         `(mu4e-cited-2-face ((,class (:foreground ,blue :slant italic :weight normal))))
-         `(mu4e-cited-3-face ((,class (:foreground ,orange :slant italic :weight normal))))
-         `(mu4e-cited-4-face ((,class (:foreground ,yellow :slant italic :weight normal))))
-         `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
-         `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
-         `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
-         `(mu4e-flagged-face ((,class (:foreground ,red :weight bold))))
-         `(mu4e-header-face ((,class (:foreground ,solarized-comments))))
-         `(mu4e-unread-face ((,class (:foreground ,blue :weight bold))))
-         `(mu4e-replied-face ((,class (:foreground ,yellow-l :weight normal))))
-         `(mu4e-forwarded-face ((,class (:foreground ,red-l :weight normal))))
-         `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
-         `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
-         `(mu4e-system-face ((,class (:foreground ,solarized-comments :slant italic :weight bold))))
-         `(mu4e-header-marks-face ((,class (:foreground ,solarized-comments :slant normal :weight bold))))
-         `(mu4e-header-highlight-face
-           ((,class (:inherit unspecified :foreground unspecified :background ,solarized-hl
-                              :underline unspecified  :weight bold :box nil))))
-         `(mu4e-view-contact-face ((,class (:foreground ,base0  :weight normal))))
-         `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
-         `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
-         `(mu4e-view-link-face ((,class (:inherit link))))
-         `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
-         `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
-         )))
+       ;; Modeline and powerline
+       `(mode-line           ((,class (:foreground ,modeline-fg :background ,green-d
+                                                   :box nil :overline nil :underline nil))))
+       `(mode-line-inactive  ((,class (:foreground ,modeline-fg :background ,blue-d
+                                                   :box nil :overline nil :underline nil))))
+       `(mode-line-buffer-id ((,class (:foreground ,modeline-fg :box nil :weight normal))))
+       `(powerline-active1   ((,class (:background "gray25" :foreground ,modeline-fg))))
+       `(powerline-inactive1 ((,class (:background "gray25" :foreground ,modeline-fg))))
+       `(powerline-active2   ((,class (:background "gray40" :foreground ,modeline-fg))))
+       `(powerline-inactive2 ((,class (:background "gray40" :foreground ,modeline-fg))))
+       `(which-func          ((,class (:foreground ,magenta :weight bold))))
+       `(header-line         ((,class (:background ,solarized-bg
+                                                   :foreground ,solarized-fg
+                                                   :underline nil
+                                                   :overline nil
+                                                   :box nil))))
+       ;; Change some org faces
+       `(org-block ((,class (:foreground ,solarized-fg))))
+       `(org-document-title        ((,class (:foreground ,blue-hc :weight bold :height 1.0))))
+       `(org-document-info         ((,class (:foreground ,blue-hc))))
+       `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
+       `(org-table ((,class (:foreground ,blue-d))))
+       `(org-level-1 ((,class (:foreground ,orange))))
+       `(org-level-2 ((,class (:foreground ,green))))
+       `(org-level-3 ((,class (:foreground ,blue))))
+       `(org-level-4 ((,class (:foreground ,yellow))))
+       `(org-level-5 ((,class (:foreground ,cyan))))
+       `(org-level-6 ((,class (:foreground ,green))))
+       `(org-level-7 ((,class (:foreground ,red))))
+       `(org-level-8 ((,class (:foreground ,blue))))
+       ;;       `(org-latex-and-related ((,class (:inherit org-latex-and-export-specials))))
+       ;; Autocomplete faces
+       `(ac-candidate-face           ((,class (:background ,solarized-hl :foreground ,yellow))))
+       `(ac-selection-face           ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
+       `(ac-candidate-mouse-face     ((,class (:background ,yellow-hc :foreground ,yellow-lc))))
+       `(ac-completion-face          ((,class (:foreground ,solarized-emph :underline t))))
+       `(ac-gtags-candidate-face     ((,class (:background ,solarized-hl :foreground ,blue))))
+       `(ac-gtags-selection-face     ((,class (:background ,blue-lc :foreground ,blue-hc))))
+       `(ac-yasnippet-candidate-face ((,class (:background ,solarized-hl :foreground ,orange))))
+       `(ac-yasnippet-selection-face ((,class (:background ,orange-lc :foreground ,orange-hc))))
+       ;; Linum & fringe
+       ;;`(linum  ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       `(fringe ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+       ;; mu4e faces
+       `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-2-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-cited-3-face ((,class (:foreground ,orange :slant italic :weight normal))))
+       `(mu4e-cited-4-face ((,class (:foreground ,yellow :slant italic :weight normal))))
+       `(mu4e-cited-5-face ((,class (:foreground ,cyan :slant italic :weight normal))))
+       `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
+       `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
+       `(mu4e-flagged-face ((,class (:foreground ,red :weight bold))))
+       `(mu4e-header-face ((,class (:foreground ,solarized-comments))))
+       `(mu4e-unread-face ((,class (:foreground ,blue :weight bold))))
+       `(mu4e-replied-face ((,class (:foreground ,yellow-l :weight normal))))
+       `(mu4e-forwarded-face ((,class (:foreground ,red-l :weight normal))))
+       `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
+       `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
+       `(mu4e-system-face ((,class (:foreground ,solarized-comments :slant italic :weight bold))))
+       `(mu4e-header-marks-face ((,class (:foreground ,solarized-comments :slant normal :weight bold))))
+       `(mu4e-header-highlight-face
+         ((,class (:inherit unspecified :foreground unspecified :background ,solarized-hl
+                            :underline unspecified  :weight bold :box nil))))
+       `(mu4e-view-contact-face ((,class (:foreground ,base0  :weight normal))))
+       `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
+       `(mu4e-view-header-value-face ((,class (:foreground ,yellow :weight normal :slant normal))))
+       `(mu4e-view-link-face ((,class (:inherit link))))
+       `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil))))
+       `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
+       )))
 #+END_SRC
 
 #+RESULTS:
