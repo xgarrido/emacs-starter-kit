@@ -411,35 +411,23 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 ** hydra
 *** org-mode
 
-#+BEGIN_SRC emacs-lisp
-  (defhydra hydra-org-template (:color blue :hint nil)
+#+BEGIN_SRC emacs-lisp :results none
+  (defhydra hydra-org-template (:color red :hint nil)
     "
-  _c_enter  _q_uote    _L_aTeX:
-  _l_atex   _e_xample  _i_ndex:
-  _a_scii   _v_erse    _I_NCLUDE:
-  _s_rc     ^ ^        _H_TML:
-  _h_tml    ^ ^        _A_SCII:
+  _c_enter   _s_rc
+  _q_uote    _e_macs-lisp
+  e_q_uation _p_ython
+  ^ ^        _i_python
   "
-    ("s" (hot-expand "<s"))
-    ("e" (hot-expand "<e"))
-    ("q" (hot-expand "<q"))
-    ("v" (hot-expand "<v"))
-    ("c" (hot-expand "<c"))
-    ("l" (hot-expand "<l"))
-    ("h" (hot-expand "<h"))
-    ("a" (hot-expand "<a"))
-    ("L" (hot-expand "<L"))
-    ("i" (hot-expand "<i"))
-    ("I" (hot-expand "<I"))
-    ("H" (hot-expand "<H"))
-    ("A" (hot-expand "<A"))
+    ("s" (insert "#+BEGIN_SRC\n#+END_SRC"))
+    ("e" (insert "#+BEGIN_SRC emacs-lisp\n#+END_SRC"))
+    ("q" (insert "#+BEGIN_QUOTE\n#+END_QUOTE"))
+    ("c" (insert "#+BEGIN_CENTER\n#+END_CENTER"))
+    ("i" (insert "#+BEGIN_SRC ipython :session :results raw drawer\n#+END_SRC"))
+    ("p" (insert "#+BEGIN_SRC python\n#+END_SRC"))
+    ("q" (insert "#+BEGIN_SRC latex\n\\begin{align*}\n\\end{align*}\n#+END_SRC"))
     ("<" self-insert-command "ins")
     ("o" nil "quit"))
-
-  (defun hot-expand (str)
-    "Expand org template."
-    (insert str)
-    (org-try-structure-completion))
 
   (define-key org-mode-map "<"
     (lambda () (interactive)
@@ -492,9 +480,9 @@ Defining hydra
                                    :hint nil)
      "
     [_q_] quit  git-gutter         dumb-jump
-              [↑] prev hunk      [_g_] goto definition
-              [↓] next hunk      [_b_] go back
-              [_s_] stage hunk     [_l_] quick look
+              [_↑_] prev hunk      [_g_] goto definition
+              [_↓_] next hunk      [_b_] go back
+              [_s_] stage hunk    [_l_] quick look
               [_r_] revert hunk
               [_p_] popup hunk
     "
@@ -507,8 +495,8 @@ Defining hydra
      ("s" git-gutter:stage-hunk)
      ("r" git-gutter:revert-hunk)
      ("p" git-gutter:popup-hunk)
-     ("g" dumb-jump-go)
-     ("b" dumb-jump-back)
+     ("g" dumb-jump-go :color green)
+     ("b" dumb-jump-back :color green)
      ("l" dumb-jump-quick-look)
      ("q" nil :color blue)
      )
