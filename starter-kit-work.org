@@ -29,5 +29,7 @@ Use this function to create TAGS related to SN@ilWare software.
 
 ** =tramp= executable path for Lyon machines
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'tramp-remote-path "/sps/nemo/scratch/garrido/software/bin")
+  (if (string-equal user-login-name "garrido")
+      (progn
+        (add-to-list 'tramp-remote-path "/sps/nemo/scratch/garrido/software/bin")))
 #+END_SRC
