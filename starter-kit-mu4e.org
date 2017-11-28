@@ -3,7 +3,13 @@
 
 This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 
-* =mu4e= configuration
+* Starter kit mailer
+** Preamble
+#+BEGIN_SRC emacs-lisp
+  (if (executable-find "mu")
+      (progn
+#+END_SRC
+** =mu4e= configuration
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
@@ -498,12 +504,15 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
      ("g" sk-mu4e-gmail)
      ("l" sk-mu4e-lal)))
 #+END_SRC
-** Mailing list
-#+BEGIN_SRC shell :tangle /home/garrido/.mailrc
+** COMMENT Mailing list
+#+BEGIN_SRC shell :tangle /home/garrido/.mailrc :results noneq
   alias coursex sarazin@lal.in2p3.fr duarte@lal.in2p3.fr roulet@lal.in2p3.fr machefert@lal.in2p3.fr
   alias l3_enseignant asmaa.abada@u-psud.fr bartjan.van-tent@u-psud.fr bruno.espagnon@u-psud.fr charis.quay@u-psud.fr christophe.texier@u-psud.fr claire.marrache@u-psud.fr clarisse.hamadache@u-psud.fr claude.pasquier@u-psud.fr cyril.falvo@u-psud.fr elias.khan@u-psud.fr francois.naulin@u-psud.fr frederic.bouquet@u-psud.fr gatien.verley@u-psud.fr giuseppe.foffi@u-psud.fr hans.lignier@u-psud.fr hendrik-jan.hilhorst@u-psud.fr herve.bergeron@u-psud.fr jean-marcel.rax@u-psud.fr julien.bobroff@u-psud.fr laurent.simard@u-psud.fr mathieu.langer@u-psud.fr nicolas.pavloff@u-psud.fr pascal.simon@u-psud.fr renaud.parentani@u-psud.fr robin.zegers@u-psud.fr roland.mastrippolito@u-psud.fr segolene.guilbaud@u-psud.fr sophie.kazamias@u-psud.fr stephane.douin@u-psud.fr stephanie.roccia@u-psud.fr
   alias m1_enseignant brigitte.pansu@u-psud.fr  carole.gaulard@u-psud.fr  catherine.krafft@u-psud.fr  claire.marrache@u-psud.fr  donia.baklouti@u-psud.fr  elias.khan@u-psud.fr  fabrice.bert@u-psud.fr  frederic.moisy@u-psud.fr  jerome.leygnier@u-psud.fr  marion.jacquey@u-psud.fr  nouari.kebaili@u-psud.fr  pascal.parneix@u-psud.fr  philippe.mendels@u-psud.fr  severine.boye-peronne@u-psud.fr
   alias l3_python alexandra.darco@u-psud.fr arthur.hirsch@u-psud.fr cyril.foucard@u-psud.fr florent.saudrais@u-psud.fr jade.briend-diop@u-psud.fr jean-thibaut.spaniol@u-psud.fr lea.chibani@u-psud.fr lolita.bucher@u-psud.fr mael.arveiler@u-psud.fr my-an.tran@u-psud.fr pierre.gourbin@u-psud.fr valentin.thirion@u-psud.fr
 #+END_SRC
 
-#+RESULTS:
+** Postamble
+#+BEGIN_SRC emacs-lisp
+))
+#+END_SRC
