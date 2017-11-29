@@ -65,3 +65,10 @@ added to melpa).
    (list
     "https://raw.githubusercontent.com/marsmining/ox-twbs/master/ox-twbs.el"))
 #+END_SRC
+*** ox-ipynb
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "ox-ipynb"
+   (list
+    "http://kitchingroup.cheme.cmu.edu/media/ox-ipynb.el"))
+#+END_SRC

@@ -228,6 +228,12 @@ Stolen from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html]]
   (define-key org-mode-map "\C-x\C-n" #'narrow-or-widen-dwim)
 #+END_SRC
 
+*** Export =ob-ipython= to jupyter notebooks format
+From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jupyter-notebooks/
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-ipynb)
+#+END_SRC
+
 ** The Library of Babel
 The library of babel contains makes many useful functions available
 for use by code blocks in *any* emacs file.  See the actual
