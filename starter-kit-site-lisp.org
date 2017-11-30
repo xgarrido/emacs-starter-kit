@@ -70,5 +70,5 @@ added to melpa).
   (install-site-lisp-file
    "ox-ipynb"
    (list
-    "http://kitchingroup.cheme.cmu.edu/media/ox-ipynb.el"))
+    "https://raw.githubusercontent.com/jkitchin/ox-ipynb/master/ox-ipynb.el")
 #+END_SRC
