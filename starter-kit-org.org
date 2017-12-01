@@ -233,6 +233,10 @@ From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jup
 #+BEGIN_SRC emacs-lisp
   (require 'ox-ipynb)
 #+END_SRC
+*** Display/update images in the buffer after code block evaluation
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+#+END_SRC
 
 ** The Library of Babel
 The library of babel contains makes many useful functions available
@@ -605,6 +609,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
           ("xrightmargin" "0.5cm")
           ("xleftmargin"  "0.5cm")
           ))
+  (add-to-list 'org-latex-minted-langs '(ipython "python"))
 #+END_SRC
 
 *** Place table caption below table
