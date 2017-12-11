@@ -652,6 +652,7 @@ tutorial]])
 #+BEGIN_SRC emacs-lisp
   (diminish 'auto-fill-function)
   (diminish 'abbrev-mode)
+  (diminish 'ivy-mode)
 #+END_SRC
 
 ** lorem ipsum
