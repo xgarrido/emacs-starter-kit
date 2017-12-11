@@ -20,16 +20,20 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook
-              (lambda ()
-                (local-set-key "\C-n" 'outline-next-visible-heading)
-                (local-set-key "\C-p" 'outline-previous-visible-heading)
-                ;; (local-set-key "\C-u" 'outline-up-heading)
-                ;; table
-                (local-set-key "\M-\C-w" 'org-table-copy-region)
-                (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
-                (local-set-key "\M-\C-l" 'org-table-sort-lines)
-                ;; display images
-                (local-set-key "\M-I" 'org-toggle-inline-image)))
+            (lambda ()
+              (local-set-key "\C-n" 'outline-next-visible-heading)
+              (local-set-key "\C-p" 'outline-previous-visible-heading)
+              ;; (local-set-key "\C-u" 'outline-up-heading)
+              ;; table
+              (local-set-key "\M-\C-w" 'org-table-copy-region)
+              (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
+              (local-set-key "\M-\C-l" 'org-table-sort-lines)
+              ;; display images
+              (local-set-key "\M-I" 'org-toggle-inline-image)
+              ;; Kill jupyter notebooks
+              (local-set-key (kbd "C-c C-v k") 'ob-ipython-kill-kernel)
+              (local-set-key (kbd "C-c C-v v") 'sk-restart-ipython)
+              ))
 #+END_SRC
 
 *** Minor mode
@@ -233,6 +237,7 @@ From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jup
 #+BEGIN_SRC emacs-lisp
   (require 'ox-ipynb)
 #+END_SRC
+
 *** Display/update images in the buffer after code block evaluation
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
@@ -799,7 +804,7 @@ finished. This is achieved with
 
 ** Rendering =pdf= images
 From [[http://stackoverflow.com/questions/15407485/inline-pdf-images-in-org-mode]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq image-file-name-extensions
         (quote
          ("png" "jpeg" "jpg" "gif" "tiff" "tif" "xbm" "xpm" "pbm" "pgm" "ppm" "pnm" "svg" "pdf" "bmp")))
