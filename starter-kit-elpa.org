@@ -127,6 +127,7 @@ re-downloaded in order to locate PACKAGE."
   cmake-mode               ; Cmake major mode
   go-mode                  ; Go major mode
   gnuplot                  ; Gnuplot mode
+  dockerfile-mode          ; Dockerfile mode
 #+END_SRC
 
 **** Git integration
