@@ -86,6 +86,8 @@ some small part of it here. There is also some =face= changes for
        `(org-document-title        ((,class (:foreground ,blue-hc :weight bold :height 1.0))))
        `(org-document-info         ((,class (:foreground ,blue-hc))))
        `(org-document-info-keyword ((,class (:foreground ,blue-lc))))
+       `(org-block-begin-line ((,class (:inherit org-meta-line :underline nil))))
+       `(org-block-end-line ((,class (:inherit org-meta-line :overline nil))))
        `(org-table ((,class (:foreground ,blue-d))))
        `(org-level-1 ((,class (:foreground ,orange))))
        `(org-level-2 ((,class (:foreground ,green))))
@@ -95,7 +97,7 @@ some small part of it here. There is also some =face= changes for
        `(org-level-6 ((,class (:foreground ,green))))
        `(org-level-7 ((,class (:foreground ,red))))
        `(org-level-8 ((,class (:foreground ,blue))))
-       ;;       `(org-latex-and-related ((,class (:inherit org-latex-and-export-specials))))
+       ;; `(org-latex-and-related ((,class (:inherit org-latex-and-export-specials))))
        ;; Autocomplete faces
        `(ac-candidate-face           ((,class (:background ,solarized-hl :foreground ,yellow))))
        `(ac-selection-face           ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
@@ -136,6 +138,9 @@ some small part of it here. There is also some =face= changes for
        `(mu4e-modeline-face ((,class (:foreground ,modeline-fg))))
        )))
 #+END_SRC
+
+#+RESULTS:
+: sk-solarized-childtheme
 
 Define new theme (since definition occurs here it is loaded by default)
 #+BEGIN_SRC emacs-lisp
@@ -403,7 +408,7 @@ called every time a file is changed (through =after-save-hook= hook).
 
 *** Powerline theme
 #+BEGIN_SRC emacs-lisp
-  (setq powerline-height 18)
+  (setq powerline-height 24)
   (defun sk-powerline-default-theme ()
     "Starter-kit default mode-line."
     (interactive)

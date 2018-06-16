@@ -175,6 +175,7 @@ See [[https://github.com/rejeep/drag-stuff]]
                      (diminish 'drag-stuff-mode));; "⇅"))
   (drag-stuff-global-mode)
 #+END_SRC
+
 ** projectile-mode                                               :nottangle:
 :PROPERTIES:
 :HEADER-ARGS: :tangle no
@@ -226,6 +227,7 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+BEGIN_SRC emacs-lisp
   (setq projectile-sort-order 'recentf)
 #+END_SRC
+
 ** Magit settings
 #+BEGIN_SRC emacs-lisp
   (require 'magit)
@@ -285,6 +287,9 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
 #+END_SRC
 
 ** Git gutter settings
+:PROPERTIES:
+:HEADER-ARGS: :tangle no
+:END:
 #+BEGIN_SRC emacs-lisp
   (require 'git-gutter)
   (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
@@ -415,14 +420,15 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
   (defhydra hydra-org-template (:color red :hint nil)
     "
   _c_enter   _s_rc
-  _q_uote    _e_macs-lisp
+  qu_o_te    _e_macs-lisp
   e_q_uation _p_ython
-  ^ ^        _i_python
+  questio_n_ _i_python
   "
     ("s" (insert "#+BEGIN_SRC\n#+END_SRC"))
     ("e" (insert "#+BEGIN_SRC emacs-lisp\n#+END_SRC"))
-    ("q" (insert "#+BEGIN_QUOTE\n#+END_QUOTE"))
+    ("o" (insert "#+BEGIN_QUOTE\n#+END_QUOTE"))
     ("c" (insert "#+BEGIN_CENTER\n#+END_CENTER"))
+    ("n" (insert "#+BEGIN_QUESTION\n#+END_QUESTION"))
     ("i" (insert "#+BEGIN_SRC ipython :session :results raw drawer\n#+END_SRC"))
     ("p" (insert "#+BEGIN_SRC python\n#+END_SRC"))
     ("q" (insert "#+BEGIN_SRC latex\n\\begin{align*}\n\\end{align*}\n#+END_SRC"))
@@ -503,9 +509,6 @@ Defining hydra
    )
 #+END_SRC
 
-#+RESULTS:
-: hydra-code/body
-
 ** key-chord
 #+BEGIN_SRC emacs-lisp
   (require 'key-chord)
@@ -514,7 +517,7 @@ Defining hydra
   (key-chord-mode +1)
 #+END_SRC
 
-** swiper                                                        :nottangle:
+** swiper
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-s") 'swiper)
   (setq ivy-display-style 'fancy)
