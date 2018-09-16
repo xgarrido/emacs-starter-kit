@@ -387,7 +387,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
                                 "  garrido@lal.in2p3.fr UMR 8607                              \n"
                                 "  garrido@in2p3.fr     Batiment 200                          \n"
                                 "  +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
-                                )))
+                                ))))
       ("Gmail"
        (user-mail-address  "xavier.garrido@gmail.com")
        (user-full-name     "Xavier Garrido")
@@ -395,7 +395,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
        (mu4e-sent-folder   "/Gmail/sent")
        (mu4e-compose-signature (concat
                                 "Xavier Garrido\n"
-                                "http://xgarrido.github.io\n")))))
+                                "http://xgarrido.github.io\n"))))
 
   (setq mu4e-user-mail-address-list
         (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
@@ -403,7 +403,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 #+END_SRC
 
 *** Set account when composing mail
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun sk-mu4e-set-account ()
     "Set the account for composing a message."
     (let* ((account
@@ -424,10 +424,10 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
         (error "No email account found"))))
 
   ;; ask for account when composing mail
-  (add-hook 'mu4e-compose-pre-hook 'sk-mu4e-set-account)
+  ;; (add-hook 'mu4e-compose-pre-hook 'sk-mu4e-set-account)
 #+END_SRC
 ** Gmail configuration
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun sk-email-gmail ()
     (setq message-send-mail-function 'smtpmail-send-it)
     (setq smtpmail-stream-type 'starttls)
@@ -457,30 +457,39 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
 ** LAL configuration
 #+BEGIN_SRC emacs-lisp
-  (defun sk-email-lal ()
-    (setq message-send-mail-function 'smtpmail-send-it)
-    (setq smtpmail-stream-type 'ssl)
-    (setq smtpmail-default-smtp-server "lalrelay.in2p3.fr")
-    (setq smtpmail-smtp-server "lalrelay.in2p3.fr")
-    (setq smtpmail-smtp-service 465)
-    (setq mu4e-drafts-folder "/LAL/drafts")
-    (setq mu4e-sent-folder   "/LAL/sent")
-    (setq mu4e-trash-folder  "/LAL/trash")
-    (setq mu4e-refile-folder (lambda (msg)
-                               (cond
-                                ;; messages to the mu mailing list go to the /na61 folder
-                                ;; ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
-                                ;;      (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
-                                ;;  "/LAL/inbox/Experiment/NA61")
-                                ;; everything else goes to /archive
-                                ;; important to have a catch-all at the end!
-                                (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
-    ;; (setq mu4e-refile-folder "/LAL/archives/2016" )
-    (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
-                                    ("/LAL/sent"          . ?s)
-                                    ("/LAL/trash"         . ?t)
-                                    ("/LAL/archives/2017" . ?a)))
-    )
+    (defun sk-email-lal ()
+      (setq user-mail-address  "garrido@lal.in2p3.fr")
+      (setq user-full-name     "Xavier Garrido")
+      (setq message-send-mail-function 'smtpmail-send-it)
+      (setq smtpmail-stream-type 'ssl)
+      (setq smtpmail-default-smtp-server "lalrelay.in2p3.fr")
+      (setq smtpmail-smtp-server "lalrelay.in2p3.fr")
+      (setq smtpmail-smtp-service 465)
+      (setq mu4e-compose-signature (concat
+                                    "  GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n"
+                                    "  NEMO/CMB             Université Paris-Sud 11               \n"
+                                    "  garrido@lal.in2p3.fr UMR 8607                              \n"
+                                    "  garrido@in2p3.fr     Batiment 200                          \n"
+                                    "  +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
+                                    ))
+      (setq mu4e-drafts-folder "/LAL/drafts")
+      (setq mu4e-sent-folder   "/LAL/sent")
+      (setq mu4e-trash-folder  "/LAL/trash")
+      (setq mu4e-refile-folder (lambda (msg)
+                                 (cond
+                                  ;; messages to the mu mailing list go to the /na61 folder
+                                  ;; ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
+                                  ;;      (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
+                                  ;;  "/LAL/inbox/Experiment/NA61")
+                                  ;; everything else goes to /archive
+                                  ;; important to have a catch-all at the end!
+                                  (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
+      ;; (setq mu4e-refile-folder "/LAL/archives/2016" )
+      (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
+                                      ("/LAL/sent"          . ?s)
+                                      ("/LAL/trash"         . ?t)
+                                      ("/LAL/archives/2018" . ?a)))
+      )
 #+END_SRC
 
 ** Hydra
@@ -490,19 +499,21 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (sk-email-lal)
     (mu4e)
     (mu4e~headers-jump-to-maildir "/LAL/inbox"))
-  (defun sk-mu4e-gmail()
-    (interactive)
-    (sk-email-gmail)
-    (mu4e)
-    (mu4e~headers-jump-to-maildir "/Gmail/inbox"))
+  ;; (defun sk-mu4e-gmail()
+  ;;   (interactive)
+  ;;   (sk-email-gmail)
+  ;;   (mu4e)
+  ;;   (mu4e~headers-jump-to-maildir "/Gmail/inbox"))
 
-  (key-chord-define-global
-   "!!"
-   (defhydra hydra-email (:color blue :hint nil)
-     "
-    [mu4e] _g_mail _l_al"
-     ("g" sk-mu4e-gmail)
-     ("l" sk-mu4e-lal)))
+  ;; (key-chord-define-global
+  ;;  "!!"
+  ;;  (defhydra hydra-email (:color blue :hint nil)
+  ;;    "
+  ;;   [mu4e] _g_mail _l_al"
+  ;;    ("g" sk-mu4e-gmail)
+  ;;    ("l" sk-mu4e-lal)))
+
+  (key-chord-define-global "!!" 'sk-mu4e-lal)
 #+END_SRC
 ** COMMENT Mailing list
 #+BEGIN_SRC shell :tangle /home/garrido/.mailrc :results noneq
