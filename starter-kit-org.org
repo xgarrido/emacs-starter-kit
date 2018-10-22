@@ -239,7 +239,7 @@ From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jup
 #+END_SRC
 
 *** Display/update images in the buffer after code block evaluation
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 #+END_SRC
 
