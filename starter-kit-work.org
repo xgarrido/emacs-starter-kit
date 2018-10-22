@@ -6,8 +6,15 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 * Starter kit work
 This file provides some functions in relation with SuperNEMO "work".
 
-** Create and load SN@ilWare TAGS file
+** =tramp= executable path for Lyon machines
+#+BEGIN_SRC emacs-lisp
+  (if (string-equal user-login-name "garrido")
+      (progn
+        (add-to-list 'tramp-remote-path "/sps/nemo/scratch/garrido/software/bin")))
+#+END_SRC
 
+** SuperNEMO
+*** Create and load SN@ilWare TAGS file
 Use this function to create TAGS related to SN@ilWare software.
 #+BEGIN_SRC emacs-lisp
   (defun sk-create-snailware-tags ()
@@ -27,9 +34,130 @@ Use this function to create TAGS related to SN@ilWare software.
     (sk-popup "Emacs" "TAGS file for SN@ilWare generated"))
 #+END_SRC
 
-** =tramp= executable path for Lyon machines
+** CMB
 #+BEGIN_SRC emacs-lisp
-  (if (string-equal user-login-name "garrido")
-      (progn
-        (add-to-list 'tramp-remote-path "/sps/nemo/scratch/garrido/software/bin")))
+  (org-babel-lob-ingest (expand-file-name "starter-kit-work.org" starter-kit-dir))
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+*** Get \chi^{2} values from a set of files
+#+NAME: get_chi2
+#+BEGIN_SRC shell :results table :var table="" :exports results
+  if [ -z ${table} ]; then
+      notify-send -u critical "Starter Kit Work - get_chi2" "Missing table entry !"
+      return
+  fi
+  local table=(${(f)${table}})
+  local header=(${=table[1]})
+  local likelihoods
+  for ((i=2; i<=${#table}; i++)); do
+      local values=(${=table[$i]})
+      local the_dir="runs/"
+      for ((j=1; j<=5; j++)); do
+          if [[ ${values[$j]} = 0 ]]; then
+              continue
+          elif [[ ${values[$j]} = + ]]; then
+              the_dir+="_${header[$j]}"
+          else
+              the_dir+=${values[j]}
+          fi
+      done
+      the_dir+="_lowTEB"
+      if ! ls ${the_dir}/*_min/best_fit* 1> /dev/null 2>&1; then
+          echo "+${the_dir/runs\//}+ +error+"
+          continue
+      fi
+      declare -A lines mins
+      for f in ${the_dir}/*_min/best_fit* ; do
+          local fn=$(echo $f | awk -F/ '{print $4}' | sed 's/best_fit\(.*\).txt/\1/')
+          fns[$fn]="${fn}"
+          local like=$(echo $f | awk -F/ '{print $2}')
+          if [ ! ${lines[$like]+_} ]; then
+              likelihoods+=(${like})
+              lines[$like]+="$like "
+          fi
+          local chi2=$(tail -n1 $f | awk '{print $(NF-10)}')
+          if [[ -z ${chi2} ]]; then
+              lines[$like]+="_ "
+          elif [[ ${chi2} = *nan* ]]; then
+              lines[$like]+="+$chi2+ "
+          else
+              lines[$like]+="$chi2 "
+          fi
+          if [[ ${chi2} = *nan* || -z ${chi2} ]]; then
+              continue
+          fi
+          if [ ! ${mins[$like]+_} ]; then
+              mins[$like]=$chi2
+          elif [[ $chi2 < ${mins[$like]} ]]; then
+              mins[$like]=$chi2
+          fi
+      done
+  done
+  echo "\n_bestfit_ ${fns}"
+  for l in ${=likelihoods}; do
+      [[ ! ${lines[$l]+_} ]] && continue
+      if [[ ${mins[$l]+_} ]]; then
+          line=$(echo ${lines[$l]} | sed 's/'${mins[$l]}'/\*'${mins[$l]}'\*/')
+      else
+          line=$(echo ${lines[$l]})
+      fi
+      echo $line
+  done
+#+END_SRC
+
+*** Get MCMC sample size
+#+NAME: get_mcmc_samples
+#+BEGIN_SRC shell :results table :var table=""
+  if [ -z ${table} ]; then
+      notify-send -u critical "Starter Kit Work - get_chi2" "Missing table entry !"
+      return
+  fi
+  local table=(${(f)${table}})
+  local header=(${=table[1]})
+  declare -A lines
+  local likelihoods
+  for ((i=2; i<=${#table}; i++)); do
+      local values=(${=table[$i]})
+      local the_dir="runs/"
+      for ((j=1; j<=5; j++)); do
+          if [[ ${values[$j]} = 0 ]]; then
+              continue
+          elif [[ ${values[$j]} = + ]]; then
+              the_dir+="_${header[$j]}"
+          else
+              the_dir+=${values[j]}
+          fi
+      done
+      the_dir+="_lowTEB"
+      if ! ls ${the_dir}/*_MC/samples?.txt 1> /dev/null 2>&1; then
+          local like=$(echo $f | awk -F/ '{print $2}')
+          echo "*$like*"
+          continue
+      fi
+      for f in ${the_dir}/*_MC/samples?.txt ; do
+          local fn=$(echo $f | awk -F/ '{print $4}' | sed 's/samples\(.*\).txt/\1/')
+          fns[$fn]="${fn}"
+          local like=$(echo $f | awk -F/ '{print $2}')
+          if [ ! ${lines[$like]+_} ]; then
+              likelihoods+=(${like})
+              lines[$like]+="$like "
+          fi
+          local size=$(($(wc -l $f | awk '{print $1}')-1))
+          if [[ $size -lt 250000 ]]; then
+            size="+$size+"
+          elif [[ $size -lt 500000 ]]; then
+            size="*$size*"
+          fi
+          lines[$like]+="$size "
+      done
+  done
+  echo "\n_sample_ ${fns}"
+  for l in ${=likelihoods}; do
+      [[ ! ${lines[$l]+_} ]] && continue
+      line=$(echo ${lines[$l]})
+      echo $line
+  done
 #+END_SRC
