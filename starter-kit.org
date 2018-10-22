@@ -354,7 +354,7 @@ The following files contain specific settings for several modules.
     (starter-kit-load "starter-kit-mu4e.org")
   #+END_SRC
 
-- settings related to [[file:starter-kit-work.org][SuperNEMO work]]
+- settings related to [[file:starter-kit-work.org][LAL/University work]]
   #+BEGIN_SRC emacs-lisp
     (starter-kit-load "starter-kit-work.org")
   #+END_SRC
