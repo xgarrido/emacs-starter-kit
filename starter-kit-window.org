@@ -387,7 +387,7 @@ called every time a file is changed (through =after-save-hook= hook).
             (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#FFFFFF")))
         (progn
           (setq powerline-git-face (face-remap-add-relative 'powerline-inactive1 :foreground "#DEB542"))
-          (sk-popup "git status" (concat "⚑ " (format-mode-line mode-line-buffer-identification)) "low"))
+          (sk-popup "git status" (concat "" (format-mode-line mode-line-buffer-identification)) "low"))
         )))
 
   ;;(add-hook 'focus-in-hook 'sk-git-modeline-status)
@@ -399,7 +399,7 @@ called every time a file is changed (through =after-save-hook= hook).
   (defpowerline sk-powerline-vc
     (when (and (buffer-file-name (current-buffer))
                vc-mode)
-      (format-mode-line '(" ❬⊶ " (:propertize
+      (format-mode-line '(" ❬ " (:propertize
                                   ;; Strip the backend name from the VC status information
                                   (:eval (let ((backend (symbol-name (vc-backend (buffer-file-name)))))
                                            (substring vc-mode (+ (length backend) 2))))
@@ -425,7 +425,7 @@ called every time a file is changed (through =after-save-hook= hook).
                                   ;; (powerline-buffer-size nil 'l)
 
                                   ;;(powerline-raw mode-line-mule-info nil 'l)
-                                  (powerline-raw " ☭")
+                                  (powerline-raw " ")
                                   (powerline-buffer-id nil 'l)
 
                                   (powerline-raw " ")
