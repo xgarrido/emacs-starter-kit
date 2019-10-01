@@ -288,9 +288,7 @@ From [[http://tromey.com/blog/?p=831]].
             (insert (format "\t%s\n" (car c))))))))
 #+END_SRC
 
-
 *** Remove newline
-
 #+BEGIN_SRC emacs-lisp
 (defun sk-remove-newlines-in-region ()
   "Removes all newlines in the region."
@@ -300,6 +298,19 @@ From [[http://tromey.com/blog/?p=831]].
     (goto-char (point-min))
     (while (search-forward "\n" nil t) (replace-match " " nil t))))
 #+END_SRC
+*** Convert list of words into comma separated strings
+#+BEGIN_SRC emacs-lisp
+  (defun sk-lines-to-cslist (start end &optional arg)
+    (interactive "r\nP")
+    (let ((insertion
+           (mapconcat
+            (lambda (x) (format "\"%s\"" x))
+            (split-string (buffer-substring start end)) ", ")))
+      (delete-region start end)
+      (insert insertion)
+      (when arg (forward-char (length insertion)))))
+#+END_SRC
+
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
