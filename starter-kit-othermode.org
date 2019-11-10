@@ -479,34 +479,31 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 *** git gutter + dumb-jump
 Defining hydra
 #+BEGIN_SRC emacs-lisp
-  (setq dumb-jump-selector 'ivy)
-  (key-chord-define-global
-   "$$"
-   (defhydra hydra-code (:body-pre (git-gutter-mode 1)(dumb-jump-mode 1)
-                                   :hint nil)
-     "
-    [_q_] quit  git-gutter         dumb-jump
-              [_↑_] prev hunk      [_g_] goto definition
-              [_↓_] next hunk      [_b_] go back
-              [_s_] stage hunk    [_l_] quick look
-              [_r_] revert hunk
-              [_p_] popup hunk
-    "
-     ("<down>" git-gutter:next-hunk)
-     ("<up>" git-gutter:previous-hunk)
-     ("h" (progn (goto-char (point-min))
-                 (git-gutter:next-hunk 1)))
-     ("l" (progn (goto-char (point-min))
-                 (git-gutter:previous-hunk 1)))
-     ("s" git-gutter:stage-hunk)
-     ("r" git-gutter:revert-hunk)
-     ("p" git-gutter:popup-hunk)
-     ("g" dumb-jump-go :color green)
-     ("b" dumb-jump-back :color green)
-     ("l" dumb-jump-quick-look)
-     ("q" nil :color blue)
+    (setq dumb-jump-selector 'ivy)
+    (key-chord-define-global
+     "$$"
+     (defhydra hydra-code (:body-pre (git-gutter-mode 1)
+                                     :hint nil)
+       "
+      [_q_] quit  git-gutter
+                [_↑_] prev hunk [_s_] stage hunk  [_p_] popup hunk
+                [_↓_] next hunk [_r_] revert hunk
+      "
+       ("<down>" git-gutter:next-hunk)
+       ("<up>" git-gutter:previous-hunk)
+       ("h" (progn (goto-char (point-min))
+                   (git-gutter:next-hunk 1)))
+       ("l" (progn (goto-char (point-min))
+                   (git-gutter:previous-hunk 1)))
+       ("s" git-gutter:stage-hunk)
+       ("r" git-gutter:revert-hunk)
+       ("p" git-gutter:popup-hunk)
+       ;; ("g" dumb-jump-go :color green)
+       ;; ("b" dumb-jump-back :color green)
+       ;; ("l" dumb-jump-quick-look)
+       ("q" nil :color blue)
+       )
      )
-   )
 #+END_SRC
 
 ** key-chord
@@ -602,7 +599,7 @@ Define some usual =trac-wiki= projects.
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after wrap-region (diminish 'wrap-region-mode))
 #+END_SRC
-** yasnippet mode                                                :nottangle:
+** yasnippet mode
 [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is inspired by
 TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]] or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and
 tutorial]])
@@ -676,3 +673,11 @@ tutorial]])
 #+BEGIN_SRC emacs-lisp
   (setq tramp-ssh-controlmaster-options "")
 #+END_SRC
+
+** pyvenv workon directory
+#+BEGIN_SRC emacs-lisp
+  (setenv "WORKON_HOME" (concat (getenv "HOME") "/.local/share/virtualenvs"))
+#+END_SRC
+
+#+RESULTS:
+: /home/garrido.local/share/virtualenvs
