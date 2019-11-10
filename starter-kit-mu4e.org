@@ -81,6 +81,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
            (:from-or-to . 22)
            (:subject    . nil)))
 
+  ;; (setq mu4e-view-use-gnus t)
+
   ;; (setq
   ;;  mu4e-index-cleanup nil      ;; don't do a full cleanup check
   ;;  mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
@@ -151,8 +153,12 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
   (define-key mu4e-headers-mode-map (kbd "C-c l") 'org-store-link)
   (add-hook 'message-mode-hook
-            (lambda () (set-input-method "TeX")))
+            (lambda ()
+              (yas-minor-mode t)
+              (auto-complete-mode t)
+              (set-input-method "TeX")))
 #+END_SRC
+
 *** Htmlization with =org-mime=
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'org-mime)
