@@ -128,6 +128,8 @@ re-downloaded in order to locate PACKAGE."
   go-mode                  ; Go major mode
   gnuplot                  ; Gnuplot mode
   dockerfile-mode          ; Dockerfile mode
+  yaml-mode                ; Yaml mode
+  pyvenv                   ; Python virtual env management
 #+END_SRC
 
 **** Git integration
@@ -136,6 +138,7 @@ re-downloaded in order to locate PACKAGE."
   magit-svn                ; Git-svn frontend
   git-gutter               ; Show Diff state in buffer…
   gist                     ; Integration for gist.github.com
+  forge                    ; See PR, Issue within magit
 #+END_SRC
 
 **** Org additions
