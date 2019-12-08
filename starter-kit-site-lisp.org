@@ -34,7 +34,7 @@ added to melpa).
 #+END_SRC
 ** External Lisp files
 *** trac-wiki
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (install-site-lisp-file
    "trac-wiki"
    (list "https://raw.github.com/tiborsimko/trac-wiki-el/master/trac-wiki.el"))
