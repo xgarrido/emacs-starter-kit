@@ -112,7 +112,7 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
 From
 http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete-email-addresses-in-mu4e
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (defun sk-select-and-insert-contact (&optional start)
     (interactive)
     (let ((mail-abbrev-mode-regexp mu4e~compose-address-fields-regexp)
@@ -244,89 +244,89 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
 ** Better mail completion
 #+BEGIN_SRC emacs-lisp
-;need this for hash access
-(require 'subr-x)
+  ;need this for hash access
+  (require 'subr-x)
 
-(defun bjm/read-contact-list ()
-  "Return a list of email addresses"
-  (with-temp-buffer
-    (split-string (buffer-string) "\n" t)))
+  (defun bjm/read-contact-list ()
+    "Return a list of email addresses"
+    (with-temp-buffer
+      (split-string (buffer-string) "\n" t)))
 
-;; code from https://github.com/abo-abo/swiper/issues/596
-(defun bjm/counsel-email-action (contact)
-  (with-ivy-window
-    (insert contact)))
+  ;; code from https://github.com/abo-abo/swiper/issues/596
+  (defun bjm/counsel-email-action (contact)
+    (with-ivy-window
+      (insert contact)))
 
-;; bind comma to launch new search
-(defvar bjm/counsel-email-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "," 'bjm/counsel-email-more)
-    map))
+  ;; bind comma to launch new search
+  (defvar bjm/counsel-email-map
+    (let ((map (make-sparse-keymap)))
+      (define-key map "," 'bjm/counsel-email-more)
+      map))
 
-(defun bjm/counsel-email-more ()
-  "Insert email address and prompt for another."
-  (interactive)
-  (ivy-call)
-  (with-ivy-window
-    (insert ", "))
-  (delete-minibuffer-contents)
-  (setq ivy-text ""))
+  (defun bjm/counsel-email-more ()
+    "Insert email address and prompt for another."
+    (interactive)
+    (ivy-call)
+    (with-ivy-window
+      (insert ", "))
+    (delete-minibuffer-contents)
+    (setq ivy-text ""))
 
-;; ivy contacts
-;; based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
-(defun bjm/ivy-select-and-insert-contact (&optional start)
-  (interactive)
-  ;; make sure mu4e contacts list is updated - I was having
-  ;; intermittent problems that this was empty but couldn't see why
-  (mu4e~request-contacts)
-  (let ((eoh ;; end-of-headers
-         (save-excursion
-           (goto-char (point-min))
-           (search-forward-regexp mail-header-separator nil t)))
-        ;; append full sorted contacts list to favourites and delete duplicates
-        (contacts-list
-         (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts))))))
+  ;; ivy contacts
+  ;; based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
+  (defun bjm/ivy-select-and-insert-contact (&optional start)
+    (interactive)
+    ;; make sure mu4e contacts list is updated - I was having
+    ;; intermittent problems that this was empty but couldn't see why
+    ;; (mu4e~request-contacts)
+    (let ((eoh ;; end-of-headers
+           (save-excursion
+             (goto-char (point-min))
+             (search-forward-regexp mail-header-separator nil t)))
+          ;; append full sorted contacts list to favourites and delete duplicates
+          (contacts-list
+           (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts))))))
 
-    ;; only run if we are in the headers section
-    (when (and eoh (> eoh (point)) (mail-abbrev-in-expansion-header-p))
-      (let* ((end (point))
-           (start
-            (or start
-                (save-excursion
-                  (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
-                  (goto-char (match-end 0))
-                  (point))))
-           (initial-input (buffer-substring-no-properties start end)))
+      ;; only run if we are in the headers section
+      (when (and eoh (> eoh (point)) (mail-abbrev-in-expansion-header-p))
+        (let* ((end (point))
+             (start
+              (or start
+                  (save-excursion
+                    (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
+                    (goto-char (match-end 0))
+                    (point))))
+             (initial-input (buffer-substring-no-properties start end)))
 
-      (kill-region start end)
+        (kill-region start end)
 
-      (ivy-read "Contact: "
-                contacts-list
-                :re-builder #'ivy--regex
-                :sort nil
-                :initial-input initial-input
-                :action 'bjm/counsel-email-action
-                :keymap bjm/counsel-email-map)
-      ))))
+        (ivy-read "Contact: "
+                  contacts-list
+                  :re-builder #'ivy--regex
+                  :sort nil
+                  :initial-input initial-input
+                  :action 'bjm/counsel-email-action
+                  :keymap bjm/counsel-email-map)
+        ))))
 
-;;launch automatically
-(add-hook 'mu4e-compose-mode-hook 'bjm/ivy-select-and-insert-contact)
+  ;;launch automatically
+  (add-hook 'mu4e-compose-mode-hook 'bjm/ivy-select-and-insert-contact)
 
-;;ivy contacts for use anywhere
-;;based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
-(defun bjm/ivy-select-and-insert-contact-anywhere ()
-  (interactive)
-  (let (contacts-list contact)
-    ;;append full sorted contacts list to favourites and delete duplicates
-    (setq contacts-list
-          (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts)))))
-    (setq contact
-          (ivy-read "Contact: "
-                    contacts-list
-                    :re-builder #'ivy--regex
-                    :sort nil))
-        (unless (equal contact "")
-          (insert contact))))
+  ;;ivy contacts for use anywhere
+  ;;based on http://kitchingroup.cheme.cmu.edu/blog/2015/03/14/A-helm-mu4e-contact-selector/
+  (defun bjm/ivy-select-and-insert-contact-anywhere ()
+    (interactive)
+    (let (contacts-list contact)
+      ;;append full sorted contacts list to favourites and delete duplicates
+      (setq contacts-list
+            (delq nil (delete-dups (mu4e~sort-contacts-for-completion (hash-table-keys mu4e~contacts)))))
+      (setq contact
+            (ivy-read "Contact: "
+                      contacts-list
+                      :re-builder #'ivy--regex
+                      :sort nil))
+          (unless (equal contact "")
+            (insert contact))))
 #+END_SRC
 ** Remove maildir string in mode-line
 #+BEGIN_SRC emacs-lisp :tangle no
