@@ -312,6 +312,7 @@ From [[http://tromey.com/blog/?p=831]].
 #+END_SRC
 
 *** Copy/paste image with =xclip=
+From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-emacs
 #+BEGIN_SRC emacs-lisp
   (defun sk-yank-image-at-point-as-image ()
     "Yank the image at point to the X11 clipboard as image/png."

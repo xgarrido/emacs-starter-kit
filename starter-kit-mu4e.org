@@ -243,7 +243,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 #+END_SRC
 
 ** Better mail completion
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;need this for hash access
   (require 'subr-x)
 
@@ -278,7 +278,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (interactive)
     ;; make sure mu4e contacts list is updated - I was having
     ;; intermittent problems that this was empty but couldn't see why
-    ;; (mu4e~request-contacts)
+    (mu4e~request-contacts-maybe)
     (let ((eoh ;; end-of-headers
            (save-excursion
              (goto-char (point-min))
