@@ -145,7 +145,7 @@ re-downloaded in order to locate PACKAGE."
 #+BEGIN_SRC emacs-lisp
   org-bullets              ; Changing bullets to ASCII char
   htmlize                  ; HTMLize org code
-  ob-ipython               ; org-babel support for ipython
+  jupyter                  ; org-babel jupyter support
 #+END_SRC
 
 **** Utilities

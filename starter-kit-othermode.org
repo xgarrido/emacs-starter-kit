@@ -419,17 +419,17 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+BEGIN_SRC emacs-lisp :results none
   (defhydra hydra-org-template (:color red :hint nil)
     "
-  _c_enter   _s_rc
+  _s_rc      s_h_ell
   qu_o_te    _e_macs-lisp
   e_q_uation _p_ython
-  questio_n_ _i_python
+  questio_n_ _j_upyter
   "
     ("s" (insert "#+BEGIN_SRC\n#+END_SRC"))
     ("e" (insert "#+BEGIN_SRC emacs-lisp\n#+END_SRC"))
+    ("h" (insert "#+BEGIN_SRC shell\n#+END_SRC"))
     ("o" (insert "#+BEGIN_QUOTE\n#+END_QUOTE"))
-    ("c" (insert "#+BEGIN_CENTER\n#+END_CENTER"))
     ("n" (insert "#+BEGIN_QUESTION\n#+END_QUESTION"))
-    ("i" (insert "#+BEGIN_SRC ipython :session :results raw drawer\n#+END_SRC"))
+    ("j" (insert "#+BEGIN_SRC jupyter-python\n#+END_SRC"))
     ("p" (insert "#+BEGIN_SRC python\n#+END_SRC"))
     ("q" (insert "#+BEGIN_SRC latex\n\\begin{align*}\n\\end{align*}\n#+END_SRC"))
     ("<" self-insert-command "ins")

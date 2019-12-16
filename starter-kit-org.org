@@ -31,8 +31,7 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               ;; display images
               (local-set-key "\M-I" 'org-toggle-inline-image)
               ;; Kill jupyter notebooks
-              (local-set-key (kbd "C-c C-v k") 'ob-ipython-kill-kernel)
-              (local-set-key (kbd "C-c C-v v") 'sk-restart-ipython)
+              (local-set-key (kbd "C-c C-v k") 'jupyter-repl-restart-kernel)
               ))
 #+END_SRC
 
@@ -164,7 +163,7 @@ supported languages.
      (awk . t)
      (C . t)
      (python . t)
-     (ipython . t)
+     (jupyter . t)
      (latex . t)
      (gnuplot . t)))
 #+END_SRC
@@ -232,7 +231,7 @@ Stolen from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html]]
   (define-key org-mode-map "\C-x\C-n" #'narrow-or-widen-dwim)
 #+END_SRC
 
-*** Export =ob-ipython= to jupyter notebooks format
+*** Export =jupyter-python= to jupyter notebooks format
 From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jupyter-notebooks/
 #+BEGIN_SRC emacs-lisp
   (require 'ox-ipynb)
@@ -615,6 +614,7 @@ From [[http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export][org-fa
           ("xleftmargin"  "0.5cm")
           ))
   (add-to-list 'org-latex-minted-langs '(ipython "python"))
+  (add-to-list 'org-latex-minted-langs '(jupyter-python "python"))
 #+END_SRC
 
 *** Place table caption below table
