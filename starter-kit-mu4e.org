@@ -432,7 +432,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
   ;; ask for account when composing mail
   ;; (add-hook 'mu4e-compose-pre-hook 'sk-mu4e-set-account)
 #+END_SRC
-** Gmail configuration
+** Gmail configuration                                           :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
   (defun sk-email-gmail ()
     (setq message-send-mail-function 'smtpmail-send-it)
@@ -529,6 +529,24 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
   alias l3_python alexandra.darco@u-psud.fr arthur.hirsch@u-psud.fr cyril.foucard@u-psud.fr florent.saudrais@u-psud.fr jade.briend-diop@u-psud.fr jean-thibaut.spaniol@u-psud.fr lea.chibani@u-psud.fr lolita.bucher@u-psud.fr mael.arveiler@u-psud.fr my-an.tran@u-psud.fr pierre.gourbin@u-psud.fr valentin.thirion@u-psud.fr
 #+END_SRC
 
+** =org-msg=                                                       :nottangle:
+#+BEGIN_SRC emacs-lisp :tangle no
+  (require 'org-msg)
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil"
+        org-msg-startup "hidestars indent inlineimages"
+        org-msg-greeting-fmt "\nBonjour *%s*,\n\n"
+        org-msg-greeting-name-limit 3
+        org-msg-signature "
+   ,#+begin_signature
+    GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n
+    NEMO                 Université Paris-Sud 11               \n
+    garrido@lal.in2p3.fr UMR 8607                              \n
+    garrido@in2p3.fr     Batiment 200                          \n
+    +33 1.64.46.84.28    91898 Orsay Cedex, France             \n
+   ,#+end_signature"
+        )
+   (org-msg-mode)
+#+END_SRC
 ** Postamble
 #+BEGIN_SRC emacs-lisp
 ))
