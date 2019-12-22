@@ -286,11 +286,8 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
                                (magit-svn-mode)))
 #+END_SRC
 
-** Git gutter settings
-:PROPERTIES:
-:HEADER-ARGS: :tangle no
-:END:
-#+BEGIN_SRC emacs-lisp
+** Git gutter settings                                           :nottangle:
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'git-gutter)
   (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
   (diminish 'git-gutter-mode)
