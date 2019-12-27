@@ -27,12 +27,10 @@ managers.  This should not work under Windows system since it does not have the
 #+END_SRC
 
 ** ELPA
-
 *** Defining ELPA sources
 #+BEGIN_SRC emacs-lisp
   (setq package-archives
         '(("gnu"         . "http://elpa.gnu.org/packages/")
-          ("marmalade"   . "http://marmalade-repo.org/packages/")
           ("melpa"       . "http://melpa.org/packages/")))
   (package-initialize)
   (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
