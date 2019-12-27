@@ -130,6 +130,7 @@ re-downloaded in order to locate PACKAGE."
   dockerfile-mode          ; Dockerfile mode
   yaml-mode                ; Yaml mode
   pyvenv                   ; Python virtual env management
+  yapfify                  ; Python code formatter from yapf
 #+END_SRC
 
 **** Git integration

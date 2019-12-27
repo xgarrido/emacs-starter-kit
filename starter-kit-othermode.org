@@ -683,3 +683,7 @@ tutorial]])
   (with-eval-after-load 'magit
     (require 'forge))
 #+END_SRC
+** yapfify
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'yapf-mode)
+#+END_SRC
