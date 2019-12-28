@@ -106,6 +106,13 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
   (setq mu4e-headers-replied-mark        '("R"  . "«"))
   (setq mu4e-headers-seen-mark           '("S"  . ""))
   (setq mu4e-headers-trashed-mark        '("T"  . ""))
+  (setq mu4e-headers-signed-mark         '("s" . ""))
+
+  (setq mu4e-headers-thread-child-prefix '("├>" . "⤷ "))
+  (setq mu4e-headers-thread-last-child-prefix '("└>" . "⤷ "))
+  (setq mu4e-headers-thread-connection-prefix '("│" . " "))
+  (setq mu4e-headers-thread-orphan-prefix '("┬>" . "⤳ "))
+  (setq mu4e-headers-thread-single-orphan-prefix '("─>" . "↦ "))
 #+END_SRC
 
 ** Select and insert contact with =ido=
