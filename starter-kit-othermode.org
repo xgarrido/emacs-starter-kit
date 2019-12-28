@@ -686,4 +686,5 @@ tutorial]])
 ** yapfify
 #+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook 'yapf-mode)
+  (diminish 'yapf-mode)
 #+END_SRC
