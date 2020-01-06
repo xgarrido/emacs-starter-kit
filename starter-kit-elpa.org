@@ -79,12 +79,11 @@ re-downloaded in order to locate PACKAGE."
   delight                  ; De-clutter mode line
   smex                     ; Improved M-x
   flx-ido                  ; Powerful flex matching for IDO
-  ido-ubiquitous           ; Use IDO for all `completing-read's…
+  ido-completing-read+     ; Use IDO for all `completing-read's…
   ido-at-point             ; …and even for completion-at-point
   idle-highlight-mode      ; Highlights all occurences
   highlight-parentheses    ; Highlight parentheses
   rainbow-mode             ; Interpret HTML color code
-  hideshowvis              ; Hide/Show block in fringe
   swiper                   ; Better i-search
 #+END_SRC
 
@@ -100,7 +99,6 @@ re-downloaded in order to locate PACKAGE."
   fold-this                ; (Un)Fold active region
   flex-isearch             ; Fuzzy matching for isearch
   golden-ratio             ; Rescale buffer given golden ratio
-  ack-and-a-half           ; Ack frontend
   ag                       ; Ag frontend
   wgrep                    ; Writable grep buffer
   wgrep-ag                 ; Writable grep-ag buffer
@@ -150,7 +148,6 @@ re-downloaded in order to locate PACKAGE."
 
 **** Utilities
 #+BEGIN_SRC emacs-lisp
-  dired-details
   dired-subtree
   popwin ; popup window
   direx

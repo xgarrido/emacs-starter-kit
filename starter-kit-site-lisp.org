@@ -72,3 +72,19 @@ added to melpa).
    (list
     "https://raw.githubusercontent.com/jkitchin/ox-ipynb/master/ox-ipynb.el"))
 #+END_SRC
+
+*** dired-details
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "dired-details"
+   (list
+    "https://www.emacswiki.org/emacs/download/dired-details.el"))
+#+END_SRC
+
+*** hideshowvis
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "hideshowvis"
+   (list
+    "https://www.emacswiki.org/emacs/download/hideshowvis.el"))
+#+END_SRC
