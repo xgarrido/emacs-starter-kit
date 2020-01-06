@@ -76,7 +76,7 @@ re-downloaded in order to locate PACKAGE."
 
 **** UI improvements
 #+BEGIN_SRC emacs-lisp
-  diminish                 ; De-clutter mode line
+  delight                  ; De-clutter mode line
   smex                     ; Improved M-x
   flx-ido                  ; Powerful flex matching for IDO
   ido-ubiquitous           ; Use IDO for all `completing-read's…
@@ -129,6 +129,7 @@ re-downloaded in order to locate PACKAGE."
   yaml-mode                ; Yaml mode
   pyvenv                   ; Python virtual env management
   yapfify                  ; Python code formatter from yapf
+  isortify                 ; Python sort import with isort
 #+END_SRC
 
 **** Git integration

@@ -364,8 +364,15 @@ Use human readable size column (from [[http://www.emacswiki.org/emacs/IbufferMod
 #+END_SRC
 
 ** Powerline
+
 *** Requirement
 #+BEGIN_SRC emacs-lisp
+  (defadvice powerline-major-mode (around delight-powerline-major-mode activate)
+    "Ensure that powerline's major mode names are delighted.
+
+    See `delight-major-mode'."
+    (let ((inhibit-mode-name-delight nil))
+      ad-do-it))
   (require 'powerline)
 #+END_SRC
 
@@ -405,6 +412,9 @@ called every time a file is changed (through =after-save-hook= hook).
                                   ) "❭"))))
 #+END_SRC
 
+#+RESULTS:
+: sk-powerline-vc
+
 *** Powerline theme
 #+BEGIN_SRC emacs-lisp
   (setq powerline-height 24)
@@ -424,13 +434,13 @@ called every time a file is changed (through =after-save-hook= hook).
                                   ;; (powerline-buffer-size nil 'l)
 
                                   ;;(powerline-raw mode-line-mule-info nil 'l)
-                                  (powerline-raw " ")
+                                  ;; (powerline-raw " ")
+                                  (powerline-major-mode nil 'l)
                                   (powerline-buffer-id nil 'l)
 
                                   (powerline-raw " ")
                                   (powerline-arrow-left mode-line face1)
 
-                                  (powerline-major-mode face1 'l)
                                   (powerline-process face1)
                                   (powerline-minor-modes face1 'l)
                                   (sk-powerline-vc face3)
@@ -447,13 +457,13 @@ called every time a file is changed (through =after-save-hook= hook).
 
                                   ;; (powerline-raw "%4l" face1 'l)
                                   ;; (powerline-raw "/" face1 'l)
-                                  (powerline-raw " " face1)
+                                  (powerline-raw " " face1)
                                   (powerline-raw "%4l|%0c" face1 'r)
 
                                   (powerline-arrow-left face1 mode-line)
                                   (powerline-raw " ")
 
-                                  (powerline-raw "%3p" nil 'r)
+                                  (powerline-raw "%3p " nil 'r)
                                   )))
                        (concat
                         (powerline-render lhs)
@@ -461,6 +471,9 @@ called every time a file is changed (through =after-save-hook= hook).
                         (powerline-render rhs)))))))
   (sk-powerline-default-theme)
 #+END_SRC
+
+#+RESULTS:
+| %e | (:eval (let* ((active (powerline-selected-window-active)) (mode-line (if active (quote mode-line) (quote mode-line-inactive))) (face1 (quote powerline-active1)) (face2 (quote powerline-active2)) (face3 (quote powerline-inactive1)) (lhs (list (powerline-major-mode nil (quote l)) (powerline-buffer-id nil (quote l)) (powerline-raw  ) (powerline-arrow-left mode-line face1) (powerline-process face1) (powerline-minor-modes face1 (quote l)) (sk-powerline-vc face3) (powerline-narrow face1 (quote l)) (powerline-raw   face1) (powerline-arrow-left face1 face2))) (rhs (list (powerline-raw global-mode-string face2 (quote r)) (powerline-arrow-left face2 face1) (powerline-raw   face1) (powerline-raw %4l | %0c face1 (quote r)) (powerline-arrow-left face1 mode-line) (powerline-raw  ) (powerline-raw %3p  nil (quote r))))) (concat (powerline-render lhs) (powerline-fill face2 (powerline-width rhs)) (powerline-render rhs)))) |
 
 ** Diminish modeline clutter
 #+BEGIN_SRC emacs-lisp

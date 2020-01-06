@@ -47,7 +47,6 @@ after package or component has been loaded.
 
 ** Undo tree
 #+BEGIN_SRC emacs-lisp
-  (starter-kit-after undo-tree (diminish 'undo-tree-mode));; "⤺"))
   (global-undo-tree-mode)
 #+END_SRC
 
@@ -78,14 +77,12 @@ after package or component has been loaded.
   (setq hl-paren-colors
         '("orange1" "yellow1" "greenyellow" "green1"
           "springgreen1" "cyan1" "slateblue1" "magenta1" "purple"))
-  (diminish 'highlight-parentheses-mode);; "♓")
   (global-highlight-parentheses-mode)
 #+END_SRC
 
 ** Highlight everything strange
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after whitespace
-                     (diminish 'whitespace-mode);; "␣")
                      (setq whitespace-style '(face trailing lines-tail tabs)
                            whitespace-line-column 80))
 #+END_SRC
@@ -127,7 +124,6 @@ Enable flex support
 ** Auto revert buffer
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
-  (diminish 'auto-revert-mode)
   ;; revert without asking
   (setq revert-without-query '(".*"))
 #+END_SRC
@@ -135,8 +131,7 @@ Enable flex support
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after smartparens
                      (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
-                                                            minibuffer-incative-mode sr-mode))
-                     (diminish 'smartparens-mode))
+                                                            minibuffer-incative-mode sr-mode)))
 #+END_SRC
 ** which-func-mode                                               :nottangle:
 Set function name in the header part of emacs (from
@@ -165,15 +160,6 @@ Use a less intrusive color for =idle-highlight-mode=
     '((t (:inherit match)))
     "Face used to highlight other occurrences of the word at point."
     :group 'idle-highlight)
-#+END_SRC
-
-** Drag stuff mode                                               :nottangle:
-See [[https://github.com/rejeep/drag-stuff]]
-#+BEGIN_SRC emacs-lisp :tangle no
-  (starter-kit-after drag-stuff
-                     (add-to-list 'drag-stuff-except-modes 'org-mode)
-                     (diminish 'drag-stuff-mode));; "⇅"))
-  (drag-stuff-global-mode)
 #+END_SRC
 
 ** projectile-mode                                               :nottangle:
@@ -273,11 +259,6 @@ From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
   (setq magit-diff-refine-hunk 'all)
 #+END_SRC
 
-*** Diminish =magit= auto revert mode
-#+BEGIN_SRC emacs-lisp
-  ;;(diminish 'magit-auto-revert-mode)
-#+END_SRC
-
 *** Automatically enable =magit-svn-mode=
 Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-magit/]]
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -290,7 +271,6 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
 #+BEGIN_SRC emacs-lisp :tangle no
   (require 'git-gutter)
   (setq git-gutter-disabled-modes '(asm-mode image-mode org-mode))
-  (diminish 'git-gutter-mode)
   (global-git-gutter-mode t)
   ;; If you would like to use git-gutter.el and linum-mode
   (git-gutter:linum-setup)
@@ -405,7 +385,6 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 #+BEGIN_SRC emacs-lisp
   (require 'golden-ratio)
   (golden-ratio-mode 1)
-  (diminish 'golden-ratio-mode)
   (setq golden-ratio-exclude-modes '("dired-mode"))
   (setq golden-ratio-exclude-buffer-names '(" *compilation*" " *scratch*" " Direx"))
 #+END_SRC
@@ -592,10 +571,6 @@ Define some usual =trac-wiki= projects.
   (autoload 'trac-wiki "trac-wiki"
     "Trac wiki editing entry-point." t)
 #+END_SRC
-** Wrap region mode
-#+BEGIN_SRC emacs-lisp
-  (starter-kit-after wrap-region (diminish 'wrap-region-mode))
-#+END_SRC
 ** yasnippet mode
 [[http://code.google.com/p/yasnippet/][yasnippet]] is yet another snippet expansion system for Emacs.  It is inspired by
 TextMate's templating syntax (watch the [[http://www.youtube.com/watch?v=vOj7btx3ATg][video on YouTube]] or see the [[http://yasnippet.googlecode.com/svn/trunk/doc/index.html][intro and
@@ -605,7 +580,6 @@ tutorial]])
   ;; (yas-global-mode 1)
   (yas-reload-all)
   (setq yas-snippet-dirs '(concat starter-kit-dir "/snippets"))
-  (starter-kit-after yasnippet (diminish 'yas-minor-mode))
   (add-hook 'starter-kit-coding-hook '(lambda ()
                                         (yas-minor-mode)))
 #+END_SRC
@@ -622,7 +596,6 @@ tutorial]])
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
-  (starter-kit-after auto-complete (diminish 'auto-complete-mode))
 #+END_SRC
 
 ** expand-region mode
@@ -645,13 +618,6 @@ tutorial]])
   (require 'browse-kill-ring)
   (global-set-key "\M-y" 'browse-kill-ring)
 #+END_SRC
-** Diminish modeline clutter
-#+BEGIN_SRC emacs-lisp
-  (diminish 'auto-fill-function)
-  (diminish 'abbrev-mode)
-  (diminish 'ivy-mode)
-#+END_SRC
-
 ** lorem ipsum
 #+BEGIN_SRC emacs-lisp
   (require 'lorem-ipsum)
@@ -683,8 +649,35 @@ tutorial]])
   (with-eval-after-load 'magit
     (require 'forge))
 #+END_SRC
-** yapfify
+** yapfify & isortify
 #+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook 'yapf-mode)
-  (diminish 'yapf-mode)
+  (add-hook 'python-mode-hook 'isortify-mode)
 #+END_SRC
+
+** Delight modeline clutter
+#+BEGIN_SRC emacs-lisp
+  (require 'delight)
+  (delight 'python-mode "")
+  (delight 'org-mode "")
+  (delight 'dockerfile-mode "")
+  (delight 'yapf-mode nil "yapfify")
+  (delight 'isortify-mode nil "isortify")
+  (delight 'eldoc-mode nil "eldoc")
+  (delight 'golden-ratio-mode nil "golden-ratio")
+  (delight 'undo-tree-mode nil "undo-tree")
+  (delight 'highlight-parentheses-mode nil "highlight-parentheses")
+  (delight 'auto-complete-mode nil "auto-complete")
+  (delight 'wrap-region-mode nil "wrap-region")
+  (delight 'auto-fill-function nil "simple")
+  (delight 'smartparens-mode nil "smartparens")
+  (delight 'yas-minor-mode nil "yasnippet")
+  (delight 'ivy-mode nil "ivy")
+  (delight 'hs-minor-mode nil "hideshow")
+  (delight 'sh-mode "")
+  (delight 'c++-mode "")
+  (delight 'rainbow-mode "")
+  (delight 'abbrev-mode nil "abbrev")
+#+END_SRC
+
+#+RESULTS:
