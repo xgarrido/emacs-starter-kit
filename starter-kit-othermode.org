@@ -266,6 +266,12 @@ Stolen from [[http://danlamanna.com/2013/03/11/svn-externals-with-git-svn-and-ma
                                (require 'magit-svn)
                                (magit-svn-mode)))
 #+END_SRC
+*** Enable ivy-mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'magit-mode-hook (lambda()
+                               (require 'ivy)
+                               (ivy-mode 1)))
+#+END_SRC
 
 ** Git gutter settings                                           :nottangle:
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -503,6 +509,7 @@ Defining hydra
     )
   (advice-add 'swiper :after #'sk-swiper-recenter)
   (require 'ivy)
+  (ivy-mode 1)
   (define-key ivy-minibuffer-map (kbd "<up>") 'ivy-previous-line)
   (define-key ivy-minibuffer-map (kbd "<down>") 'ivy-next-line)
   (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-yank-word)
@@ -677,7 +684,11 @@ tutorial]])
   (delight 'sh-mode "")
   (delight 'c++-mode "")
   (delight 'rainbow-mode "")
+  (delight 'ivy-mode "")
   (delight 'abbrev-mode nil "abbrev")
 #+END_SRC
-
-#+RESULTS:
+** paradox
+#+BEGIN_SRC emacs-lisp
+  (setq paradox-github-token
+  (cadr(auth-source-user-and-password "api.github.com" "xgarrido^paradox")))
+#+END_SRC
