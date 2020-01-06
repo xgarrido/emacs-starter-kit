@@ -45,8 +45,8 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
               (auto-complete-mode t)
               ;; (linum-mode -1)
               (hl-line-mode t)
-              (diminish 'org-indent-mode)
               ;;(set-input-method "TeX")
+              (delight 'org-indent-mode nil "org-indent")
               ))
 #+END_SRC
 
@@ -300,7 +300,6 @@ The following lines provide several "useful" functions. To use them, do
 #+BEGIN_SRC emacs-lisp
   (setq org-highlight-latex-and-related '(latex))
 #+END_SRC
-
 *** VC status
 #+NAME: vc-status
 #+BEGIN_SRC sh :exports none
@@ -365,7 +364,6 @@ The following lines provide several "useful" functions. To use them, do
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-
 **** SuperNEMO articles
 ***** DocDB article
 #+BEGIN_SRC emacs-lisp
@@ -434,7 +432,6 @@ The following lines provide several "useful" functions. To use them, do
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-
 ***** *bold* becomes =structure=
 We also translate *bold* into beamer =structure=.
 #+BEGIN_SRC emacs-lisp
@@ -467,9 +464,8 @@ Change the face of =strike-through=
       (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\footnote[frame]" contents)))
   (add-to-list 'org-export-filter-footnote-reference-functions 'sk-beamer-footnote)
 #+END_SRC
-
 ***** Add email
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq user-mail-address nil)
   (defun sk-beamer-email (options backend)
     "Insert EMAIL as \email{EMAIL} in the latex backend when EMAIL is present."
@@ -489,7 +485,6 @@ Change the face of =strike-through=
 
   (add-to-list 'org-export-filter-options-functions 'sk-beamer-email)
 #+END_SRC
-
 ***** Colored box environment
 We define a new environment for "colored" box
 #+BEGIN_SRC emacs-lisp
