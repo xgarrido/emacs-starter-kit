@@ -50,6 +50,13 @@ after package or component has been loaded.
   (global-undo-tree-mode)
 #+END_SRC
 
+Increase undo limit to keep most of the history
+#+BEGIN_SRC emacs-lisp
+  (setq undo-limit 800000
+        undo-strong-limit 12000000
+        undo-outer-limit 120000000)
+#+END_SRC
+
 ** recentf
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after recentf
@@ -160,6 +167,8 @@ Use a less intrusive color for =idle-highlight-mode=
     '((t (:inherit match)))
     "Face used to highlight other occurrences of the word at point."
     :group 'idle-highlight)
+  ;; (require 'delight)
+  ;; (starter-kit-after idle-highlight (delight 'idle-highlight-mode ""))
 #+END_SRC
 
 ** projectile-mode                                               :nottangle:
@@ -235,23 +244,23 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 *** Fullscreen magit-status
 From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 #+BEGIN_SRC emacs-lisp
-  (defadvice magit-status (around magit-fullscreen activate)
-    (window-configuration-to-register :magit-fullscreen)
-    ad-do-it
-    (delete-other-windows))
+    (defadvice magit-status (around magit-fullscreen activate)
+      (window-configuration-to-register :magit-fullscreen)
+      ad-do-it
+      (delete-other-windows))
 
-  (defun magit-quit-session ()
-    "Restores the previous window configuration and kills the magit buffer"
-    (interactive)
-    (kill-buffer)
-    (jump-to-register :magit-fullscreen))
+    (defun magit-quit-session ()
+      "Restores the previous window configuration and kills the magit buffer"
+      (interactive)
+      (kill-buffer)
+      (jump-to-register :magit-fullscreen))
 
-  (global-set-key (kbd "M-s") 'magit-status)
+    (global-set-key (kbd "M-s") 'magit-status)
 
-  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-  (define-key magit-status-mode-map (kbd "p") 'magit-push-current)
-  (require 'magit-svn)
-  (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
+    (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+    (define-key magit-status-mode-map (kbd "p") 'magit-push-current)
+    (require 'magit-svn)
+    (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
 #+END_SRC
 
 *** Colored diff                                                :nottangle:
@@ -685,8 +694,13 @@ tutorial]])
   (delight 'c++-mode "")
   (delight 'rainbow-mode "")
   (delight 'ivy-mode "")
+  (delight 'magit-status-mode "")
   (delight 'abbrev-mode nil "abbrev")
+  (delight 'inertias-global-minor-mode nil "inertial-scroll")
 #+END_SRC
+
+#+RESULTS:
+
 ** paradox
 #+BEGIN_SRC emacs-lisp
   (setq paradox-github-token
