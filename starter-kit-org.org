@@ -54,10 +54,11 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 *** =ox-latex=
 #+BEGIN_SRC emacs-lisp
   (require 'ox-latex)
-  (define-key org-mode-map (kbd "s-p") 'org-latex-export-to-pdf)
-  (define-key org-mode-map (kbd "s-l") 'org-latex-export-to-latex)
-  (define-key org-mode-map (kbd "s-h") 'org-html-export-to-html)
+  (define-key org-mode-map (kbd "C-c p") 'org-latex-export-to-pdf)
+  (define-key org-mode-map (kbd "C-c l") 'org-latex-export-to-latex)
+  ;; (define-key org-mode-map (kbd "C-c h") 'org-html-export-to-html)
 #+END_SRC
+
 *** =ox-beamer=
 #+BEGIN_SRC emacs-lisp
   (require 'ox-beamer)
@@ -158,6 +159,7 @@ display a list of the code blocks commands and their related keys.
           ("\\.x?html?\\'" . default)
           ("\\.pdf\\'" . default))))
 #+END_SRC
+
 ** Code blocks
 This activates a number of widely used languages, you are encouraged to activate
 more languages using the customize interface for the =org-babel-load-languages=

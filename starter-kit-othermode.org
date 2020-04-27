@@ -48,6 +48,7 @@ after package or component has been loaded.
 ** Undo tree
 #+BEGIN_SRC emacs-lisp
   (global-undo-tree-mode)
+  (setq undo-tree-enable-undo-in-region t)
 #+END_SRC
 
 Increase undo limit to keep most of the history
@@ -665,11 +666,15 @@ tutorial]])
   (with-eval-after-load 'magit
     (require 'forge))
 #+END_SRC
-** yapfify & isortify
+** blacken & isortify
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'python-mode-hook 'yapf-mode)
+  (add-hook 'python-mode-hook 'blacken-mode)
   (add-hook 'python-mode-hook 'isortify-mode)
+  (setq blacken-line-length 100)
 #+END_SRC
+
+#+RESULTS:
+: 100
 
 ** Delight modeline clutter
 #+BEGIN_SRC emacs-lisp
@@ -694,11 +699,12 @@ tutorial]])
   (delight 'c++-mode "")
   (delight 'rainbow-mode "")
   (delight 'ivy-mode "")
-  (delight 'mu4e-view-mode "")
-  (delight 'mu4e-main-mode "")
+  (delight 'mu4e-view-mode "")
+  (delight 'mu4e-main-mode "")
   (delight 'magit-status-mode "")
   (delight 'abbrev-mode nil "abbrev")
   (delight 'inertias-global-minor-mode nil "inertial-scroll")
+  (delight 'blacken-mode "" "blacken")
 #+END_SRC
 
 #+RESULTS:
