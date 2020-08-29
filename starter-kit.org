@@ -230,7 +230,7 @@ actual code implementing the starter kit.
   session.
   #+name: starter-kit-load-on-startup
   #+BEGIN_SRC emacs-lisp
-    (require 'cl)
+    ;; (require 'cl)
     (require 'saveplace)
     (require 'uniquify)
     (require 'ansi-color)

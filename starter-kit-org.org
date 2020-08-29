@@ -463,7 +463,7 @@ We also translate *bold* into beamer =structure=.
 #+END_SRC
 ***** Use =strike= as alert
 Change the face of =strike-through=
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'cl)
   (setq org-emphasis-alist
         (cons '("+" '(:inherit org-warning :inherit bold))

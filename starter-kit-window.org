@@ -147,6 +147,7 @@ Define new theme (since definition occurs here it is loaded by default)
   (setq solarized-use-variable-pitch nil)
   (load-theme 'solarized-light t)
   (deftheme sk-solarized "A slightly modified version of solarized theme.")
+  (require 'solarized-palettes)
   (solarized-with-color-variables 'light 'sk-solarized solarized-light-color-palette-alist sk-solarized-faces)
 #+END_SRC
 
