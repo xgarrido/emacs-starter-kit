@@ -16,7 +16,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   (require 'mu4e)
   (require 'smtpmail)
 
-  (setq mu4e-maildir "/home/garrido/.Maildir")
+  ;;(setq mu4e-maildir "/home/garrido/.Maildir")
 
   ;; set mu4e as default email client
   (setq mail-user-agent 'mu4e-user-agent)
@@ -479,11 +479,10 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
       (setq smtpmail-smtp-server "lalrelay.in2p3.fr")
       (setq smtpmail-smtp-service 465)
       (setq mu4e-compose-signature (concat
-                                    "  GARRIDO Xavier       Laboratoire de l'Accélérateur Linéaire\n"
-                                    "  NEMO/CMB             Université Paris-Sud 11               \n"
-                                    "  garrido@lal.in2p3.fr UMR 8607                              \n"
-                                    "  garrido@in2p3.fr     Batiment 200                          \n"
-                                    "  +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
+                                    "  GARRIDO Xavier       IJCLab                    \n"
+                                    "  CMB                  Université Paris-Saclay   \n"
+                                    "  garrido@lal.in2p3.fr Batiment 200              \n"
+                                    "  +33 1.64.46.84.28    91898 Orsay Cedex, France \n"
                                     ))
       (setq mu4e-drafts-folder "/LAL/drafts")
       (setq mu4e-sent-folder   "/LAL/sent")
