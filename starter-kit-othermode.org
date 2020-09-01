@@ -662,7 +662,7 @@ tutorial]])
 #+RESULTS:
 : /home/garrido.local/share/virtualenvs
 ** forge
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (with-eval-after-load 'magit
     (require 'forge))
 #+END_SRC

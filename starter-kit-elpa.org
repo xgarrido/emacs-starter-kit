@@ -137,7 +137,7 @@ re-downloaded in order to locate PACKAGE."
   magit-svn                ; Git-svn frontend
   git-gutter               ; Show Diff state in buffer…
   gist                     ; Integration for gist.github.com
-  forge                    ; See PR, Issue within magit
+  ;;forge                    ; See PR, Issue within magit
 #+END_SRC
 
 **** Org additions
