@@ -45,9 +45,9 @@ added to melpa).
   (install-site-lisp-file
    "inertial-scroll"
    (list
-   "https://raw.github.com/kiwanami/emacs-inertial-scroll/master/inertial-scroll.el"
-   "https://raw.github.com/kiwanami/emacs-deferred/master/concurrent.el"
-   "https://raw.github.com/kiwanami/emacs-deferred/master/deferred.el"))
+    "https://gist.githubusercontent.com/xgarrido/f4165a3dc710d7848879302f18092c73/raw/22272dbe8df61a6a05dbbcccb419ccbd3d879e48/inertial-scroll.el"
+    "https://raw.github.com/kiwanami/emacs-deferred/master/concurrent.el"
+    "https://raw.github.com/kiwanami/emacs-deferred/master/deferred.el"))
 #+END_SRC
 
 *** org-tree-slide
