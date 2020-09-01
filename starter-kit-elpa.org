@@ -128,6 +128,7 @@ re-downloaded in order to locate PACKAGE."
   pyvenv                   ; Python virtual env management
   yapfify                  ; Python code formatter from yapf
   isortify                 ; Python sort import with isort
+  blacken                  ; Python formater
   pylint                   ; Python linter
 #+END_SRC
 
