@@ -668,9 +668,11 @@ tutorial]])
 #+END_SRC
 ** blacken & isortify
 #+BEGIN_SRC emacs-lisp
+  (require 'isortify)
   (add-hook 'python-mode-hook 'blacken-mode)
   (add-hook 'python-mode-hook 'isortify-mode)
   (setq blacken-line-length 100)
+  (setq isortify-line-length 100)
 #+END_SRC
 
 #+RESULTS:

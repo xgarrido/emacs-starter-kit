@@ -88,3 +88,11 @@ added to melpa).
    (list
     "https://www.emacswiki.org/emacs/download/hideshowvis.el"))
 #+END_SRC
+
+*** isortify
+#+BEGIN_SRC emacs-lisp
+  (install-site-lisp-file
+   "isortify"
+   (list
+    "https://gist.githubusercontent.com/xgarrido/6be418d6fd13dc87d66afc5a9e341bf5/raw/a79e2aaf1ff7424e2e5c53061b42c9592e261b8e/isortify.el"))
+#+END_SRC
