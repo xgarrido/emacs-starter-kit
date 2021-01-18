@@ -562,6 +562,8 @@ Defining hydra
 
 ** css-mode
 #+BEGIN_SRC emacs-lisp
+  (setq css-indent-offset 2)
+
   (defvar hexcolour-keywords
     '(("#[abcdef[:digit:]]\\{6\\}"
        (0 (put-text-property
