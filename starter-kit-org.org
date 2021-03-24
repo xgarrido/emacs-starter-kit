@@ -568,13 +568,14 @@ be properly installed or loaded. To produce org-mode to LaTeX to PDF export,
 you should use the =org-koma-letter-export-to-pdf= command.
 
 #+BEGIN_SRC emacs-lisp
+  (eval-after-load 'ox '(require 'ox-koma-letter))
   (setq org-koma-letter-email  nil)
   (setq org-koma-letter-author nil)
   (setq org-koma-letter-from-address "")
   (add-to-list 'org-latex-classes
                '("koma-letter"
                  "\\documentclass{scrlttr2}
-                  [NO-DEFAULT-PACKAGES]"))
+                    [NO-DEFAULT-PACKAGES]"))
 #+END_SRC
 
 *** Define =org-latex-pdf-process= command

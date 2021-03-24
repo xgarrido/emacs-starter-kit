@@ -341,7 +341,7 @@ From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'starter-kit-coding-hook 'sk-local-comment-auto-fill)
   (add-hook 'starter-kit-coding-hook 'sk-pretty-lambdas)
-  (add-hook 'starter-kit-coding-hook 'sk-smartparens)
+  ;; (add-hook 'starter-kit-coding-hook 'sk-smartparens)
   (add-hook 'starter-kit-coding-hook 'sk-add-watchwords)
   (add-hook 'starter-kit-coding-hook 'sk-hide-show-mode)
   (add-hook 'starter-kit-coding-hook 'idle-highlight-mode)
