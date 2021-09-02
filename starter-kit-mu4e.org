@@ -11,7 +11,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+END_SRC
 ** =mu4e= configuration
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+  ;;(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
   (require 'mu4e)
   (require 'smtpmail)
@@ -351,7 +351,16 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
 ** Save all attachments
 #+BEGIN_SRC emacs-lisp
-  (defvar bulk-saved-attachments-dir (expand-file-name "/tmp/mu4e"))
+  ;;; mu4e-view-save-all-attachments.el -- Save all attachments from view mode.
+  ;;; Stephen J Eglen 2021
+
+
+  ;; I've created this based on the work of Phil Jackson that required
+  ;; an older version of mu4e.  This version requires the GNUS article
+  ;; code for reading mu4e messages.
+  ;; https://gist.github.com/philjackson/aecfab1706f05079aec7000e328fd183
+
+  (defvar bulk-saved-attachments-dir (expand-file-name "/tmp"))
 
   (defun cleanse-subject (sub)
     (replace-regexp-in-string
@@ -359,32 +368,43 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
      "-"
      (downcase sub)))
 
-  (defun view-attachments-dired (&optional msg)
-    "Saves all of the attachments in `msg' to a directory under
-  `bulk-saved-attachments-dir' which is derived from the subject
-  beloning to `msg'. Existing filenames will be overwritten without
-  prompt. The directories are not cleaned up in any way."
-    (interactive)
-    (let* ((msg (or msg (mu4e-message-at-point)))
+  (defun mu4e-view-save-all-attachments (&optional arg)
+    "Save all MIME parts from current mu4e gnus view buffer."
+    ;; Copied from mu4e-view-save-attachments
+    (interactive "P")
+    (cl-assert (and (eq major-mode 'mu4e-view-mode)
+                    (derived-mode-p 'gnus-article-mode)))
+    (let* ((msg (mu4e-message-at-point))
            (id (cleanse-subject (mu4e-message-field msg :subject)))
            (attachdir (concat bulk-saved-attachments-dir "/" id))
-           (count (hash-table-count mu4e~view-attach-map)))
-      (if (> count 0)
+           (parts (mu4e~view-gather-mime-parts))
+           (handles '())
+           (files '())
+           dir)
+      (mkdir attachdir t)
+      (dolist (part parts)
+        (let ((fname (or 
+                      (cdr (assoc 'filename (assoc "attachment" (cdr part))))
+                      (seq-find #'stringp
+                                (mapcar (lambda (item) (cdr (assoc 'name item)))
+                                        (seq-filter 'listp (cdr part)))))))
+          (when fname
+            (push `(,fname . ,(cdr part)) handles)
+            (push fname files))))
+      (if files
           (progn
-            (mkdir attachdir t)
-            (dolist (num (number-sequence 1 count))
-              (let* ((att (mu4e~view-get-attach msg num))
-                     (fname (plist-get att :name))
-                     (index (plist-get att :index))
-                     fpath)
-                (setq fpath (concat attachdir "/" fname))
-                (mu4e~proc-extract
-                 'save (mu4e-message-field msg :docid)
-                 index mu4e-decryption-policy fpath)))
-            (dired attachdir)
-            (revert-buffer))
-        (message "Nothing to extract."))))
+            (setq dir
+                  (if arg (read-directory-name "Save to directory: ")
+                    attachdir))
+            (cl-loop for (f . h) in handles
+                     when (member f files)
+                     do (mm-save-part-to-file h (expand-file-name f dir))))
+        (mu4e-message "No attached files found"))))
 #+END_SRC
+
+#+RESULTS:
+: mu4e-view-save-all-attachments
+
 ** Accounts
 *** Setting accounts
 #+BEGIN_SRC emacs-lisp
