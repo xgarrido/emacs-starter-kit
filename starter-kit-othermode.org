@@ -604,7 +604,7 @@ tutorial]])
 #+END_SRC
 
 ** auto-complete+ido-at-point mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp 
   (require 'auto-complete-config)
   ;; (global-auto-complete-mode t)
   (ac-config-default)
@@ -617,6 +617,17 @@ tutorial]])
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
 #+END_SRC
 
+** company-mode + tabnine
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'after-init-hook 'global-company-mode)
+  (require 'company-tabnine)
+  (add-to-list 'company-backends #'company-tabnine)
+  ;; Trigger completion immediately.
+  (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  (setq company-show-numbers t)
+#+END_SRC
 ** expand-region mode
 #+BEGIN_SRC emacs-lisp
   (require 'expand-region)
