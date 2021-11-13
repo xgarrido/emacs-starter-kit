@@ -11,7 +11,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
 #+END_SRC
 ** =mu4e= configuration
 #+BEGIN_SRC emacs-lisp
-  ;;(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+  ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
   (require 'mu4e)
   (require 'smtpmail)
@@ -108,11 +108,14 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
   (setq mu4e-headers-trashed-mark        '("T"  . ""))
   (setq mu4e-headers-signed-mark         '("s" . ""))
 
-  (setq mu4e-headers-thread-child-prefix '("├>" . "⤷ "))
-  (setq mu4e-headers-thread-last-child-prefix '("└>" . "⤷ "))
+  (setq mu4e-headers-thread-child-prefix '("├>" . "↳ "))
+  (setq mu4e-headers-thread-last-child-prefix '("└>" . "↳ "))
   (setq mu4e-headers-thread-connection-prefix '("│" . " "))
-  (setq mu4e-headers-thread-orphan-prefix '("┬>" . "⤳ "))
+  (setq mu4e-headers-thread-orphan-prefix '("┬>" . "↳ "))
   (setq mu4e-headers-thread-single-orphan-prefix '("─>" . "↦ "))
+  (setq mu4e-headers-threaded-label   '("T" . ""))
+  (setq mu4e-headers-full-label       '("F" . "∀"))
+  (setq mu4e-headers-related-label    '("R" . ""))
 #+END_SRC
 
 ** Select and insert contact with =ido=
