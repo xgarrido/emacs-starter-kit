@@ -369,7 +369,7 @@ The following lines provide several "useful" functions. To use them, do
                '("article"
                  "\\documentclass{article}
                   [NO-DEFAULT-PACKAGES]
-                   \\usepackage{libertineotf}"
+                   \\usepackage{libertine}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
