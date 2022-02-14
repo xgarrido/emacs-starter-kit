@@ -413,7 +413,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 #+BEGIN_SRC emacs-lisp
   (defvar sk-mu4e-account-alist
     '(("LAL"
-       (user-mail-address  "garrido@lal.in2p3.fr")
+       (user-mail-address  "xavier.garrido@ijclab.in2p3.fr")
        (user-full-name     "Xavier Garrido")
        (mu4e-drafts-folder "/LAL/drafts")
        (mu4e-sent-folder   "/LAL/sent")
@@ -494,12 +494,12 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 ** LAL configuration
 #+BEGIN_SRC emacs-lisp
     (defun sk-email-lal ()
-      (setq user-mail-address  "garrido@lal.in2p3.fr")
+      (setq user-mail-address  "xavier.garrido@ijclab.in2p3.fr")
       (setq user-full-name     "Xavier Garrido")
       (setq message-send-mail-function 'smtpmail-send-it)
       (setq smtpmail-stream-type 'ssl)
-      (setq smtpmail-default-smtp-server "lalrelay.in2p3.fr")
-      (setq smtpmail-smtp-server "lalrelay.in2p3.fr")
+      (setq smtpmail-default-smtp-server "zrelay.in2p3.fr")
+      (setq smtpmail-smtp-server "zrelay.in2p3.fr")
       (setq smtpmail-smtp-service 465)
       (setq mu4e-compose-signature (concat
                                     "  GARRIDO Xavier       IJCLab                    \n"
@@ -526,6 +526,9 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
                                       ("/LAL/archives/2021" . ?a)))
       )
 #+END_SRC
+
+#+RESULTS:
+: sk-email-lal
 
 ** Hydra
 #+BEGIN_SRC emacs-lisp
