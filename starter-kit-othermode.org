@@ -58,6 +58,11 @@ Increase undo limit to keep most of the history
         undo-outer-limit 120000000)
 #+END_SRC
 
+Do not store ~undo-tree~ file
+#+BEGIN_SRC emacs-lisp
+  (setq undo-tree-auto-save-history nil)
+#+END_SRC
+
 ** recentf
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after recentf
