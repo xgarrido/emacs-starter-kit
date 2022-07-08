@@ -116,7 +116,29 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
   (setq mu4e-headers-threaded-label   '("T" . ""))
   (setq mu4e-headers-full-label       '("F" . "∀"))
   (setq mu4e-headers-related-label    '("R" . ""))
+  (setq mu4e-headers-list-mark      '("s" . ""))
+  (setq mu4e-headers-personal-mark  '("p" . ""))
+
+  ;; (setq
+  ;;  mu4e-headers-draft-mark     '("D" . "💈")
+  ;;  mu4e-headers-flagged-mark   '("F" . "📍")
+  ;;  mu4e-headers-new-mark       '("N" . "🔥")
+  ;;  mu4e-headers-passed-mark    '("P" . "❯")
+  ;;  mu4e-headers-replied-mark   '("R" . "❮")
+  ;;  mu4e-headers-seen-mark      '("S" . "☑")
+  ;;  mu4e-headers-trashed-mark   '("T" . "💀")
+  ;;  mu4e-headers-attach-mark    '("a" . "📎")
+  ;;  mu4e-headers-encrypted-mark '("x" . "🔒")
+  ;;  mu4e-headers-signed-mark    '("s" . "🔑")
+  ;;  mu4e-headers-unread-mark    '("u" . "⎕")
+  ;;  mu4e-headers-list-mark      '("s" . "🔈")
+  ;;  mu4e-headers-personal-mark  '("p" . "👨")
+  ;;  mu4e-headers-calendar-mark  '("c" . "📅"))
+
 #+END_SRC
+
+#+RESULTS:
+: (p . )
 
 ** Select and insert contact with =ido=
 From
@@ -254,7 +276,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
 ** Better mail completion
 #+BEGIN_SRC emacs-lisp :tangle no
-  ;need this for hash access
+                                          ;need this for hash access
   (require 'subr-x)
 
   (defun bjm/read-contact-list ()
@@ -300,24 +322,24 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
       ;; only run if we are in the headers section
       (when (and eoh (> eoh (point)) (mail-abbrev-in-expansion-header-p))
         (let* ((end (point))
-             (start
-              (or start
-                  (save-excursion
-                    (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
-                    (goto-char (match-end 0))
-                    (point))))
-             (initial-input (buffer-substring-no-properties start end)))
+               (start
+                (or start
+                    (save-excursion
+                      (re-search-backward "\\(\\`\\|[\n:,]\\)[ \t]*")
+                      (goto-char (match-end 0))
+                      (point))))
+               (initial-input (buffer-substring-no-properties start end)))
 
-        (kill-region start end)
+          (kill-region start end)
 
-        (ivy-read "Contact: "
-                  contacts-list
-                  :re-builder #'ivy--regex
-                  :sort nil
-                  :initial-input initial-input
-                  :action 'bjm/counsel-email-action
-                  :keymap bjm/counsel-email-map)
-        ))))
+          (ivy-read "Contact: "
+                    contacts-list
+                    :re-builder #'ivy--regex
+                    :sort nil
+                    :initial-input initial-input
+                    :action 'bjm/counsel-email-action
+                    :keymap bjm/counsel-email-map)
+          ))))
 
   ;;launch automatically
   (add-hook 'mu4e-compose-mode-hook 'bjm/ivy-select-and-insert-contact)
@@ -335,8 +357,8 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
                       contacts-list
                       :re-builder #'ivy--regex
                       :sort nil))
-          (unless (equal contact "")
-            (insert contact))))
+      (unless (equal contact "")
+        (insert contact))))
 #+END_SRC
 ** Remove maildir string in mode-line
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -424,14 +446,14 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
                                 "  garrido@in2p3.fr     Batiment 200                          \n"
                                 "  +33 1.64.46.84.28    91898 Orsay Cedex, France             \n"
                                 ))))
-      ("Gmail"
-       (user-mail-address  "xavier.garrido@gmail.com")
-       (user-full-name     "Xavier Garrido")
-       (mu4e-drafts-folder "/Gmail/drafts")
-       (mu4e-sent-folder   "/Gmail/sent")
-       (mu4e-compose-signature (concat
-                                "Xavier Garrido\n"
-                                "http://xgarrido.github.io\n"))))
+    ("Gmail"
+     (user-mail-address  "xavier.garrido@gmail.com")
+     (user-full-name     "Xavier Garrido")
+     (mu4e-drafts-folder "/Gmail/drafts")
+     (mu4e-sent-folder   "/Gmail/sent")
+     (mu4e-compose-signature (concat
+                              "Xavier Garrido\n"
+                              "http://xgarrido.github.io\n"))))
 
   (setq mu4e-user-mail-address-list
         (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
@@ -493,38 +515,38 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
 
 ** LAL configuration
 #+BEGIN_SRC emacs-lisp
-    (defun sk-email-lal ()
-      (setq user-mail-address  "xavier.garrido@ijclab.in2p3.fr")
-      (setq user-full-name     "Xavier Garrido")
-      (setq message-send-mail-function 'smtpmail-send-it)
-      (setq smtpmail-stream-type 'ssl)
-      (setq smtpmail-default-smtp-server "zrelay.in2p3.fr")
-      (setq smtpmail-smtp-server "zrelay.in2p3.fr")
-      (setq smtpmail-smtp-service 465)
-      (setq mu4e-compose-signature (concat
-                                    "  GARRIDO Xavier       IJCLab                    \n"
-                                    "  CMB                  Université Paris-Saclay   \n"
-                                    "  garrido@lal.in2p3.fr Batiment 200              \n"
-                                    "  +33 1.64.46.84.28    91898 Orsay Cedex, France \n"
-                                    ))
-      (setq mu4e-drafts-folder "/LAL/drafts")
-      (setq mu4e-sent-folder   "/LAL/sent")
-      (setq mu4e-trash-folder  "/LAL/trash")
-      (setq mu4e-refile-folder (lambda (msg)
-                                 (cond
-                                  ;; messages to the mu mailing list go to the /na61 folder
-                                  ;; ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
-                                  ;;      (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
-                                  ;;  "/LAL/inbox/Experiment/NA61")
-                                  ;; everything else goes to /archive
-                                  ;; important to have a catch-all at the end!
-                                  (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
-      ;; (setq mu4e-refile-folder "/LAL/archives/2016" )
-      (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
-                                      ("/LAL/sent"          . ?s)
-                                      ("/LAL/trash"         . ?t)
-                                      ("/LAL/archives/2022" . ?a)))
-      )
+  (defun sk-email-lal ()
+    (setq user-mail-address  "xavier.garrido@ijclab.in2p3.fr")
+    (setq user-full-name     "Xavier Garrido")
+    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq smtpmail-stream-type 'ssl)
+    (setq smtpmail-default-smtp-server "zrelay.in2p3.fr")
+    (setq smtpmail-smtp-server "zrelay.in2p3.fr")
+    (setq smtpmail-smtp-service 465)
+    (setq mu4e-compose-signature (concat
+                                  "  GARRIDO Xavier       IJCLab                    \n"
+                                  "  CMB                  Université Paris-Saclay   \n"
+                                  "  garrido@lal.in2p3.fr Batiment 200              \n"
+                                  "  +33 1.64.46.84.28    91898 Orsay Cedex, France \n"
+                                  ))
+    (setq mu4e-drafts-folder "/LAL/drafts")
+    (setq mu4e-sent-folder   "/LAL/sent")
+    (setq mu4e-trash-folder  "/LAL/trash")
+    (setq mu4e-refile-folder (lambda (msg)
+                               (cond
+                                ;; messages to the mu mailing list go to the /na61 folder
+                                ;; ((or (mu4e-message-contact-field-matches msg :cc "na61-all@cern.ch")
+                                ;;      (mu4e-message-contact-field-matches msg :to "na61-all@cern.ch"))
+                                ;;  "/LAL/inbox/Experiment/NA61")
+                                ;; everything else goes to /archive
+                                ;; important to have a catch-all at the end!
+                                (t (concat "/LAL/archives/" (format-time-string "%Y" (current-time)))))))
+    ;; (setq mu4e-refile-folder "/LAL/archives/2016" )
+    (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
+                                    ("/LAL/sent"          . ?s)
+                                    ("/LAL/trash"         . ?t)
+                                    ("/LAL/archives/2022" . ?a)))
+    )
 #+END_SRC
 
 #+RESULTS:
@@ -577,9 +599,9 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     +33 1.64.46.84.28    91898 Orsay Cedex, France             \n
    ,#+end_signature"
         )
-   (org-msg-mode)
+  (org-msg-mode)
 #+END_SRC
 ** Postamble
 #+BEGIN_SRC emacs-lisp
-))
+  ))
 #+END_SRC
