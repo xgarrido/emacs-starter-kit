@@ -63,3 +63,5 @@ agent/*
 /smex-items
 /dmenu-items
 games/
+/custom.el~
+/network-security.data
