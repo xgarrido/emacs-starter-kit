@@ -784,3 +784,10 @@ tutorial]])
   (define-key yaml-mode-map
     (kbd "C-c C-c") #'aj-toggle-fold)
 #+END_SRC
+** openwith
+#+BEGIN_SRC emacs-lisp
+  (when (require 'openwith nil 'noerror)
+    (add-to-list  'mm-inhibit-file-name-handlers 'openwith-file-handler)
+    (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+    (openwith-mode 1))
+#+END_SRC

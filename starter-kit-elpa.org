@@ -102,6 +102,7 @@ re-downloaded in order to locate PACKAGE."
   ag                       ; Ag frontend
   wgrep                    ; Writable grep buffer
   wgrep-ag                 ; Writable grep-ag buffer
+  openwith                 ; Set default viewer given file extension
 #+END_SRC
 
 **** Completion & expansion
