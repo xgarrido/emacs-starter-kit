@@ -88,6 +88,7 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   ;;  mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
 #+END_SRC
 
+
 ** Better fancy chars
 Basically change nothing except uparrow and downarrow (flags are hidden)
 #+BEGIN_SRC emacs-lisp
@@ -119,6 +120,18 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
   (setq mu4e-headers-list-mark      '("s" . ""))
   (setq mu4e-headers-personal-mark  '("p" . ""))
 
+
+  (setq mu4e-headers-unread-mark    '("u" . "📩 "))
+  (setq mu4e-headers-draft-mark     '("D" . "🚧 "))
+  (setq mu4e-headers-flagged-mark   '("F" . "🚩 "))
+  (setq mu4e-headers-new-mark       '("N" . "📩 "))
+  (setq mu4e-headers-passed-mark    '("P" . "↪ "))
+  (setq mu4e-headers-replied-mark   '("R" . "↩ "))
+  (setq mu4e-headers-seen-mark      '("S" . "📩 "))
+  (setq mu4e-headers-trashed-mark   '("T" . "🗑️"))
+  (setq mu4e-headers-attach-mark    '("a" . "📎 "))
+  (setq mu4e-headers-encrypted-mark '("x" . "🔑 "))
+
   ;; (setq
   ;;  mu4e-headers-draft-mark     '("D" . "💈")
   ;;  mu4e-headers-flagged-mark   '("F" . "📍")
@@ -137,8 +150,7 @@ Basically change nothing except uparrow and downarrow (flags are hidden)
 
 #+END_SRC
 
-#+RESULTS:
-: (p . )
+
 
 ** Select and insert contact with =ido=
 From
