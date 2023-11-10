@@ -336,6 +336,12 @@ From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-
                    (message "The image seems to be malformed."))))
         (message "Point is not at an image."))))
 #+END_SRC
+*** Insert current datetime
+#+BEGIN_SRC emacs-lisp
+  (defun insert-current-date () (interactive)
+    (insert (shell-command-to-string "echo -n $(LC_MESSAGES=en date)")))
+#+END_SRC
+
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
@@ -346,7 +352,7 @@ From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-
   (add-hook 'starter-kit-coding-hook 'sk-hide-show-mode)
   (add-hook 'starter-kit-coding-hook 'idle-highlight-mode)
   (add-hook 'starter-kit-coding-hook 'wrap-region-mode)
-  (add-hook 'starter-kit-coding-hook 'linum-mode)
+  ;; (add-hook 'starter-kit-coding-hook 'linum-mode)
   (add-hook 'starter-kit-coding-hook 'turn-on-fci-mode)
   ;; (add-hook 'starter-kit-coding-hook #'aggressive-indent-mode)
 #+END_SRC
