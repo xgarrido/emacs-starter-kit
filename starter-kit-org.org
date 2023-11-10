@@ -246,7 +246,7 @@ Stolen from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html]]
 *** Export =jupyter-python= to jupyter notebooks format
 From http://kitchingroup.cheme.cmu.edu/blog/2017/01/21/Exporting-org-mode-to-Jupyter-notebooks/
 #+BEGIN_SRC emacs-lisp
-  (require 'ox-ipynb)
+  ;; (require 'ox-ipynb)
 #+END_SRC
 
 *** Display/update images in the buffer after code block evaluation
