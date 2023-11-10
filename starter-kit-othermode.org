@@ -15,21 +15,21 @@ after package or component has been loaded.
          `(funcall (function ,(lambda () ,@body))))))
 
   (defmacro starter-kit-after (feature &rest forms)
-      "After FEATURE is loaded, evaluate FORMS. FORMS is byte compiled.
+    "After FEATURE is loaded, evaluate FORMS. FORMS is byte compiled.
        FEATURE may be a named feature or a file name, see `eval-after-load' for details."
-      (declare (indent 1) (debug t))
-      ;; Byte compile the body.  If the feature is not available, ignore warnings.
-      ;; Taken from
-      ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2012-11/msg01262.html
-      `(,(if (or (not (boundp 'byte-compile-current-file))
-                 (not byte-compile-current-file)
-                 (if (symbolp feature)
-                     (require feature nil :no-error)
-                   (load feature :no-message :no-error)))
-             'progn
-           (message "starter-kit-after: cannot find %s" feature)
-           'with-no-warnings)
-        (with-eval-after-load ',feature ,@forms)))
+    (declare (indent 1) (debug t))
+    ;; Byte compile the body.  If the feature is not available, ignore warnings.
+    ;; Taken from
+    ;; http://lists.gnu.org/archive/html/bug-gnu-emacs/2012-11/msg01262.html
+    `(,(if (or (not (boundp 'byte-compile-current-file))
+               (not byte-compile-current-file)
+               (if (symbolp feature)
+                   (require feature nil :no-error)
+                 (load feature :no-message :no-error)))
+           'progn
+         (message "starter-kit-after: cannot find %s" feature)
+         'with-no-warnings)
+      (with-eval-after-load ',feature ,@forms)))
 #+END_SRC
 
 ** Coding Hook
@@ -66,7 +66,7 @@ Do not store ~undo-tree~ file
 ** recentf
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after recentf
-                     (setq recentf-max-saved-items 100))
+    (setq recentf-max-saved-items 100))
   (recentf-mode t)
 #+END_SRC
 
@@ -96,8 +96,8 @@ Do not store ~undo-tree~ file
 ** Highlight everything strange
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after whitespace
-                     (setq whitespace-style '(face trailing lines-tail tabs)
-                           whitespace-line-column 80))
+    (setq whitespace-style '(face trailing lines-tail tabs)
+          whitespace-line-column 80))
 #+END_SRC
 
 ** isearch
@@ -113,7 +113,7 @@ Better backspace handling
            isearch-new-message
            (mapconcat 'isearch-text-char-description isearch-new-string ""))))
   (define-key isearch-mode-map (kbd "<backspace>")
-    #'sk-isearch-delete)
+              #'sk-isearch-delete)
 #+END_SRC
 
 Enable flex support
@@ -126,7 +126,7 @@ Enable flex support
 ** Show a column wise indicator
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after fill-column-indicator
-                     (setq fci-rule-width 3))
+    (setq fci-rule-width 3))
   (setq-default fill-column 100)
 #+END_SRC
 
@@ -143,8 +143,8 @@ Enable flex support
 ** Smartparens settings
 #+BEGIN_SRC emacs-lisp
   (starter-kit-after smartparens
-                     (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
-                                                            minibuffer-incative-mode sr-mode)))
+    (setq sp-ignore-modes-list '(calc-mode dired-mode ibuffer-mode
+                                           minibuffer-incative-mode sr-mode)))
 #+END_SRC
 ** which-func-mode                                               :nottangle:
 Set function name in the header part of emacs (from
@@ -250,23 +250,23 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
 *** Fullscreen magit-status
 From [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars blog]]
 #+BEGIN_SRC emacs-lisp
-    (defadvice magit-status (around magit-fullscreen activate)
-      (window-configuration-to-register :magit-fullscreen)
-      ad-do-it
-      (delete-other-windows))
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
 
-    (defun magit-quit-session ()
-      "Restores the previous window configuration and kills the magit buffer"
-      (interactive)
-      (kill-buffer)
-      (jump-to-register :magit-fullscreen))
+  (defun magit-quit-session ()
+    "Restores the previous window configuration and kills the magit buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :magit-fullscreen))
 
-    (global-set-key (kbd "M-s") 'magit-status)
+  (global-set-key (kbd "M-s") 'magit-status)
 
-    (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-    (define-key magit-status-mode-map (kbd "p") 'magit-push-current)
-    (require 'magit-svn)
-    (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+  (define-key magit-status-mode-map (kbd "p") 'magit-push-current)
+  (require 'magit-svn)
+  (define-key magit-svn-mode-map    (kbd "p") 'magit-svn-dcommit)
 #+END_SRC
 
 *** Colored diff                                                :nottangle:
@@ -315,7 +315,7 @@ Set =git-gutter= signs
 #+END_SRC
 
 ** direx & direx-k
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (require 'popwin)
   (popwin-mode 1)
   (require 'direx)
@@ -433,74 +433,74 @@ Stolen from [[https://gist.github.com/rejeep/5933343]].
     ("o" nil "quit"))
 
   (define-key org-mode-map "<"
-    (lambda () (interactive)
-      (if (looking-back "^")
-          (hydra-org-template/body)
-        (self-insert-command 1))))
+              (lambda () (interactive)
+                (if (looking-back "^")
+                    (hydra-org-template/body)
+                  (self-insert-command 1))))
 #+END_SRC
 
 *** Main manager
 #+BEGIN_SRC emacs-lisp
-(key-chord-define-global
- ",,"
-  (defhydra hydra-main (:color red :hint nil)
-    "
-   Split: _v_ert _h_orz
-  Delete: _o_nly _w_indow
-    File: _f_ile g_i_t-gutter
-    Mail: _g_mail _l_al
-    "
-    ("<left>"  windmove-left)
-    ("<down>"  windmove-down)
-    ("<up>"    windmove-up)
-    ("<right>" windmove-right)
-    ("|" (lambda ()
-           (interactive)
-           (split-window-right)
-           (windmove-right)))
-    ("_" (lambda ()
-           (interactive)
-           (split-window-below)
-           (windmove-down)))
-    ("v" split-window-right)
-    ("h" split-window-below)
-    ("o" delete-other-windows :exit t)
-    ("w" delete-window)
-    ("f" ido-find-file)
-    ("i" hydra-git-gutter/body :exit t)
-    ("g" sk-mu4e-gmail :exit t)
-    ("l" sk-mu4e-lal :exit t)
-    ("q" nil "quit")))
+  (key-chord-define-global
+   ",,"
+   (defhydra hydra-main (:color red :hint nil)
+     "
+     Split: _v_ert _h_orz
+    Delete: _o_nly _w_indow
+      File: _f_ile g_i_t-gutter
+      Mail: _g_mail _l_al
+      "
+     ("<left>"  windmove-left)
+     ("<down>"  windmove-down)
+     ("<up>"    windmove-up)
+     ("<right>" windmove-right)
+     ("|" (lambda ()
+            (interactive)
+            (split-window-right)
+            (windmove-right)))
+     ("_" (lambda ()
+            (interactive)
+            (split-window-below)
+            (windmove-down)))
+     ("v" split-window-right)
+     ("h" split-window-below)
+     ("o" delete-other-windows :exit t)
+     ("w" delete-window)
+     ("f" ido-find-file)
+     ("i" hydra-git-gutter/body :exit t)
+     ("g" sk-mu4e-gmail :exit t)
+     ("l" sk-mu4e-lal :exit t)
+     ("q" nil "quit")))
 #+END_SRC
 
 *** git gutter + dumb-jump
 Defining hydra
 #+BEGIN_SRC emacs-lisp
-    (setq dumb-jump-selector 'ivy)
-    (key-chord-define-global
-     "$$"
-     (defhydra hydra-code (:body-pre (git-gutter-mode 1)
-                                     :hint nil)
-       "
-      [_q_] quit  git-gutter
-                [_↑_] prev hunk [_s_] stage hunk  [_p_] popup hunk
-                [_↓_] next hunk [_r_] revert hunk
-      "
-       ("<down>" git-gutter:next-hunk)
-       ("<up>" git-gutter:previous-hunk)
-       ("h" (progn (goto-char (point-min))
-                   (git-gutter:next-hunk 1)))
-       ("l" (progn (goto-char (point-min))
-                   (git-gutter:previous-hunk 1)))
-       ("s" git-gutter:stage-hunk)
-       ("r" git-gutter:revert-hunk)
-       ("p" git-gutter:popup-hunk)
-       ;; ("g" dumb-jump-go :color green)
-       ;; ("b" dumb-jump-back :color green)
-       ;; ("l" dumb-jump-quick-look)
-       ("q" nil :color blue)
-       )
+  (setq dumb-jump-selector 'ivy)
+  (key-chord-define-global
+   "$$"
+   (defhydra hydra-code (:body-pre (git-gutter-mode 1)
+                                   :hint nil)
+     "
+    [_q_] quit  git-gutter
+              [_↑_] prev hunk [_s_] stage hunk  [_p_] popup hunk
+              [_↓_] next hunk [_r_] revert hunk
+    "
+     ("<down>" git-gutter:next-hunk)
+     ("<up>" git-gutter:previous-hunk)
+     ("h" (progn (goto-char (point-min))
+                 (git-gutter:next-hunk 1)))
+     ("l" (progn (goto-char (point-min))
+                 (git-gutter:previous-hunk 1)))
+     ("s" git-gutter:stage-hunk)
+     ("r" git-gutter:revert-hunk)
+     ("p" git-gutter:popup-hunk)
+     ;; ("g" dumb-jump-go :color green)
+     ;; ("b" dumb-jump-back :color green)
+     ;; ("l" dumb-jump-quick-look)
+     ("q" nil :color blue)
      )
+   )
 #+END_SRC
 
 ** key-chord
@@ -559,10 +559,10 @@ Defining hydra
 ** cmake-mode
 #+BEGIN_SRC emacs-lisp
   (require 'cmake-mode)
-   (setq auto-mode-alist
-         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                   ("\\.cmake\\'" . cmake-mode))
-                 auto-mode-alist))
+  (setq auto-mode-alist
+        (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                  ("\\.cmake\\'" . cmake-mode))
+                auto-mode-alist))
 #+END_SRC
 
 ** css-mode
@@ -609,7 +609,7 @@ tutorial]])
 #+END_SRC
 
 ** auto-complete+ido-at-point mode
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
   (require 'auto-complete-config)
   ;; (global-auto-complete-mode t)
   (ac-config-default)
@@ -693,8 +693,111 @@ tutorial]])
   (setq isortify-line-length 100)
 #+END_SRC
 
+# #+RESULTS:
+# : 100
+** toml formatter
+#+BEGIN_SRC emacs-lisp
+  (defgroup tomlfmt nil
+    "Reformat TOML code with \"taplo\"."
+    :group 'toml)
+
+  (defcustom tomlfmt-executable "taplo"
+    "Name of the executable to run."
+    :type 'string)
+
+
+  (defcustom tomlfmt-only-if-project-is-tomlfmted nil
+    "Only tomlfmt if project has a pyproject.toml with a [tool.tomlfmt] section."
+    :type 'boolean
+    :safe 'booleanp)
+
+  (defun tomlfmt-call-bin (input-buffer output-buffer error-buffer)
+    "Call process taplo.
+
+  Send INPUT-BUFFER content to the process stdin.  Saving the
+  output to OUTPUT-BUFFER.  Saving process stderr to ERROR-BUFFER.
+  Return black process the exit code."
+    (with-current-buffer input-buffer
+      (let ((process (make-process :name "tomlfmt"
+                                   :command `(,tomlfmt-executable ,@(tomlfmt-call-args))
+                                   :buffer output-buffer
+                                   :stderr error-buffer
+                                   :noquery t
+                                   :sentinel (lambda (process event)))))
+        (set-process-query-on-exit-flag (get-buffer-process error-buffer) nil)
+        (set-process-sentinel (get-buffer-process error-buffer) (lambda (process event)))
+        (save-restriction
+          (widen)
+          (process-send-region process (point-min) (point-max)))
+        (process-send-eof process)
+        (accept-process-output process nil nil t)
+        (while (process-live-p process)
+          (accept-process-output process nil nil t))
+        (process-exit-status process))))
+
+  (defun tomlfmt-call-args ()
+    "Build taplo process call arguments."
+    (append
+     (when (and (buffer-file-name (current-buffer))
+                (string-match "\\.toml\\'" (buffer-file-name (current-buffer))))
+       (list "fmt"))
+     '("-")))
+
+  (defun tomlfmt-project-is-tomlfmted (&optional display)
+    "Whether the project has a pyproject.toml with [tool.tomlfmt] in it."
+    (when-let (parent (locate-dominating-file default-directory "pyproject.toml"))
+      (with-temp-buffer
+        (insert-file-contents (concat parent "pyproject.toml"))
+        (re-search-forward "^\\[tool.tomlfmt\\]$" nil t 1))))
+
+  ;;;###autoload
+  (defun tomlfmt-buffer (&optional display)
+    "Try to tomlfmt the current buffer.
+
+  Show taplo output, if black exit abnormally and DISPLAY is t."
+    (interactive (list t))
+    (let* ((original-buffer (current-buffer))
+           (original-window-states (mapcar
+                                    (lambda (w)
+                                      (list w (window-point w) (window-start w)))
+                                    (get-buffer-window-list)))
+           (tmpbuf (get-buffer-create "*tomlfmt*"))
+           (errbuf (get-buffer-create "*tomlfmt-error*")))
+      ;; This buffer can be left after previous black invocation.  It
+      ;; can contain error message of the previous run.
+      (dolist (buf (list tmpbuf errbuf))
+        (with-current-buffer buf
+          (erase-buffer)))
+      (condition-case err
+          (if (not (zerop (tomlfmt-call-bin original-buffer tmpbuf errbuf)))
+              (error "taplo failed, see %s buffer for details" (buffer-name errbuf))
+            (unless (eq (compare-buffer-substrings tmpbuf nil nil original-buffer nil nil) 0)
+              (with-current-buffer tmpbuf
+                (copy-to-buffer original-buffer (point-min) (point-max)))
+              (dolist (win-stt original-window-states)
+                (set-window-point (car win-stt) (nth 1 win-stt))
+                (set-window-start (car win-stt) (nth 2 win-stt))))
+            (mapc 'kill-buffer (list tmpbuf errbuf)))
+        (error (message "%s" (error-message-string err))
+               (when display
+                 (with-current-buffer errbuf
+                   (setq-local scroll-conservatively 0))
+                 (pop-to-buffer errbuf))))))
+
+  ;;;###autoload
+  (define-minor-mode tomlfmt-mode
+    "Automatically run black before saving."
+    :lighter "  "
+    (if tomlfmt-mode
+        (add-hook 'before-save-hook 'tomlfmt-buffer nil t)
+      (remove-hook 'before-save-hook 'tomlfmt-buffer t)))
+
+  (add-hook 'conf-toml-mode-hook 'tomlfmt-mode)
+
+#+END_SRC
+
 #+RESULTS:
-: 100
+| tomlfmt-mode |
 
 ** Delight modeline clutter
 #+BEGIN_SRC emacs-lisp
@@ -729,19 +832,19 @@ tutorial]])
   (delight 'blacken-mode "  " "blacken")
 #+END_SRC
 
-#+RESULTS:
+# #+RESULTS:
 
 ** paradox
 #+BEGIN_SRC emacs-lisp
   (setq paradox-github-token
-  (cadr(auth-source-user-and-password "api.github.com" "xgarrido^paradox")))
+        (cadr(auth-source-user-and-password "api.github.com" "xgarrido^paradox")))
 #+END_SRC
 ** yaml folding function
 #+BEGIN_SRC emacs-lisp
   (require 'yaml-mode)
   (add-hook 'yaml-mode-hook #'superword-mode)
   (define-key yaml-mode-map
-    (kbd "RET") #'newline-and-indent)
+              (kbd "RET") #'newline-and-indent)
 
   ;; From https://gist.github.com/antonj/874106
   (defun aj-toggle-fold ()
@@ -782,7 +885,7 @@ tutorial]])
   (add-hook 'yaml-mode-hook #'yaml-outline-minor-mode)
   ;; This weird key-binding to co-exist with outline-minor mode
   (define-key yaml-mode-map
-    (kbd "C-c C-c") #'aj-toggle-fold)
+              (kbd "C-c C-c") #'aj-toggle-fold)
 #+END_SRC
 ** openwith
 #+BEGIN_SRC emacs-lisp
