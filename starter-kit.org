@@ -235,7 +235,6 @@ actual code implementing the starter kit.
     (require 'uniquify)
     (require 'ansi-color)
     (require 'recentf)
-    (require 'linum)
     (require 'dired)
   #+END_SRC
 
