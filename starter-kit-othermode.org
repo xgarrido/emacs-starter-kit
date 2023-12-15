@@ -887,6 +887,11 @@ tutorial]])
   (define-key yaml-mode-map
               (kbd "C-c C-c") #'aj-toggle-fold)
 #+END_SRC
+** gpg error
+From https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources
+#+BEGIN_SRC emacs-lisp
+  (fset 'epg-wait-for-status 'ignore)
+#+END_SRC
 ** openwith
 #+BEGIN_SRC emacs-lisp
   (when (require 'openwith nil 'noerror)
