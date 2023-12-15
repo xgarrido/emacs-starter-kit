@@ -342,6 +342,15 @@ From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-
     (insert (shell-command-to-string "echo -n $(LC_MESSAGES=en date)")))
 #+END_SRC
 
+*** 2 spaces indentation shell mode
+#+BEGIN_SRC emacs-lisp
+  (defun starter-kit-sh-mode ()
+    (interactive)
+    (setq sh-basic-offset 2
+          sh-indentation 2))
+  (add-hook 'sh-mode-hook 'starter-kit-sh-mode)
+#+END_SRC
+
 ** Hooks
 *** Coding
 #+BEGIN_SRC emacs-lisp
