@@ -86,6 +86,8 @@ This is part of the [[file:starter-kit.org][Emacs Starter Kit]].
   ;; (setq
   ;;  mu4e-index-cleanup nil      ;; don't do a full cleanup check
   ;;  mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
+
+  (setq doc-view-cache-directory "/tmp/docview")
 #+END_SRC
 
 
