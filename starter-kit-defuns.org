@@ -338,7 +338,7 @@ From https://emacs.stackexchange.com/questions/41016/how-can-i-yank-images-from-
 #+END_SRC
 *** Insert current datetime
 #+BEGIN_SRC emacs-lisp
-  (defun insert-current-date () (interactive)
+  (defun sk-insert-current-date () (interactive)
     (insert (shell-command-to-string "echo -n $(LC_MESSAGES=en date)")))
 #+END_SRC
 

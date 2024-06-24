@@ -691,6 +691,11 @@ tutorial]])
   (add-hook 'python-mode-hook 'isortify-mode)
   (setq blacken-line-length 100)
   (setq isortify-line-length 100)
+  (defun sk-disable-python-minor-modes ()
+    (interactive)
+    (blacken-mode -1)
+    (isortify-mode -1)
+    )
 #+END_SRC
 
 # #+RESULTS:
@@ -740,7 +745,7 @@ tutorial]])
     (append
      (when (and (buffer-file-name (current-buffer))
                 (string-match "\\.toml\\'" (buffer-file-name (current-buffer))))
-       (list "fmt"))
+       (list "format"))
      '("-")))
 
   (defun tomlfmt-project-is-tomlfmted (&optional display)
@@ -754,7 +759,7 @@ tutorial]])
   (defun tomlfmt-buffer (&optional display)
     "Try to tomlfmt the current buffer.
 
-  Show taplo output, if black exit abnormally and DISPLAY is t."
+  Show taplo output, if taplo exit abnormally and DISPLAY is t."
     (interactive (list t))
     (let* ((original-buffer (current-buffer))
            (original-window-states (mapcar
