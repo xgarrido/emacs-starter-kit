@@ -559,7 +559,7 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (setq mu4e-maildir-shortcuts  '(("/LAL/inbox"         . ?i)
                                     ("/LAL/sent"          . ?s)
                                     ("/LAL/trash"         . ?t)
-                                    ("/LAL/archives/2024" . ?a)))
+                                    ("/LAL/archives/2025" . ?a)))
     )
 #+END_SRC
 

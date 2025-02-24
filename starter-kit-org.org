@@ -145,10 +145,6 @@ display a list of the code blocks commands and their related keys.
   (setq org-hide-emphasis-markers t)
 #+END_SRC
 
-** Add =org= contrib to =load-path=
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/Development/orgmode.org/org-mode/contrib/lisp")
-#+END_SRC
 ** org-app
 #+BEGIN_SRC emacs-lisp
   (setq org-file-apps
