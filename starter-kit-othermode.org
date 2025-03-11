@@ -620,6 +620,9 @@ tutorial]])
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>")
   (define-key ac-completing-map (kbd "ESC") 'ac-stop)
+  (add-hook 'auto-complete-mode-hook
+            (lambda ()
+              (setq ac-sources (remove 'ac-source-abbrev ac-sources))))
 #+END_SRC
 
 ** company-mode + tabnine

@@ -45,7 +45,7 @@ Key Bindings.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "M-r")     'revert-buffer)
-  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+  (global-set-key (kbd "C-x C-k") (lambda () (interactive) (kill-buffer (current-buffer))))
 #+END_SRC
 
 ** Window switching (C-x o goes to the next window)
