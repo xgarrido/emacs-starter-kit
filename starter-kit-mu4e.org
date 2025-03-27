@@ -538,10 +538,9 @@ http://emacs.stackexchange.com/questions/4209/using-ido-or-helm-to-auto-complete
     (setq smtpmail-smtp-server "zrelay.in2p3.fr")
     (setq smtpmail-smtp-service 465)
     (setq mu4e-compose-signature (concat
-                                  "  GARRIDO Xavier       IJCLab                    \n"
-                                  "  CMB                  Université Paris-Saclay   \n"
-                                  "  garrido@lal.in2p3.fr Batiment 200              \n"
-                                  "  +33 1.64.46.84.28    91898 Orsay Cedex, France \n"
+                                  "  GARRIDO Xavier     IJCLab - Bâtiment 200     \n"
+                                  "  CMB                Université Paris-Saclay   \n"
+                                  "  +33 1.64.46.84.28  91898 Orsay Cedex, France \n"
                                   ))
     (setq mu4e-drafts-folder "/LAL/drafts")
     (setq mu4e-sent-folder   "/LAL/sent")
