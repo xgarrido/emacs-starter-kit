@@ -917,6 +917,11 @@ From https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-
 ** flyspell
 #+BEGIN_SRC emacs-lisp
   (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
   ;; Automatically detect language for Flyspell
   (use-package guess-language         
