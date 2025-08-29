@@ -915,7 +915,7 @@ From https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-
 #+END_SRC
 
 ** flyspell
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
 #+END_SRC
 
