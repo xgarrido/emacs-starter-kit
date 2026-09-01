@@ -87,7 +87,9 @@ evaluated a theme is activated using the =load-theme= function.
     (custom-set-faces
      '(org-block-begin-line ((t (:overline nil :underline nil))))
      '(org-block-end-line ((t (:overline nil :underline nil))))
-     '(mu4e-header-face ((t (:inherit font-lock-comment-face)))))
+     '(mu4e-header-face ((t (:inherit font-lock-comment-face))))
+     '(mu4e-unread-face ((t (:foreground "#dc322f" :weight bold))))
+     )
     )
 #+END_SRC
 
