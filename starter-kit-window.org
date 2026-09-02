@@ -97,23 +97,44 @@ evaluated a theme is activated using the =load-theme= function.
 #+BEGIN_SRC emacs-lisp
   (use-package sleek-modeline
     :ensure t
-     :after solarized-theme       
-     :custom
-     (sleek-modeline-size 'medium)
-     (sleek-modeline-background "#434B5A") 
-     :config
-     (sleek-modeline-mode 1))
+    :after solarized-theme       
+    :custom
+    (sleek-modeline-size 'medium)
+    (sleek-modeline-background "#434B5A") 
+    :config
+    (sleek-modeline-mode 1))
 #+END_SRC
 
 *** Nerd icons font
 #+BEGIN_SRC emacs-lisp
   (use-package nerd-icons
+    :ensure t
     ;; :custom
     ;; The Nerd Font you want to use in GUI
     ;; "Symbols Nerd Font Mono" is the default and is recommended
     ;; but you can use any other Nerd Font if you want
     ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
   )
+#+END_SRC
+
+In order to get the needed font, run this code
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; Linux/macOS/BSDs
+  (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
+    (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+      (nerd-icons-install-fonts t)))
+
+  ;; Windows
+  (when (string-equal system-type 'windows-nt)
+    (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+      (nerd-icons-install-fonts "c:/Users/username/Desktop/")))
+
+  ;; All-in-one
+  ;; This will install in the default fonts folder for Linux/macOS/BSDs
+  ;; (same as “t”), but for Windows this will download to the specified
+  ;; folder
+  (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+    (nerd-icons-install-fonts "c:/Users/username/Desktop/"))
 #+END_SRC
 
 ** UI settings
