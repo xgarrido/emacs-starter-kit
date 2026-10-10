@@ -81,7 +81,7 @@ evaluated a theme is activated using the =load-theme= function.
     ;; Highlight all numbers
     (solarized-highlight-numbers t)
 
-    (x-underline-at-descent-line t)  
+    (x-underline-at-descent-line t)
     :config
     (load-theme 'solarized-light t)
     (custom-set-faces
@@ -90,7 +90,7 @@ evaluated a theme is activated using the =load-theme= function.
      '(org-table ((t (:foreground "#268bd2"))))
      '(mu4e-header-face ((t (:inherit font-lock-comment-face))))
      '(mu4e-unread-face ((t (:foreground "#268bd2" :weight bold))))
-     '(mu4e-replied-face ((t (:foreground "#859900"))))
+     '(mu4e-replied-face ((t (:foreground "#859900" :weight bold))))
      '(mu4e-flagged-face ((t (:foreground "#dc322f" :weight bold))))
      )
     )
@@ -103,10 +103,10 @@ evaluated a theme is activated using the =load-theme= function.
 #+BEGIN_SRC emacs-lisp
   (use-package sleek-modeline
     :ensure t
-    :after solarized-theme       
+    :after solarized-theme
     :custom
     (sleek-modeline-size 'medium)
-    (sleek-modeline-background "#434B5A") 
+    (sleek-modeline-background "#434B5A")
     :config
     (sleek-modeline-mode 1))
 #+END_SRC
