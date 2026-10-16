@@ -90,8 +90,9 @@ evaluated a theme is activated using the =load-theme= function.
      '(org-table ((t (:foreground "#268bd2"))))
      '(mu4e-header-face ((t (:inherit font-lock-comment-face))))
      '(mu4e-unread-face ((t (:foreground "#268bd2" :weight bold))))
-     '(mu4e-replied-face ((t (:foreground "#859900" :weight bold))))
+     '(mu4e-replied-face ((t (:foreground "#b58900" :weight bold))))
      '(mu4e-flagged-face ((t (:foreground "#dc322f" :weight bold))))
+     '(mu4e-forwarded-face ((t (:foreground "#859900" :weight bold))))
      )
     )
 #+END_SRC
